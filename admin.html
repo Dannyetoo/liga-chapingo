@@ -221,12 +221,13 @@ var ESQUEMA = [
      {k:'texto', et:'Descripción', t:T.area},
      {k:'imagen', et:'Foto', t:T.img}
    ]},
-  {clave:'arbitrajes', nombre:'Arbitrajes', ayuda:'La franja verde que lleva a los representantes al sistema de estado de cuenta.',
+  {clave:'arbitrajes', nombre:'Arbitrajes', ayuda:'La franja verde que lleva a los capitanes al portal de consulta del estado de cuenta (capitanes/).',
    campos:[
      {k:'titulo', et:'Título de la sección', t:T.txt},
      {k:'texto', et:'Descripción', t:T.area},
      {k:'aviso', et:'Nota dentro de la tarjeta', t:T.area},
-     {k:'url', et:'Carpeta del sistema', t:T.txt, nota:'Normalmente arbitrajes/'}
+     {k:'url', et:'Carpeta del sistema', t:T.txt,
+      nota:'Ya no se usa en el sitio: los botones llevan siempre a capitanes/, el portal de solo consulta.'}
    ]},
   {clave:'contacto', nombre:'Contacto', ayuda:'El WhatsApp también se usa en los botones de "Pedir informes" de uniformes.',
    campos:[

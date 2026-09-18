@@ -1,0 +1,503 @@
+<!doctype html>
+<html lang="es-MX">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Estado de cuenta · Liga Chapingo</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#1B6B45">
+<link rel="icon" href="../icono-192.png">
+<link rel="apple-touch-icon" href="../icono-180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ===== misma identidad que ligachapingo.com ===== */
+:root{
+  --verde-900:#0C3523; --verde-800:#123F2B; --verde:#1B6B45; --verde-400:#2E9463;
+  --oro:#C9A227; --oro-claro:#EAC85C; --crema:#F4F3EC; --papel:#FFFFFF;
+  --tinta:#14231C; --gris:#5F6F67; --linea:#E2E4DB; --rojo:#B3261E; --rojo-suave:#FCEDEC;
+  --sombra:0 1px 2px rgba(12,53,35,.06),0 8px 24px rgba(12,53,35,.07);
+  --r:14px; --ancho:1060px;
+  --display:'Barlow Condensed',Impact,'Arial Narrow',sans-serif;
+  --texto:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--crema);color:var(--tinta);font-family:var(--texto);font-size:16px;line-height:1.6;overflow-x:hidden}
+img{max-width:100%;display:block}
+button{font:inherit}
+.wrap{width:100%;max-width:var(--ancho);margin:0 auto;padding-inline:20px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:0;border-radius:10px;padding:11px 18px;
+  font-size:14.5px;font-weight:600;text-decoration:none;cursor:pointer;transition:background .12s ease,transform .12s ease}
+.btn:active{transform:translateY(1px)}
+.btn.verde{background:var(--verde);color:#fff}
+.btn.verde:hover{background:#175B3B}
+.btn.oro{background:var(--oro);color:#2A2005}
+.btn.oro:hover{background:#B99020}
+.btn.claro{background:#fff;color:var(--verde-900);border:1px solid var(--linea)}
+.btn.claro:hover{border-color:var(--verde-400);color:var(--verde)}
+.btn.fantasma{background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.34)}
+.btn.fantasma:hover{background:rgba(255,255,255,.2)}
+.btn.sm{padding:8px 13px;font-size:13.5px}
+.btn[disabled]{opacity:.55;cursor:default}
+
+/* ===== acceso ===== */
+.acceso{min-height:100svh;display:flex;align-items:center;justify-content:center;padding:28px 20px;
+  background:linear-gradient(150deg,var(--verde-900) 0%,#134430 45%,var(--verde) 100%);position:relative;overflow:hidden}
+.acceso::before{content:"";position:absolute;inset:0;opacity:.13;
+  background-image:repeating-linear-gradient(115deg,rgba(255,255,255,.55) 0 2px,transparent 2px 26px)}
+.caja{position:relative;z-index:1;width:100%;max-width:430px;background:var(--papel);border-radius:18px;
+  padding:30px 26px 26px;box-shadow:0 26px 70px rgba(6,30,19,.42)}
+.caja .escudo{width:52px;height:52px;border-radius:14px;margin-bottom:16px}
+.caja .et{font-size:11.5px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--verde)}
+.caja h1{font-family:var(--display);font-weight:700;font-size:34px;line-height:1.05;margin:8px 0 0;color:var(--verde-900)}
+.caja .intro{color:var(--gris);font-size:14.5px;margin:10px 0 22px}
+.campo{display:flex;flex-direction:column;gap:7px}
+.campo label{font-size:12px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--gris)}
+#codigo{border:1.5px solid var(--linea);border-radius:11px;padding:14px 15px;font:inherit;font-size:22px;font-weight:600;
+  letter-spacing:.24em;text-align:center;text-transform:uppercase;background:#FCFCFA;color:var(--verde-900)}
+#codigo:focus{outline:2px solid rgba(46,148,99,.35);outline-offset:1px;border-color:var(--verde-400)}
+#codigo::placeholder{letter-spacing:.18em;font-weight:500;color:#B9C4BD}
+.err{display:none;background:var(--rojo-suave);border:1px solid #F2D2CF;color:var(--rojo);border-radius:10px;
+  padding:10px 13px;font-size:13.5px;margin-top:14px}
+.err.ver{display:block}
+.pie-caja{margin-top:20px;padding-top:16px;border-top:1px solid var(--linea);font-size:12.5px;color:var(--gris)}
+.pie-caja a{color:var(--verde);font-weight:600}
+
+/* ===== portal ===== */
+#portal{display:none}
+.cabecera{background:linear-gradient(140deg,var(--verde-900),#16523A);color:#fff;position:relative;overflow:hidden}
+.cabecera::before{content:"";position:absolute;inset:0;opacity:.1;
+  background-image:repeating-linear-gradient(115deg,rgba(255,255,255,.6) 0 2px,transparent 2px 24px)}
+.cabecera .wrap{position:relative;z-index:1;padding-block:22px 30px}
+.barra-sup{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:22px}
+.barra-sup .marca{display:flex;align-items:center;gap:10px;min-width:0}
+.barra-sup .marca img{width:34px;height:34px;border-radius:10px;flex:none}
+.barra-sup .marca span{font-family:var(--display);font-size:19px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;white-space:nowrap}
+.barra-sup .sep{flex:1}
+.pill{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.24);
+  border-radius:999px;padding:6px 13px;font-size:11.5px;font-weight:700;letter-spacing:.11em;text-transform:uppercase}
+.pill .brillo{width:7px;height:7px;border-radius:50%;background:var(--oro-claro)}
+.cabecera h1{font-family:var(--display);font-weight:700;font-size:clamp(32px,6vw,52px);line-height:1;margin:14px 0 0;text-wrap:balance}
+.cabecera .ruta{color:#C6DCCE;font-size:14.5px;margin-top:9px}
+.cabecera .enc{color:#9FC4AF;font-size:13.5px;margin-top:4px}
+
+.tarjetas{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:26px}
+.kpi{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);border-radius:14px;padding:16px 16px 14px}
+.kpi .v{font-family:var(--display);font-size:32px;font-weight:700;line-height:1;color:#fff}
+.kpi .e{font-size:11px;letter-spacing:.11em;text-transform:uppercase;color:#9FC4AF;margin-top:7px}
+.kpi.deuda{background:rgba(201,162,39,.18);border-color:rgba(234,200,92,.45)}
+.kpi.deuda .v{color:var(--oro-claro)}
+.kpi.alcorriente{background:rgba(46,148,99,.22);border-color:rgba(120,204,162,.4)}
+
+main{padding-block:34px 60px}
+.seccion{margin-bottom:34px}
+.titulo{display:flex;align-items:flex-end;gap:12px;flex-wrap:wrap;margin-bottom:16px}
+.titulo h2{font-family:var(--display);font-weight:700;font-size:30px;line-height:1;margin:0;color:var(--verde-900)}
+.titulo .nota{color:var(--gris);font-size:13.5px;margin-left:auto}
+.panel{background:var(--papel);border:1px solid var(--linea);border-radius:var(--r);box-shadow:var(--sombra);overflow:hidden}
+
+.fila{display:grid;grid-template-columns:104px minmax(0,1fr) 104px 104px 108px 44px;gap:12px;align-items:center;
+  padding:14px 18px;border-bottom:1px solid #F0F2EE}
+.fila:last-child{border-bottom:0}
+.fila.enc{background:#FAFBF8;font-size:11.5px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--gris);padding-block:11px}
+.fila .con{display:flex;flex-direction:column;font-weight:600;font-size:15px;color:var(--verde-900);min-width:0}
+.fila .det{display:block;font-weight:400;font-size:12.5px;color:var(--gris);margin-top:2px;overflow-wrap:anywhere}
+.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.num.deuda{color:var(--rojo);font-weight:600}
+.et{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:4px 10px;font-size:11.5px;font-weight:600;white-space:nowrap}
+.et.ok{background:#EAF5EE;color:#1B6B45}
+.et.pend{background:#FBF3DC;color:#87680F}
+.et.parcial{background:#FDF0E6;color:#93520C}
+.et.favor{background:#EDF1FA;color:#2A4B8D}
+.tk{border:1px solid var(--linea);background:#fff;border-radius:9px;width:36px;height:34px;display:inline-flex;
+  align-items:center;justify-content:center;cursor:pointer;color:var(--verde);padding:0}
+.tk:hover{border-color:var(--verde-400);background:#F4F8F5}
+.tk svg{width:17px;height:17px}
+.vacio{padding:34px 20px;text-align:center;color:var(--gris);font-size:14.5px}
+
+/* multas */
+.fila.multa{grid-template-columns:minmax(0,1fr) 104px 104px 108px}
+
+/* ticket */
+.telon{position:fixed;inset:0;z-index:80;background:rgba(9,26,18,.72);display:none;align-items:center;justify-content:center;padding:22px}
+.telon.abierto{display:flex}
+.modal{background:var(--papel);border-radius:16px;padding:20px;width:100%;max-width:340px;max-height:92vh;overflow:auto}
+.modal h3{font-family:var(--display);font-size:22px;margin:0 0 14px;color:var(--verde-900)}
+.ticketbox{background:#EFF1EC;padding:14px;border-radius:11px;display:flex;justify-content:center}
+.ticket{width:58mm;background:#fff;color:#000;padding:3mm 3mm 5mm;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  font-size:10px;line-height:1.4;margin:0 auto}
+.ticket .tk-brand{font-family:var(--texto);font-weight:800;font-size:14px;text-align:center;line-height:1.1}
+.ticket .tk-sub{text-align:center;font-size:9px;margin-top:.6mm}
+.ticket hr{border:0;border-top:1px dashed #000;margin:1.8mm 0}
+.ticket .kv{display:flex;justify-content:space-between;gap:5px}
+.ticket .tk-eq{font-weight:600;font-size:11.5px;line-height:1.25;margin-bottom:.4mm}
+.ticket .li{display:flex;justify-content:space-between;gap:5px;margin:.4mm 0}
+.ticket .big{display:flex;justify-content:space-between;font-weight:600;font-size:12.5px;margin:.6mm 0}
+.ticket .aviso{text-align:center;font-size:8.5px;font-weight:600;line-height:1.3;white-space:pre-line;margin-top:1mm}
+.ticket .foot{text-align:center;font-size:8.5px;margin-top:2mm;white-space:pre-line}
+#area-impresion{display:none}
+
+footer.pie{border-top:1px solid var(--linea);background:var(--papel);padding-block:24px 34px;color:var(--gris);font-size:13px}
+footer.pie a{color:var(--verde);font-weight:600}
+
+@media (max-width:820px){
+  .tarjetas{grid-template-columns:repeat(2,1fr)}
+  .fila{grid-template-columns:minmax(0,1fr) auto;gap:6px 12px;padding:15px 16px}
+  .fila.enc{display:none}
+  .fila .con{grid-column:1}
+  .fila .tkcell{grid-column:2;grid-row:1/span 4;align-self:start}
+  .fila .cel{grid-column:1/-1;display:flex;justify-content:space-between;gap:12px;font-size:13.5px;color:var(--gris)}
+  .fila .cel::before{content:attr(data-et);color:var(--gris)}
+  .fila .cel .num{text-align:right}
+  .fila.multa{grid-template-columns:minmax(0,1fr)}
+}
+@media (max-width:480px){
+  .barra-sup .marca span{display:none}   /* deja solo el escudo: los botones caben en un renglón */
+}
+@media (max-width:420px){
+  .tarjetas{grid-template-columns:1fr 1fr;gap:10px}
+  .kpi .v{font-size:27px}
+}
+@media print{
+  body{background:#fff}
+  .acceso,.cabecera,main,footer.pie,.telon{display:none!important}
+  #area-impresion{display:block}
+  @page{size:58mm auto;margin:0}
+}
+</style>
+</head>
+<body>
+
+<!-- ===================== ACCESO ===================== -->
+<section class="acceso" id="acceso">
+  <form class="caja" id="forma-acceso" autocomplete="off">
+    <img class="escudo" src="../icono-192.png" alt="Escudo de Liga Chapingo">
+    <div class="et">Liga Chapingo</div>
+    <h1>Estado de cuenta</h1>
+    <p class="intro">Escribe el código que la mesa directiva le dio a tu equipo. Verás únicamente la información de tu equipo, solo para consulta.</p>
+
+    <div class="campo">
+      <label for="codigo">Código de capitán</label>
+      <input id="codigo" name="codigo" type="text" inputmode="latin" autocapitalize="characters"
+             autocomplete="one-time-code" spellcheck="false" maxlength="15" placeholder="ABCD-2345" required>
+    </div>
+
+    <div class="err" id="error-acceso" role="alert"></div>
+
+    <button class="btn verde" type="submit" id="btn-entrar" style="width:100%;margin-top:18px;padding-block:13px">Entrar</button>
+
+    <div class="pie-caja">
+      ¿No tienes el código o ya no te sirve? Pídelo a la mesa directiva desde
+      <a href="../index.html#contacto">la página de contacto</a>.
+    </div>
+  </form>
+</section>
+
+<!-- ===================== PORTAL ===================== -->
+<div id="portal">
+  <header class="cabecera">
+    <div class="wrap">
+      <div class="barra-sup">
+        <a class="marca" href="../index.html" style="text-decoration:none;color:inherit">
+          <img src="../icono-192.png" alt=""><span>Liga Chapingo</span>
+        </a>
+        <span class="sep"></span>
+        <button class="btn fantasma sm" id="btn-refrescar" type="button">Actualizar</button>
+        <button class="btn fantasma sm" id="btn-salir" type="button">Salir</button>
+      </div>
+
+      <span class="pill"><span class="brillo"></span>Solo consulta</span>
+      <h1 id="eq-nombre">—</h1>
+      <div class="ruta" id="eq-ruta"></div>
+      <div class="enc" id="eq-enc"></div>
+
+      <div class="tarjetas">
+        <div class="kpi"><div class="v" id="k-cargos">—</div><div class="e">Cargos del torneo</div></div>
+        <div class="kpi"><div class="v" id="k-pagado">—</div><div class="e">Pagado</div></div>
+        <div class="kpi" id="k-saldo-caja"><div class="v" id="k-saldo">—</div><div class="e">Saldo pendiente</div></div>
+        <div class="kpi"><div class="v" id="k-multas">—</div><div class="e">Multas por cubrir</div></div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="wrap">
+
+      <section class="seccion">
+        <div class="titulo">
+          <h2>Movimientos</h2>
+          <span class="nota" id="nota-movs"></span>
+        </div>
+        <div class="panel" id="panel-movs"></div>
+      </section>
+
+      <section class="seccion" id="seccion-multas">
+        <div class="titulo">
+          <h2>Multas de jugadores</h2>
+          <span class="nota" id="nota-multas"></span>
+        </div>
+        <div class="panel" id="panel-multas"></div>
+      </section>
+
+    </div>
+  </main>
+
+  <footer class="pie">
+    <div class="wrap">
+      Esta pantalla es solo de consulta: los cargos y los pagos los registra la mesa directiva.
+      Si algo no coincide, avísales desde <a href="../index.html#contacto">contacto</a>.
+      <div style="margin-top:8px;font-size:12px" id="pie-rev"></div>
+    </div>
+  </footer>
+</div>
+
+<div class="telon" id="telon">
+  <div class="modal" id="modal">
+    <h3 id="modal-titulo">Ticket</h3>
+    <div class="ticketbox" id="modal-ticket"></div>
+    <div style="display:flex;gap:10px;margin-top:14px">
+      <button class="btn claro sm" id="btn-cerrar-tk" type="button" style="flex:1">Cerrar</button>
+      <button class="btn verde sm" id="btn-imprimir" type="button" style="flex:1">Imprimir</button>
+    </div>
+    <p style="font-size:11.5px;color:var(--gris);text-align:center;margin:10px 0 0">58 mm · imprime sin márgenes</p>
+  </div>
+</div>
+
+<div id="area-impresion"></div>
+
+<script>
+(function(){
+'use strict';
+
+function $(id){ return document.getElementById(id); }
+function esc(s){ return String(s == null ? '' : s).replace(/[&<>"']/g, function(c){
+  return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
+function mxn(n){ n = Number(n) || 0;
+  return (n < 0 ? '-$' : '$') + Math.abs(n).toLocaleString('es-MX', {minimumFractionDigits:2, maximumFractionDigits:2}); }
+function mxn0(n){ n = Number(n) || 0;
+  return (n < 0 ? '-$' : '$') + Math.abs(n).toLocaleString('es-MX', {maximumFractionDigits:0}); }
+function fecha(s){ if(!s) return ''; var p = String(s).slice(0,10).split('-');
+  return p.length === 3 ? p[2] + '/' + p[1] + '/' + p[0] : s; }
+function folioTxt(n){ return 'PC-' + String(n == null ? 0 : n).padStart(5, '0'); }
+
+var DATOS = null;
+var ICONO_TK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">'
+  + '<path d="M4 7.5A1.5 1.5 0 0 1 5.5 6h13A1.5 1.5 0 0 1 20 7.5V10a2 2 0 0 0 0 4v2.5a1.5 1.5 0 0 1-1.5 1.5h-13'
+  + 'A1.5 1.5 0 0 1 4 16.5V14a2 2 0 0 0 0-4z"/></svg>';
+
+/* ---------- llamadas al servidor (todas de lectura) ---------- */
+function pedir(accion, cuerpo){
+  var op = {credentials:'same-origin', headers:{'Accept':'application/json'}};
+  if(cuerpo){ op.method = 'POST'; op.headers['Content-Type'] = 'application/json'; op.body = JSON.stringify(cuerpo); }
+  return fetch('api.php?a=' + encodeURIComponent(accion), op).then(function(r){ return r.json(); });
+}
+
+/* ---------- acceso ---------- */
+var inp = $('codigo'), errores = $('error-acceso'), btn = $('btn-entrar');
+
+inp.addEventListener('input', function(){
+  var v = inp.value.toUpperCase().replace(/[^A-Z0-9]/g, '');
+  inp.value = v.length > 4 ? v.slice(0, 4) + '-' + v.slice(4, 12) : v;
+  errores.classList.remove('ver');
+});
+
+function fallo(msg){
+  errores.textContent = msg;
+  errores.classList.add('ver');
+  inp.select();
+}
+
+$('forma-acceso').addEventListener('submit', function(ev){
+  ev.preventDefault();
+  var codigo = inp.value.replace(/[^A-Za-z0-9]/g, '');
+  if(!codigo){ return fallo('Escribe tu código de capitán.'); }
+  btn.disabled = true;
+  btn.textContent = 'Comprobando…';
+  pedir('entrar', {codigo: codigo}).then(function(r){
+    btn.disabled = false;
+    btn.textContent = 'Entrar';
+    if(r && r.ok){ inp.value = ''; abrirPortal(); return; }
+    fallo((r && r.error) || 'No se pudo entrar. Inténtalo de nuevo.');
+  }).catch(function(){
+    btn.disabled = false;
+    btn.textContent = 'Entrar';
+    fallo('No se pudo contactar al servidor. Revisa tu conexión.');
+  });
+});
+
+/* ---------- portal ---------- */
+function abrirPortal(){
+  $('acceso').style.display = 'none';
+  $('portal').style.display = 'block';
+  window.scrollTo(0, 0);
+  cargar();
+}
+function cerrarPortal(){
+  DATOS = null;
+  $('portal').style.display = 'none';
+  $('acceso').style.display = 'flex';
+  inp.value = '';
+}
+
+function cargar(){
+  return pedir('estado').then(function(r){
+    if(!r || !r.ok){
+      if(r && r.auth === false){ cerrarPortal(); return; }
+      $('panel-movs').innerHTML = '<div class="vacio">' + esc((r && r.error) || 'No se pudo leer tu estado de cuenta.') + '</div>';
+      return;
+    }
+    DATOS = r;
+    pintar(r);
+  }).catch(function(){
+    $('panel-movs').innerHTML = '<div class="vacio">No se pudo contactar al servidor.</div>';
+  });
+}
+
+function etiquetaEstatus(e){
+  var c = e === 'Pagado' ? 'ok' : e === 'Pendiente' ? 'pend' : e === 'A favor' ? 'favor' : 'parcial';
+  return '<span class="et ' + c + '">' + esc(e) + '</span>';
+}
+
+function pintar(r){
+  var eq = r.equipo || {}, res = r.resumen || {};
+
+  $('eq-nombre').textContent = eq.nombre || '—';
+  $('eq-ruta').textContent = [eq.edicion, eq.disciplina, eq.rama, eq.categoria].filter(Boolean).join(' · ');
+  $('eq-enc').textContent = eq.encargado ? 'Representante registrado: ' + eq.encargado : '';
+  document.title = (eq.nombre || 'Estado de cuenta') + ' · Liga Chapingo';
+
+  $('k-cargos').textContent = mxn0(res.cargos);
+  $('k-pagado').textContent = mxn0(res.pagado);
+  $('k-saldo').textContent  = mxn0(res.saldo);
+  $('k-multas').textContent = mxn0(res.multasPendientes);
+  $('k-saldo-caja').className = 'kpi ' + (Number(res.saldo) > 0.009 ? 'deuda' : 'alcorriente');
+
+  /* movimientos */
+  var movs = r.movs || [];
+  $('nota-movs').textContent = movs.length
+    ? movs.length + (movs.length === 1 ? ' movimiento registrado' : ' movimientos registrados')
+    : '';
+  $('panel-movs').innerHTML = movs.length
+    ? '<div class="fila enc"><span>Fecha</span><span>Concepto</span><span class="num">Cargo</span>'
+      + '<span class="num">Pagado</span><span>Estatus</span><span></span></div>'
+      + movs.slice().reverse().map(function(m, i){
+          var idx = movs.length - 1 - i;
+          var detalle = [];
+          if(m.jornada) detalle.push('Jornada ' + m.jornada);
+          if(m.rival)   detalle.push('vs ' + m.rival);
+          if(m.forma)   detalle.push(m.forma);
+          if(m.nota)    detalle.push(m.nota);
+          return '<div class="fila">'
+            + '<span class="cel" data-et="Fecha"><span class="num">' + esc(fecha(m.fecha)) + '</span></span>'
+            + '<span class="con">' + esc(m.concepto || 'Movimiento')
+              + (detalle.length ? '<span class="det">' + esc(detalle.join(' · ')) + '</span>' : '')
+              + '<span class="det">' + esc(folioTxt(m.folio)) + '</span></span>'
+            + '<span class="cel num" data-et="Cargo">' + esc(mxn(m.importe)) + '</span>'
+            + '<span class="cel num" data-et="Pagado">' + esc(mxn(m.recibido)) + '</span>'
+            + '<span class="cel" data-et="Estatus">' + etiquetaEstatus(m.estatus) + '</span>'
+            + '<span class="tkcell"><button class="tk" type="button" data-tk="' + idx + '" '
+              + 'aria-label="Ver el ticket ' + esc(folioTxt(m.folio)) + '">' + ICONO_TK + '</button></span>'
+            + '</div>';
+        }).join('')
+    : '<div class="vacio">Tu equipo todavía no tiene movimientos registrados.</div>';
+
+  Array.prototype.forEach.call($('panel-movs').querySelectorAll('[data-tk]'), function(b){
+    b.onclick = function(){ abrirTicket(+b.getAttribute('data-tk')); };
+  });
+
+  /* multas */
+  var multas = r.multas || [];
+  $('seccion-multas').style.display = multas.length ? '' : 'none';
+  $('nota-multas').textContent = multas.length ? multas.length + (multas.length === 1 ? ' registro' : ' registros') : '';
+  $('panel-multas').innerHTML = multas.length
+    ? '<div class="fila multa enc"><span>Jugador</span><span class="num">Multa</span>'
+      + '<span class="num">Cubierto</span><span class="num">Pendiente</span></div>'
+      + multas.map(function(m){
+          return '<div class="fila multa">'
+            + '<span class="con">' + esc(m.jugador || 'Sin nombre')
+              + '<span class="det">' + esc([m.concepto, fecha(m.fecha)].filter(Boolean).join(' · ')) + '</span>'
+              + (m.nota ? '<span class="det">' + esc(m.nota) + '</span>' : '')
+            + '</span>'
+            + '<span class="cel num" data-et="Multa">' + esc(mxn(m.monto)) + '</span>'
+            + '<span class="cel num" data-et="Cubierto">' + esc(mxn(m.pagado)) + '</span>'
+            + '<span class="cel num' + (Number(m.saldo) > 0.009 ? ' deuda' : '') + '" data-et="Pendiente">'
+              + esc(mxn(m.saldo)) + '</span>'
+            + '</div>';
+        }).join('')
+    : '';
+
+  $('pie-rev').textContent = r.actualizado
+    ? 'Información al corte del ' + fecha(String(r.actualizado).slice(0, 10)) + ' · revisión ' + (r.rev || 0)
+    : '';
+}
+
+/* ---------- ticket (se arma con los datos del propio equipo) ---------- */
+function ticketHTML(m){
+  var eq = (DATOS && DATOS.equipo) || {}, liga = (DATOS && DATOS.liga) || {};
+  var L = ['<div class="ticket">'];
+  L.push('<div class="tk-brand">' + esc(liga.nombre || 'Liga Chapingo') + '</div>');
+  if(eq.edicion) L.push('<div class="tk-sub">' + esc(eq.edicion) + '</div>');
+  L.push('<hr>');
+  L.push('<div class="kv"><span>' + esc(fecha(m.fecha) + ' ' + (m.hora || '')) + '</span><span>'
+    + esc(folioTxt(m.folio)) + '</span></div>');
+  L.push('<hr>');
+  L.push('<div class="tk-eq">' + esc(eq.nombre || '') + '</div>');
+  L.push('<div>' + esc([eq.disciplina, eq.rama, eq.categoria].filter(Boolean).join(' · ')) + '</div>');
+  if(eq.encargado) L.push('<div>Enc. ' + esc(eq.encargado) + '</div>');
+  L.push('<hr>');
+  L.push('<div class="li"><span>' + esc(m.concepto) + '</span><span>' + esc(mxn(m.importe)) + '</span></div>');
+  if(m.nota) L.push('<div>' + esc(m.nota) + '</div>');
+  L.push('<div class="big"><span>RECIBIDO</span><span>' + esc(mxn(m.recibido)) + '</span></div>');
+  L.push('<div class="li"><span>' + esc(m.forma || 'Efectivo') + '</span><span>Saldo '
+    + esc(mxn(m.saldoAcum)) + '</span></div>');
+  L.push('<hr>');
+  if(m.entrego) L.push('<div>Entregó: ' + esc(m.entrego) + '</div>');
+  if(m.cajero)  L.push('<div>Recibió: ' + esc(m.cajero) + '</div>');
+  if(Number(m.adeudo) > 0.009 && liga.avisoCredito){
+    L.push('<hr><div class="aviso">' + esc(liga.avisoCredito) + '</div>');
+  }
+  if(liga.pie) L.push('<div class="foot">' + esc(liga.pie) + '</div>');
+  L.push('<div class="tk-sub" style="margin-top:2mm">Copia de consulta</div>');
+  L.push('</div>');
+  return L.join('');
+}
+
+function abrirTicket(i){
+  var m = DATOS && DATOS.movs && DATOS.movs[i];
+  if(!m) return;
+  var html = ticketHTML(m);
+  $('modal-titulo').textContent = 'Ticket ' + folioTxt(m.folio);
+  $('modal-ticket').innerHTML = html;
+  $('area-impresion').innerHTML = html;
+  $('telon').classList.add('abierto');
+}
+function cerrarTicket(){ $('telon').classList.remove('abierto'); }
+
+$('btn-cerrar-tk').onclick = cerrarTicket;
+$('btn-imprimir').onclick = function(){ window.print(); };
+$('telon').onclick = function(ev){ if(ev.target === $('telon')) cerrarTicket(); };
+document.addEventListener('keydown', function(ev){ if(ev.key === 'Escape') cerrarTicket(); });
+
+$('btn-refrescar').onclick = function(){
+  var b = $('btn-refrescar');
+  b.disabled = true; b.textContent = 'Actualizando…';
+  cargar().then(function(){ b.disabled = false; b.textContent = 'Actualizar'; });
+};
+$('btn-salir').onclick = function(){
+  pedir('salir').then(cerrarPortal).catch(cerrarPortal);
+};
+
+/* ---------- arranque: ¿ya había sesión abierta? ---------- */
+pedir('sesion').then(function(r){
+  if(r && r.auth) abrirPortal();
+  else inp.focus();
+}).catch(function(){ inp.focus(); });
+
+})();
+</script>
+</body>
+</html>

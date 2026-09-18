@@ -155,9 +155,11 @@ function semilla(): array {
             ],
         ],
         'arbitrajes' => [
-            'titulo' => 'Acceso para representantes de equipo',
-            'texto'  => 'Aquí el representante revisa el estado de cuenta de su equipo: cargos de arbitraje, pagos entregados, saldo pendiente y multas individuales de sus jugadores.',
-            'aviso'  => 'Entra con la clave que te dio la mesa directiva. Si tu categoría tiene contraseña propia, el sistema te la pedirá al abrir tu equipo.',
+            'titulo' => 'Acceso para capitanes de equipo',
+            'texto'  => 'Aquí el capitán revisa el estado de cuenta de su equipo: cargos de arbitraje, pagos entregados, saldo pendiente y multas individuales de sus jugadores.',
+            'aviso'  => 'Entra con el código de capitán que te dio la mesa directiva. Es una pantalla de solo consulta: los cobros los registra la tesorería.',
+            /* 'url' se conserva por compatibilidad con el contenido ya guardado,
+               pero el sitio ya no lo usa: los botones llevan siempre a capitanes/. */
             'url'    => 'arbitrajes/',
         ],
         'contacto' => [

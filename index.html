@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Liga Chapingo</title>
-<meta name="description" content="Liga Chapingo — convocatorias, torneo actual, campeones, galería, uniformes y acceso de representantes de equipo para revisar su estado de cuenta de arbitrajes.">
+<meta name="description" content="Liga Chapingo — inscripciones, clasificaciones, convocatorias, torneo actual, campeones, galería, uniformes y el portal donde los capitanes consultan el estado de cuenta de su equipo.">
 <meta name="theme-color" content="#1B6B45">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="icono-192.png">
@@ -66,7 +66,7 @@ header.barra .wrap{display:flex;align-items:center;gap:18px;min-height:66px}
 .marca .s{font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--gris);margin-top:3px;
   white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:34ch}
 nav.menu{display:flex;align-items:center;gap:2px;margin-left:auto}
-nav.menu a{padding:9px 11px;border-radius:9px;text-decoration:none;font-size:14px;font-weight:500;color:#2C3B33;white-space:nowrap}
+nav.menu a{padding:9px 9px;border-radius:9px;text-decoration:none;font-size:14px;font-weight:500;color:#2C3B33;white-space:nowrap}
 nav.menu a:hover{background:#EDF2EE;color:var(--verde)}
 nav.menu a.destacado{color:var(--verde);font-weight:600}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:0;border-radius:10px;padding:11px 18px;font-size:14.5px;font-weight:600;text-decoration:none;cursor:pointer;transition:transform .12s ease,box-shadow .12s ease,background .12s ease}
@@ -118,6 +118,50 @@ nav.menu a.destacado{color:var(--verde);font-weight:600}
 .mini .e{font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:#9FC4AF;margin-top:6px}
 .tarjeta-torneo .pie{margin-top:16px;font-size:13.5px;color:#CBDFD4;display:flex;gap:8px;align-items:flex-start}
 .tarjeta-torneo .pie svg{width:16px;height:16px;flex:none;margin-top:2px;opacity:.75}
+.col-der{display:flex;flex-direction:column;gap:18px;min-width:0}
+.btn.grande{padding:15px 24px;font-size:16px;border-radius:12px}
+
+/* ===================== Acceso de capitanes (portada) ===================== */
+.capitan{background:linear-gradient(152deg,rgba(201,162,39,.26),rgba(255,255,255,.06));
+  border:1px solid rgba(234,200,92,.44);border-radius:18px;padding:24px;backdrop-filter:blur(6px)}
+.capitan .ic{width:44px;height:44px;border-radius:12px;background:rgba(234,200,92,.2);color:var(--oro-claro);
+  display:flex;align-items:center;justify-content:center;margin-bottom:14px}
+.capitan .ic svg{width:23px;height:23px}
+.capitan h2{font-family:var(--display);font-weight:700;font-size:27px;letter-spacing:.03em;text-transform:uppercase;
+  line-height:1.05;margin:0;color:#fff}
+.capitan p{font-size:14.5px;line-height:1.55;color:#DCE9E1;margin:9px 0 18px}
+.capitan .nota{display:block;margin-top:12px;font-size:12px;letter-spacing:.04em;color:#A9C9B7;text-align:center}
+
+/* ===================== Carrusel de inscripciones y tablas ===================== */
+.carrusel{position:relative}
+.pista{display:flex;gap:18px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;
+  -webkit-overflow-scrolling:touch;scrollbar-width:none;-ms-overflow-style:none;padding-bottom:4px}
+.pista::-webkit-scrollbar{display:none}
+.diapo{flex:0 0 100%;scroll-snap-align:center;min-width:0;display:flex;flex-direction:column;
+  background:var(--papel);border:1px solid var(--linea);border-radius:var(--r);box-shadow:var(--sombra);overflow:hidden}
+.diapo-cab{display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:16px 20px;border-bottom:1px solid var(--linea);background:#FBFBF8}
+.diapo-cab h3{font-family:var(--display);font-size:24px;font-weight:600;letter-spacing:.02em;line-height:1.1;margin:0;color:var(--verde-900)}
+.diapo-cab .btn{margin-left:auto}
+.marco{position:relative;flex:1 1 auto;min-height:clamp(440px,64vh,700px);background:#fff}
+.marco iframe{width:100%;height:100%;border:0;display:block}
+.pendiente{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:10px;text-align:center;padding:30px 24px;color:var(--gris);background:
+  repeating-linear-gradient(135deg,#FBFBF8 0 12px,#F6F7F2 12px 24px)}
+.pendiente .ic{width:52px;height:52px;border-radius:14px;background:#EEF3EF;color:var(--verde);
+  display:flex;align-items:center;justify-content:center}
+.pendiente .ic svg{width:25px;height:25px}
+.pendiente b{font-family:var(--display);font-size:22px;font-weight:600;color:var(--verde-900);letter-spacing:.02em}
+.pendiente span{font-size:14px;max-width:34ch}
+.controles{display:flex;align-items:center;justify-content:center;gap:14px;margin-top:18px}
+.flecha{width:42px;height:42px;border-radius:50%;border:1px solid var(--linea);background:var(--papel);
+  box-shadow:var(--sombra);cursor:pointer;color:var(--verde-900);display:flex;align-items:center;justify-content:center;padding:0}
+.flecha:hover{border-color:var(--verde-400);color:var(--verde)}
+.flecha[disabled]{opacity:.38;cursor:default}
+.flecha svg{width:19px;height:19px}
+.puntos{display:flex;align-items:center;gap:8px}
+.puntos button{width:9px;height:9px;padding:0;border:0;border-radius:999px;background:#C6D2CA;cursor:pointer;
+  transition:width .18s ease,background .18s ease}
+.puntos button.on{width:28px;background:var(--verde)}
 
 /* ===================== Secciones ===================== */
 section.bloque{padding-block:74px}
@@ -272,6 +316,12 @@ footer.pie p{margin:0 0 14px;max-width:42ch;color:#9CBFAD}
 @media (max-width:620px){
   html{scroll-padding-top:78px}
   section.bloque{padding-block:52px}
+  .diapo-cab{padding:14px 16px}
+  .diapo-cab h3{font-size:21px}
+  .diapo-cab .btn{margin-left:0;width:100%}
+  .marco{min-height:clamp(460px,72vh,680px)}
+  .capitan{padding:20px}
+  .capitan h2{font-size:24px}
   .c2,.c3,.c4{grid-template-columns:1fr}
   .galeria{grid-template-columns:repeat(2,1fr)}
   .conv{flex-wrap:wrap}
@@ -300,7 +350,7 @@ footer.pie p{margin:0 0 14px;max-width:42ch;color:#9CBFAD}
     <span id="cinta-torneo"><b>Segunda Edición 2026</b> · en curso</span>
     <span class="sep"></span>
     <a class="oculta-movil" href="#contacto">Contacto</a>
-    <a href="arbitrajes/" id="cinta-arb">Acceso representantes</a>
+    <a href="capitanes/" id="cinta-arb">Estado de cuenta · Capitanes</a>
   </div>
 </div>
 
@@ -314,6 +364,7 @@ footer.pie p{margin:0 0 14px;max-width:42ch;color:#9CBFAD}
       </span>
     </a>
     <nav class="menu">
+      <a href="#tablas" class="destacado">Tablas</a>
       <a href="#torneo">Torneo actual</a>
       <a href="#eventos">Eventos</a>
       <a href="#convocatorias">Convocatorias</a>
@@ -322,9 +373,9 @@ footer.pie p{margin:0 0 14px;max-width:42ch;color:#9CBFAD}
       <a href="#uniformes">Uniformes</a>
       <a href="#contacto">Contacto</a>
     </nav>
-    <a class="btn verde sm" href="arbitrajes/" style="flex:none">
+    <a class="btn verde sm" href="capitanes/" style="flex:none">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
-      Arbitrajes
+      Estado de cuenta
     </a>
     <button class="hamb" id="abrir-menu" aria-label="Abrir menú">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
@@ -335,6 +386,7 @@ footer.pie p{margin:0 0 14px;max-width:42ch;color:#9CBFAD}
 <div class="cajon" id="cajon">
   <div class="panel">
     <button class="cerrar" id="cerrar-menu" aria-label="Cerrar menú">&times;</button>
+    <a href="#tablas">Inscripciones y clasificación</a>
     <a href="#torneo">Torneo actual</a>
     <a href="#eventos">Eventos</a>
     <a href="#convocatorias">Convocatorias</a>
@@ -342,7 +394,7 @@ footer.pie p{margin:0 0 14px;max-width:42ch;color:#9CBFAD}
     <a href="#galeria">Galería</a>
     <a href="#uniformes">Uniformes</a>
     <a href="#contacto">Contacto</a>
-    <a class="btn verde" style="margin-top:14px" href="arbitrajes/">Arbitrajes · Representantes</a>
+    <a class="btn oro" style="margin-top:14px" href="capitanes/">Consultar estado de cuenta</a>
   </div>
 </div>
 
@@ -356,10 +408,26 @@ footer.pie p{margin:0 0 14px;max-width:42ch;color:#9CBFAD}
       <h1 id="hero-titulo">La liga de Chapingo, en una sola página</h1>
       <p class="entrada" id="hero-texto"></p>
       <div class="acciones">
-        <a class="btn oro" href="#convocatorias">Ver convocatorias</a>
-        <a class="btn linea" href="arbitrajes/">Entrar a Arbitrajes</a>
+        <a class="btn oro grande" href="capitanes/">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
+          Consultar estado de cuenta
+        </a>
+        <a class="btn linea" href="#convocatorias">Ver convocatorias</a>
       </div>
     </div>
+    <div class="col-der">
+
+    <!-- Llamado principal: acceso de capitanes al estado de cuenta -->
+    <aside class="capitan">
+      <div class="ic">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
+      </div>
+      <h2>¿Eres capitán?</h2>
+      <p>Consulta el estado de cuenta de tu equipo, revisa tus movimientos y visualiza tus tickets.</p>
+      <a class="btn oro" href="capitanes/" style="width:100%">Consultar estado de cuenta</a>
+      <span class="nota">Solo consulta · entra con el código de tu equipo</span>
+    </aside>
+
     <aside class="tarjeta-torneo">
       <div class="cab">
         <div>
@@ -374,6 +442,85 @@ footer.pie p{margin:0 0 14px;max-width:42ch;color:#9CBFAD}
         <span id="hero-sede">Canchas UACh, Chapingo, Texcoco</span>
       </div>
     </aside>
+
+    </div><!-- /col-der -->
+  </div>
+</section>
+
+<!-- ===================== INSCRIPCIONES Y CLASIFICACIONES ===================== -->
+<section class="bloque claro" id="tablas">
+  <div class="wrap">
+    <div class="encabeza">
+      <span class="eyebrow">Torneo en marcha</span>
+      <h2>Inscripciones y clasificaciones</h2>
+      <p>Inscribe a tu equipo y sigue la tabla de tu categoría. Desliza o usa las flechas para cambiar de apartado.</p>
+    </div>
+
+    <div class="carrusel">
+      <div class="pista" id="pista">
+
+        <!-- 1 · Inscripciones Relámpago B -->
+        <article class="diapo" aria-label="Inscripciones Relámpago B">
+          <div class="diapo-cab">
+            <h3>Inscripciones Relámpago B</h3>
+            <a class="btn claro sm" target="_blank" rel="noopener"
+               href="https://copafacil.com/share/embedded/inscription/-fp2uy@io3v/false/es">Abrir en otra pestaña</a>
+          </div>
+          <div class="marco">
+            <iframe src="https://copafacil.com/share/embedded/inscription/-fp2uy@io3v/false/es"
+                    title="Formulario de inscripción · Relámpago B" loading="lazy"></iframe>
+          </div>
+        </article>
+
+        <!-- 2 · Clasificación Primera Fuerza -->
+        <article class="diapo" aria-label="Clasificación Primera Fuerza">
+          <div class="diapo-cab">
+            <h3>Clasificación Primera Fuerza</h3>
+            <a class="btn claro sm" target="_blank" rel="noopener"
+               href="https://copafacil.com/share/embedded/table/-fp2uy@jyt4/1785638107449/table_2">Abrir en otra pestaña</a>
+          </div>
+          <div class="marco">
+            <iframe src="https://copafacil.com/share/embedded/table/-fp2uy@jyt4/1785638107449/table_2"
+                    title="Tabla de clasificación · Primera Fuerza" loading="lazy"></iframe>
+          </div>
+        </article>
+
+        <!-- 3 · Clasificación Segunda Fuerza -->
+        <article class="diapo" aria-label="Clasificación Segunda Fuerza">
+          <div class="diapo-cab">
+            <h3>Clasificación Segunda Fuerza</h3>
+          </div>
+          <div class="marco">
+
+            <!-- INSERTAR IFRAME CLASIFICACIÓN SEGUNDA FUERZA -->
+            <!-- Pega aquí, tal cual te lo dé Copa Fácil, la línea:
+                 <iframe src="..." title="Tabla de clasificación · Segunda Fuerza" loading="lazy"></iframe>
+                 No hay que tocar nada más: al detectar el iframe, el aviso de
+                 "todavía no publicada" desaparece solo y el botón de "Abrir en
+                 otra pestaña" no hace falta. -->
+
+            <div class="pendiente" data-pendiente>
+              <span class="ic">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19h16M7 19V11M12 19V6M17 19v-5"/></svg>
+              </span>
+              <b>Tabla en camino</b>
+              <span>La clasificación de Segunda Fuerza se publica aquí en cuanto la liga la libere en Copa Fácil.</span>
+            </div>
+          </div>
+        </article>
+
+      </div>
+
+      <div class="controles">
+        <button class="flecha" id="car-izq" type="button" aria-label="Apartado anterior">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m15 5-7 7 7 7"/></svg>
+        </button>
+        <div class="puntos" id="car-puntos"></div>
+        <button class="flecha" id="car-der" type="button" aria-label="Apartado siguiente">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m9 5 7 7-7 7"/></svg>
+        </button>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -463,12 +610,12 @@ footer.pie p{margin:0 0 14px;max-width:42ch;color:#9CBFAD}
 <section class="arbitrajes" id="arbitrajes">
   <div class="wrap">
     <div>
-      <span class="pill"><span class="brillo"></span>Solo representantes</span>
+      <span class="pill"><span class="brillo"></span>Solo capitanes · solo consulta</span>
       <h2 id="ar-titulo">Arbitrajes</h2>
       <p id="ar-texto"></p>
       <div class="acciones">
-        <a class="btn oro" href="arbitrajes/" id="ar-boton">Iniciar sesión</a>
-        <a class="btn linea" href="#contacto">No tengo mi clave</a>
+        <a class="btn oro" href="capitanes/" id="ar-boton">Consultar estado de cuenta</a>
+        <a class="btn linea" href="#contacto">No tengo mi código</a>
       </div>
     </div>
     <div class="acceso">
@@ -477,7 +624,7 @@ footer.pie p{margin:0 0 14px;max-width:42ch;color:#9CBFAD}
       </div>
       <h3>Estado de cuenta de tu equipo</h3>
       <p>Cargos de arbitraje e inscripción, pagos entregados, saldo pendiente, multas individuales de tus jugadores y el ticket de cada movimiento.</p>
-      <a class="btn claro" href="arbitrajes/" style="width:100%">Entrar al sistema</a>
+      <a class="btn claro" href="capitanes/" style="width:100%">Entrar con mi código</a>
       <div class="nota" id="ar-aviso-caja">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg>
         <span id="ar-aviso"></span>
@@ -510,7 +657,7 @@ footer.pie p{margin:0 0 14px;max-width:42ch;color:#9CBFAD}
           <select id="f-asunto">
             <option>Inscripción a un torneo</option>
             <option>Estado de cuenta y arbitrajes</option>
-            <option>Clave de acceso de representante</option>
+            <option>Código de acceso de capitán</option>
             <option>Uniformes</option>
             <option>Otro</option>
           </select>
@@ -554,7 +701,7 @@ footer.pie p{margin:0 0 14px;max-width:42ch;color:#9CBFAD}
       </div>
       <div>
         <h4>Equipos</h4>
-        <a href="arbitrajes/">Arbitrajes · Estado de cuenta</a>
+        <a href="capitanes/">Estado de cuenta · Capitanes</a>
         <a href="#uniformes">Uniformes</a>
         <a href="#galeria">Galería</a>
         <a href="#contacto">Contacto</a>
@@ -582,7 +729,7 @@ footer.pie p{margin:0 0 14px;max-width:42ch;color:#9CBFAD}
 var DEFECTO = {
   sitio:{nombre:'Liga Chapingo', lema:'Deporte universitario con orden y palabra', subtitulo:'Universidad Autónoma Chapingo'},
   hero:{eyebrow:'Segunda Edición 2026', titulo:'La liga de Chapingo, en una sola página',
-        texto:'Convocatorias, calendario del torneo en curso, campeones, uniformes y el acceso de representantes de equipo para revisar su estado de cuenta de arbitrajes.'},
+        texto:'Convocatorias, inscripciones, clasificaciones, campeones y uniformes. Si eres capitán, aquí mismo consultas el estado de cuenta de tu equipo.'},
   torneo:{nombre:'Segunda Edición 2026', estado:'En curso', jornada:'Jornada 4',
           fechas:'Sábados y domingos · 9:00 a 18:00 h', sede:'Canchas UACh, Chapingo, Texcoco',
           texto:'Fase regular en marcha. Los partidos se juegan en las canchas de la Universidad Autónoma Chapingo, Texcoco, Estado de México.',
@@ -603,9 +750,11 @@ var DEFECTO = {
   galeria:[],
   uniformes:[{id:'un1',nombre:'Jersey de local',precio:'450',texto:'Tela deportiva con sublimado completo, número y nombre incluidos. Pedido mínimo por equipo: 12 piezas.'},
              {id:'un2',nombre:'Conjunto completo',precio:'790',texto:'Jersey, short y medias. Diseño personalizado con el escudo del equipo, entrega en 15 días hábiles.'}],
+  /* 'url' se conserva para no romper el contenido guardado, pero los botones
+     del sitio apuntan siempre al portal de consulta (capitanes/). */
   arbitrajes:{titulo:'Arbitrajes', url:'arbitrajes/',
-              texto:'Aquí el representante revisa el estado de cuenta de su equipo: cargos de arbitraje, pagos entregados, saldo pendiente y multas individuales de sus jugadores.',
-              aviso:'Entra con la clave que te dio la mesa directiva. Si tu categoría tiene contraseña propia, el sistema te la pedirá al abrir tu equipo.'},
+              texto:'Aquí el capitán revisa el estado de cuenta de su equipo: cargos de arbitraje, pagos entregados, saldo pendiente y multas individuales de sus jugadores.',
+              aviso:'Entra con el código de capitán que te dio la mesa directiva. Es una pantalla de solo consulta: los cobros los registra la tesorería.'},
   contacto:{texto:'Mesa directiva de Liga Chapingo. Atención de lunes a viernes de 10:00 a 18:00 h.',
             correo:'contacto@ligachapingo.com', whatsapp:'', telefono:'',
             direccion:'Universidad Autónoma Chapingo, km 38.5 carretera México–Texcoco, Chapingo, Texcoco, Estado de México',
@@ -761,13 +910,14 @@ function pintar(C){
       }).join('')
     : vacio('El catálogo de uniformes se publica pronto.');
 
-  /* arbitrajes */
-  var destinoArb = url(AR.url) || 'arbitrajes/';
+  /* arbitrajes — los textos se siguen editando desde el panel.
+     El destino de los botones ya NO se toma del contenido: siempre apuntan a
+     capitanes/, el portal de solo consulta. La app de administración
+     (arbitrajes/) no se enlaza desde ninguna parte del sitio público. */
   $('ar-titulo').textContent = AR.titulo || 'Arbitrajes';
   $('ar-texto').textContent  = AR.texto || '';
   $('ar-aviso').textContent  = AR.aviso || '';
   $('ar-aviso-caja').style.display = AR.aviso ? '' : 'none';
-  Array.prototype.forEach.call(document.querySelectorAll('a[href="arbitrajes/"]'), function(a){ a.href = destinoArb; });
 
   /* contacto */
   $('c-texto').textContent = CO.texto || '';
@@ -817,6 +967,56 @@ function pintar(C){
     window.location.href = 'mailto:' + CO.correo + '?subject=' + encodeURIComponent('Liga Chapingo · ' + $('f-asunto').value) + '&body=' + encodeURIComponent(texto());
   };
 }
+
+/* ---------- carrusel de inscripciones y clasificaciones ---------- */
+(function(){
+  var pista = $('pista');
+  if(!pista) return;
+  var diapos = Array.prototype.slice.call(pista.querySelectorAll('.diapo'));
+  if(!diapos.length) return;
+
+  /* si alguien ya pegó el iframe de Segunda Fuerza, el aviso de "en camino"
+     sobra: se quita solo, sin tener que tocar nada más */
+  diapos.forEach(function(d){
+    var marco = d.querySelector('.marco');
+    var aviso = d.querySelector('[data-pendiente]');
+    if(marco && aviso && marco.querySelector('iframe')) aviso.parentNode.removeChild(aviso);
+  });
+
+  var puntos = $('car-puntos'), izq = $('car-izq'), der = $('car-der'), activo = 0;
+
+  diapos.forEach(function(d, i){
+    var b = document.createElement('button');
+    b.type = 'button';
+    b.setAttribute('aria-label', 'Ver ' + (d.getAttribute('aria-label') || ('apartado ' + (i+1))));
+    b.onclick = function(){ ir(i); };
+    puntos.appendChild(b);
+  });
+
+  function ir(i){
+    i = Math.max(0, Math.min(diapos.length - 1, i));
+    pista.scrollTo({left: diapos[i].offsetLeft - pista.offsetLeft, behavior:'smooth'});
+  }
+  function marcar(){
+    var ancho = pista.clientWidth + 18;   /* 18 = separación entre diapositivas */
+    var i = Math.round(pista.scrollLeft / (ancho || 1));
+    activo = Math.max(0, Math.min(diapos.length - 1, i));
+    Array.prototype.forEach.call(puntos.children, function(b, k){ b.classList.toggle('on', k === activo); });
+    izq.disabled = activo === 0;
+    der.disabled = activo === diapos.length - 1;
+  }
+
+  izq.onclick = function(){ ir(activo - 1); };
+  der.onclick = function(){ ir(activo + 1); };
+
+  var t = null;
+  pista.addEventListener('scroll', function(){
+    if(t) clearTimeout(t);
+    t = setTimeout(marcar, 90);
+  }, {passive:true});
+  window.addEventListener('resize', marcar);
+  marcar();
+})();
 
 /* ---------- menú móvil, visor ---------- */
 $('abrir-menu').onclick = function(){ $('cajon').classList.add('abierto'); };

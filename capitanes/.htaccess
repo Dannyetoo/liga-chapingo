@@ -1,0 +1,37 @@
+# Liga Chapingo — Portal de capitanes (solo consulta)
+
+DirectoryIndex index.html
+Options -Indexes
+
+# Nunca servir la configuración, las funciones internas ni ningún dato
+<FilesMatch "^(config\.php|codigos-lib\.php)$">
+  <IfModule mod_authz_core.c>
+    Require all denied
+  </IfModule>
+  <IfModule !mod_authz_core.c>
+    Order allow,deny
+    Deny from all
+  </IfModule>
+</FilesMatch>
+<FilesMatch "\.(json|md|log|bak)$">
+  <IfModule mod_authz_core.c>
+    Require all denied
+  </IfModule>
+  <IfModule !mod_authz_core.c>
+    Order allow,deny
+    Deny from all
+  </IfModule>
+</FilesMatch>
+
+<IfModule mod_headers.c>
+  Header set X-Content-Type-Options "nosniff"
+  Header set Referrer-Policy "same-origin"
+  Header set X-Frame-Options "SAMEORIGIN"
+</IfModule>
+
+# El estado de cuenta nunca se guarda en el caché del navegador
+<FilesMatch "\.(html|php)$">
+  <IfModule mod_headers.c>
+    Header set Cache-Control "no-store"
+  </IfModule>
+</FilesMatch>

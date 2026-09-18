@@ -39,9 +39,18 @@ public_html/
 │   └── .htaccess           impide descargar el contenido por el navegador
 ├── img/                    (permisos 755) fotos y PDF que subas desde el panel
 │   └── .htaccess           carpeta pública, pero sin ejecutar código
+├── capitanes/              PORTAL DE CONSULTA de los capitanes (solo lectura)
+│   ├── index.html          acceso con código y estado de cuenta del equipo
+│   ├── api.php             lee estado.json y responde solo del equipo en sesión
+│   ├── codigos-lib.php     cómo se calcula el código de cada equipo
+│   ├── config.php          tu semilla secreta y tus ajustes
+│   ├── .htaccess
+│   └── datos/              (permisos 755) solo lleva la cuenta de intentos fallidos
+│       └── .htaccess
 └── arbitrajes/             AQUÍ va la app de tesorería, tal como está hoy
     ├── index.html
     ├── api.php
+    ├── codigos.php         lista de códigos de capitán (solo para la mesa directiva)
     ├── config.php
     ├── .htaccess
     ├── manifest.webmanifest
@@ -65,6 +74,49 @@ sus respaldos siguen funcionando porque las rutas son relativas.
 Si prefieres conservar el nombre `tesoreria/`, entra al panel del sitio y en
 **Arbitrajes → Carpeta del sistema** escribe `tesoreria/`. El menú y los botones
 apuntarán ahí.
+
+## 3 bis. El portal de capitanes
+
+El sitio público ya **no** manda a nadie a la app de tesorería. Los botones
+"Consultar estado de cuenta" llevan a `capitanes/`, una pantalla aparte donde el
+capitán ve **solo su equipo y solo para consulta**: no puede registrar pagos,
+editar cargos, tocar tickets ni ver a otro equipo.
+
+1. Abre `capitanes/config.php` y cambia la semilla:
+
+   ```php
+   define('SEMILLA_CAPITANES', 'iX2aNMsbiXKXxOIqy4jLHvs9tdLKbLptuGmrA9ctgUKMlDxL'); // <-- cámbiala
+   ```
+
+   De esa semilla salen los códigos. Si la cambias después, **todos los códigos
+   cambian** y hay que repartirlos otra vez. Guárdala donde guardas la clave de
+   la app de arbitrajes.
+
+2. Revisa que `DATOS_ARBITRAJES` apunte a la misma carpeta que `DATOS_DIR` de
+   `arbitrajes/config.php`. Si dejaste todo en su lugar, ya está bien.
+
+3. Entra a la app de arbitrajes con tu contraseña de siempre y abre
+   **https://ligachapingo.com/arbitrajes/codigos.php**. Ahí está la lista de los
+   equipos con su código, un buscador, el botón "Copiar aviso" (deja listo el
+   mensaje de WhatsApp) y un botón para imprimirla.
+
+   Esa página **no se enlaza desde ningún lado**: se entra escribiendo la
+   dirección, y solo abre si ya iniciaste sesión en arbitrajes.
+
+4. Reparte el código a cada capitán. Con él entra a
+   **https://ligachapingo.com/capitanes/**.
+
+Cómo queda repartido el acceso:
+
+| Quién | Dónde entra | Qué puede hacer |
+|---|---|---|
+| Visitante | `ligachapingo.com` | Ver la liga, inscribirse y consultar clasificaciones |
+| Capitán | `ligachapingo.com/capitanes/` | **Solo leer** el estado de cuenta de su equipo |
+| Mesa directiva | `ligachapingo.com/arbitrajes/` | Cobrar, registrar, corregir — todo, como siempre |
+
+La separación no depende de esconder botones: `capitanes/api.php` no tiene
+ninguna acción que escriba, y el equipo que devuelve lo decide la sesión del
+servidor, no lo que mande el navegador.
 
 ## 4. Entra al panel y publica tu contenido
 
@@ -125,6 +177,11 @@ que sin tus últimas ediciones.
   ```
 - El panel es una sola contraseña compartida, igual que la app. Cámbiala cuando alguien
   deje la mesa directiva.
+- El código de capitán es **por equipo** y solo sirve para mirar. Aunque se filtre, con él
+  no se puede cobrar, corregir ni ver otro equipo. Si quieres invalidarlos todos de golpe,
+  cambia `SEMILLA_CAPITANES` en `capitanes/config.php` y reparte los nuevos.
+- Tras 20 códigos equivocados desde la misma conexión, el portal deja de aceptar intentos
+  durante 15 minutos. Ese conteo vive en `capitanes/datos/`, que debe poder escribirse (755).
 - `img/` es pública a propósito (las fotos tienen que verse), pero su `.htaccess` impide
   que ahí se ejecute cualquier código, y `contenido.php` solo acepta imágenes y PDF.
 
@@ -143,4 +200,8 @@ Queda con el escudo de la liga y accesos directos a Arbitrajes y Convocatorias.
 | "No se pudo contactar al servidor" al guardar | La carpeta `contenido/` no tiene permisos de escritura. Ponla en 755 o 775. |
 | "No se pudo escribir en la carpeta img/" | Mismo caso, pero con `img/`. |
 | El botón Arbitrajes da 404 | La app no está en `public_html/arbitrajes/`. Muévela ahí o cambia la ruta en el panel. |
+| "Ese código no corresponde a ningún equipo" con un código bueno | Cambiaste `SEMILLA_CAPITANES` después de repartirlos. Vuelve a la semilla anterior o reparte los nuevos desde `arbitrajes/codigos.php`. |
+| `codigos.php` dice "Acceso restringido" | Se venció la sesión de arbitrajes. Entra a `arbitrajes/` con tu contraseña y vuelve a abrirla. |
+| El portal de capitanes no muestra movimientos | `capitanes/config.php` apunta a otra carpeta de datos. Debe ser la misma que `DATOS_DIR` de `arbitrajes/config.php`. |
+| La tabla de Segunda Fuerza sigue diciendo "Tabla en camino" | Falta pegar el iframe en `index.html`, donde dice `<!-- INSERTAR IFRAME CLASIFICACIÓN SEGUNDA FUERZA -->`. |
 | La galería se ve vacía | Las fotos se suben desde el panel, pestaña **Galería**; sin imagen la tarjeta no se muestra. |
