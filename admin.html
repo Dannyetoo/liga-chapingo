@@ -166,9 +166,9 @@ var ESQUEMA = [
      {k:'titulo', et:'Título grande', t:T.txt},
      {k:'texto', et:'Párrafo de entrada', t:T.area}
    ]},
-  {clave:'torneo', nombre:'Torneo actual', ayuda:'Se muestra en la portada y en la sección "Torneo actual".',
+  {clave:'torneo', nombre:'Torneo actual', ayuda:'Se muestra en la franja superior del sitio y en la sección "Torneo actual".',
    campos:[
-     {k:'nombre', et:'Nombre del torneo', t:T.txt},
+     {k:'nombre', et:'Nombre del torneo (ej. Tercera Edición)', t:T.txt},
      {k:'estado', et:'Estado (En curso, Inscripciones abiertas…)', t:T.txt, mitad:true},
      {k:'jornada', et:'Jornada', t:T.txt, mitad:true},
      {k:'fechas', et:'Días y horarios', t:T.txt, mitad:true},
@@ -176,10 +176,10 @@ var ESQUEMA = [
      {k:'texto', et:'Descripción', t:T.area}
    ],
    listas:[
-     {k:'datos', nombre:'Cifras destacadas', titulo:'etiqueta', ayuda:'Cuatro como máximo se ven en la portada.',
+     {k:'datos', nombre:'Cifras destacadas', titulo:'etiqueta', ayuda:'Se ven en la sección "Torneo actual".',
       campos:[{k:'valor', et:'Cifra', t:T.txt, mitad:true},{k:'etiqueta', et:'Etiqueta', t:T.txt, mitad:true}]},
      {k:'enlaces', nombre:'Enlaces de calendario y resultados', titulo:'titulo',
-      campos:[{k:'titulo', et:'Título', t:T.txt},{k:'url', et:'Enlace (https://…)', t:T.txt, mitad:true},{k:'nota', et:'Nota corta', t:T.txt, mitad:true}]}
+      campos:[{k:'titulo', et:'Título', t:T.txt},{k:'url', et:'Enlace (https://… o #tablas)', t:T.txt, mitad:true},{k:'nota', et:'Nota corta', t:T.txt, mitad:true}]}
    ]},
   {clave:'eventos', nombre:'Eventos', lista:true, titulo:'titulo', ayuda:'Juntas, jornadas especiales, premiaciones.',
    campos:[
@@ -189,15 +189,6 @@ var ESQUEMA = [
      {k:'lugar', et:'Lugar', t:T.txt},
      {k:'texto', et:'Descripción', t:T.area},
      {k:'imagen', et:'Imagen', t:T.img}
-   ]},
-  {clave:'convocatorias', nombre:'Convocatorias', lista:true, titulo:'titulo', ayuda:'Sube el PDF de la convocatoria para que se pueda descargar.',
-   campos:[
-     {k:'titulo', et:'Título', t:T.txt},
-     {k:'fecha', et:'Publicada', t:T.fecha, mitad:true},
-     {k:'cierre', et:'Cierre de inscripción', t:T.fecha, mitad:true},
-     {k:'vigente', et:'Está vigente', t:T.check},
-     {k:'texto', et:'Descripción', t:T.area},
-     {k:'archivo', et:'Documento (PDF)', t:T.arch}
    ]},
   {clave:'campeones', nombre:'Campeones', lista:true, titulo:'equipo', ayuda:'Un registro por campeón: edición, disciplina, rama y categoría.',
    campos:[
@@ -214,13 +205,6 @@ var ESQUEMA = [
      {k:'titulo', et:'Pie de foto', t:T.txt},
      {k:'imagen', et:'Fotografía', t:T.img}
    ]},
-  {clave:'uniformes', nombre:'Uniformes', lista:true, titulo:'nombre',
-   campos:[
-     {k:'nombre', et:'Nombre de la prenda', t:T.txt},
-     {k:'precio', et:'Precio en pesos (solo el número)', t:T.txt, mitad:true},
-     {k:'texto', et:'Descripción', t:T.area},
-     {k:'imagen', et:'Foto', t:T.img}
-   ]},
   {clave:'arbitrajes', nombre:'Arbitrajes', ayuda:'La franja verde que lleva a los capitanes al portal de consulta del estado de cuenta (capitanes/).',
    campos:[
      {k:'titulo', et:'Título de la sección', t:T.txt},
@@ -229,7 +213,7 @@ var ESQUEMA = [
      {k:'url', et:'Carpeta del sistema', t:T.txt,
       nota:'Ya no se usa en el sitio: los botones llevan siempre a capitanes/, el portal de solo consulta.'}
    ]},
-  {clave:'contacto', nombre:'Contacto', ayuda:'El WhatsApp también se usa en los botones de "Pedir informes" de uniformes.',
+  {clave:'contacto', nombre:'Contacto', ayuda:'El WhatsApp también se usa en el botón "Enviar por WhatsApp" del formulario de contacto.',
    campos:[
      {k:'texto', et:'Texto de presentación', t:T.area},
      {k:'whatsapp', et:'WhatsApp (10 dígitos o con lada 52)', t:T.txt, mitad:true},

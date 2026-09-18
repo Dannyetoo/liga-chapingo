@@ -1,7 +1,7 @@
 {
   "name": "Liga Chapingo",
   "short_name": "Liga Chapingo",
-  "description": "Convocatorias, torneo actual, campeones, uniformes y acceso de representantes de equipo.",
+  "description": "Convocatorias, torneo actual, disciplinas, categorías, campeones y acceso de representantes de equipo.",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
