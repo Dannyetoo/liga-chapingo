@@ -155,10 +155,8 @@ tr:last-child td{border-bottom:0}
         foreach ($lista as $e):
           $cod   = codigoEquipo((string)$e['id']);
           $bonito = codigoBonito($cod);
-          $mensaje = 'Hola, soy de la mesa directiva de Liga Chapingo. El código de capitán de '
-                   . (string)($e['nombre'] ?? '') . ' es ' . $bonito
-                   . '. Con él puedes consultar el estado de cuenta del equipo en ' . $portal
-                   . ' (solo consulta, no se puede modificar nada).';
+          $mensaje = 'Código de acceso al portal de Liga Chapingo, donde podrás consultar tu estado de cuenta: ' . $bonito . "\n"
+                   . $portal;
       ?>
         <tr data-b="<?= h(mb_strtolower(((string)($e['nombre'] ?? '')) . ' ' . ((string)($e['encargado'] ?? '')) . ' ' . $bonito, 'UTF-8')) ?>">
           <td class="eq"><?= h($e['nombre'] ?? '') ?></td>
