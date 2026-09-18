@@ -1,0 +1,62 @@
+# ligachapingo.com — sitio público de Liga Chapingo
+# Este archivo va en la raíz (public_html). La app de arbitrajes conserva el suyo.
+
+# Fuerza HTTPS (quita los # cuando el dominio ya tenga certificado)
+# <IfModule mod_rewrite.c>
+#   RewriteEngine On
+#   RewriteCond %{HTTPS} !=on
+#   RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+# </IfModule>
+
+DirectoryIndex index.html index.php
+Options -Indexes
+
+# Nunca servir la configuración ni los datos del sitio
+<FilesMatch "^(config-sitio\.php|config\.php)$">
+  <IfModule mod_authz_core.c>
+    Require all denied
+  </IfModule>
+  <IfModule !mod_authz_core.c>
+    Order allow,deny
+    Deny from all
+  </IfModule>
+</FilesMatch>
+<FilesMatch "\.(json|md|log|bak|sql)$">
+  <IfModule mod_authz_core.c>
+    Require all denied
+  </IfModule>
+  <IfModule !mod_authz_core.c>
+    Order allow,deny
+    Deny from all
+  </IfModule>
+</FilesMatch>
+
+<IfModule mod_headers.c>
+  Header set X-Content-Type-Options "nosniff"
+  Header set Referrer-Policy "strict-origin-when-cross-origin"
+  Header set X-Frame-Options "SAMEORIGIN"
+</IfModule>
+
+<IfModule mod_mime.c>
+  AddType application/manifest+json .webmanifest
+  AddType image/webp .webp
+  AddType font/woff2 .woff2
+</IfModule>
+
+# Caché de imágenes y fuentes; el HTML siempre fresco
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType image/jpeg  "access plus 30 days"
+  ExpiresByType image/png   "access plus 30 days"
+  ExpiresByType image/webp  "access plus 30 days"
+  ExpiresByType image/gif   "access plus 30 days"
+  ExpiresByType text/css    "access plus 7 days"
+  ExpiresByType text/html   "access plus 0 seconds"
+</IfModule>
+
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css text/plain application/javascript application/json image/svg+xml
+</IfModule>
+
+# Páginas de error propias (opcional, se ven mejor que las del hosting)
+ErrorDocument 404 /index.html

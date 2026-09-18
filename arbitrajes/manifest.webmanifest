@@ -1,0 +1,16 @@
+{
+  "name": "Tesorería Premier Chapingo",
+  "short_name": "Tesorería PC",
+  "description": "Control de cobros por equipo, gastos y saldo neto de la liga.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#F1F3ED",
+  "theme_color": "#1B6B45",
+  "lang": "es-MX",
+  "icons": [
+    { "src": "icono-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icono-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" }
+  ]
+}

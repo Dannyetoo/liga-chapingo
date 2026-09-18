@@ -1,0 +1,847 @@
+<!doctype html>
+<html lang="es-MX">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Liga Chapingo</title>
+<meta name="description" content="Liga Chapingo — convocatorias, torneo actual, campeones, galería, uniformes y acceso de representantes de equipo para revisar su estado de cuenta de arbitrajes.">
+<meta name="theme-color" content="#1B6B45">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icono-192.png">
+<link rel="apple-touch-icon" href="icono-180.png">
+<meta property="og:title" content="Liga Chapingo">
+<meta property="og:description" content="Deporte universitario con orden y palabra. Convocatorias, torneo actual, campeones y uniformes.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="icono-512.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ===================== Identidad Liga Chapingo ===================== */
+:root{
+  --verde-900:#0C3523;
+  --verde-800:#123F2B;
+  --verde:#1B6B45;
+  --verde-400:#2E9463;
+  --oro:#C9A227;
+  --oro-claro:#EAC85C;
+  --crema:#F4F3EC;
+  --papel:#FFFFFF;
+  --tinta:#14231C;
+  --gris:#5F6F67;
+  --linea:#E2E4DB;
+  --sombra:0 1px 2px rgba(12,53,35,.06),0 8px 24px rgba(12,53,35,.07);
+  --sombra-alta:0 18px 48px rgba(12,53,35,.16);
+  --r:14px;
+  --ancho:1160px;
+  --display:'Barlow Condensed',Impact,'Arial Narrow',sans-serif;
+  --texto:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:96px;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--crema);color:var(--tinta);font-family:var(--texto);font-size:16px;line-height:1.6;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit}
+button{font:inherit}
+.wrap{width:100%;max-width:var(--ancho);margin:0 auto;padding-inline:20px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* ===================== Barra superior ===================== */
+.cinta{background:var(--verde-900);color:#CFE3D8;font-size:12.5px;letter-spacing:.02em}
+.cinta .wrap{display:flex;align-items:center;gap:14px;min-height:38px;flex-wrap:wrap}
+.cinta b{color:#fff;font-weight:600}
+.cinta .punto{width:6px;height:6px;border-radius:50%;background:var(--oro-claro);flex:none;animation:latido 2.4s ease-in-out infinite}
+@keyframes latido{0%,100%{opacity:1}50%{opacity:.35}}
+.cinta .sep{flex:1}
+.cinta a{color:#CFE3D8;text-decoration:none;opacity:.9}
+.cinta a:hover{color:#fff;opacity:1}
+
+/* ===================== Encabezado ===================== */
+header.barra{position:sticky;top:0;z-index:60;background:rgba(255,255,255,.94);backdrop-filter:blur(10px);border-bottom:1px solid var(--linea)}
+header.barra .wrap{display:flex;align-items:center;gap:18px;min-height:66px}
+.marca{display:flex;align-items:center;gap:11px;text-decoration:none;min-width:0}
+.marca .escudo{width:40px;height:40px;border-radius:11px;flex:none;box-shadow:0 4px 12px rgba(27,107,69,.28)}
+.marca .txt{display:flex;flex-direction:column;line-height:1;min-width:0}
+.marca .n{font-family:var(--display);font-weight:700;font-size:23px;letter-spacing:.045em;text-transform:uppercase;color:var(--verde-900);white-space:nowrap}
+.marca .s{font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--gris);margin-top:3px;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:34ch}
+nav.menu{display:flex;align-items:center;gap:2px;margin-left:auto}
+nav.menu a{padding:9px 11px;border-radius:9px;text-decoration:none;font-size:14px;font-weight:500;color:#2C3B33;white-space:nowrap}
+nav.menu a:hover{background:#EDF2EE;color:var(--verde)}
+nav.menu a.destacado{color:var(--verde);font-weight:600}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:0;border-radius:10px;padding:11px 18px;font-size:14.5px;font-weight:600;text-decoration:none;cursor:pointer;transition:transform .12s ease,box-shadow .12s ease,background .12s ease}
+.btn:active{transform:translateY(1px)}
+.btn.verde{background:var(--verde);color:#fff;box-shadow:0 6px 16px rgba(27,107,69,.28)}
+.btn.verde:hover{background:#175B3B}
+.btn.oro{background:var(--oro);color:#2A2005;box-shadow:0 6px 16px rgba(201,162,39,.3)}
+.btn.oro:hover{background:#B99020}
+.btn.linea{background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.5)}
+.btn.linea:hover{background:rgba(255,255,255,.12);border-color:#fff}
+.btn.claro{background:#fff;color:var(--verde-900);border:1px solid var(--linea)}
+.btn.claro:hover{border-color:var(--verde-400);color:var(--verde)}
+.btn.sm{padding:8px 13px;font-size:13.5px;border-radius:9px}
+.hamb{display:none;margin-left:auto;background:transparent;border:1px solid var(--linea);border-radius:10px;width:44px;height:42px;cursor:pointer;align-items:center;justify-content:center;color:var(--verde-900)}
+.hamb svg{width:22px;height:22px}
+
+/* menú móvil */
+.cajon{position:fixed;inset:0;z-index:70;background:rgba(12,53,35,.5);opacity:0;pointer-events:none;transition:opacity .2s ease}
+.cajon.abierto{opacity:1;pointer-events:auto}
+.cajon .panel{position:absolute;top:0;right:0;bottom:0;width:min(320px,86vw);background:#fff;padding:22px 20px;display:flex;flex-direction:column;gap:4px;transform:translateX(100%);transition:transform .22s ease;overflow-y:auto}
+.cajon.abierto .panel{transform:none}
+.cajon .panel a{padding:13px 12px;border-radius:10px;text-decoration:none;font-weight:500;color:#22302A;border-bottom:1px solid #F0F2EE}
+.cajon .panel a:last-of-type{border-bottom:0}
+.cajon .cerrar{align-self:flex-end;background:#F1F3EE;border:0;border-radius:9px;width:38px;height:38px;font-size:20px;cursor:pointer;color:var(--verde-900);margin-bottom:8px}
+
+/* ===================== Portada ===================== */
+.portada{position:relative;background:linear-gradient(150deg,var(--verde-900) 0%,#134430 45%,var(--verde) 100%);color:#fff;overflow:hidden}
+.portada::before{content:"";position:absolute;inset:0;opacity:.14;
+  background-image:repeating-linear-gradient(115deg,rgba(255,255,255,.55) 0 2px,transparent 2px 26px)}
+.portada::after{content:"";position:absolute;right:-140px;top:-120px;width:520px;height:520px;border-radius:50%;
+  background:radial-gradient(circle at 35% 35%,rgba(201,162,39,.34),transparent 62%)}
+.portada .wrap{position:relative;z-index:2;display:grid;grid-template-columns:1.25fr .9fr;gap:44px;align-items:center;padding-block:68px 74px}
+.pill{display:inline-flex;align-items:center;gap:9px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.24);
+  border-radius:999px;padding:7px 14px;font-size:12.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase}
+.pill .brillo{width:7px;height:7px;border-radius:50%;background:var(--oro-claro)}
+.portada h1{font-family:var(--display);font-weight:700;font-size:clamp(40px,6.4vw,70px);line-height:.98;letter-spacing:.005em;margin:20px 0 0;text-wrap:balance}
+.portada h1 em{font-style:normal;color:var(--oro-claro)}
+.portada p.entrada{font-size:17px;line-height:1.65;color:#D7E6DD;max-width:54ch;margin:18px 0 0}
+.acciones{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+.tarjeta-torneo{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.18);border-radius:18px;padding:24px;backdrop-filter:blur(6px)}
+.tarjeta-torneo .cab{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-bottom:14px;border-bottom:1px solid rgba(255,255,255,.16)}
+.tarjeta-torneo .cab .et{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#9FC4AF}
+.tarjeta-torneo .cab .nom{font-family:var(--display);font-size:26px;font-weight:600;letter-spacing:.02em;line-height:1.1;margin-top:2px}
+.estado-vivo{display:inline-flex;align-items:center;gap:7px;background:rgba(201,162,39,.2);border:1px solid rgba(234,200,92,.45);color:var(--oro-claro);
+  border-radius:999px;padding:5px 11px;font-size:11.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;white-space:nowrap}
+.mini{display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-top:16px;background:rgba(255,255,255,.1);border-radius:12px;overflow:hidden}
+.mini div{background:rgba(9,42,27,.42);padding:14px 14px}
+.mini .v{font-family:var(--display);font-size:30px;font-weight:700;line-height:1;color:#fff}
+.mini .e{font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:#9FC4AF;margin-top:6px}
+.tarjeta-torneo .pie{margin-top:16px;font-size:13.5px;color:#CBDFD4;display:flex;gap:8px;align-items:flex-start}
+.tarjeta-torneo .pie svg{width:16px;height:16px;flex:none;margin-top:2px;opacity:.75}
+
+/* ===================== Secciones ===================== */
+section.bloque{padding-block:74px}
+section.bloque.claro{background:var(--papel)}
+.encabeza{max-width:64ch;margin-bottom:34px}
+.eyebrow{display:inline-flex;align-items:center;gap:9px;font-size:11.5px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--verde)}
+.eyebrow::before{content:"";width:26px;height:2px;background:var(--oro);border-radius:2px}
+.encabeza h2{font-family:var(--display);font-weight:700;font-size:clamp(31px,4.4vw,45px);line-height:1.04;letter-spacing:.01em;margin:12px 0 0;color:var(--verde-900)}
+.encabeza p{color:var(--gris);margin:12px 0 0;font-size:16.5px}
+.rejilla{display:grid;gap:20px}
+.c3{grid-template-columns:repeat(3,1fr)}
+.c2{grid-template-columns:repeat(2,1fr)}
+.c4{grid-template-columns:repeat(4,1fr)}
+
+.tarjeta{background:var(--papel);border:1px solid var(--linea);border-radius:var(--r);box-shadow:var(--sombra);overflow:hidden;display:flex;flex-direction:column;transition:transform .16s ease,box-shadow .16s ease}
+.tarjeta:hover{transform:translateY(-3px);box-shadow:var(--sombra-alta)}
+section.bloque.claro .tarjeta{background:#FBFBF8}
+.tarjeta .cuerpo{padding:20px;display:flex;flex-direction:column;gap:10px;flex:1}
+.tarjeta h3{font-family:var(--display);font-size:24px;font-weight:600;letter-spacing:.015em;line-height:1.15;margin:0;color:var(--verde-900)}
+.tarjeta p{margin:0;color:var(--gris);font-size:14.5px}
+.foto{aspect-ratio:16/10;background:linear-gradient(140deg,var(--verde-800),var(--verde-400));position:relative;overflow:hidden}
+.foto img{width:100%;height:100%;object-fit:cover}
+.foto.vacia::after{content:"LCH";position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  font-family:var(--display);font-size:54px;font-weight:700;letter-spacing:.14em;color:rgba(255,255,255,.22)}
+.meta{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:12.5px;color:var(--gris)}
+.chip{display:inline-flex;align-items:center;gap:6px;background:#EEF3EF;border:1px solid #DCE6DF;border-radius:999px;padding:4px 10px;font-size:12px;font-weight:600;color:var(--verde)}
+.chip.oro{background:#FBF3DC;border-color:#F0E2B6;color:#87680F}
+.chip.gris{background:#F1F2EF;border-color:var(--linea);color:var(--gris)}
+.fecha-caja{display:flex;flex-direction:column;align-items:center;justify-content:center;min-width:62px;padding:9px 6px;border-radius:11px;
+  background:var(--verde-900);color:#fff;line-height:1;flex:none}
+.fecha-caja .d{font-family:var(--display);font-size:28px;font-weight:700}
+.fecha-caja .m{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--oro-claro);margin-top:5px}
+.vacio{grid-column:1/-1;border:1px dashed var(--linea);border-radius:var(--r);padding:34px;text-align:center;color:var(--gris);background:rgba(255,255,255,.6);font-size:14.5px}
+
+/* torneo actual */
+.panel-torneo{display:grid;grid-template-columns:1.1fr .9fr;gap:22px;align-items:start}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:22px}
+.stat{background:var(--papel);border:1px solid var(--linea);border-radius:var(--r);padding:18px;box-shadow:var(--sombra)}
+.stat .v{font-family:var(--display);font-size:38px;font-weight:700;line-height:1;color:var(--verde)}
+.stat .e{font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--gris);margin-top:7px}
+.datos-torneo{background:var(--papel);border:1px solid var(--linea);border-radius:var(--r);padding:24px;box-shadow:var(--sombra)}
+.lista-datos{display:flex;flex-direction:column;gap:0;margin:16px 0 0}
+.lista-datos div{display:flex;gap:12px;padding:12px 0;border-bottom:1px solid #F0F2EE;font-size:14.5px}
+.lista-datos div:last-child{border-bottom:0}
+.lista-datos span:first-child{color:var(--gris);min-width:104px;flex:none}
+.lista-datos span:last-child{font-weight:500}
+.enlaces-torneo{display:flex;flex-direction:column;gap:10px;margin-top:20px}
+.enlace-fila{display:flex;align-items:center;gap:12px;padding:13px 15px;border:1px solid var(--linea);border-radius:11px;background:#FBFBF8;
+  text-decoration:none;transition:border-color .14s ease,background .14s ease}
+.enlace-fila:hover{border-color:var(--verde-400);background:#F4F8F5}
+.enlace-fila .t{font-weight:600;font-size:14.5px}
+.enlace-fila .n{font-size:12.5px;color:var(--gris)}
+.enlace-fila .fl{margin-left:auto;color:var(--verde);font-size:18px}
+
+/* convocatorias */
+.conv{display:flex;gap:18px;align-items:flex-start;background:var(--papel);border:1px solid var(--linea);border-left:4px solid var(--oro);
+  border-radius:var(--r);padding:20px 22px;box-shadow:var(--sombra)}
+.conv .ic{width:44px;height:44px;border-radius:11px;background:#FBF3DC;color:#87680F;display:flex;align-items:center;justify-content:center;flex:none}
+.conv .ic svg{width:22px;height:22px}
+.conv h3{font-family:var(--display);font-size:23px;font-weight:600;margin:0 0 4px;color:var(--verde-900)}
+.conv p{margin:6px 0 0;color:var(--gris);font-size:14.5px}
+.conv .der{margin-left:auto;display:flex;flex-direction:column;gap:8px;align-items:flex-end;flex:none}
+
+/* campeones */
+.campeon{position:relative;background:linear-gradient(158deg,var(--verde-900),#16523A);color:#fff;border-radius:var(--r);padding:24px;overflow:hidden;
+  border:1px solid rgba(255,255,255,.08)}
+.campeon::after{content:"";position:absolute;right:-46px;bottom:-46px;width:170px;height:170px;border-radius:50%;
+  background:radial-gradient(circle at 40% 40%,rgba(201,162,39,.35),transparent 65%)}
+.campeon .anio{font-family:var(--display);font-size:13px;font-weight:700;letter-spacing:.2em;color:var(--oro-claro)}
+.campeon .eq{font-family:var(--display);font-size:31px;font-weight:700;line-height:1.06;margin:8px 0 10px;position:relative;z-index:1}
+.campeon .cat{font-size:13px;color:#B9D3C4;position:relative;z-index:1}
+.campeon .copa{position:absolute;top:20px;right:20px;width:26px;height:26px;color:var(--oro-claro);opacity:.9;z-index:1}
+
+/* galería */
+.galeria{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.galeria button{padding:0;border:0;background:#0000;cursor:zoom-in;border-radius:12px;overflow:hidden;aspect-ratio:1/1;position:relative}
+.galeria img{width:100%;height:100%;object-fit:cover;transition:transform .3s ease}
+.galeria button:hover img{transform:scale(1.06)}
+.galeria button .cap{position:absolute;left:0;right:0;bottom:0;padding:22px 12px 10px;color:#fff;font-size:12.5px;text-align:left;
+  background:linear-gradient(transparent,rgba(9,42,27,.8));opacity:0;transition:opacity .2s ease}
+.galeria button:hover .cap{opacity:1}
+.visor{position:fixed;inset:0;z-index:90;background:rgba(9,26,18,.93);display:none;align-items:center;justify-content:center;padding:24px}
+.visor.abierto{display:flex}
+.visor img{max-width:min(1100px,92vw);max-height:84vh;width:auto;border-radius:10px;box-shadow:0 30px 80px rgba(0,0,0,.5)}
+.visor .x{position:absolute;top:18px;right:20px;background:rgba(255,255,255,.14);border:0;color:#fff;width:44px;height:44px;border-radius:50%;font-size:22px;cursor:pointer}
+.visor .pie{position:absolute;bottom:26px;left:0;right:0;text-align:center;color:#CFE3D8;font-size:14px}
+
+/* uniformes */
+.uniforme .precio{display:inline-flex;align-items:baseline;gap:3px;font-family:var(--display);font-size:30px;font-weight:700;color:var(--verde)}
+.uniforme .precio small{font-size:14px;font-weight:600;font-family:var(--texto);color:var(--gris)}
+
+/* arbitrajes */
+.arbitrajes{background:linear-gradient(140deg,var(--verde-900),#15493200 60%),linear-gradient(120deg,#103A28,var(--verde));color:#fff;position:relative;overflow:hidden}
+.arbitrajes::before{content:"";position:absolute;inset:0;opacity:.1;
+  background-image:repeating-linear-gradient(115deg,rgba(255,255,255,.6) 0 2px,transparent 2px 24px)}
+.arbitrajes .wrap{position:relative;z-index:1;display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center;padding-block:70px}
+.arbitrajes h2{font-family:var(--display);font-weight:700;font-size:clamp(30px,4.2vw,44px);line-height:1.04;margin:14px 0 0}
+.arbitrajes p{color:#D2E4D9;margin:14px 0 0;font-size:16.5px;max-width:52ch}
+.acceso{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2);border-radius:18px;padding:26px}
+.acceso .cand{width:46px;height:46px;border-radius:12px;background:rgba(234,200,92,.16);color:var(--oro-claro);display:flex;align-items:center;justify-content:center;margin-bottom:16px}
+.acceso .cand svg{width:24px;height:24px}
+.acceso h3{font-family:var(--display);font-size:25px;font-weight:600;margin:0 0 8px}
+.acceso p{font-size:14px;color:#C6DCCE;margin:0 0 18px;max-width:none}
+.acceso .nota{font-size:12.5px;color:#9FC4AF;margin-top:14px;display:flex;gap:8px;align-items:flex-start}
+.acceso .nota svg{width:15px;height:15px;flex:none;margin-top:2px}
+
+/* contacto */
+.contacto-grid{display:grid;grid-template-columns:1fr 1fr;gap:26px}
+.info-contacto{display:flex;flex-direction:column;gap:2px}
+.info-fila{display:flex;gap:14px;align-items:flex-start;padding:15px 0;border-bottom:1px solid var(--linea)}
+.info-fila:last-child{border-bottom:0}
+.info-fila .ic{width:38px;height:38px;border-radius:10px;background:#EEF3EF;color:var(--verde);display:flex;align-items:center;justify-content:center;flex:none}
+.info-fila .ic svg{width:19px;height:19px}
+.info-fila .et{font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--gris)}
+.info-fila .va{font-weight:500;font-size:15px;word-break:break-word}
+.info-fila a{text-decoration:none}
+.info-fila a:hover{color:var(--verde)}
+.forma{background:var(--papel);border:1px solid var(--linea);border-radius:var(--r);padding:24px;box-shadow:var(--sombra)}
+.campo{display:flex;flex-direction:column;gap:6px;margin-bottom:14px}
+.campo label{font-size:12.5px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--gris)}
+.campo input,.campo textarea,.campo select{border:1px solid var(--linea);border-radius:10px;padding:11px 13px;font:inherit;font-size:15px;background:#FCFCFA;color:var(--tinta)}
+.campo input:focus,.campo textarea:focus,.campo select:focus{outline:2px solid rgba(46,148,99,.35);outline-offset:1px;border-color:var(--verde-400)}
+.campo textarea{min-height:112px;resize:vertical}
+.redes{display:flex;gap:10px;margin-top:18px;flex-wrap:wrap}
+.redes a{width:42px;height:42px;border-radius:11px;background:#EEF3EF;color:var(--verde);display:flex;align-items:center;justify-content:center;text-decoration:none;border:1px solid var(--linea)}
+.redes a:hover{background:var(--verde);color:#fff;border-color:var(--verde)}
+.redes svg{width:20px;height:20px}
+
+/* pie */
+footer.pie{background:var(--verde-900);color:#A9C6B6;padding-block:46px 30px;font-size:14px}
+footer.pie .cols{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:30px;padding-bottom:28px;border-bottom:1px solid rgba(255,255,255,.12)}
+footer.pie .marca .n{color:#fff}
+footer.pie .marca .s{color:#8FB4A0}
+footer.pie h4{font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:#7FA792;margin:0 0 14px;font-weight:700}
+footer.pie a{color:#A9C6B6;text-decoration:none;display:block;padding:5px 0}
+footer.pie a:hover{color:#fff}
+footer.pie .abajo{display:flex;flex-wrap:wrap;gap:10px;align-items:center;padding-top:22px;font-size:12.5px;color:#7FA792}
+footer.pie .abajo .sep{flex:1}
+footer.pie p{margin:0 0 14px;max-width:42ch;color:#9CBFAD}
+
+/* ===================== Adaptable ===================== */
+@media (max-width:1000px){
+  nav.menu{display:none}
+  .hamb{display:flex}
+  .portada .wrap{grid-template-columns:1fr;gap:34px;padding-block:52px 58px}
+  .panel-torneo,.contacto-grid,.arbitrajes .wrap{grid-template-columns:1fr}
+  .c3,.c4{grid-template-columns:repeat(2,1fr)}
+  .stats{grid-template-columns:repeat(2,1fr)}
+  .galeria{grid-template-columns:repeat(3,1fr)}
+  footer.pie .cols{grid-template-columns:1fr 1fr}
+}
+@media (max-width:620px){
+  html{scroll-padding-top:78px}
+  section.bloque{padding-block:52px}
+  .c2,.c3,.c4{grid-template-columns:1fr}
+  .galeria{grid-template-columns:repeat(2,1fr)}
+  .conv{flex-wrap:wrap}
+  .conv .der{margin-left:0;width:100%;align-items:stretch;flex-direction:row}
+  .conv .der .btn{flex:1}
+  footer.pie .cols{grid-template-columns:1fr}
+  .cinta .oculta-movil{display:none}
+  .marca .escudo{width:36px;height:36px}
+  .marca .n{font-size:20px}
+  header.barra .marca .s{display:none}
+  header.barra .btn.verde{display:none}
+  header.barra .wrap{gap:10px}
+  .hamb{margin-left:auto}
+}
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+  html{scroll-behavior:auto}
+}
+</style>
+</head>
+<body>
+
+<div class="cinta">
+  <div class="wrap">
+    <span class="punto"></span>
+    <span id="cinta-torneo"><b>Segunda Edición 2026</b> · en curso</span>
+    <span class="sep"></span>
+    <a class="oculta-movil" href="#contacto">Contacto</a>
+    <a href="arbitrajes/" id="cinta-arb">Acceso representantes</a>
+  </div>
+</div>
+
+<header class="barra">
+  <div class="wrap">
+    <a class="marca" href="#inicio">
+      <img class="escudo" src="icono-192.png" alt="Escudo de Liga Chapingo">
+      <span class="txt">
+        <span class="n">Liga Chapingo</span>
+        <span class="s" id="marca-sub">Universidad Autónoma Chapingo</span>
+      </span>
+    </a>
+    <nav class="menu">
+      <a href="#torneo">Torneo actual</a>
+      <a href="#eventos">Eventos</a>
+      <a href="#convocatorias">Convocatorias</a>
+      <a href="#campeones">Campeones</a>
+      <a href="#galeria">Galería</a>
+      <a href="#uniformes">Uniformes</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+    <a class="btn verde sm" href="arbitrajes/" style="flex:none">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
+      Arbitrajes
+    </a>
+    <button class="hamb" id="abrir-menu" aria-label="Abrir menú">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+  </div>
+</header>
+
+<div class="cajon" id="cajon">
+  <div class="panel">
+    <button class="cerrar" id="cerrar-menu" aria-label="Cerrar menú">&times;</button>
+    <a href="#torneo">Torneo actual</a>
+    <a href="#eventos">Eventos</a>
+    <a href="#convocatorias">Convocatorias</a>
+    <a href="#campeones">Campeones</a>
+    <a href="#galeria">Galería</a>
+    <a href="#uniformes">Uniformes</a>
+    <a href="#contacto">Contacto</a>
+    <a class="btn verde" style="margin-top:14px" href="arbitrajes/">Arbitrajes · Representantes</a>
+  </div>
+</div>
+
+<main>
+
+<!-- ===================== PORTADA ===================== -->
+<section class="portada" id="inicio">
+  <div class="wrap">
+    <div>
+      <span class="pill"><span class="brillo"></span><span id="hero-eyebrow">Segunda Edición 2026</span></span>
+      <h1 id="hero-titulo">La liga de Chapingo, en una sola página</h1>
+      <p class="entrada" id="hero-texto"></p>
+      <div class="acciones">
+        <a class="btn oro" href="#convocatorias">Ver convocatorias</a>
+        <a class="btn linea" href="arbitrajes/">Entrar a Arbitrajes</a>
+      </div>
+    </div>
+    <aside class="tarjeta-torneo">
+      <div class="cab">
+        <div>
+          <div class="et">Torneo actual</div>
+          <div class="nom" id="hero-torneo">Segunda Edición 2026</div>
+        </div>
+        <span class="estado-vivo" id="hero-estado">En curso</span>
+      </div>
+      <div class="mini" id="hero-mini"></div>
+      <div class="pie">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s7-5.6 7-11a7 7 0 1 0-14 0c0 5.4 7 11 7 11Z"/><circle cx="12" cy="10" r="2.6"/></svg>
+        <span id="hero-sede">Canchas UACh, Chapingo, Texcoco</span>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<!-- ===================== TORNEO ACTUAL ===================== -->
+<section class="bloque" id="torneo">
+  <div class="wrap">
+    <div class="encabeza">
+      <span class="eyebrow">En juego ahora</span>
+      <h2 id="t-nombre">Torneo actual</h2>
+      <p id="t-texto"></p>
+    </div>
+    <div class="stats" id="t-stats"></div>
+    <div class="panel-torneo">
+      <div class="datos-torneo">
+        <span class="eyebrow">Cómo va</span>
+        <div class="lista-datos" id="t-lista"></div>
+      </div>
+      <div class="datos-torneo">
+        <span class="eyebrow">Calendario y resultados</span>
+        <div class="enlaces-torneo" id="t-enlaces"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== EVENTOS ===================== -->
+<section class="bloque claro" id="eventos">
+  <div class="wrap">
+    <div class="encabeza">
+      <span class="eyebrow">Agenda</span>
+      <h2>Eventos</h2>
+      <p>Juntas de representantes, jornadas especiales, entrega de credenciales y premiaciones.</p>
+    </div>
+    <div class="rejilla c3" id="lista-eventos"></div>
+  </div>
+</section>
+
+<!-- ===================== CONVOCATORIAS ===================== -->
+<section class="bloque" id="convocatorias">
+  <div class="wrap">
+    <div class="encabeza">
+      <span class="eyebrow">Inscripciones</span>
+      <h2>Convocatorias</h2>
+      <p>Bases, cuotas, categorías y fechas de cierre. Descarga el documento y preséntalo firmado en la mesa directiva.</p>
+    </div>
+    <div class="rejilla" id="lista-convocatorias"></div>
+  </div>
+</section>
+
+<!-- ===================== CAMPEONES ===================== -->
+<section class="bloque claro" id="campeones">
+  <div class="wrap">
+    <div class="encabeza">
+      <span class="eyebrow">Palmarés</span>
+      <h2>Campeones</h2>
+      <p>Los equipos que levantaron el trofeo en cada edición, disciplina, rama y categoría.</p>
+    </div>
+    <div class="rejilla c3" id="lista-campeones"></div>
+  </div>
+</section>
+
+<!-- ===================== GALERÍA ===================== -->
+<section class="bloque" id="galeria">
+  <div class="wrap">
+    <div class="encabeza">
+      <span class="eyebrow">Fotografía</span>
+      <h2>Galería</h2>
+      <p>Momentos de la cancha, premiaciones y la vida de la liga.</p>
+    </div>
+    <div class="galeria" id="lista-galeria"></div>
+  </div>
+</section>
+
+<!-- ===================== UNIFORMES ===================== -->
+<section class="bloque claro" id="uniformes">
+  <div class="wrap">
+    <div class="encabeza">
+      <span class="eyebrow">Equipamiento</span>
+      <h2>Uniformes</h2>
+      <p>Diseño personalizado para tu equipo, con el escudo y los colores que ustedes elijan.</p>
+    </div>
+    <div class="rejilla c3" id="lista-uniformes"></div>
+  </div>
+</section>
+
+<!-- ===================== ARBITRAJES ===================== -->
+<section class="arbitrajes" id="arbitrajes">
+  <div class="wrap">
+    <div>
+      <span class="pill"><span class="brillo"></span>Solo representantes</span>
+      <h2 id="ar-titulo">Arbitrajes</h2>
+      <p id="ar-texto"></p>
+      <div class="acciones">
+        <a class="btn oro" href="arbitrajes/" id="ar-boton">Iniciar sesión</a>
+        <a class="btn linea" href="#contacto">No tengo mi clave</a>
+      </div>
+    </div>
+    <div class="acceso">
+      <div class="cand">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
+      </div>
+      <h3>Estado de cuenta de tu equipo</h3>
+      <p>Cargos de arbitraje e inscripción, pagos entregados, saldo pendiente, multas individuales de tus jugadores y el ticket de cada movimiento.</p>
+      <a class="btn claro" href="arbitrajes/" style="width:100%">Entrar al sistema</a>
+      <div class="nota" id="ar-aviso-caja">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg>
+        <span id="ar-aviso"></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CONTACTO ===================== -->
+<section class="bloque" id="contacto">
+  <div class="wrap">
+    <div class="encabeza">
+      <span class="eyebrow">Mesa directiva</span>
+      <h2>Contacto</h2>
+      <p id="c-texto"></p>
+    </div>
+    <div class="contacto-grid">
+      <div class="info-contacto" id="c-info"></div>
+      <form class="forma" id="c-forma">
+        <div class="campo">
+          <label for="f-nombre">Tu nombre</label>
+          <input id="f-nombre" required placeholder="Nombre del representante">
+        </div>
+        <div class="campo">
+          <label for="f-equipo">Equipo o categoría</label>
+          <input id="f-equipo" placeholder="Ej. Dep. Fitotecnia · Varonil Libre">
+        </div>
+        <div class="campo">
+          <label for="f-asunto">Asunto</label>
+          <select id="f-asunto">
+            <option>Inscripción a un torneo</option>
+            <option>Estado de cuenta y arbitrajes</option>
+            <option>Clave de acceso de representante</option>
+            <option>Uniformes</option>
+            <option>Otro</option>
+          </select>
+        </div>
+        <div class="campo">
+          <label for="f-mensaje">Mensaje</label>
+          <textarea id="f-mensaje" required placeholder="Cuéntanos qué necesitas…"></textarea>
+        </div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap">
+          <button class="btn verde" type="submit" id="f-enviar" style="flex:1">Enviar por WhatsApp</button>
+          <button class="btn claro" type="button" id="f-correo" style="flex:1">Enviar por correo</button>
+        </div>
+        <p style="font-size:12.5px;color:var(--gris);margin:14px 0 0">Al enviar se abre tu aplicación de mensajes con el texto ya escrito. Ningún dato se guarda en el sitio.</p>
+      </form>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="pie">
+  <div class="wrap">
+    <div class="cols">
+      <div>
+        <a class="marca" href="#inicio" style="margin-bottom:14px">
+          <img class="escudo" src="icono-192.png" alt="">
+          <span class="txt">
+            <span class="n">Liga Chapingo</span>
+            <span class="s" id="pie-lema">Deporte universitario</span>
+          </span>
+        </a>
+        <p id="pie-texto">Liga deportiva de la Universidad Autónoma Chapingo. Más de mil participantes en cuatro disciplinas.</p>
+        <div class="redes" id="pie-redes"></div>
+      </div>
+      <div>
+        <h4>La liga</h4>
+        <a href="#torneo">Torneo actual</a>
+        <a href="#convocatorias">Convocatorias</a>
+        <a href="#campeones">Campeones</a>
+        <a href="#eventos">Eventos</a>
+      </div>
+      <div>
+        <h4>Equipos</h4>
+        <a href="arbitrajes/">Arbitrajes · Estado de cuenta</a>
+        <a href="#uniformes">Uniformes</a>
+        <a href="#galeria">Galería</a>
+        <a href="#contacto">Contacto</a>
+      </div>
+    </div>
+    <div class="abajo">
+      <span>© <span id="anio">2026</span> Liga Chapingo · ligachapingo.com</span>
+      <span class="sep"></span>
+      <span id="pie-rev"></span>
+    </div>
+  </div>
+</footer>
+
+<div class="visor" id="visor">
+  <button class="x" id="visor-x" aria-label="Cerrar">&times;</button>
+  <img id="visor-img" src="" alt="">
+  <div class="pie" id="visor-pie"></div>
+</div>
+
+<script>
+(function(){
+'use strict';
+
+/* ---------- contenido de respaldo (si contenido.php no responde) ---------- */
+var DEFECTO = {
+  sitio:{nombre:'Liga Chapingo', lema:'Deporte universitario con orden y palabra', subtitulo:'Universidad Autónoma Chapingo'},
+  hero:{eyebrow:'Segunda Edición 2026', titulo:'La liga de Chapingo, en una sola página',
+        texto:'Convocatorias, calendario del torneo en curso, campeones, uniformes y el acceso de representantes de equipo para revisar su estado de cuenta de arbitrajes.'},
+  torneo:{nombre:'Segunda Edición 2026', estado:'En curso', jornada:'Jornada 4',
+          fechas:'Sábados y domingos · 9:00 a 18:00 h', sede:'Canchas UACh, Chapingo, Texcoco',
+          texto:'Fase regular en marcha. Los partidos se juegan en las canchas de la Universidad Autónoma Chapingo, Texcoco, Estado de México.',
+          datos:[{etiqueta:'Equipos inscritos',valor:'86'},{etiqueta:'Jugadores',valor:'1,100+'},
+                 {etiqueta:'Disciplinas',valor:'4'},{etiqueta:'Categorías',valor:'12'}],
+          enlaces:[{titulo:'Calendario y resultados',url:'#',nota:'Copa Fácil'},
+                   {titulo:'Tabla general',url:'#',nota:'Actualizada cada lunes'}]},
+  eventos:[{id:'ev1',titulo:'Junta de representantes',fecha:'2026-09-20',hora:'11:00',lugar:'Aula Magna, UACh',
+            texto:'Entrega de credenciales, calendario de la segunda vuelta y acuerdos de arbitraje. Asistencia obligatoria para un representante por equipo.'},
+           {id:'ev2',titulo:'Jornada doble de aniversario',fecha:'2026-10-04',hora:'09:00',lugar:'Canchas UACh',
+            texto:'Todas las categorías juegan el mismo día. Habrá reconocimiento a los equipos con inscripción completa.'}],
+  convocatorias:[{id:'cv1',titulo:'Convocatoria Segunda Edición 2026',fecha:'2026-08-01',cierre:'2026-08-25',vigente:true,
+                  texto:'Bases de participación, cuotas, categorías, ramas y reglamento de la edición en curso.',archivo:''},
+                 {id:'cv2',titulo:'Torneo Relámpago de fin de año',fecha:'2026-11-10',cierre:'2026-12-01',vigente:true,
+                  texto:'Formato de eliminación directa en un fin de semana. Cupo limitado a 24 equipos por rama.',archivo:''}],
+  campeones:[{id:'ca1',anio:'2026',edicion:'Primera Edición',disciplina:'Fútbol',rama:'Varonil',categoria:'Libre',equipo:'Por publicar'},
+             {id:'ca2',anio:'2026',edicion:'Primera Edición',disciplina:'Fútbol',rama:'Femenil',categoria:'Libre',equipo:'Por publicar'}],
+  galeria:[],
+  uniformes:[{id:'un1',nombre:'Jersey de local',precio:'450',texto:'Tela deportiva con sublimado completo, número y nombre incluidos. Pedido mínimo por equipo: 12 piezas.'},
+             {id:'un2',nombre:'Conjunto completo',precio:'790',texto:'Jersey, short y medias. Diseño personalizado con el escudo del equipo, entrega en 15 días hábiles.'}],
+  arbitrajes:{titulo:'Arbitrajes', url:'arbitrajes/',
+              texto:'Aquí el representante revisa el estado de cuenta de su equipo: cargos de arbitraje, pagos entregados, saldo pendiente y multas individuales de sus jugadores.',
+              aviso:'Entra con la clave que te dio la mesa directiva. Si tu categoría tiene contraseña propia, el sistema te la pedirá al abrir tu equipo.'},
+  contacto:{texto:'Mesa directiva de Liga Chapingo. Atención de lunes a viernes de 10:00 a 18:00 h.',
+            correo:'contacto@ligachapingo.com', whatsapp:'', telefono:'',
+            direccion:'Universidad Autónoma Chapingo, km 38.5 carretera México–Texcoco, Chapingo, Texcoco, Estado de México',
+            facebook:'', instagram:'', tiktok:''}
+};
+
+var MESES = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+var MESC  = ['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
+
+function esc(s){ return String(s == null ? '' : s)
+  .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;'); }
+function url(s){
+  s = String(s == null ? '' : s).trim();
+  if(!s) return '';
+  if(/^(javascript|data|vbscript):/i.test(s.replace(/\s/g,''))) return '';
+  return esc(s);
+}
+function $(id){ return document.getElementById(id); }
+function partes(f){
+  var m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(String(f || '').trim());
+  return m ? {a:+m[1], m:+m[2]-1, d:+m[3]} : null;
+}
+function fechaLarga(f){
+  var p = partes(f); if(!p) return String(f || '');
+  return p.d + ' de ' + MESES[p.m] + ' de ' + p.a;
+}
+function fotoHTML(src, alt){
+  return src ? '<div class="foto"><img src="' + url(src) + '" alt="' + esc(alt || '') + '" loading="lazy"></div>'
+             : '<div class="foto vacia"></div>';
+}
+function vacio(txt){ return '<div class="vacio">' + esc(txt) + '</div>'; }
+function lista(x){ return Array.isArray(x) ? x : []; }
+
+/* ---------- pintado ---------- */
+function pintar(C){
+  C = C || {};
+  var sitio = C.sitio || {}, hero = C.hero || {}, T = C.torneo || {}, AR = C.arbitrajes || {}, CO = C.contacto || {};
+
+  document.title = (sitio.nombre || 'Liga Chapingo') + (T.nombre ? ' · ' + T.nombre : '');
+  if(sitio.subtitulo) $('marca-sub').textContent = sitio.subtitulo;
+  if(sitio.lema) $('pie-lema').textContent = sitio.lema;
+  $('anio').textContent = String(new Date().getFullYear());
+
+  /* cinta y portada */
+  $('cinta-torneo').innerHTML = '<b>' + esc(T.nombre || '') + '</b>' + (T.estado ? ' · ' + esc(String(T.estado).toLowerCase()) : '');
+  $('hero-eyebrow').textContent = hero.eyebrow || T.nombre || '';
+  $('hero-titulo').textContent  = hero.titulo || '';
+  $('hero-texto').textContent   = hero.texto || '';
+  $('hero-torneo').textContent  = T.nombre || '';
+  $('hero-estado').textContent  = T.estado || '';
+  $('hero-sede').textContent    = T.sede || '';
+  $('hero-mini').innerHTML = lista(T.datos).slice(0,4).map(function(d){
+    return '<div><div class="v">' + esc(d.valor) + '</div><div class="e">' + esc(d.etiqueta) + '</div></div>';
+  }).join('');
+
+  /* torneo actual */
+  $('t-nombre').textContent = T.nombre || 'Torneo actual';
+  $('t-texto').textContent  = T.texto || '';
+  $('t-stats').innerHTML = lista(T.datos).map(function(d){
+    return '<div class="stat"><div class="v">' + esc(d.valor) + '</div><div class="e">' + esc(d.etiqueta) + '</div></div>';
+  }).join('');
+  var filas = [['Edición', T.nombre], ['Estado', T.estado], ['Jornada', T.jornada], ['Horarios', T.fechas], ['Sede', T.sede]]
+    .filter(function(f){ return f[1]; });
+  $('t-lista').innerHTML = filas.map(function(f){
+    return '<div><span>' + esc(f[0]) + '</span><span>' + esc(f[1]) + '</span></div>';
+  }).join('') || vacio('Sin datos del torneo todavía.');
+  $('t-enlaces').innerHTML = lista(T.enlaces).length
+    ? lista(T.enlaces).map(function(e){
+        return '<a class="enlace-fila" href="' + (url(e.url) || '#') + '"' + (/^https?:/i.test(e.url || '') ? ' target="_blank" rel="noopener"' : '') + '>'
+          + '<span><span class="t">' + esc(e.titulo) + '</span>' + (e.nota ? '<br><span class="n">' + esc(e.nota) + '</span>' : '') + '</span>'
+          + '<span class="fl">&rarr;</span></a>';
+      }).join('')
+    : vacio('Los enlaces del calendario se publican al arrancar la jornada.');
+
+  /* eventos */
+  $('lista-eventos').innerHTML = lista(C.eventos).length
+    ? lista(C.eventos).map(function(e){
+        var p = partes(e.fecha);
+        return '<article class="tarjeta">' + fotoHTML(e.imagen, e.titulo) + '<div class="cuerpo">'
+          + '<div class="meta" style="gap:12px">'
+          + (p ? '<span class="fecha-caja"><span class="d">' + p.d + '</span><span class="m">' + MESC[p.m] + '</span></span>' : '')
+          + '<span><h3>' + esc(e.titulo) + '</h3>'
+          + '<span style="font-size:13px;color:var(--gris)">' + esc(fechaLarga(e.fecha)) + (e.hora ? ' · ' + esc(e.hora) + ' h' : '') + '</span></span>'
+          + '</div>'
+          + (e.lugar ? '<div class="meta"><span class="chip">' + esc(e.lugar) + '</span></div>' : '')
+          + '<p>' + esc(e.texto) + '</p></div></article>';
+      }).join('')
+    : vacio('Todavía no hay eventos publicados.');
+
+  /* convocatorias */
+  $('lista-convocatorias').innerHTML = lista(C.convocatorias).length
+    ? lista(C.convocatorias).map(function(c){
+        return '<article class="conv">'
+          + '<span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8Z"/><path d="M14 3v5h5"/><path d="M9 13h6M9 17h4"/></svg></span>'
+          + '<div><div class="meta" style="margin-bottom:4px">'
+          + (c.vigente ? '<span class="chip oro">Vigente</span>' : '<span class="chip gris">Cerrada</span>')
+          + (c.cierre ? '<span>Cierre: ' + esc(fechaLarga(c.cierre)) + '</span>' : '') + '</div>'
+          + '<h3>' + esc(c.titulo) + '</h3>'
+          + '<p>' + esc(c.texto) + '</p></div>'
+          + '<div class="der">'
+          + (c.archivo ? '<a class="btn verde sm" href="' + url(c.archivo) + '" target="_blank" rel="noopener">Descargar</a>'
+                       : '<span class="chip gris">Documento en camino</span>')
+          + '<a class="btn claro sm" href="#contacto">Preguntar</a>'
+          + '</div></article>';
+      }).join('')
+    : vacio('No hay convocatorias abiertas en este momento.');
+
+  /* campeones */
+  $('lista-campeones').innerHTML = lista(C.campeones).length
+    ? lista(C.campeones).map(function(k){
+        var cat = [k.disciplina, k.rama, k.categoria].filter(Boolean).join(' · ');
+        return '<article class="campeon">'
+          + '<svg class="copa" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0Z"/><path d="M17 6h2a2 2 0 0 1 0 4h-2M7 6H5a2 2 0 0 0 0 4h2"/></svg>'
+          + '<div class="anio">' + esc([k.anio, k.edicion].filter(Boolean).join(' · ')) + '</div>'
+          + '<div class="eq">' + esc(k.equipo) + '</div>'
+          + '<div class="cat">' + esc(cat) + '</div></article>';
+      }).join('')
+    : vacio('El palmarés se publica al cerrar cada edición.');
+
+  /* galería */
+  var G = lista(C.galeria).filter(function(g){ return g.imagen; });
+  $('lista-galeria').innerHTML = G.length
+    ? G.map(function(g, i){
+        return '<button type="button" data-g="' + i + '">'
+          + '<img src="' + url(g.imagen) + '" alt="' + esc(g.titulo || '') + '" loading="lazy">'
+          + (g.titulo ? '<span class="cap">' + esc(g.titulo) + '</span>' : '') + '</button>';
+      }).join('')
+    : vacio('Aún no hay fotografías cargadas.');
+  Array.prototype.forEach.call($('lista-galeria').querySelectorAll('[data-g]'), function(b){
+    b.onclick = function(){
+      var g = G[+b.getAttribute('data-g')];
+      $('visor-img').src = g.imagen;
+      $('visor-img').alt = g.titulo || '';
+      $('visor-pie').textContent = g.titulo || '';
+      $('visor').classList.add('abierto');
+    };
+  });
+
+  /* uniformes */
+  var wa = String(CO.whatsapp || '').replace(/[^0-9]/g, '');
+  $('lista-uniformes').innerHTML = lista(C.uniformes).length
+    ? lista(C.uniformes).map(function(u){
+        var msg = encodeURIComponent('Hola, me interesa el uniforme "' + (u.nombre || '') + '" de Liga Chapingo.');
+        var destino = wa ? 'https://wa.me/' + wa + '?text=' + msg : '#contacto';
+        return '<article class="tarjeta uniforme">' + fotoHTML(u.imagen, u.nombre) + '<div class="cuerpo">'
+          + '<h3>' + esc(u.nombre) + '</h3>'
+          + '<p>' + esc(u.texto) + '</p>'
+          + '<div class="meta" style="margin-top:auto;padding-top:8px">'
+          + (u.precio ? '<span class="precio">$' + esc(u.precio) + ' <small>MXN</small></span>' : '')
+          + '</div>'
+          + '<a class="btn verde sm" href="' + destino + '"' + (wa ? ' target="_blank" rel="noopener"' : '') + '>Pedir informes</a>'
+          + '</div></article>';
+      }).join('')
+    : vacio('El catálogo de uniformes se publica pronto.');
+
+  /* arbitrajes */
+  var destinoArb = url(AR.url) || 'arbitrajes/';
+  $('ar-titulo').textContent = AR.titulo || 'Arbitrajes';
+  $('ar-texto').textContent  = AR.texto || '';
+  $('ar-aviso').textContent  = AR.aviso || '';
+  $('ar-aviso-caja').style.display = AR.aviso ? '' : 'none';
+  Array.prototype.forEach.call(document.querySelectorAll('a[href="arbitrajes/"]'), function(a){ a.href = destinoArb; });
+
+  /* contacto */
+  $('c-texto').textContent = CO.texto || '';
+  var svgs = {
+    tel:'<path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2Z"/>',
+    wa:'<path d="M3 21l1.7-5A8.5 8.5 0 1 1 8 19.3Z"/><path d="M8.5 9.5c.4 2.4 2.6 4.6 5 5l1-1.6 2 .8-.3 1.7c-2.9.5-6.9-3.5-6.4-6.4l1.7-.3.8 2Z"/>',
+    mail:'<rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/>',
+    pin:'<path d="M12 21s7-5.6 7-11a7 7 0 1 0-14 0c0 5.4 7 11 7 11Z"/><circle cx="12" cy="10" r="2.6"/>'
+  };
+  function fila(icono, etiqueta, valor, href){
+    if(!valor) return '';
+    var v = href ? '<a href="' + url(href) + '"' + (/^https?:/i.test(href) ? ' target="_blank" rel="noopener"' : '') + '>' + esc(valor) + '</a>' : esc(valor);
+    return '<div class="info-fila"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">'
+      + icono + '</svg></span><span><span class="et">' + esc(etiqueta) + '</span><br><span class="va">' + v + '</span></span></div>';
+  }
+  $('c-info').innerHTML =
+      fila(svgs.wa,  'WhatsApp',  CO.whatsapp, wa ? 'https://wa.me/' + wa : '')
+    + fila(svgs.tel, 'Teléfono',  CO.telefono, CO.telefono ? 'tel:' + String(CO.telefono).replace(/[^0-9+]/g,'') : '')
+    + fila(svgs.mail,'Correo',    CO.correo,   CO.correo ? 'mailto:' + CO.correo : '')
+    + fila(svgs.pin, 'Dirección', CO.direccion, '')
+    || vacio('Datos de contacto por publicar.');
+
+  var redes = [
+    ['facebook',  CO.facebook,  '<path d="M14 9h3V6h-3a4 4 0 0 0-4 4v2H8v3h2v7h3v-7h3l1-3h-4v-2a1 1 0 0 1 1-1Z"/>'],
+    ['instagram', CO.instagram, '<rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>'],
+    ['tiktok',    CO.tiktok,    '<path d="M15 4c.5 2.4 2 3.8 4.5 4v3c-1.7 0-3.2-.5-4.5-1.4V15a5.5 5.5 0 1 1-5.5-5.5c.3 0 .7 0 1 .1v3.1a2.5 2.5 0 1 0 1.5 2.3V4Z"/>']
+  ].filter(function(r){ return r[1]; });
+  $('pie-redes').innerHTML = redes.map(function(r){
+    return '<a href="' + url(r[1]) + '" target="_blank" rel="noopener" aria-label="' + r[0] + '">'
+      + '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">' + r[2] + '</svg></a>';
+  }).join('');
+
+  /* formulario */
+  function texto(){
+    return 'Hola, soy ' + ($('f-nombre').value || '(sin nombre)')
+      + ($('f-equipo').value ? ' del equipo ' + $('f-equipo').value : '')
+      + '.\nAsunto: ' + $('f-asunto').value + '\n\n' + $('f-mensaje').value;
+  }
+  $('c-forma').onsubmit = function(ev){
+    ev.preventDefault();
+    if(wa) window.open('https://wa.me/' + wa + '?text=' + encodeURIComponent(texto()), '_blank', 'noopener');
+    else if(CO.correo) window.location.href = 'mailto:' + CO.correo + '?subject=' + encodeURIComponent('Liga Chapingo · ' + $('f-asunto').value) + '&body=' + encodeURIComponent(texto());
+    else alert('Aún no hay un número de WhatsApp configurado. Escríbenos por correo.');
+  };
+  $('f-correo').onclick = function(){
+    if(!CO.correo) return alert('Aún no hay un correo configurado.');
+    window.location.href = 'mailto:' + CO.correo + '?subject=' + encodeURIComponent('Liga Chapingo · ' + $('f-asunto').value) + '&body=' + encodeURIComponent(texto());
+  };
+}
+
+/* ---------- menú móvil, visor ---------- */
+$('abrir-menu').onclick = function(){ $('cajon').classList.add('abierto'); };
+$('cerrar-menu').onclick = function(){ $('cajon').classList.remove('abierto'); };
+$('cajon').onclick = function(ev){ if(ev.target === $('cajon') || ev.target.tagName === 'A') $('cajon').classList.remove('abierto'); };
+$('visor-x').onclick = function(){ $('visor').classList.remove('abierto'); };
+$('visor').onclick = function(ev){ if(ev.target === $('visor')) $('visor').classList.remove('abierto'); };
+document.addEventListener('keydown', function(ev){
+  if(ev.key === 'Escape'){ $('visor').classList.remove('abierto'); $('cajon').classList.remove('abierto'); }
+});
+
+/* ---------- arranque ---------- */
+pintar(DEFECTO);
+if(window.fetch && location.protocol.indexOf('http') === 0){
+  fetch('contenido.php?a=ver', {credentials:'same-origin'})
+    .then(function(r){ return r.json(); })
+    .then(function(r){
+      if(r && r.ok && r.contenido){
+        pintar(r.contenido);
+        $('pie-rev').textContent = 'Contenido actualizado · rev ' + (r.rev || 0);
+      }
+    })
+    .catch(function(){ /* se queda con el contenido de respaldo */ });
+}
+})();
+</script>
+</body>
+</html>

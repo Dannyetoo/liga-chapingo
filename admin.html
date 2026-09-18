@@ -1,0 +1,463 @@
+<!doctype html>
+<html lang="es-MX">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Panel · Liga Chapingo</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#1B6B45">
+<link rel="icon" href="icono-192.png">
+<style>
+:root{
+  --verde-900:#0C3523;--verde:#1B6B45;--verde-400:#2E9463;--oro:#C9A227;
+  --crema:#F4F3EC;--papel:#fff;--tinta:#14231C;--gris:#5F6F67;--linea:#E2E4DB;--mal:#B3261E;
+  --texto:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--crema);color:var(--tinta);font-family:var(--texto);font-size:15px;line-height:1.55}
+img{max-width:100%;display:block}
+.barra{position:sticky;top:0;z-index:20;background:var(--verde-900);color:#fff;padding:12px 18px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.barra .logo{width:32px;height:32px;border-radius:9px}
+.barra h1{font-size:16px;margin:0;font-weight:600;letter-spacing:.02em}
+.barra .sep{flex:1}
+.barra .estado{font-size:12.5px;color:#A9C6B6}
+.barra .estado.pend{color:#EAC85C}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;border:0;border-radius:9px;padding:9px 15px;font:inherit;font-size:14px;font-weight:600;cursor:pointer;text-decoration:none}
+.btn.verde{background:var(--verde);color:#fff}
+.btn.verde:hover{background:#175B3B}
+.btn.oro{background:var(--oro);color:#2A2005}
+.btn.claro{background:#fff;color:var(--verde-900);border:1px solid var(--linea)}
+.btn.fantasma{background:transparent;color:#CFE3D8;border:1px solid rgba(255,255,255,.3)}
+.btn.fantasma:hover{background:rgba(255,255,255,.12)}
+.btn.sm{padding:6px 11px;font-size:13px}
+.btn.mal{background:#FDECEA;color:var(--mal);border:1px solid #F5C6C2}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.envoltura{max-width:1060px;margin:0 auto;padding:22px 18px 90px}
+.pestanas{display:flex;gap:6px;overflow-x:auto;padding-bottom:12px;margin-bottom:18px;border-bottom:1px solid var(--linea)}
+.pestanas button{background:transparent;border:0;border-radius:9px;padding:9px 14px;font:inherit;font-size:14px;font-weight:500;color:var(--gris);cursor:pointer;white-space:nowrap}
+.pestanas button:hover{background:#E9EEE9;color:var(--verde)}
+.pestanas button.on{background:var(--verde);color:#fff;font-weight:600}
+.caja{background:var(--papel);border:1px solid var(--linea);border-radius:13px;padding:20px;margin-bottom:16px;box-shadow:0 1px 2px rgba(12,53,35,.05)}
+.caja h2{font-size:15px;margin:0 0 4px;color:var(--verde-900)}
+.caja .ayuda{font-size:13px;color:var(--gris);margin:0 0 16px}
+.campo{display:flex;flex-direction:column;gap:5px;margin-bottom:13px}
+.campo label{font-size:12px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--gris)}
+.campo input[type=text],.campo input[type=date],.campo input[type=time],.campo textarea,.campo select{
+  border:1px solid var(--linea);border-radius:9px;padding:10px 12px;font:inherit;font-size:14.5px;background:#FCFCFA;color:var(--tinta);width:100%}
+.campo textarea{min-height:86px;resize:vertical}
+.campo input:focus,.campo textarea:focus,.campo select:focus{outline:2px solid rgba(46,148,99,.3);outline-offset:1px;border-color:var(--verde-400)}
+.dos{display:grid;grid-template-columns:1fr 1fr;gap:0 14px}
+.tres{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0 14px}
+.check{flex-direction:row;align-items:center;gap:9px}
+.check input{width:18px;height:18px;accent-color:var(--verde)}
+.check label{text-transform:none;letter-spacing:0;font-size:14px;font-weight:500;color:var(--tinta)}
+.ficha{border:1px solid var(--linea);border-radius:12px;padding:16px;margin-bottom:12px;background:#FBFBF8}
+.ficha .cab{display:flex;align-items:center;gap:8px;margin-bottom:12px}
+.ficha .cab .num{width:26px;height:26px;border-radius:50%;background:var(--verde);color:#fff;display:flex;align-items:center;justify-content:center;font-size:12.5px;font-weight:700;flex:none}
+.ficha .cab .tit{font-weight:600;font-size:14.5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ficha .cab .sep{flex:1}
+.subida{display:flex;gap:12px;align-items:center}
+.subida .prev{width:82px;height:62px;border-radius:9px;background:#EDF1EC;border:1px solid var(--linea);flex:none;overflow:hidden;display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--gris);text-align:center}
+.subida .prev img{width:100%;height:100%;object-fit:cover}
+.subida .acc{display:flex;flex-direction:column;gap:6px;min-width:0;flex:1}
+.subida .ruta{font-size:12px;color:var(--gris);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.acceso{max-width:380px;margin:11vh auto;background:#fff;border:1px solid var(--linea);border-radius:15px;padding:30px 26px;box-shadow:0 18px 48px rgba(12,53,35,.14);text-align:center}
+.acceso img{width:56px;height:56px;border-radius:14px;margin:0 auto 16px}
+.acceso h1{font-size:19px;margin:0 0 6px;color:var(--verde-900)}
+.acceso p{font-size:13.5px;color:var(--gris);margin:0 0 20px}
+.aviso{padding:11px 14px;border-radius:9px;font-size:13.5px;margin-bottom:14px;display:none}
+.aviso.mal{background:#FDECEA;color:var(--mal);border:1px solid #F5C6C2;display:block}
+.aviso.bien{background:#E9F5EE;color:#14663F;border:1px solid #C9E4D5;display:block}
+.pie-acciones{position:fixed;left:0;right:0;bottom:0;z-index:30;background:rgba(255,255,255,.96);backdrop-filter:blur(8px);border-top:1px solid var(--linea);
+  padding:12px 18px;display:flex;gap:12px;align-items:center;justify-content:flex-end}
+.pie-acciones .msj{margin-right:auto;font-size:13px;color:var(--gris)}
+@media (max-width:700px){.dos,.tres{grid-template-columns:1fr}.envoltura{padding:16px 14px 96px}}
+</style>
+</head>
+<body>
+
+<div id="pantalla-acceso" class="acceso">
+  <img src="icono-192.png" alt="">
+  <h1>Panel de contenido</h1>
+  <p>Liga Chapingo · ligachapingo.com</p>
+  <div class="aviso" id="acceso-aviso"></div>
+  <div class="campo"><input type="password" id="clave" placeholder="Contraseña del panel" autocomplete="current-password"></div>
+  <button class="btn verde" id="entrar" style="width:100%">Entrar</button>
+  <p style="margin:16px 0 0"><a href="index.html" style="color:var(--gris);font-size:13px">Volver al sitio</a></p>
+</div>
+
+<div id="app" hidden>
+  <div class="barra">
+    <img class="logo" src="icono-192.png" alt="">
+    <h1>Panel de contenido</h1>
+    <span class="estado" id="estado">Todo guardado</span>
+    <span class="sep"></span>
+    <a class="btn fantasma sm" href="index.html" target="_blank" rel="noopener">Ver sitio</a>
+    <button class="btn fantasma sm" id="salir">Salir</button>
+  </div>
+
+  <div class="envoltura">
+    <div class="pestanas" id="pestanas"></div>
+    <div class="aviso" id="aviso"></div>
+    <div id="panel"></div>
+  </div>
+
+  <div class="pie-acciones">
+    <span class="msj" id="msj">Los cambios se publican al guardar.</span>
+    <button class="btn claro" id="descartar">Descartar cambios</button>
+    <button class="btn verde" id="guardar">Guardar y publicar</button>
+  </div>
+</div>
+
+<input type="file" id="archivo-oculto" hidden accept="image/*,application/pdf">
+
+<script>
+(function(){
+'use strict';
+
+var C = null, rev = 0, sucio = false, pestana = 'sitio', destinoSubida = null;
+
+function $(id){ return document.getElementById(id); }
+function esc(s){ return String(s == null ? '' : s)
+  .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;'); }
+
+function pedir(a, datos){
+  var op = {credentials:'same-origin'};
+  if(datos){ op.method = 'POST'; op.headers = {'Content-Type':'application/json'}; op.body = JSON.stringify(datos); }
+  return fetch('contenido.php?a=' + a, op).then(function(r){ return r.json(); });
+}
+function marcarSucio(){ sucio = true; $('estado').textContent = 'Cambios sin guardar'; $('estado').className = 'estado pend'; }
+function marcarLimpio(){ sucio = false; $('estado').textContent = 'Todo guardado'; $('estado').className = 'estado'; }
+function avisar(texto, clase){
+  var a = $('aviso'); a.textContent = texto; a.className = 'aviso ' + (clase || 'bien');
+  if(clase !== 'mal') setTimeout(function(){ a.className = 'aviso'; }, 4000);
+}
+
+/* ---------- acceso a valores por ruta ---------- */
+function leer(ruta){
+  var p = ruta.split('.'), o = C;
+  for(var i = 0; i < p.length; i++){ if(o == null) return ''; o = o[p[i]]; }
+  return o == null ? '' : o;
+}
+function escribir(ruta, valor){
+  var p = ruta.split('.'), o = C;
+  for(var i = 0; i < p.length - 1; i++){
+    if(o[p[i]] == null) o[p[i]] = /^\d+$/.test(p[i+1]) ? [] : {};
+    o = o[p[i]];
+  }
+  o[p[p.length - 1]] = valor;
+  marcarSucio();
+}
+
+/* ---------- esquema del contenido ---------- */
+var T = {
+  txt:'texto', area:'area', fecha:'fecha', hora:'hora', img:'imagen', arch:'archivo', check:'check'
+};
+var ESQUEMA = [
+  {clave:'sitio', nombre:'Identidad', ayuda:'El nombre y la línea que acompañan al escudo en el encabezado y el pie.',
+   campos:[
+     {k:'nombre', et:'Nombre de la liga', t:T.txt},
+     {k:'subtitulo', et:'Línea bajo el nombre (encabezado)', t:T.txt},
+     {k:'lema', et:'Lema (pie de página)', t:T.txt}
+   ]},
+  {clave:'hero', nombre:'Portada', ayuda:'Lo primero que se ve al abrir ligachapingo.com.',
+   campos:[
+     {k:'eyebrow', et:'Etiqueta pequeña', t:T.txt},
+     {k:'titulo', et:'Título grande', t:T.txt},
+     {k:'texto', et:'Párrafo de entrada', t:T.area}
+   ]},
+  {clave:'torneo', nombre:'Torneo actual', ayuda:'Se muestra en la portada y en la sección "Torneo actual".',
+   campos:[
+     {k:'nombre', et:'Nombre del torneo', t:T.txt},
+     {k:'estado', et:'Estado (En curso, Inscripciones abiertas…)', t:T.txt, mitad:true},
+     {k:'jornada', et:'Jornada', t:T.txt, mitad:true},
+     {k:'fechas', et:'Días y horarios', t:T.txt, mitad:true},
+     {k:'sede', et:'Sede', t:T.txt, mitad:true},
+     {k:'texto', et:'Descripción', t:T.area}
+   ],
+   listas:[
+     {k:'datos', nombre:'Cifras destacadas', titulo:'etiqueta', ayuda:'Cuatro como máximo se ven en la portada.',
+      campos:[{k:'valor', et:'Cifra', t:T.txt, mitad:true},{k:'etiqueta', et:'Etiqueta', t:T.txt, mitad:true}]},
+     {k:'enlaces', nombre:'Enlaces de calendario y resultados', titulo:'titulo',
+      campos:[{k:'titulo', et:'Título', t:T.txt},{k:'url', et:'Enlace (https://…)', t:T.txt, mitad:true},{k:'nota', et:'Nota corta', t:T.txt, mitad:true}]}
+   ]},
+  {clave:'eventos', nombre:'Eventos', lista:true, titulo:'titulo', ayuda:'Juntas, jornadas especiales, premiaciones.',
+   campos:[
+     {k:'titulo', et:'Título', t:T.txt},
+     {k:'fecha', et:'Fecha', t:T.fecha, mitad:true},
+     {k:'hora', et:'Hora', t:T.hora, mitad:true},
+     {k:'lugar', et:'Lugar', t:T.txt},
+     {k:'texto', et:'Descripción', t:T.area},
+     {k:'imagen', et:'Imagen', t:T.img}
+   ]},
+  {clave:'convocatorias', nombre:'Convocatorias', lista:true, titulo:'titulo', ayuda:'Sube el PDF de la convocatoria para que se pueda descargar.',
+   campos:[
+     {k:'titulo', et:'Título', t:T.txt},
+     {k:'fecha', et:'Publicada', t:T.fecha, mitad:true},
+     {k:'cierre', et:'Cierre de inscripción', t:T.fecha, mitad:true},
+     {k:'vigente', et:'Está vigente', t:T.check},
+     {k:'texto', et:'Descripción', t:T.area},
+     {k:'archivo', et:'Documento (PDF)', t:T.arch}
+   ]},
+  {clave:'campeones', nombre:'Campeones', lista:true, titulo:'equipo', ayuda:'Un registro por campeón: edición, disciplina, rama y categoría.',
+   campos:[
+     {k:'equipo', et:'Equipo campeón', t:T.txt},
+     {k:'anio', et:'Año', t:T.txt, tercio:true},
+     {k:'edicion', et:'Edición', t:T.txt, tercio:true},
+     {k:'disciplina', et:'Disciplina', t:T.txt, tercio:true},
+     {k:'rama', et:'Rama', t:T.txt, mitad:true},
+     {k:'categoria', et:'Categoría', t:T.txt, mitad:true},
+     {k:'imagen', et:'Foto del equipo', t:T.img}
+   ]},
+  {clave:'galeria', nombre:'Galería', lista:true, titulo:'titulo', ayuda:'Las fotos se ven en cuadrícula y se abren en grande al tocarlas.',
+   campos:[
+     {k:'titulo', et:'Pie de foto', t:T.txt},
+     {k:'imagen', et:'Fotografía', t:T.img}
+   ]},
+  {clave:'uniformes', nombre:'Uniformes', lista:true, titulo:'nombre',
+   campos:[
+     {k:'nombre', et:'Nombre de la prenda', t:T.txt},
+     {k:'precio', et:'Precio en pesos (solo el número)', t:T.txt, mitad:true},
+     {k:'texto', et:'Descripción', t:T.area},
+     {k:'imagen', et:'Foto', t:T.img}
+   ]},
+  {clave:'arbitrajes', nombre:'Arbitrajes', ayuda:'La franja verde que lleva a los representantes al sistema de estado de cuenta.',
+   campos:[
+     {k:'titulo', et:'Título de la sección', t:T.txt},
+     {k:'texto', et:'Descripción', t:T.area},
+     {k:'aviso', et:'Nota dentro de la tarjeta', t:T.area},
+     {k:'url', et:'Carpeta del sistema', t:T.txt, nota:'Normalmente arbitrajes/'}
+   ]},
+  {clave:'contacto', nombre:'Contacto', ayuda:'El WhatsApp también se usa en los botones de "Pedir informes" de uniformes.',
+   campos:[
+     {k:'texto', et:'Texto de presentación', t:T.area},
+     {k:'whatsapp', et:'WhatsApp (10 dígitos o con lada 52)', t:T.txt, mitad:true},
+     {k:'telefono', et:'Teléfono', t:T.txt, mitad:true},
+     {k:'correo', et:'Correo', t:T.txt, mitad:true},
+     {k:'direccion', et:'Dirección', t:T.txt, mitad:true},
+     {k:'facebook', et:'Facebook (URL)', t:T.txt, tercio:true},
+     {k:'instagram', et:'Instagram (URL)', t:T.txt, tercio:true},
+     {k:'tiktok', et:'TikTok (URL)', t:T.txt, tercio:true}
+   ]}
+];
+
+/* ---------- pintado de campos ---------- */
+function campoHTML(def, ruta){
+  var v = leer(ruta), id = 'c_' + ruta.replace(/\./g, '_');
+  var clase = 'campo' + (def.t === T.check ? ' check' : '');
+  var estilo = def.mitad || def.tercio ? '' : '';
+  if(def.t === T.check){
+    return '<div class="' + clase + '"><input type="checkbox" id="' + id + '" data-ruta="' + esc(ruta) + '" data-tipo="check"'
+      + (v ? ' checked' : '') + '><label for="' + id + '">' + esc(def.et) + '</label></div>';
+  }
+  var cab = '<div class="' + clase + '"><label for="' + id + '">' + esc(def.et) + '</label>';
+  var pie = (def.nota ? '<span style="font-size:12px;color:var(--gris)">' + esc(def.nota) + '</span>' : '') + '</div>';
+  if(def.t === T.area)  return cab + '<textarea id="' + id + '" data-ruta="' + esc(ruta) + '">' + esc(v) + '</textarea>' + pie;
+  if(def.t === T.fecha) return cab + '<input type="date" id="' + id + '" data-ruta="' + esc(ruta) + '" value="' + esc(v) + '">' + pie;
+  if(def.t === T.hora)  return cab + '<input type="time" id="' + id + '" data-ruta="' + esc(ruta) + '" value="' + esc(v) + '">' + pie;
+  if(def.t === T.img || def.t === T.arch){
+    var esPdf = /\.pdf$/i.test(String(v));
+    var prev = v
+      ? (esPdf ? '<span>PDF</span>' : '<img src="' + esc(v) + '" alt="">')
+      : '<span>Sin archivo</span>';
+    return cab
+      + '<div class="subida"><span class="prev">' + prev + '</span><span class="acc">'
+      + '<span style="display:flex;gap:7px;flex-wrap:wrap">'
+      + '<button type="button" class="btn claro sm" data-subir="' + esc(ruta) + '" data-acepta="' + (def.t === T.arch ? 'application/pdf,image/*' : 'image/*') + '">Subir archivo</button>'
+      + (v ? '<button type="button" class="btn mal sm" data-quitar="' + esc(ruta) + '">Quitar</button>' : '')
+      + '</span>'
+      + '<span class="ruta">' + (v ? esc(v) : 'Ningún archivo cargado') + '</span>'
+      + '</span></div>' + pie;
+  }
+  return cab + '<input type="text" id="' + id + '" data-ruta="' + esc(ruta) + '" value="' + esc(v) + '">' + pie;
+}
+
+function gruposHTML(campos, base){
+  var html = '', i = 0;
+  while(i < campos.length){
+    var d = campos[i];
+    if(d.mitad || d.tercio){
+      var clase = d.tercio ? 'tres' : 'dos', n = d.tercio ? 3 : 2, bloque = '', j = 0;
+      while(j < n && i < campos.length && (campos[i].mitad || campos[i].tercio)){
+        bloque += campoHTML(campos[i], base + '.' + campos[i].k); i++; j++;
+      }
+      html += '<div class="' + clase + '">' + bloque + '</div>';
+    } else {
+      html += campoHTML(d, base + '.' + d.k); i++;
+    }
+  }
+  return html;
+}
+
+function listaHTML(def, clave){
+  var arr = leer(clave);
+  if(!Array.isArray(arr)){ arr = []; escribir(clave, arr); }
+  var html = arr.map(function(it, i){
+    var titulo = it[def.titulo] || '(sin título)';
+    return '<div class="ficha"><div class="cab"><span class="num">' + (i + 1) + '</span>'
+      + '<span class="tit">' + esc(titulo) + '</span><span class="sep"></span>'
+      + '<button class="btn claro sm" data-mover="' + clave + '|' + i + '|-1"' + (i === 0 ? ' disabled' : '') + '>&uarr;</button>'
+      + '<button class="btn claro sm" data-mover="' + clave + '|' + i + '|1"' + (i === arr.length - 1 ? ' disabled' : '') + '>&darr;</button>'
+      + '<button class="btn mal sm" data-borrar="' + clave + '|' + i + '">Eliminar</button></div>'
+      + gruposHTML(def.campos, clave + '.' + i) + '</div>';
+  }).join('');
+  if(!arr.length) html = '<p style="color:var(--gris);font-size:14px;margin:0 0 14px">Todavía no hay registros en esta sección.</p>';
+  return html + '<button class="btn verde sm" data-agregar="' + clave + '">+ Agregar</button>';
+}
+
+function pintar(){
+  $('pestanas').innerHTML = ESQUEMA.map(function(s){
+    return '<button data-p="' + s.clave + '"' + (s.clave === pestana ? ' class="on"' : '') + '>' + esc(s.nombre) + '</button>';
+  }).join('');
+
+  var s = ESQUEMA.filter(function(x){ return x.clave === pestana; })[0];
+  var html = '<div class="caja"><h2>' + esc(s.nombre) + '</h2>'
+    + (s.ayuda ? '<p class="ayuda">' + esc(s.ayuda) + '</p>' : '');
+  html += s.lista ? listaHTML(s, s.clave) : gruposHTML(s.campos, s.clave);
+  html += '</div>';
+
+  (s.listas || []).forEach(function(sub){
+    html += '<div class="caja"><h2>' + esc(sub.nombre) + '</h2>'
+      + (sub.ayuda ? '<p class="ayuda">' + esc(sub.ayuda) + '</p>' : '')
+      + listaHTML(sub, s.clave + '.' + sub.k) + '</div>';
+  });
+
+  $('panel').innerHTML = html;
+  conectar();
+}
+
+function conectar(){
+  Array.prototype.forEach.call($('panel').querySelectorAll('[data-ruta]'), function(el){
+    if(el.getAttribute('data-tipo') === 'check'){
+      el.onchange = function(){ escribir(el.getAttribute('data-ruta'), el.checked); };
+    } else {
+      el.oninput = function(){ escribir(el.getAttribute('data-ruta'), el.value); };
+      el.onblur = function(){
+        var r = el.getAttribute('data-ruta');
+        if(/\.(titulo|nombre|equipo|etiqueta)$/.test(r)) pintar();
+      };
+    }
+  });
+  Array.prototype.forEach.call($('panel').querySelectorAll('[data-subir]'), function(b){
+    b.onclick = function(){
+      destinoSubida = b.getAttribute('data-subir');
+      $('archivo-oculto').accept = b.getAttribute('data-acepta');
+      $('archivo-oculto').value = '';
+      $('archivo-oculto').click();
+    };
+  });
+  Array.prototype.forEach.call($('panel').querySelectorAll('[data-quitar]'), function(b){
+    b.onclick = function(){ escribir(b.getAttribute('data-quitar'), ''); pintar(); };
+  });
+  Array.prototype.forEach.call($('panel').querySelectorAll('[data-agregar]'), function(b){
+    b.onclick = function(){
+      var clave = b.getAttribute('data-agregar');
+      var arr = leer(clave); if(!Array.isArray(arr)) arr = [];
+      arr.push({id:'x' + Date.now().toString(36)});
+      escribir(clave, arr); pintar();
+    };
+  });
+  Array.prototype.forEach.call($('panel').querySelectorAll('[data-borrar]'), function(b){
+    b.onclick = function(){
+      var p = b.getAttribute('data-borrar').split('|'), arr = leer(p[0]);
+      if(!confirm('¿Eliminar este registro?')) return;
+      arr.splice(+p[1], 1); escribir(p[0], arr); pintar();
+    };
+  });
+  Array.prototype.forEach.call($('panel').querySelectorAll('[data-mover]'), function(b){
+    b.onclick = function(){
+      var p = b.getAttribute('data-mover').split('|'), arr = leer(p[0]);
+      var i = +p[1], j = i + (+p[2]);
+      if(j < 0 || j >= arr.length) return;
+      var t = arr[i]; arr[i] = arr[j]; arr[j] = t;
+      escribir(p[0], arr); pintar();
+    };
+  });
+  Array.prototype.forEach.call($('pestanas').querySelectorAll('[data-p]'), function(b){
+    b.onclick = function(){ pestana = b.getAttribute('data-p'); pintar(); window.scrollTo(0, 0); };
+  });
+}
+
+/* ---------- subida de archivos ---------- */
+$('archivo-oculto').onchange = function(){
+  var f = this.files && this.files[0];
+  if(!f || !destinoSubida) return;
+  var fd = new FormData();
+  fd.append('archivo', f);
+  avisar('Subiendo ' + f.name + '…', 'bien');
+  fetch('contenido.php?a=subir', {method:'POST', body:fd, credentials:'same-origin'})
+    .then(function(r){ return r.json(); })
+    .then(function(r){
+      if(r && r.ok){ escribir(destinoSubida, r.ruta); pintar(); avisar('Archivo cargado. No olvides guardar.', 'bien'); }
+      else avisar((r && r.error) || 'No se pudo subir el archivo.', 'mal');
+    })
+    .catch(function(){ avisar('No se pudo contactar al servidor.', 'mal'); });
+};
+
+/* ---------- guardar ---------- */
+$('guardar').onclick = function(){
+  $('guardar').disabled = true;
+  pedir('guardar', {rev:rev, contenido:C}).then(function(r){
+    $('guardar').disabled = false;
+    if(r && r.ok){ rev = r.rev; marcarLimpio(); avisar('Publicado. El sitio ya muestra los cambios.', 'bien'); return; }
+    if(r && r.auth === false){ avisar('La sesión venció. Vuelve a entrar.', 'mal'); setTimeout(function(){ location.reload(); }, 1500); return; }
+    if(r && r.conflicto){
+      avisar('Alguien más guardó cambios desde otro dispositivo. Se recargó la versión del servidor.', 'mal');
+      C = r.contenido; rev = r.rev; marcarLimpio(); pintar(); return;
+    }
+    avisar((r && r.error) || 'No se pudo guardar.', 'mal');
+  }).catch(function(){
+    $('guardar').disabled = false;
+    avisar('No se pudo contactar al servidor.', 'mal');
+  });
+};
+$('descartar').onclick = function(){
+  if(sucio && !confirm('Se perderán los cambios que no has guardado. ¿Continuar?')) return;
+  cargar();
+};
+$('salir').onclick = function(){
+  if(sucio && !confirm('Tienes cambios sin guardar. ¿Salir de todos modos?')) return;
+  pedir('salir').then(function(){ location.reload(); });
+};
+window.addEventListener('beforeunload', function(e){
+  if(sucio){ e.preventDefault(); e.returnValue = ''; return ''; }
+});
+
+/* ---------- arranque ---------- */
+function cargar(){
+  return pedir('ver').then(function(r){
+    if(r && r.ok){ C = r.contenido || {}; rev = r.rev || 0; marcarLimpio(); pintar(); }
+  });
+}
+function abrirPanel(){
+  $('pantalla-acceso').hidden = true;
+  $('pantalla-acceso').style.display = 'none';
+  $('app').hidden = false;
+  cargar();
+}
+$('entrar').onclick = function(){
+  var v = $('clave').value;
+  $('entrar').disabled = true;
+  pedir('login', {clave:v}).then(function(r){
+    $('entrar').disabled = false;
+    if(r && r.ok) return abrirPanel();
+    var a = $('acceso-aviso');
+    a.className = 'aviso mal';
+    a.textContent = r && r.bloqueado ? 'Demasiados intentos. Espera cinco minutos.' : 'Contraseña incorrecta.';
+    $('clave').value = ''; $('clave').focus();
+  }).catch(function(){
+    $('entrar').disabled = false;
+    var a = $('acceso-aviso'); a.className = 'aviso mal';
+    a.textContent = 'No se pudo contactar al servidor. ¿Está subido contenido.php?';
+  });
+};
+$('clave').addEventListener('keydown', function(e){ if(e.key === 'Enter') $('entrar').click(); });
+
+pedir('sesion').then(function(r){
+  if(r && r.dentro) abrirPanel();
+  else $('clave').focus();
+}).catch(function(){ $('clave').focus(); });
+})();
+</script>
+</body>
+</html>
