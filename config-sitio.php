@@ -11,7 +11,7 @@
 define('CLAVE_PANEL', 'chapingo2026');
 
 /* 2) Carpeta donde se guarda el contenido del sitio (textos, eventos,
-      convocatorias, campeones, galería, uniformes).
+      campeones, galería).
       Si tu hosting te deja, muévela FUERA de public_html y pon aquí la
       ruta completa, por ejemplo: '/home/usuario/contenido-liga' */
 define('CONTENIDO_DIR', __DIR__ . '/contenido');

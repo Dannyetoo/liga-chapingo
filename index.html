@@ -4,13 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Liga Chapingo</title>
-<meta name="description" content="Liga Chapingo — inscripciones, clasificaciones, convocatorias, torneo actual, campeones, galería, uniformes y el portal donde los capitanes consultan el estado de cuenta de su equipo.">
+<meta name="description" content="Liga Chapingo — inscripciones, clasificaciones, convocatorias, torneo actual, disciplinas y categorías, campeones, galería y el portal donde los capitanes consultan el estado de cuenta de su equipo.">
 <meta name="theme-color" content="#1B6B45">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="icono-192.png">
 <link rel="apple-touch-icon" href="icono-180.png">
 <meta property="og:title" content="Liga Chapingo">
-<meta property="og:description" content="Deporte universitario con orden y palabra. Convocatorias, torneo actual, campeones y uniformes.">
+<meta property="og:description" content="Deporte universitario con orden y palabra. Convocatorias, torneo actual, disciplinas y categorías, y campeones.">
 <meta property="og:type" content="website">
 <meta property="og:image" content="icono-512.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -25,6 +25,8 @@
   --verde-400:#2E9463;
   --oro:#C9A227;
   --oro-claro:#EAC85C;
+  --azul:#0B3C81;
+  --azul-claro:#3E6FC4;
   --crema:#F4F3EC;
   --papel:#FFFFFF;
   --tinta:#14231C;
@@ -58,15 +60,16 @@ button{font:inherit}
 
 /* ===================== Encabezado ===================== */
 header.barra{position:sticky;top:0;z-index:60;background:rgba(255,255,255,.94);backdrop-filter:blur(10px);border-bottom:1px solid var(--linea)}
-header.barra .wrap{display:flex;align-items:center;gap:18px;min-height:66px}
+header.barra .wrap{display:flex;align-items:center;gap:18px;min-height:66px;max-width:1440px}
 .marca{display:flex;align-items:center;gap:11px;text-decoration:none;min-width:0}
 .marca .escudo{width:40px;height:40px;border-radius:11px;flex:none;box-shadow:0 4px 12px rgba(27,107,69,.28)}
 .marca .txt{display:flex;flex-direction:column;line-height:1;min-width:0}
-.marca .n{font-family:var(--display);font-weight:700;font-size:23px;letter-spacing:.045em;text-transform:uppercase;color:var(--verde-900);white-space:nowrap}
+.marca .n{font-family:var(--display);font-weight:700;font-size:23px;letter-spacing:.045em;text-transform:uppercase;color:var(--verde-900);
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .marca .s{font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--gris);margin-top:3px;
   white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:34ch}
 nav.menu{display:flex;align-items:center;gap:2px;margin-left:auto}
-nav.menu a{padding:9px 9px;border-radius:9px;text-decoration:none;font-size:14px;font-weight:500;color:#2C3B33;white-space:nowrap}
+nav.menu a{padding:9px 8px;border-radius:9px;text-decoration:none;font-size:13.5px;font-weight:500;color:#2C3B33;white-space:nowrap}
 nav.menu a:hover{background:#EDF2EE;color:var(--verde)}
 nav.menu a.destacado{color:var(--verde);font-weight:600}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:0;border-radius:10px;padding:11px 18px;font-size:14.5px;font-weight:600;text-decoration:none;cursor:pointer;transition:transform .12s ease,box-shadow .12s ease,background .12s ease}
@@ -230,7 +233,8 @@ section.bloque.claro .tarjeta{background:#FBFBF8}
   border:1px solid rgba(255,255,255,.08)}
 .campeon::after{content:"";position:absolute;right:-46px;bottom:-46px;width:170px;height:170px;border-radius:50%;
   background:radial-gradient(circle at 40% 40%,rgba(201,162,39,.35),transparent 65%)}
-.campeon .anio{font-family:var(--display);font-size:13px;font-weight:700;letter-spacing:.2em;color:var(--oro-claro)}
+.campeon .anio{font-family:var(--display);font-size:13px;font-weight:700;letter-spacing:.2em;color:var(--oro-claro);
+  padding-right:34px;display:block}
 .campeon .eq{font-family:var(--display);font-size:31px;font-weight:700;line-height:1.06;margin:8px 0 10px;position:relative;z-index:1}
 .campeon .cat{font-size:13px;color:#B9D3C4;position:relative;z-index:1}
 .campeon .copa{position:absolute;top:20px;right:20px;width:26px;height:26px;color:var(--oro-claro);opacity:.9;z-index:1}
@@ -249,9 +253,26 @@ section.bloque.claro .tarjeta{background:#FBFBF8}
 .visor .x{position:absolute;top:18px;right:20px;background:rgba(255,255,255,.14);border:0;color:#fff;width:44px;height:44px;border-radius:50%;font-size:22px;cursor:pointer}
 .visor .pie{position:absolute;bottom:26px;left:0;right:0;text-align:center;color:#CFE3D8;font-size:14px}
 
-/* uniformes */
-.uniforme .precio{display:inline-flex;align-items:baseline;gap:3px;font-family:var(--display);font-size:30px;font-weight:700;color:var(--verde)}
-.uniforme .precio small{font-size:14px;font-weight:600;font-family:var(--texto);color:var(--gris)}
+/* disciplinas y categorías */
+.disciplinas{gap:20px}
+.disciplina{position:relative;background:var(--papel);border:1px solid var(--linea);border-radius:var(--r);box-shadow:var(--sombra);
+  padding:26px 22px;overflow:hidden;border-top:5px solid var(--acento,var(--verde));transition:transform .16s ease,box-shadow .16s ease}
+.disciplina:hover{transform:translateY(-4px);box-shadow:var(--sombra-alta)}
+.disciplina.futbol{--acento:var(--verde)}
+.disciplina.basquet{--acento:var(--oro)}
+.disciplina.voley{--acento:var(--azul)}
+.disciplina .dis-ic{width:58px;height:58px;border-radius:15px;display:flex;align-items:center;justify-content:center;color:#fff;
+  background:linear-gradient(150deg,var(--acento,var(--verde)),color-mix(in srgb,var(--acento,var(--verde)) 65%,#000));
+  box-shadow:0 10px 22px -8px var(--acento,var(--verde));margin-bottom:16px}
+.disciplina .dis-ic svg{width:29px;height:29px}
+.disciplina .et-num{position:absolute;top:14px;right:18px;font-family:var(--display);font-size:46px;font-weight:700;
+  color:var(--acento,var(--verde));opacity:.1;line-height:1;letter-spacing:-.02em}
+.disciplina h3{font-family:var(--display);font-size:25px;font-weight:700;letter-spacing:.02em;text-transform:uppercase;
+  margin:0 0 8px;color:var(--verde-900);position:relative;z-index:1}
+.disciplina p{margin:0 0 14px;color:var(--gris);font-size:14.5px;position:relative;z-index:1}
+.disciplina .meta{position:relative;z-index:1}
+.disciplina .chip{background:color-mix(in srgb,var(--acento,var(--verde)) 12%,#fff);border-color:color-mix(in srgb,var(--acento,var(--verde)) 30%,#fff);
+  color:color-mix(in srgb,var(--acento,var(--verde)) 70%,#000);font-weight:700;letter-spacing:.03em;text-transform:uppercase;font-size:11.5px}
 
 /* arbitrajes */
 .arbitrajes{background:linear-gradient(140deg,var(--verde-900),#15493200 60%),linear-gradient(120deg,#103A28,var(--verde));color:#fff;position:relative;overflow:hidden}
@@ -303,9 +324,11 @@ footer.pie .abajo .sep{flex:1}
 footer.pie p{margin:0 0 14px;max-width:42ch;color:#9CBFAD}
 
 /* ===================== Adaptable ===================== */
-@media (max-width:1000px){
+@media (max-width:1480px){
   nav.menu{display:none}
   .hamb{display:flex}
+}
+@media (max-width:1000px){
   .portada .wrap{grid-template-columns:1fr;gap:34px;padding-block:52px 58px}
   .panel-torneo,.contacto-grid,.arbitrajes .wrap{grid-template-columns:1fr}
   .c3,.c4{grid-template-columns:repeat(2,1fr)}
@@ -347,7 +370,7 @@ footer.pie p{margin:0 0 14px;max-width:42ch;color:#9CBFAD}
 <div class="cinta">
   <div class="wrap">
     <span class="punto"></span>
-    <span id="cinta-torneo"><b>Segunda Edición 2026</b> · en curso</span>
+    <span id="cinta-torneo"><b>Tercera Edición 2026</b> · en curso</span>
     <span class="sep"></span>
     <a class="oculta-movil" href="#contacto">Contacto</a>
     <a href="capitanes/" id="cinta-arb">Estado de cuenta · Capitanes</a>
@@ -364,18 +387,18 @@ footer.pie p{margin:0 0 14px;max-width:42ch;color:#9CBFAD}
       </span>
     </a>
     <nav class="menu">
-      <a href="#tablas" class="destacado">Tablas</a>
+      <a href="#tablas" class="destacado">Clasificación</a>
       <a href="#torneo">Torneo actual</a>
+      <a href="#disciplinas">Disciplinas y categorías</a>
       <a href="#eventos">Eventos</a>
       <a href="#convocatorias">Convocatorias</a>
       <a href="#campeones">Campeones</a>
       <a href="#galeria">Galería</a>
-      <a href="#uniformes">Uniformes</a>
       <a href="#contacto">Contacto</a>
     </nav>
-    <a class="btn verde sm" href="capitanes/" style="flex:none">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
-      Estado de cuenta
+    <a class="btn verde sm" href="https://copafacil.com/ligachapingo" target="_blank" rel="noopener" style="flex:none">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M3 10h18M8 2v4M16 2v4"/><path d="M8 14h2M8 17h2M14 14h2M14 17h2"/></svg>
+      Rol de juegos
     </a>
     <button class="hamb" id="abrir-menu" aria-label="Abrir menú">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
@@ -386,13 +409,13 @@ footer.pie p{margin:0 0 14px;max-width:42ch;color:#9CBFAD}
 <div class="cajon" id="cajon">
   <div class="panel">
     <button class="cerrar" id="cerrar-menu" aria-label="Cerrar menú">&times;</button>
-    <a href="#tablas">Inscripciones y clasificación</a>
+    <a href="#tablas">Clasificación</a>
     <a href="#torneo">Torneo actual</a>
+    <a href="#disciplinas">Disciplinas y categorías</a>
     <a href="#eventos">Eventos</a>
     <a href="#convocatorias">Convocatorias</a>
     <a href="#campeones">Campeones</a>
     <a href="#galeria">Galería</a>
-    <a href="#uniformes">Uniformes</a>
     <a href="#contacto">Contacto</a>
     <a class="btn oro" style="margin-top:14px" href="capitanes/">Consultar estado de cuenta</a>
   </div>
@@ -404,7 +427,7 @@ footer.pie p{margin:0 0 14px;max-width:42ch;color:#9CBFAD}
 <section class="portada" id="inicio">
   <div class="wrap">
     <div>
-      <span class="pill"><span class="brillo"></span><span id="hero-eyebrow">Segunda Edición 2026</span></span>
+      <span class="pill"><span class="brillo"></span><span id="hero-eyebrow">Tercera Edición 2026</span></span>
       <h1 id="hero-titulo">La liga de Chapingo, en una sola página</h1>
       <p class="entrada" id="hero-texto"></p>
       <div class="acciones">
@@ -428,41 +451,88 @@ footer.pie p{margin:0 0 14px;max-width:42ch;color:#9CBFAD}
       <span class="nota">Solo consulta · entra con el código de tu equipo</span>
     </aside>
 
-    <aside class="tarjeta-torneo">
-      <div class="cab">
-        <div>
-          <div class="et">Torneo actual</div>
-          <div class="nom" id="hero-torneo">Segunda Edición 2026</div>
-        </div>
-        <span class="estado-vivo" id="hero-estado">En curso</span>
-      </div>
-      <div class="mini" id="hero-mini"></div>
-      <div class="pie">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s7-5.6 7-11a7 7 0 1 0-14 0c0 5.4 7 11 7 11Z"/><circle cx="12" cy="10" r="2.6"/></svg>
-        <span id="hero-sede">Canchas UACh, Chapingo, Texcoco</span>
-      </div>
-    </aside>
-
     </div><!-- /col-der -->
   </div>
 </section>
 
-<!-- ===================== INSCRIPCIONES Y CLASIFICACIONES ===================== -->
-<section class="bloque claro" id="tablas">
+<!-- ===================== DISCIPLINAS Y CATEGORÍAS ===================== -->
+<section class="bloque claro" id="disciplinas">
   <div class="wrap">
     <div class="encabeza">
-      <span class="eyebrow">Torneo en marcha</span>
-      <h2>Inscripciones y clasificaciones</h2>
-      <p>Inscribe a tu equipo y sigue la tabla de tu categoría. Desliza o usa las flechas para cambiar de apartado.</p>
+      <span class="eyebrow">Multideporte</span>
+      <h2>Disciplinas y categorías</h2>
+      <p>Tres disciplinas bajo un mismo reglamento, arbitraje y sistema de clasificación.</p>
+    </div>
+    <div class="rejilla c3 disciplinas">
+      <article class="disciplina futbol">
+        <span class="et-num">01</span>
+        <div class="dis-ic">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="m12 7 4.2 3-1.6 5H9.4l-1.6-5Z"/><path d="M12 3v4M4.5 8l3-1M4.5 16l3 1M19.5 8l-3-1M19.5 16l-3 1M12 21v-4"/></svg>
+        </div>
+        <h3>Futbol Soccer</h3>
+        <p>La disciplina que le dio origen a la liga: fase regular, liguilla y arbitraje certificado.</p>
+        <div class="meta">
+          <span class="chip">Varonil</span>
+          <span class="chip">Femenil</span>
+          <span class="chip">Rápido Femenil</span>
+        </div>
+      </article>
+      <article class="disciplina basquet">
+        <span class="et-num">02</span>
+        <div class="dis-ic">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 3v18M3 12h18M5.6 5.6c2.6 2.6 2.6 10.2 0 12.8M18.4 5.6c-2.6 2.6-2.6 10.2 0 12.8"/></svg>
+        </div>
+        <h3>Basquetbol</h3>
+        <p>Canchas techadas, cuartos cronometrados y tabla de posiciones por categoría.</p>
+        <div class="meta">
+          <span class="chip">Varonil</span>
+          <span class="chip">Femenil</span>
+        </div>
+      </article>
+      <article class="disciplina voley">
+        <span class="et-num">03</span>
+        <div class="dis-ic">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M3 12c4-3 14-3 18 0M6 6c2 5 2 11 0 15M18 3c-2 5-2 13 0 18"/></svg>
+        </div>
+        <h3>Voleybol</h3>
+        <p>Formato de sets al mejor de tres, con equipos mixtos representando a su dependencia.</p>
+        <div class="meta">
+          <span class="chip">Mixto</span>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CONVOCATORIAS E INSCRIPCIONES ===================== -->
+<section class="bloque" id="convocatorias">
+  <div class="wrap">
+    <div class="encabeza">
+      <span class="eyebrow">Torneo en marcha · Tercera Edición</span>
+      <h2>Convocatorias e inscripciones</h2>
+      <p>Inscribe a tu equipo en la disciplina y categoría que le corresponde. Desliza o usa las flechas para cambiar de convocatoria.</p>
     </div>
 
     <div class="carrusel">
-      <div class="pista" id="pista">
+      <div class="pista">
 
-        <!-- 1 · Inscripciones Relámpago B -->
+        <!-- 1 · Futbol Soccer · Futbol Rápido Femenil -->
+        <article class="diapo" aria-label="Inscripciones Futbol Rápido Femenil">
+          <div class="diapo-cab">
+            <h3>Futbol Rápido Femenil</h3>
+            <a class="btn claro sm" target="_blank" rel="noopener"
+               href="https://copafacil.com/share/embedded/inscription/-8z0h2/false/es">Abrir en otra pestaña</a>
+          </div>
+          <div class="marco">
+            <iframe src="https://copafacil.com/share/embedded/inscription/-8z0h2/false/es"
+                    title="Formulario de inscripción · Futbol Rápido Femenil" loading="lazy"></iframe>
+          </div>
+        </article>
+
+        <!-- 2 · Futbol Soccer · Relámpago B -->
         <article class="diapo" aria-label="Inscripciones Relámpago B">
           <div class="diapo-cab">
-            <h3>Inscripciones Relámpago B</h3>
+            <h3>Futbol Relámpago B</h3>
             <a class="btn claro sm" target="_blank" rel="noopener"
                href="https://copafacil.com/share/embedded/inscription/-fp2uy@io3v/false/es">Abrir en otra pestaña</a>
           </div>
@@ -472,7 +542,73 @@ footer.pie p{margin:0 0 14px;max-width:42ch;color:#9CBFAD}
           </div>
         </article>
 
-        <!-- 2 · Clasificación Primera Fuerza -->
+        <!-- 3 · Basquetbol Varonil -->
+        <article class="diapo" aria-label="Inscripciones Basquetbol Varonil">
+          <div class="diapo-cab">
+            <h3>Basquetbol Varonil</h3>
+            <a class="btn claro sm" target="_blank" rel="noopener"
+               href="https://copafacil.com/share/embedded/inscription/-p4acf/false/es">Abrir en otra pestaña</a>
+          </div>
+          <div class="marco">
+            <iframe src="https://copafacil.com/share/embedded/inscription/-p4acf/false/es"
+                    title="Formulario de inscripción · Basquetbol Varonil" loading="lazy"></iframe>
+          </div>
+        </article>
+
+        <!-- 4 · Basquetbol Femenil -->
+        <article class="diapo" aria-label="Inscripciones Basquetbol Femenil">
+          <div class="diapo-cab">
+            <h3>Basquetbol Femenil</h3>
+            <a class="btn claro sm" target="_blank" rel="noopener"
+               href="https://copafacil.com/share/embedded/inscription/-g7rxr/false/es">Abrir en otra pestaña</a>
+          </div>
+          <div class="marco">
+            <iframe src="https://copafacil.com/share/embedded/inscription/-g7rxr/false/es"
+                    title="Formulario de inscripción · Basquetbol Femenil" loading="lazy"></iframe>
+          </div>
+        </article>
+
+        <!-- 5 · Voleybol Mixto -->
+        <article class="diapo" aria-label="Inscripciones Voleybol Mixto">
+          <div class="diapo-cab">
+            <h3>Voleybol Mixto</h3>
+            <a class="btn claro sm" target="_blank" rel="noopener"
+               href="https://copafacil.com/share/embedded/inscription/-yi7ox/false/es">Abrir en otra pestaña</a>
+          </div>
+          <div class="marco">
+            <iframe src="https://copafacil.com/share/embedded/inscription/-yi7ox/false/es"
+                    title="Formulario de inscripción · Voleybol Mixto" loading="lazy"></iframe>
+          </div>
+        </article>
+
+      </div>
+
+      <div class="controles">
+        <button class="flecha" data-car-izq type="button" aria-label="Convocatoria anterior">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m15 5-7 7 7 7"/></svg>
+        </button>
+        <div class="puntos"></div>
+        <button class="flecha" data-car-der type="button" aria-label="Convocatoria siguiente">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m9 5 7 7-7 7"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CLASIFICACIÓN ===================== -->
+<section class="bloque claro" id="tablas">
+  <div class="wrap">
+    <div class="encabeza">
+      <span class="eyebrow">Tercera Edición</span>
+      <h2>Clasificación</h2>
+      <p>Sigue la tabla de tu categoría. Se actualiza directamente desde Copa Fácil.</p>
+    </div>
+
+    <div class="carrusel">
+      <div class="pista">
+
+        <!-- 1 · Clasificación Primera Fuerza -->
         <article class="diapo" aria-label="Clasificación Primera Fuerza">
           <div class="diapo-cab">
             <h3>Clasificación Primera Fuerza</h3>
@@ -485,7 +621,7 @@ footer.pie p{margin:0 0 14px;max-width:42ch;color:#9CBFAD}
           </div>
         </article>
 
-        <!-- 3 · Clasificación Segunda Fuerza -->
+        <!-- 2 · Clasificación Segunda Fuerza -->
         <article class="diapo" aria-label="Clasificación Segunda Fuerza">
           <div class="diapo-cab">
             <h3>Clasificación Segunda Fuerza</h3>
@@ -512,11 +648,11 @@ footer.pie p{margin:0 0 14px;max-width:42ch;color:#9CBFAD}
       </div>
 
       <div class="controles">
-        <button class="flecha" id="car-izq" type="button" aria-label="Apartado anterior">
+        <button class="flecha" data-car-izq type="button" aria-label="Tabla anterior">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m15 5-7 7 7 7"/></svg>
         </button>
-        <div class="puntos" id="car-puntos"></div>
-        <button class="flecha" id="car-der" type="button" aria-label="Apartado siguiente">
+        <div class="puntos"></div>
+        <button class="flecha" data-car-der type="button" aria-label="Tabla siguiente">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m9 5 7 7-7 7"/></svg>
         </button>
       </div>
@@ -528,8 +664,8 @@ footer.pie p{margin:0 0 14px;max-width:42ch;color:#9CBFAD}
 <section class="bloque" id="torneo">
   <div class="wrap">
     <div class="encabeza">
-      <span class="eyebrow">En juego ahora</span>
-      <h2 id="t-nombre">Torneo actual</h2>
+      <span class="eyebrow">Torneo actual</span>
+      <h2 id="t-nombre">Tercera Edición</h2>
       <p id="t-texto"></p>
     </div>
     <div class="stats" id="t-stats"></div>
@@ -539,7 +675,7 @@ footer.pie p{margin:0 0 14px;max-width:42ch;color:#9CBFAD}
         <div class="lista-datos" id="t-lista"></div>
       </div>
       <div class="datos-torneo">
-        <span class="eyebrow">Calendario y resultados</span>
+        <span class="eyebrow">Calendario y clasificación</span>
         <div class="enlaces-torneo" id="t-enlaces"></div>
       </div>
     </div>
@@ -558,20 +694,8 @@ footer.pie p{margin:0 0 14px;max-width:42ch;color:#9CBFAD}
   </div>
 </section>
 
-<!-- ===================== CONVOCATORIAS ===================== -->
-<section class="bloque" id="convocatorias">
-  <div class="wrap">
-    <div class="encabeza">
-      <span class="eyebrow">Inscripciones</span>
-      <h2>Convocatorias</h2>
-      <p>Bases, cuotas, categorías y fechas de cierre. Descarga el documento y preséntalo firmado en la mesa directiva.</p>
-    </div>
-    <div class="rejilla" id="lista-convocatorias"></div>
-  </div>
-</section>
-
 <!-- ===================== CAMPEONES ===================== -->
-<section class="bloque claro" id="campeones">
+<section class="bloque" id="campeones">
   <div class="wrap">
     <div class="encabeza">
       <span class="eyebrow">Palmarés</span>
@@ -583,7 +707,7 @@ footer.pie p{margin:0 0 14px;max-width:42ch;color:#9CBFAD}
 </section>
 
 <!-- ===================== GALERÍA ===================== -->
-<section class="bloque" id="galeria">
+<section class="bloque claro" id="galeria">
   <div class="wrap">
     <div class="encabeza">
       <span class="eyebrow">Fotografía</span>
@@ -591,18 +715,6 @@ footer.pie p{margin:0 0 14px;max-width:42ch;color:#9CBFAD}
       <p>Momentos de la cancha, premiaciones y la vida de la liga.</p>
     </div>
     <div class="galeria" id="lista-galeria"></div>
-  </div>
-</section>
-
-<!-- ===================== UNIFORMES ===================== -->
-<section class="bloque claro" id="uniformes">
-  <div class="wrap">
-    <div class="encabeza">
-      <span class="eyebrow">Equipamiento</span>
-      <h2>Uniformes</h2>
-      <p>Diseño personalizado para tu equipo, con el escudo y los colores que ustedes elijan.</p>
-    </div>
-    <div class="rejilla c3" id="lista-uniformes"></div>
   </div>
 </section>
 
@@ -658,7 +770,7 @@ footer.pie p{margin:0 0 14px;max-width:42ch;color:#9CBFAD}
             <option>Inscripción a un torneo</option>
             <option>Estado de cuenta y arbitrajes</option>
             <option>Código de acceso de capitán</option>
-            <option>Uniformes</option>
+            <option>Rol de juegos</option>
             <option>Otro</option>
           </select>
         </div>
@@ -689,7 +801,7 @@ footer.pie p{margin:0 0 14px;max-width:42ch;color:#9CBFAD}
             <span class="s" id="pie-lema">Deporte universitario</span>
           </span>
         </a>
-        <p id="pie-texto">Liga deportiva de la Universidad Autónoma Chapingo. Más de mil participantes en cuatro disciplinas.</p>
+        <p id="pie-texto">Liga deportiva de la Universidad Autónoma Chapingo. Fútbol, basquetbol y voleibol en un mismo torneo.</p>
         <div class="redes" id="pie-redes"></div>
       </div>
       <div>
@@ -702,7 +814,7 @@ footer.pie p{margin:0 0 14px;max-width:42ch;color:#9CBFAD}
       <div>
         <h4>Equipos</h4>
         <a href="capitanes/">Estado de cuenta · Capitanes</a>
-        <a href="#uniformes">Uniformes</a>
+        <a href="#disciplinas">Disciplinas y categorías</a>
         <a href="#galeria">Galería</a>
         <a href="#contacto">Contacto</a>
       </div>
@@ -728,35 +840,31 @@ footer.pie p{margin:0 0 14px;max-width:42ch;color:#9CBFAD}
 /* ---------- contenido de respaldo (si contenido.php no responde) ---------- */
 var DEFECTO = {
   sitio:{nombre:'Liga Chapingo', lema:'Deporte universitario con orden y palabra', subtitulo:'Universidad Autónoma Chapingo'},
-  hero:{eyebrow:'Segunda Edición 2026', titulo:'La liga de Chapingo, en una sola página',
-        texto:'Convocatorias, inscripciones, clasificaciones, campeones y uniformes. Si eres capitán, aquí mismo consultas el estado de cuenta de tu equipo.'},
-  torneo:{nombre:'Segunda Edición 2026', estado:'En curso', jornada:'Jornada 4',
+  hero:{eyebrow:'Tercera Edición 2026', titulo:'La liga de Chapingo, en una sola página',
+        texto:'Convocatorias, inscripciones, clasificaciones, disciplinas, categorías y campeones. Si eres capitán, aquí mismo consultas el estado de cuenta de tu equipo.'},
+  torneo:{nombre:'Tercera Edición', estado:'En curso', jornada:'Jornada 1',
           fechas:'Sábados y domingos · 9:00 a 18:00 h', sede:'Canchas UACh, Chapingo, Texcoco',
-          texto:'Fase regular en marcha. Los partidos se juegan en las canchas de la Universidad Autónoma Chapingo, Texcoco, Estado de México.',
-          datos:[{etiqueta:'Equipos inscritos',valor:'86'},{etiqueta:'Jugadores',valor:'1,100+'},
-                 {etiqueta:'Disciplinas',valor:'4'},{etiqueta:'Categorías',valor:'12'}],
-          enlaces:[{titulo:'Calendario y resultados',url:'#',nota:'Copa Fácil'},
-                   {titulo:'Tabla general',url:'#',nota:'Actualizada cada lunes'}]},
+          texto:'Fútbol, basquetbol y voleibol bajo un mismo torneo. Los partidos se juegan en las canchas de la Universidad Autónoma Chapingo, Texcoco, Estado de México.',
+          datos:[{etiqueta:'Disciplinas',valor:'3'},{etiqueta:'Categorías',valor:'6'},
+                 {etiqueta:'Equipos inscritos',valor:'Abierto'},{etiqueta:'Jugadores',valor:'Abierto'}],
+          enlaces:[{titulo:'Calendario y resultados',url:'https://copafacil.com/ligachapingo',nota:'Copa Fácil · Rol de juegos'},
+                   {titulo:'Tabla de clasificación',url:'#tablas',nota:'Primera y Segunda Fuerza'}]},
   eventos:[{id:'ev1',titulo:'Junta de representantes',fecha:'2026-09-20',hora:'11:00',lugar:'Aula Magna, UACh',
-            texto:'Entrega de credenciales, calendario de la segunda vuelta y acuerdos de arbitraje. Asistencia obligatoria para un representante por equipo.'},
+            texto:'Entrega de credenciales, calendario de la Tercera Edición y acuerdos de arbitraje. Asistencia obligatoria para un representante por equipo.'},
            {id:'ev2',titulo:'Jornada doble de aniversario',fecha:'2026-10-04',hora:'09:00',lugar:'Canchas UACh',
             texto:'Todas las categorías juegan el mismo día. Habrá reconocimiento a los equipos con inscripción completa.'}],
-  convocatorias:[{id:'cv1',titulo:'Convocatoria Segunda Edición 2026',fecha:'2026-08-01',cierre:'2026-08-25',vigente:true,
-                  texto:'Bases de participación, cuotas, categorías, ramas y reglamento de la edición en curso.',archivo:''},
-                 {id:'cv2',titulo:'Torneo Relámpago de fin de año',fecha:'2026-11-10',cierre:'2026-12-01',vigente:true,
-                  texto:'Formato de eliminación directa en un fin de semana. Cupo limitado a 24 equipos por rama.',archivo:''}],
-  campeones:[{id:'ca1',anio:'2026',edicion:'Primera Edición',disciplina:'Fútbol',rama:'Varonil',categoria:'Libre',equipo:'Por publicar'},
-             {id:'ca2',anio:'2026',edicion:'Primera Edición',disciplina:'Fútbol',rama:'Femenil',categoria:'Libre',equipo:'Por publicar'}],
+  campeones:[{id:'ca1',anio:'',edicion:'Relámpago A · Septiembre 2026',disciplina:'Fútbol',rama:'',categoria:'',equipo:'Monkeys FC'},
+             {id:'ca2',anio:'2026',edicion:'Segunda Edición',disciplina:'Fútbol',rama:'',categoria:'',equipo:'Recursos Humanos'},
+             {id:'ca3',anio:'2025',edicion:'Primera Edición',disciplina:'Fútbol',rama:'',categoria:'',equipo:'Rebaño Sagrado'},
+             {id:'ca4',anio:'',edicion:'Primer Torneo Relámpago · Octubre 2025',disciplina:'Fútbol',rama:'',categoria:'',equipo:'Chapuboys'}],
   galeria:[],
-  uniformes:[{id:'un1',nombre:'Jersey de local',precio:'450',texto:'Tela deportiva con sublimado completo, número y nombre incluidos. Pedido mínimo por equipo: 12 piezas.'},
-             {id:'un2',nombre:'Conjunto completo',precio:'790',texto:'Jersey, short y medias. Diseño personalizado con el escudo del equipo, entrega en 15 días hábiles.'}],
   /* 'url' se conserva para no romper el contenido guardado, pero los botones
      del sitio apuntan siempre al portal de consulta (capitanes/). */
   arbitrajes:{titulo:'Arbitrajes', url:'arbitrajes/',
               texto:'Aquí el capitán revisa el estado de cuenta de su equipo: cargos de arbitraje, pagos entregados, saldo pendiente y multas individuales de sus jugadores.',
               aviso:'Entra con el código de capitán que te dio la mesa directiva. Es una pantalla de solo consulta: los cobros los registra la tesorería.'},
   contacto:{texto:'Mesa directiva de Liga Chapingo. Atención de lunes a viernes de 10:00 a 18:00 h.',
-            correo:'contacto@ligachapingo.com', whatsapp:'', telefono:'',
+            correo:'contacto@ligachapingo.com', whatsapp:'5657044949', telefono:'',
             direccion:'Universidad Autónoma Chapingo, km 38.5 carretera México–Texcoco, Chapingo, Texcoco, Estado de México',
             facebook:'', instagram:'', tiktok:''}
 };
@@ -803,12 +911,6 @@ function pintar(C){
   $('hero-eyebrow').textContent = hero.eyebrow || T.nombre || '';
   $('hero-titulo').textContent  = hero.titulo || '';
   $('hero-texto').textContent   = hero.texto || '';
-  $('hero-torneo').textContent  = T.nombre || '';
-  $('hero-estado').textContent  = T.estado || '';
-  $('hero-sede').textContent    = T.sede || '';
-  $('hero-mini').innerHTML = lista(T.datos).slice(0,4).map(function(d){
-    return '<div><div class="v">' + esc(d.valor) + '</div><div class="e">' + esc(d.etiqueta) + '</div></div>';
-  }).join('');
 
   /* torneo actual */
   $('t-nombre').textContent = T.nombre || 'Torneo actual';
@@ -844,24 +946,6 @@ function pintar(C){
       }).join('')
     : vacio('Todavía no hay eventos publicados.');
 
-  /* convocatorias */
-  $('lista-convocatorias').innerHTML = lista(C.convocatorias).length
-    ? lista(C.convocatorias).map(function(c){
-        return '<article class="conv">'
-          + '<span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8Z"/><path d="M14 3v5h5"/><path d="M9 13h6M9 17h4"/></svg></span>'
-          + '<div><div class="meta" style="margin-bottom:4px">'
-          + (c.vigente ? '<span class="chip oro">Vigente</span>' : '<span class="chip gris">Cerrada</span>')
-          + (c.cierre ? '<span>Cierre: ' + esc(fechaLarga(c.cierre)) + '</span>' : '') + '</div>'
-          + '<h3>' + esc(c.titulo) + '</h3>'
-          + '<p>' + esc(c.texto) + '</p></div>'
-          + '<div class="der">'
-          + (c.archivo ? '<a class="btn verde sm" href="' + url(c.archivo) + '" target="_blank" rel="noopener">Descargar</a>'
-                       : '<span class="chip gris">Documento en camino</span>')
-          + '<a class="btn claro sm" href="#contacto">Preguntar</a>'
-          + '</div></article>';
-      }).join('')
-    : vacio('No hay convocatorias abiertas en este momento.');
-
   /* campeones */
   $('lista-campeones').innerHTML = lista(C.campeones).length
     ? lista(C.campeones).map(function(k){
@@ -893,22 +977,9 @@ function pintar(C){
     };
   });
 
-  /* uniformes */
+  /* whatsapp: acepta 10 dígitos o con lada 52/521 y siempre arma el link con lada */
   var wa = String(CO.whatsapp || '').replace(/[^0-9]/g, '');
-  $('lista-uniformes').innerHTML = lista(C.uniformes).length
-    ? lista(C.uniformes).map(function(u){
-        var msg = encodeURIComponent('Hola, me interesa el uniforme "' + (u.nombre || '') + '" de Liga Chapingo.');
-        var destino = wa ? 'https://wa.me/' + wa + '?text=' + msg : '#contacto';
-        return '<article class="tarjeta uniforme">' + fotoHTML(u.imagen, u.nombre) + '<div class="cuerpo">'
-          + '<h3>' + esc(u.nombre) + '</h3>'
-          + '<p>' + esc(u.texto) + '</p>'
-          + '<div class="meta" style="margin-top:auto;padding-top:8px">'
-          + (u.precio ? '<span class="precio">$' + esc(u.precio) + ' <small>MXN</small></span>' : '')
-          + '</div>'
-          + '<a class="btn verde sm" href="' + destino + '"' + (wa ? ' target="_blank" rel="noopener"' : '') + '>Pedir informes</a>'
-          + '</div></article>';
-      }).join('')
-    : vacio('El catálogo de uniformes se publica pronto.');
+  if(wa.length === 10) wa = '52' + wa;
 
   /* arbitrajes — los textos se siguen editando desde el panel.
      El destino de los botones ya NO se toma del contenido: siempre apuntan a
@@ -968,14 +1039,14 @@ function pintar(C){
   };
 }
 
-/* ---------- carrusel de inscripciones y clasificaciones ---------- */
-(function(){
-  var pista = $('pista');
+/* ---------- carruseles (convocatorias/inscripciones y clasificación) ---------- */
+Array.prototype.forEach.call(document.querySelectorAll('.carrusel'), function(carrusel){
+  var pista = carrusel.querySelector('.pista');
   if(!pista) return;
   var diapos = Array.prototype.slice.call(pista.querySelectorAll('.diapo'));
   if(!diapos.length) return;
 
-  /* si alguien ya pegó el iframe de Segunda Fuerza, el aviso de "en camino"
+  /* si alguien ya pegó un iframe donde había un aviso "en camino", el aviso
      sobra: se quita solo, sin tener que tocar nada más */
   diapos.forEach(function(d){
     var marco = d.querySelector('.marco');
@@ -983,7 +1054,10 @@ function pintar(C){
     if(marco && aviso && marco.querySelector('iframe')) aviso.parentNode.removeChild(aviso);
   });
 
-  var puntos = $('car-puntos'), izq = $('car-izq'), der = $('car-der'), activo = 0;
+  var puntos = carrusel.querySelector('.puntos');
+  var izq = carrusel.querySelector('[data-car-izq]');
+  var der = carrusel.querySelector('[data-car-der]');
+  var activo = 0;
 
   diapos.forEach(function(d, i){
     var b = document.createElement('button');
@@ -1016,7 +1090,7 @@ function pintar(C){
   }, {passive:true});
   window.addEventListener('resize', marcar);
   marcar();
-})();
+});
 
 /* ---------- menú móvil, visor ---------- */
 $('abrir-menu').onclick = function(){ $('cajon').classList.add('abierto'); };

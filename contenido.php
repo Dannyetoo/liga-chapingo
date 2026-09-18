@@ -1,9 +1,11 @@
 <?php
 /* =====================================================================
    Liga Chapingo — API de contenido del sitio público
-   Guarda textos, eventos, convocatorias, campeones, galería y uniformes
-   en un archivo JSON con número de revisión. No tiene nada que ver con
-   api.php ni con datos/estado.json de la app de arbitrajes.
+   Guarda textos, eventos, campeones y galería en un archivo JSON con
+   número de revisión. Las convocatorias e inscripciones (formularios de
+   Copa Fácil) y las tablas de clasificación se editan directamente en
+   index.html, no aquí. No tiene nada que ver con api.php ni con
+   datos/estado.json de la app de arbitrajes.
 
    Endpoints:
      GET  contenido.php?a=ver      -> {ok, rev, contenido}   (público)
@@ -84,27 +86,27 @@ function semilla(): array {
             'subtitulo' => 'Universidad Autónoma Chapingo',
         ],
         'hero' => [
-            'eyebrow' => 'Segunda Edición 2026',
+            'eyebrow' => 'Tercera Edición 2026',
             'titulo'  => 'La liga de Chapingo, en una sola página',
-            'texto'   => 'Convocatorias, calendario del torneo en curso, campeones, uniformes y el acceso de representantes de equipo para revisar su estado de cuenta de arbitrajes.',
+            'texto'   => 'Convocatorias, inscripciones, clasificaciones, disciplinas, categorías y campeones. Si eres capitán, aquí mismo consultas el estado de cuenta de tu equipo.',
             'imagen'  => '',
         ],
         'torneo' => [
-            'nombre'      => 'Segunda Edición 2026',
+            'nombre'      => 'Tercera Edición',
             'estado'      => 'En curso',
-            'texto'       => 'Fase regular en marcha. Los partidos se juegan en las canchas de la Universidad Autónoma Chapingo, Texcoco, Estado de México.',
-            'jornada'     => 'Jornada 4',
+            'texto'       => 'Fútbol, basquetbol y voleibol bajo un mismo torneo. Los partidos se juegan en las canchas de la Universidad Autónoma Chapingo, Texcoco, Estado de México.',
+            'jornada'     => 'Jornada 1',
             'fechas'      => 'Sábados y domingos · 9:00 a 18:00 h',
             'sede'        => 'Canchas UACh, Chapingo, Texcoco',
             'datos'       => [
-                ['etiqueta' => 'Equipos inscritos',  'valor' => '86'],
-                ['etiqueta' => 'Jugadores',          'valor' => '1,100+'],
-                ['etiqueta' => 'Disciplinas',        'valor' => '4'],
-                ['etiqueta' => 'Categorías',         'valor' => '12'],
+                ['etiqueta' => 'Disciplinas',        'valor' => '3'],
+                ['etiqueta' => 'Categorías',         'valor' => '6'],
+                ['etiqueta' => 'Equipos inscritos',  'valor' => 'Abierto'],
+                ['etiqueta' => 'Jugadores',          'valor' => 'Abierto'],
             ],
             'enlaces'     => [
-                ['titulo' => 'Calendario y resultados', 'url' => '#', 'nota' => 'Copa Fácil'],
-                ['titulo' => 'Tabla general',           'url' => '#', 'nota' => 'Actualizada cada lunes'],
+                ['titulo' => 'Calendario y resultados',  'url' => 'https://copafacil.com/ligachapingo', 'nota' => 'Copa Fácil · Rol de juegos'],
+                ['titulo' => 'Tabla de clasificación',   'url' => '#tablas', 'nota' => 'Primera y Segunda Fuerza'],
             ],
         ],
         'eventos' => [
@@ -112,7 +114,7 @@ function semilla(): array {
                 'id' => 'ev1', 'titulo' => 'Junta de representantes',
                 'fecha' => '2026-09-20', 'hora' => '11:00',
                 'lugar' => 'Aula Magna, UACh',
-                'texto' => 'Entrega de credenciales, calendario de la segunda vuelta y acuerdos de arbitraje. Asistencia obligatoria para un representante por equipo.',
+                'texto' => 'Entrega de credenciales, calendario de la Tercera Edición y acuerdos de arbitraje. Asistencia obligatoria para un representante por equipo.',
                 'imagen' => '',
             ],
             [
@@ -123,37 +125,13 @@ function semilla(): array {
                 'imagen' => '',
             ],
         ],
-        'convocatorias' => [
-            [
-                'id' => 'cv1', 'titulo' => 'Convocatoria Segunda Edición 2026',
-                'fecha' => '2026-08-01', 'cierre' => '2026-08-25', 'vigente' => true,
-                'texto' => 'Bases de participación, cuotas, categorías, ramas y reglamento de la edición en curso.',
-                'archivo' => '',
-            ],
-            [
-                'id' => 'cv2', 'titulo' => 'Torneo Relámpago de fin de año',
-                'fecha' => '2026-11-10', 'cierre' => '2026-12-01', 'vigente' => true,
-                'texto' => 'Formato de eliminación directa en un fin de semana. Cupo limitado a 24 equipos por rama.',
-                'archivo' => '',
-            ],
-        ],
         'campeones' => [
-            ['id' => 'ca1', 'anio' => '2026', 'edicion' => 'Primera Edición', 'disciplina' => 'Fútbol', 'rama' => 'Varonil', 'categoria' => 'Libre', 'equipo' => 'Por publicar', 'imagen' => ''],
-            ['id' => 'ca2', 'anio' => '2026', 'edicion' => 'Primera Edición', 'disciplina' => 'Fútbol', 'rama' => 'Femenil', 'categoria' => 'Libre', 'equipo' => 'Por publicar', 'imagen' => ''],
+            ['id' => 'ca1', 'anio' => '',     'edicion' => 'Relámpago A · Septiembre 2026',            'disciplina' => 'Fútbol', 'rama' => '', 'categoria' => '', 'equipo' => 'Monkeys FC',       'imagen' => ''],
+            ['id' => 'ca2', 'anio' => '2026', 'edicion' => 'Segunda Edición',                          'disciplina' => 'Fútbol', 'rama' => '', 'categoria' => '', 'equipo' => 'Recursos Humanos', 'imagen' => ''],
+            ['id' => 'ca3', 'anio' => '2025', 'edicion' => 'Primera Edición',                          'disciplina' => 'Fútbol', 'rama' => '', 'categoria' => '', 'equipo' => 'Rebaño Sagrado',    'imagen' => ''],
+            ['id' => 'ca4', 'anio' => '',     'edicion' => 'Primer Torneo Relámpago · Octubre 2025',   'disciplina' => 'Fútbol', 'rama' => '', 'categoria' => '', 'equipo' => 'Chapuboys',        'imagen' => ''],
         ],
         'galeria' => [],
-        'uniformes' => [
-            [
-                'id' => 'un1', 'nombre' => 'Jersey de local', 'precio' => '450',
-                'texto' => 'Tela deportiva con sublimado completo, número y nombre incluidos. Pedido mínimo por equipo: 12 piezas.',
-                'imagen' => '',
-            ],
-            [
-                'id' => 'un2', 'nombre' => 'Conjunto completo', 'precio' => '790',
-                'texto' => 'Jersey, short y medias. Diseño personalizado con el escudo del equipo, entrega en 15 días hábiles.',
-                'imagen' => '',
-            ],
-        ],
         'arbitrajes' => [
             'titulo' => 'Acceso para capitanes de equipo',
             'texto'  => 'Aquí el capitán revisa el estado de cuenta de su equipo: cargos de arbitraje, pagos entregados, saldo pendiente y multas individuales de sus jugadores.',
@@ -164,7 +142,7 @@ function semilla(): array {
         ],
         'contacto' => [
             'texto'     => 'Mesa directiva de Liga Chapingo. Atención de lunes a viernes de 10:00 a 18:00 h.',
-            'whatsapp'  => '',
+            'whatsapp'  => '5657044949',
             'telefono'  => '',
             'correo'    => 'contacto@ligachapingo.com',
             'direccion' => 'Universidad Autónoma Chapingo, km 38.5 carretera México–Texcoco, Chapingo, Texcoco, Estado de México',
@@ -322,7 +300,7 @@ if ($a === 'guardar') {
         salida(['ok' => false, 'error' => 'contenido inválido'], 400);
     }
     $contenido = $in['contenido'];
-    foreach (['eventos', 'convocatorias', 'campeones', 'galeria', 'uniformes'] as $k) {
+    foreach (['eventos', 'campeones', 'galeria'] as $k) {
         if (isset($contenido[$k]) && !is_array($contenido[$k])) {
             salida(['ok' => false, 'error' => 'contenido inválido'], 400);
         }
