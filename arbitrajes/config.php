@@ -1,27 +1,10 @@
 <?php
-/* =====================================================================
-   Tesorería Premier Chapingo — configuración
-   Edita este archivo ANTES de subirlo al servidor.
-   ===================================================================== */
+declare(strict_types=1);
+require_once dirname(__DIR__) . '/config/bootstrap.php';
 
-/* 1) Clave de acceso. Cámbiala por una tuya (mínimo 8 caracteres).
-      Es una sola clave compartida entre quienes cobran. */
-define('CLAVE_ACCESO', 'dos');
+define('CLAVE_ACCESO', (string)ligaConfig('LIGA_TESORERIA_PASSWORD', ''));
+define('DATOS_DIR', (string)ligaConfig('LIGA_DATOS_DIR', __DIR__ . '/datos'));
+define('MINUTOS_SESION', (int)ligaConfig('LIGA_TESORERIA_SESSION_MINUTES', 480));
+define('CF_API_KEY', (string)ligaConfig('COPAFACIL_API_KEY', ''));
+date_default_timezone_set((string)ligaConfig('LIGA_TIMEZONE', 'America/Mexico_City'));
 
-/* 2) Carpeta donde se guardan los datos.
-      Si tu hosting te deja, muévela FUERA de public_html y pon aquí la ruta
-      completa, por ejemplo: '/home/usuario/datos-tesoreria'
-      Si la dejas donde está, el .htaccess incluido la protege en Apache. */
-define('DATOS_DIR', __DIR__ . '/datos');
-
-/* 3) Minutos de inactividad antes de volver a pedir la clave (0 = nunca). */
-define('MINUTOS_SESION', 480);
-
-/* 4) Copa Fácil — API v2 (opcional).
-      La llave se obtiene dentro de la app de Copa Fácil, en la sección del API.
-      Ponerla aquí es más seguro que capturarla en el navegador. Déjala vacía si
-      prefieres escribirla desde Catálogo → CopaFacil. */
-define('CF_API_KEY', '6KXL-W3BG-MPV4');
-
-/* 5) Zona horaria para fechas y respaldos. */
-date_default_timezone_set('America/Mexico_City');
