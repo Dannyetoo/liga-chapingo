@@ -6,7 +6,7 @@
 
 /* 1) Clave de acceso. Cámbiala por una tuya (mínimo 8 caracteres).
       Es una sola clave compartida entre quienes cobran. */
-define('CLAVE_ACCESO', 'capibara');
+define('CLAVE_ACCESO', 'dos');
 
 /* 2) Carpeta donde se guardan los datos.
       Si tu hosting te deja, muévela FUERA de public_html y pon aquí la ruta

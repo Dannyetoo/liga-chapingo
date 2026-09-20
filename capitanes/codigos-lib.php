@@ -1,6 +1,6 @@
 <?php
 /* =====================================================================
-   Liga Chapingo — funciones compartidas del portal de capitanes
+   Liga Premier Chapingo — funciones compartidas del portal de capitanes
 
    Aquí vive lo único que el portal de capitanes y la mesa directiva
    necesitan compartir: cómo se calcula el código de cada equipo y cómo

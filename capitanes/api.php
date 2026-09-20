@@ -1,6 +1,6 @@
 <?php
 /* =====================================================================
-   Liga Chapingo — Portal de capitanes · API DE SOLO LECTURA
+   Liga Premier Chapingo — Portal de capitanes · API DE SOLO LECTURA
 
    Reglas de esta API, sin excepciones:
      · No existe ningún endpoint que escriba, modifique o borre nada.
@@ -290,7 +290,7 @@ if ($a === 'estado') {
         'rev'         => $d['rev'],
         'actualizado' => $d['actualizado'],
         'liga' => [
-            'nombre'       => texto($liga['nombre'] ?? 'Liga Chapingo'),
+            'nombre'       => texto($liga['nombre'] ?? 'Liga Premier Chapingo'),
             'pie'          => texto($liga['pie'] ?? ''),
             'avisoCredito' => texto($liga['avisoCredito'] ?? ''),
         ],

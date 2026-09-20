@@ -1,6 +1,6 @@
 <?php
 /* =====================================================================
-   Liga Chapingo — API de contenido del sitio público
+   Liga Premier Chapingo — API de contenido del sitio público
    Guarda textos, eventos, campeones y galería en un archivo JSON con
    número de revisión. Las convocatorias e inscripciones (formularios de
    Copa Fácil) y las tablas de clasificación se editan directamente en
@@ -81,7 +81,7 @@ function prepararCarpeta(): void {
 function semilla(): array {
     return [
         'sitio' => [
-            'nombre'    => 'Liga Chapingo',
+            'nombre'    => 'Liga Premier Chapingo',
             'lema'      => 'Deporte universitario con orden y palabra',
             'subtitulo' => 'Universidad Autónoma Chapingo',
         ],
@@ -141,7 +141,7 @@ function semilla(): array {
             'url'    => 'arbitrajes/',
         ],
         'contacto' => [
-            'texto'     => 'Mesa directiva de Liga Chapingo. Atención de lunes a viernes de 10:00 a 18:00 h.',
+            'texto'     => 'Mesa directiva de Liga Premier Chapingo. Atención de lunes a viernes de 10:00 a 18:00 h.',
             'whatsapp'  => '5657044949',
             'telefono'  => '',
             'correo'    => 'contacto@ligachapingo.com',

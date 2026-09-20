@@ -3,13 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Liga Chapingo</title>
-<meta name="description" content="Liga Chapingo — inscripciones, clasificaciones, convocatorias, torneo actual, disciplinas y categorías, campeones, galería y el portal donde los capitanes consultan el estado de cuenta de su equipo.">
+<title>Liga Premier Chapingo</title>
+<meta name="description" content="Liga Premier Chapingo — inscripciones, clasificaciones, convocatorias, torneo actual, disciplinas y categorías, campeones, galería y el portal donde los capitanes consultan el estado de cuenta de su equipo.">
 <meta name="theme-color" content="#1B6B45">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="icono-192.png">
 <link rel="apple-touch-icon" href="icono-180.png">
-<meta property="og:title" content="Liga Chapingo">
+<meta property="og:title" content="Liga Premier Chapingo">
 <meta property="og:description" content="Deporte universitario con orden y palabra. Convocatorias, torneo actual, disciplinas y categorías, y campeones.">
 <meta property="og:type" content="website">
 <meta property="og:image" content="icono-512.png">
@@ -17,7 +17,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-/* ===================== Identidad Liga Chapingo ===================== */
+/* ===================== Identidad Liga Premier Chapingo ===================== */
 :root{
   --verde-900:#0C3523;
   --verde-800:#123F2B;
@@ -380,9 +380,9 @@ footer.pie p{margin:0 0 14px;max-width:42ch;color:#9CBFAD}
 <header class="barra">
   <div class="wrap">
     <a class="marca" href="#inicio">
-      <img class="escudo" src="icono-192.png" alt="Escudo de Liga Chapingo">
+      <img class="escudo" src="icono-192.png" alt="Escudo de Liga Premier Chapingo">
       <span class="txt">
-        <span class="n">Liga Chapingo</span>
+        <span class="n">Liga Premier Chapingo</span>
         <span class="s" id="marca-sub">Universidad Autónoma Chapingo</span>
       </span>
     </a>
@@ -797,7 +797,7 @@ footer.pie p{margin:0 0 14px;max-width:42ch;color:#9CBFAD}
         <a class="marca" href="#inicio" style="margin-bottom:14px">
           <img class="escudo" src="icono-192.png" alt="">
           <span class="txt">
-            <span class="n">Liga Chapingo</span>
+            <span class="n">Liga Premier Chapingo</span>
             <span class="s" id="pie-lema">Deporte universitario</span>
           </span>
         </a>
@@ -820,7 +820,7 @@ footer.pie p{margin:0 0 14px;max-width:42ch;color:#9CBFAD}
       </div>
     </div>
     <div class="abajo">
-      <span>© <span id="anio">2026</span> Liga Chapingo · ligachapingo.com</span>
+      <span>© <span id="anio">2026</span> Liga Premier Chapingo · ligachapingo.com</span>
       <span class="sep"></span>
       <span id="pie-rev"></span>
     </div>
@@ -839,7 +839,7 @@ footer.pie p{margin:0 0 14px;max-width:42ch;color:#9CBFAD}
 
 /* ---------- contenido de respaldo (si contenido.php no responde) ---------- */
 var DEFECTO = {
-  sitio:{nombre:'Liga Chapingo', lema:'Deporte universitario con orden y palabra', subtitulo:'Universidad Autónoma Chapingo'},
+  sitio:{nombre:'Liga Premier Chapingo', lema:'Deporte universitario con orden y palabra', subtitulo:'Universidad Autónoma Chapingo'},
   hero:{eyebrow:'Tercera Edición 2026', titulo:'La liga de Chapingo, en una sola página',
         texto:'Convocatorias, inscripciones, clasificaciones, disciplinas, categorías y campeones. Si eres capitán, aquí mismo consultas el estado de cuenta de tu equipo.'},
   torneo:{nombre:'Tercera Edición', estado:'En curso', jornada:'Jornada 1',
@@ -863,7 +863,7 @@ var DEFECTO = {
   arbitrajes:{titulo:'Arbitrajes', url:'arbitrajes/',
               texto:'Aquí el capitán revisa el estado de cuenta de su equipo: cargos de arbitraje, pagos entregados, saldo pendiente y multas individuales de sus jugadores.',
               aviso:'Entra con el código de capitán que te dio la mesa directiva. Es una pantalla de solo consulta: los cobros los registra la tesorería.'},
-  contacto:{texto:'Mesa directiva de Liga Chapingo. Atención de lunes a viernes de 10:00 a 18:00 h.',
+  contacto:{texto:'Mesa directiva de Liga Premier Chapingo. Atención de lunes a viernes de 10:00 a 18:00 h.',
             correo:'contacto@ligachapingo.com', whatsapp:'5657044949', telefono:'',
             direccion:'Universidad Autónoma Chapingo, km 38.5 carretera México–Texcoco, Chapingo, Texcoco, Estado de México',
             facebook:'', instagram:'', tiktok:''}
@@ -901,7 +901,7 @@ function pintar(C){
   C = C || {};
   var sitio = C.sitio || {}, hero = C.hero || {}, T = C.torneo || {}, AR = C.arbitrajes || {}, CO = C.contacto || {};
 
-  document.title = (sitio.nombre || 'Liga Chapingo') + (T.nombre ? ' · ' + T.nombre : '');
+  document.title = (sitio.nombre || 'Liga Premier Chapingo') + (T.nombre ? ' · ' + T.nombre : '');
   if(sitio.subtitulo) $('marca-sub').textContent = sitio.subtitulo;
   if(sitio.lema) $('pie-lema').textContent = sitio.lema;
   $('anio').textContent = String(new Date().getFullYear());
@@ -1030,12 +1030,12 @@ function pintar(C){
   $('c-forma').onsubmit = function(ev){
     ev.preventDefault();
     if(wa) window.open('https://wa.me/' + wa + '?text=' + encodeURIComponent(texto()), '_blank', 'noopener');
-    else if(CO.correo) window.location.href = 'mailto:' + CO.correo + '?subject=' + encodeURIComponent('Liga Chapingo · ' + $('f-asunto').value) + '&body=' + encodeURIComponent(texto());
+    else if(CO.correo) window.location.href = 'mailto:' + CO.correo + '?subject=' + encodeURIComponent('Liga Premier Chapingo · ' + $('f-asunto').value) + '&body=' + encodeURIComponent(texto());
     else alert('Aún no hay un número de WhatsApp configurado. Escríbenos por correo.');
   };
   $('f-correo').onclick = function(){
     if(!CO.correo) return alert('Aún no hay un correo configurado.');
-    window.location.href = 'mailto:' + CO.correo + '?subject=' + encodeURIComponent('Liga Chapingo · ' + $('f-asunto').value) + '&body=' + encodeURIComponent(texto());
+    window.location.href = 'mailto:' + CO.correo + '?subject=' + encodeURIComponent('Liga Premier Chapingo · ' + $('f-asunto').value) + '&body=' + encodeURIComponent(texto());
   };
 }
 

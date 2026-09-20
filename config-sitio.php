@@ -1,6 +1,6 @@
 <?php
 /* =====================================================================
-   Liga Chapingo — ligachapingo.com
+   Liga Premier Chapingo — ligachapingo.com
    Configuración del SITIO PÚBLICO (no toca la app de arbitrajes)
    Edita este archivo ANTES de subirlo al servidor.
    ===================================================================== */

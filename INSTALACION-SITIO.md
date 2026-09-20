@@ -1,4 +1,4 @@
-# ligachapingo.com — sitio público de Liga Chapingo
+# ligachapingo.com — sitio público de Liga Premier Chapingo
 
 Este paquete es **la página inicial** del dominio. No toca la app de tesorería:
 la app se queda igual, solo se mueve a la carpeta `arbitrajes/` y el sitio la enlaza.

@@ -1,6 +1,6 @@
 <?php
 /* =====================================================================
-   Liga Chapingo — Portal de capitanes (SOLO CONSULTA)
+   Liga Premier Chapingo — Portal de capitanes (SOLO CONSULTA)
    Configuración. Edita este archivo ANTES de subirlo al servidor.
 
    Este portal NO escribe nunca en la información financiera: solo lee

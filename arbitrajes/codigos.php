@@ -1,6 +1,6 @@
 <?php
 /* =====================================================================
-   Liga Chapingo — Códigos de capitán (herramienta de la mesa directiva)
+   Liga Premier Chapingo — Códigos de capitán (herramienta de la mesa directiva)
 
    Esta página vive dentro de la carpeta de administración y solo abre si
    ya iniciaste sesión en la app de arbitrajes: usa la MISMA sesión y la
@@ -95,7 +95,7 @@ ksort($grupos);
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
-<title>Códigos de capitán · Liga Chapingo</title>
+<title>Códigos de capitán · Liga Premier Chapingo</title>
 <style>
 :root{--verde:#1B6B45;--verde-900:#0C3523;--crema:#F4F3EC;--linea:#E2E4DB;--gris:#5F6F67}
 *{box-sizing:border-box}
@@ -155,7 +155,7 @@ tr:last-child td{border-bottom:0}
         foreach ($lista as $e):
           $cod   = codigoEquipo((string)$e['id']);
           $bonito = codigoBonito($cod);
-          $mensaje = 'Código de acceso al portal de Liga Chapingo, donde podrás consultar tu estado de cuenta: ' . $bonito . "\n"
+          $mensaje = 'Código de acceso al portal de Liga Premier Chapingo, donde podrás consultar tu estado de cuenta: ' . $bonito . "\n"
                    . $portal;
       ?>
         <tr data-b="<?= h(mb_strtolower(((string)($e['nombre'] ?? '')) . ' ' . ((string)($e['encargado'] ?? '')) . ' ' . $bonito, 'UTF-8')) ?>">

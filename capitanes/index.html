@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Estado de cuenta · Liga Chapingo</title>
+<title>Estado de cuenta · Liga Premier Chapingo</title>
 <meta name="robots" content="noindex, nofollow">
 <meta name="theme-color" content="#1B6B45">
 <link rel="icon" href="../icono-192.png">
@@ -175,8 +175,8 @@ footer.pie a{color:var(--verde);font-weight:600}
 <!-- ===================== ACCESO ===================== -->
 <section class="acceso" id="acceso">
   <form class="caja" id="forma-acceso" autocomplete="off">
-    <img class="escudo" src="../icono-192.png" alt="Escudo de Liga Chapingo">
-    <div class="et">Liga Chapingo</div>
+    <img class="escudo" src="../icono-192.png" alt="Escudo de Liga Premier Chapingo">
+    <div class="et">Liga Premier Chapingo</div>
     <h1>Estado de cuenta</h1>
     <p class="intro">Escribe el código que la mesa directiva le dio a tu equipo. Verás únicamente la información de tu equipo, solo para consulta.</p>
 
@@ -203,7 +203,7 @@ footer.pie a{color:var(--verde);font-weight:600}
     <div class="wrap">
       <div class="barra-sup">
         <a class="marca" href="../index.html" style="text-decoration:none;color:inherit">
-          <img src="../icono-192.png" alt=""><span>Liga Chapingo</span>
+          <img src="../icono-192.png" alt=""><span>Liga Premier Chapingo</span>
         </a>
         <span class="sep"></span>
         <button class="btn fantasma sm" id="btn-refrescar" type="button">Actualizar</button>
@@ -368,7 +368,7 @@ function pintar(r){
   $('eq-nombre').textContent = eq.nombre || '—';
   $('eq-ruta').textContent = [eq.edicion, eq.disciplina, eq.rama, eq.categoria].filter(Boolean).join(' · ');
   $('eq-enc').textContent = eq.encargado ? 'Representante registrado: ' + eq.encargado : '';
-  document.title = (eq.nombre || 'Estado de cuenta') + ' · Liga Chapingo';
+  document.title = (eq.nombre || 'Estado de cuenta') + ' · Liga Premier Chapingo';
 
   $('k-cargos').textContent = mxn0(res.cargos);
   $('k-pagado').textContent = mxn0(res.pagado);
@@ -439,7 +439,7 @@ function pintar(r){
 function ticketHTML(m){
   var eq = (DATOS && DATOS.equipo) || {}, liga = (DATOS && DATOS.liga) || {};
   var L = ['<div class="ticket">'];
-  L.push('<div class="tk-brand">' + esc(liga.nombre || 'Liga Chapingo') + '</div>');
+  L.push('<div class="tk-brand">' + esc(liga.nombre || 'Liga Premier Chapingo') + '</div>');
   if(eq.edicion) L.push('<div class="tk-sub">' + esc(eq.edicion) + '</div>');
   L.push('<hr>');
   L.push('<div class="kv"><span>' + esc(fecha(m.fecha) + ' ' + (m.hora || '')) + '</span><span>'
