@@ -1,0 +1,20 @@
+# Secretos y configuración local
+.env
+.env.*
+!.env.example
+*.local.php
+liga-chapingo-secrets.php
+
+# Datos de producción y copias locales
+arbitrajes/datos/estado.json
+arbitrajes/datos/respaldos/
+capitanes/datos/*.json
+contenido/contenido.json
+contenido/respaldos/
+storage/
+
+# Archivos temporales
+*.bak
+*.log
+*.tmp
+
