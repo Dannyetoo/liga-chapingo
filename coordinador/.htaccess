@@ -1,0 +1,39 @@
+# Panel de coordinación
+DirectoryIndex index.php index.html
+<IfModule mod_rewrite.c>
+ RewriteEngine On
+ RewriteRule ^index\.html$ index.php [L]
+</IfModule>
+Options -Indexes
+
+# Nunca servir la configuración ni documentos internos
+<FilesMatch "^(config\.php)$">
+  <IfModule mod_authz_core.c>
+    Require all denied
+  </IfModule>
+  <IfModule !mod_authz_core.c>
+    Order allow,deny
+    Deny from all
+  </IfModule>
+</FilesMatch>
+<FilesMatch "\.(json|md|log|bak)$">
+  <IfModule mod_authz_core.c>
+    Require all denied
+  </IfModule>
+  <IfModule !mod_authz_core.c>
+    Order allow,deny
+    Deny from all
+  </IfModule>
+</FilesMatch>
+
+<IfModule mod_headers.c>
+  Header set X-Content-Type-Options "nosniff"
+  Header set Referrer-Policy "same-origin"
+  Header set X-Frame-Options "SAMEORIGIN"
+  Header set X-Robots-Tag "noindex, nofollow"
+</IfModule>
+<FilesMatch "\.(html|php)$">
+  <IfModule mod_headers.c>
+    Header set Cache-Control "no-store"
+  </IfModule>
+</FilesMatch>

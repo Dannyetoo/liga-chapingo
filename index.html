@@ -3,44 +3,101 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Liga Premier Chapingo</title>
-<meta name="description" content="Liga Premier Chapingo — inscripciones, clasificaciones, convocatorias, torneo actual, disciplinas y categorías, campeones, galería y el portal donde los capitanes consultan el estado de cuenta de su equipo.">
-<meta name="theme-color" content="#1B6B45">
+<title>Liga Premier Chapingo · Fútbol rápido y básquetbol en Chapingo, Texcoco</title>
+<meta name="description" content="Liga recreativa de fútbol rápido y básquetbol en Chapingo, Texcoco: convocatorias, rol de juegos, tabla de posiciones, campeones y portal de capitanes.">
+<link rel="canonical" href="https://ligachapingo.com/">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#0A2948">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="icono-192.png">
 <link rel="apple-touch-icon" href="icono-180.png">
-<meta property="og:title" content="Liga Premier Chapingo">
+<meta property="og:site_name" content="Liga Premier Chapingo">
+<meta property="og:locale" content="es_MX">
+<meta property="og:url" content="https://ligachapingo.com/">
+<meta property="og:title" content="Liga Premier Chapingo · Fútbol rápido y básquetbol en Chapingo">
 <meta property="og:description" content="Deporte universitario con orden y palabra. Convocatorias, torneo actual, disciplinas y categorías, y campeones.">
 <meta property="og:type" content="website">
-<meta property="og:image" content="icono-512.png">
+<meta property="og:image" content="https://ligachapingo.com/icono-512.png">
+<meta property="og:image:width" content="512">
+<meta property="og:image:height" content="512">
+<meta property="og:image:alt" content="Escudo de la Liga Premier Chapingo">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">
+[
+ {
+  "@context": "https://schema.org",
+  "@type": "SportsOrganization",
+  "@id": "https://ligachapingo.com/#liga",
+  "name": "Liga Premier Chapingo",
+  "alternateName": [
+   "Liga Chapingo",
+   "Premier League Chapingo"
+  ],
+  "url": "https://ligachapingo.com/",
+  "logo": "https://ligachapingo.com/icono-512.png",
+  "description": "Liga recreativa de fútbol rápido y básquetbol en Chapingo, Texcoco: convocatorias, rol de juegos, tabla de posiciones, campeones y portal de capitanes.",
+  "sport": [
+   "Fútbol rápido",
+   "Basquetbol"
+  ],
+  "email": "contacto@ligachapingo.com",
+  "address": {
+   "@type": "PostalAddress",
+   "addressLocality": "Chapingo, Texcoco",
+   "addressRegion": "Estado de México",
+   "addressCountry": "MX"
+  },
+  "areaServed": {
+   "@type": "Place",
+   "name": "Chapingo, Texcoco, Estado de México"
+  },
+  "sameAs": [
+   "https://copafacil.com/ligachapingo"
+  ]
+ },
+ {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": "https://ligachapingo.com/#sitio",
+  "name": "Liga Premier Chapingo",
+  "url": "https://ligachapingo.com/",
+  "inLanguage": "es-MX",
+  "publisher": {
+   "@id": "https://ligachapingo.com/#liga"
+  }
+ }
+]
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 /* ===================== Identidad Liga Premier Chapingo ===================== */
 :root{
-  --verde-900:#0C3523;
-  --verde-800:#123F2B;
-  --verde:#1B6B45;
-  --verde-400:#2E9463;
-  --oro:#C9A227;
-  --oro-claro:#EAC85C;
-  --azul:#0B3C81;
-  --azul-claro:#3E6FC4;
-  --crema:#F4F3EC;
+  /* azul Chapingo + plata + blanco (04-oct-2026) · mismos tonos que el portal de capitanes y «Busca un rival».
+     Los nombres de variable se conservan para no tocar el resto de las reglas. */
+  --verde-900:#0A2948;
+  --verde-800:#0F3357;
+  --verde:#123B63;
+  --verde-400:#2468A8;
+  --oro:#BFC5CA;
+  --oro-claro:#E4E8EB;
+  --azul:#2468A8;
+  --azul-claro:#6FA3D8;
+  --crema:#F4F6F8;
   --papel:#FFFFFF;
-  --tinta:#14231C;
-  --gris:#5F6F67;
-  --linea:#E2E4DB;
-  --sombra:0 1px 2px rgba(12,53,35,.06),0 8px 24px rgba(12,53,35,.07);
-  --sombra-alta:0 18px 48px rgba(12,53,35,.16);
+  --tinta:#17212B;
+  --gris:#5B6670;
+  --linea:#E3E7EA;
+  --sombra:0 1px 2px rgba(10,41,72,.05),0 8px 24px rgba(10,41,72,.07);
+  --sombra-alta:0 18px 48px rgba(10,41,72,.16);
   --r:14px;
   --ancho:1160px;
   --display:'Barlow Condensed',Impact,'Arial Narrow',sans-serif;
   --texto:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
 }
 *{box-sizing:border-box}
-html{scroll-behavior:smooth;scroll-padding-top:96px;-webkit-text-size-adjust:100%}
+html{scroll-behavior:smooth;scroll-padding-top:82px;-webkit-text-size-adjust:100%}
 body{margin:0;background:var(--crema);color:var(--tinta);font-family:var(--texto);font-size:16px;line-height:1.6;overflow-x:hidden}
 img{max-width:100%;display:block}
 a{color:inherit}
@@ -49,35 +106,35 @@ button{font:inherit}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 
 /* ===================== Barra superior ===================== */
-.cinta{background:var(--verde-900);color:#CFE3D8;font-size:12.5px;letter-spacing:.02em}
+.cinta{background:var(--verde-900);color:#D5DEE8;font-size:12.5px;letter-spacing:.02em}
 .cinta .wrap{display:flex;align-items:center;gap:14px;min-height:38px;flex-wrap:wrap}
 .cinta b{color:#fff;font-weight:600}
 .cinta .punto{width:6px;height:6px;border-radius:50%;background:var(--oro-claro);flex:none;animation:latido 2.4s ease-in-out infinite}
 @keyframes latido{0%,100%{opacity:1}50%{opacity:.35}}
 .cinta .sep{flex:1}
-.cinta a{color:#CFE3D8;text-decoration:none;opacity:.9}
+.cinta a{color:#D5DEE8;text-decoration:none;opacity:.9}
 .cinta a:hover{color:#fff;opacity:1}
 
 /* ===================== Encabezado ===================== */
 header.barra{position:sticky;top:0;z-index:60;background:rgba(255,255,255,.94);backdrop-filter:blur(10px);border-bottom:1px solid var(--linea)}
 header.barra .wrap{display:flex;align-items:center;gap:18px;min-height:66px;max-width:1440px}
 .marca{display:flex;align-items:center;gap:11px;text-decoration:none;min-width:0}
-.marca .escudo{width:40px;height:40px;border-radius:11px;flex:none;box-shadow:0 4px 12px rgba(27,107,69,.28)}
+.marca .escudo{width:40px;height:40px;border-radius:11px;flex:none;box-shadow:0 4px 12px rgba(18,59,99,.28)}
 .marca .txt{display:flex;flex-direction:column;line-height:1;min-width:0}
 .marca .n{font-family:var(--display);font-weight:700;font-size:23px;letter-spacing:.045em;text-transform:uppercase;color:var(--verde-900);
   white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .marca .s{font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--gris);margin-top:3px;
   white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:34ch}
 nav.menu{display:flex;align-items:center;gap:2px;margin-left:auto}
-nav.menu a{padding:9px 8px;border-radius:9px;text-decoration:none;font-size:13.5px;font-weight:500;color:#2C3B33;white-space:nowrap}
-nav.menu a:hover{background:#EDF2EE;color:var(--verde)}
+nav.menu a{padding:9px 8px;border-radius:9px;text-decoration:none;font-size:13.5px;font-weight:500;color:#2A3644;white-space:nowrap}
+nav.menu a:hover{background:#EAF2F8;color:var(--verde)}
 nav.menu a.destacado{color:var(--verde);font-weight:600}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:0;border-radius:10px;padding:11px 18px;font-size:14.5px;font-weight:600;text-decoration:none;cursor:pointer;transition:transform .12s ease,box-shadow .12s ease,background .12s ease}
 .btn:active{transform:translateY(1px)}
-.btn.verde{background:var(--verde);color:#fff;box-shadow:0 6px 16px rgba(27,107,69,.28)}
-.btn.verde:hover{background:#175B3B}
-.btn.oro{background:var(--oro);color:#2A2005;box-shadow:0 6px 16px rgba(201,162,39,.3)}
-.btn.oro:hover{background:#B99020}
+.btn.verde{background:var(--verde);color:#fff;box-shadow:0 6px 16px rgba(18,59,99,.28)}
+.btn.verde:hover{background:#0F3357}
+.btn.oro{background:var(--oro);color:#0A2948;box-shadow:0 6px 16px rgba(191,197,202,.3)}
+.btn.oro:hover{background:#AEB5BC}
 .btn.linea{background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.5)}
 .btn.linea:hover{background:rgba(255,255,255,.12);border-color:#fff}
 .btn.claro{background:#fff;color:var(--verde-900);border:1px solid var(--linea)}
@@ -87,53 +144,53 @@ nav.menu a.destacado{color:var(--verde);font-weight:600}
 .hamb svg{width:22px;height:22px}
 
 /* menú móvil */
-.cajon{position:fixed;inset:0;z-index:70;background:rgba(12,53,35,.5);opacity:0;pointer-events:none;transition:opacity .2s ease}
+.cajon{position:fixed;inset:0;z-index:70;background:rgba(10,41,72,.5);opacity:0;pointer-events:none;transition:opacity .2s ease}
 .cajon.abierto{opacity:1;pointer-events:auto}
 .cajon .panel{position:absolute;top:0;right:0;bottom:0;width:min(320px,86vw);background:#fff;padding:22px 20px;display:flex;flex-direction:column;gap:4px;transform:translateX(100%);transition:transform .22s ease;overflow-y:auto}
 .cajon.abierto .panel{transform:none}
-.cajon .panel a{padding:13px 12px;border-radius:10px;text-decoration:none;font-weight:500;color:#22302A;border-bottom:1px solid #F0F2EE}
+.cajon .panel a{padding:13px 12px;border-radius:10px;text-decoration:none;font-weight:500;color:#1F2A36;border-bottom:1px solid #EEF1F3}
 .cajon .panel a:last-of-type{border-bottom:0}
-.cajon .cerrar{align-self:flex-end;background:#F1F3EE;border:0;border-radius:9px;width:38px;height:38px;font-size:20px;cursor:pointer;color:var(--verde-900);margin-bottom:8px}
+.cajon .cerrar{align-self:flex-end;background:#EEF1F3;border:0;border-radius:9px;width:38px;height:38px;font-size:20px;cursor:pointer;color:var(--verde-900);margin-bottom:8px}
 
 /* ===================== Portada ===================== */
-.portada{position:relative;background:linear-gradient(150deg,var(--verde-900) 0%,#134430 45%,var(--verde) 100%);color:#fff;overflow:hidden}
+.portada{position:relative;background:linear-gradient(150deg,var(--verde-900) 0%,#0E3256 45%,var(--verde) 100%);color:#fff;overflow:hidden}
 .portada::before{content:"";position:absolute;inset:0;opacity:.14;
   background-image:repeating-linear-gradient(115deg,rgba(255,255,255,.55) 0 2px,transparent 2px 26px)}
 .portada::after{content:"";position:absolute;right:-140px;top:-120px;width:520px;height:520px;border-radius:50%;
-  background:radial-gradient(circle at 35% 35%,rgba(201,162,39,.34),transparent 62%)}
+  background:radial-gradient(circle at 35% 35%,rgba(191,197,202,.34),transparent 62%)}
 .portada .wrap{position:relative;z-index:2;display:grid;grid-template-columns:1.25fr .9fr;gap:44px;align-items:center;padding-block:68px 74px}
 .pill{display:inline-flex;align-items:center;gap:9px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.24);
   border-radius:999px;padding:7px 14px;font-size:12.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase}
 .pill .brillo{width:7px;height:7px;border-radius:50%;background:var(--oro-claro)}
 .portada h1{font-family:var(--display);font-weight:700;font-size:clamp(40px,6.4vw,70px);line-height:.98;letter-spacing:.005em;margin:20px 0 0;text-wrap:balance}
 .portada h1 em{font-style:normal;color:var(--oro-claro)}
-.portada p.entrada{font-size:17px;line-height:1.65;color:#D7E6DD;max-width:54ch;margin:18px 0 0}
+.portada p.entrada{font-size:17px;line-height:1.65;color:#D9E2EC;max-width:54ch;margin:18px 0 0}
 .acciones{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
 .tarjeta-torneo{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.18);border-radius:18px;padding:24px;backdrop-filter:blur(6px)}
 .tarjeta-torneo .cab{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-bottom:14px;border-bottom:1px solid rgba(255,255,255,.16)}
-.tarjeta-torneo .cab .et{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#9FC4AF}
+.tarjeta-torneo .cab .et{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#9FB4CA}
 .tarjeta-torneo .cab .nom{font-family:var(--display);font-size:26px;font-weight:600;letter-spacing:.02em;line-height:1.1;margin-top:2px}
-.estado-vivo{display:inline-flex;align-items:center;gap:7px;background:rgba(201,162,39,.2);border:1px solid rgba(234,200,92,.45);color:var(--oro-claro);
+.estado-vivo{display:inline-flex;align-items:center;gap:7px;background:rgba(191,197,202,.2);border:1px solid rgba(228,232,235,.45);color:var(--oro-claro);
   border-radius:999px;padding:5px 11px;font-size:11.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;white-space:nowrap}
 .mini{display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-top:16px;background:rgba(255,255,255,.1);border-radius:12px;overflow:hidden}
-.mini div{background:rgba(9,42,27,.42);padding:14px 14px}
+.mini div{background:rgba(8,32,58,.42);padding:14px 14px}
 .mini .v{font-family:var(--display);font-size:30px;font-weight:700;line-height:1;color:#fff}
-.mini .e{font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:#9FC4AF;margin-top:6px}
-.tarjeta-torneo .pie{margin-top:16px;font-size:13.5px;color:#CBDFD4;display:flex;gap:8px;align-items:flex-start}
+.mini .e{font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:#9FB4CA;margin-top:6px}
+.tarjeta-torneo .pie{margin-top:16px;font-size:13.5px;color:#CBD7E4;display:flex;gap:8px;align-items:flex-start}
 .tarjeta-torneo .pie svg{width:16px;height:16px;flex:none;margin-top:2px;opacity:.75}
 .col-der{display:flex;flex-direction:column;gap:18px;min-width:0}
 .btn.grande{padding:15px 24px;font-size:16px;border-radius:12px}
 
 /* ===================== Acceso de capitanes (portada) ===================== */
-.capitan{background:linear-gradient(152deg,rgba(201,162,39,.26),rgba(255,255,255,.06));
-  border:1px solid rgba(234,200,92,.44);border-radius:18px;padding:24px;backdrop-filter:blur(6px)}
-.capitan .ic{width:44px;height:44px;border-radius:12px;background:rgba(234,200,92,.2);color:var(--oro-claro);
+.capitan{background:linear-gradient(152deg,rgba(191,197,202,.26),rgba(255,255,255,.06));
+  border:1px solid rgba(228,232,235,.44);border-radius:18px;padding:24px;backdrop-filter:blur(6px)}
+.capitan .ic{width:44px;height:44px;border-radius:12px;background:rgba(228,232,235,.2);color:var(--oro-claro);
   display:flex;align-items:center;justify-content:center;margin-bottom:14px}
 .capitan .ic svg{width:23px;height:23px}
 .capitan h2{font-family:var(--display);font-weight:700;font-size:27px;letter-spacing:.03em;text-transform:uppercase;
   line-height:1.05;margin:0;color:#fff}
-.capitan p{font-size:14.5px;line-height:1.55;color:#DCE9E1;margin:9px 0 18px}
-.capitan .nota{display:block;margin-top:12px;font-size:12px;letter-spacing:.04em;color:#A9C9B7;text-align:center}
+.capitan p{font-size:14.5px;line-height:1.55;color:#DCE4EE;margin:9px 0 18px}
+.capitan .nota{display:block;margin-top:12px;font-size:12px;letter-spacing:.04em;color:#A9BBD0;text-align:center}
 
 /* ===================== Carrusel de inscripciones y tablas ===================== */
 .carrusel{position:relative}
@@ -142,15 +199,15 @@ nav.menu a.destacado{color:var(--verde);font-weight:600}
 .pista::-webkit-scrollbar{display:none}
 .diapo{flex:0 0 100%;scroll-snap-align:center;min-width:0;display:flex;flex-direction:column;
   background:var(--papel);border:1px solid var(--linea);border-radius:var(--r);box-shadow:var(--sombra);overflow:hidden}
-.diapo-cab{display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:16px 20px;border-bottom:1px solid var(--linea);background:#FBFBF8}
+.diapo-cab{display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:16px 20px;border-bottom:1px solid var(--linea);background:#FAFBFC}
 .diapo-cab h3{font-family:var(--display);font-size:24px;font-weight:600;letter-spacing:.02em;line-height:1.1;margin:0;color:var(--verde-900)}
 .diapo-cab .btn{margin-left:auto}
 .marco{position:relative;flex:1 1 auto;min-height:clamp(440px,64vh,700px);background:#fff}
 .marco iframe{width:100%;height:100%;border:0;display:block}
 .pendiente{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;
   gap:10px;text-align:center;padding:30px 24px;color:var(--gris);background:
-  repeating-linear-gradient(135deg,#FBFBF8 0 12px,#F6F7F2 12px 24px)}
-.pendiente .ic{width:52px;height:52px;border-radius:14px;background:#EEF3EF;color:var(--verde);
+  repeating-linear-gradient(135deg,#FAFBFC 0 12px,#F3F5F7 12px 24px)}
+.pendiente .ic{width:52px;height:52px;border-radius:14px;background:#EAF2F8;color:var(--verde);
   display:flex;align-items:center;justify-content:center}
 .pendiente .ic svg{width:25px;height:25px}
 .pendiente b{font-family:var(--display);font-size:22px;font-weight:600;color:var(--verde-900);letter-spacing:.02em}
@@ -162,7 +219,7 @@ nav.menu a.destacado{color:var(--verde);font-weight:600}
 .flecha[disabled]{opacity:.38;cursor:default}
 .flecha svg{width:19px;height:19px}
 .puntos{display:flex;align-items:center;gap:8px}
-.puntos button{width:9px;height:9px;padding:0;border:0;border-radius:999px;background:#C6D2CA;cursor:pointer;
+.puntos button{width:9px;height:9px;padding:0;border:0;border-radius:999px;background:#C3CDD6;cursor:pointer;
   transition:width .18s ease,background .18s ease}
 .puntos button.on{width:28px;background:var(--verde)}
 
@@ -181,7 +238,7 @@ section.bloque.claro{background:var(--papel)}
 
 .tarjeta{background:var(--papel);border:1px solid var(--linea);border-radius:var(--r);box-shadow:var(--sombra);overflow:hidden;display:flex;flex-direction:column;transition:transform .16s ease,box-shadow .16s ease}
 .tarjeta:hover{transform:translateY(-3px);box-shadow:var(--sombra-alta)}
-section.bloque.claro .tarjeta{background:#FBFBF8}
+section.bloque.claro .tarjeta{background:#FAFBFC}
 .tarjeta .cuerpo{padding:20px;display:flex;flex-direction:column;gap:10px;flex:1}
 .tarjeta h3{font-family:var(--display);font-size:24px;font-weight:600;letter-spacing:.015em;line-height:1.15;margin:0;color:var(--verde-900)}
 .tarjeta p{margin:0;color:var(--gris);font-size:14.5px}
@@ -190,9 +247,9 @@ section.bloque.claro .tarjeta{background:#FBFBF8}
 .foto.vacia::after{content:"LCH";position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
   font-family:var(--display);font-size:54px;font-weight:700;letter-spacing:.14em;color:rgba(255,255,255,.22)}
 .meta{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:12.5px;color:var(--gris)}
-.chip{display:inline-flex;align-items:center;gap:6px;background:#EEF3EF;border:1px solid #DCE6DF;border-radius:999px;padding:4px 10px;font-size:12px;font-weight:600;color:var(--verde)}
-.chip.oro{background:#FBF3DC;border-color:#F0E2B6;color:#87680F}
-.chip.gris{background:#F1F2EF;border-color:var(--linea);color:var(--gris)}
+.chip{display:inline-flex;align-items:center;gap:6px;background:#EAF2F8;border:1px solid #D5E2EE;border-radius:999px;padding:4px 10px;font-size:12px;font-weight:600;color:var(--verde)}
+.chip.oro{background:#EEF1F3;border-color:#D5DADE;color:#4A5560}
+.chip.gris{background:#EEF1F3;border-color:var(--linea);color:var(--gris)}
 .fecha-caja{display:flex;flex-direction:column;align-items:center;justify-content:center;min-width:62px;padding:9px 6px;border-radius:11px;
   background:var(--verde-900);color:#fff;line-height:1;flex:none}
 .fecha-caja .d{font-family:var(--display);font-size:28px;font-weight:700}
@@ -207,14 +264,14 @@ section.bloque.claro .tarjeta{background:#FBFBF8}
 .stat .e{font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--gris);margin-top:7px}
 .datos-torneo{background:var(--papel);border:1px solid var(--linea);border-radius:var(--r);padding:24px;box-shadow:var(--sombra)}
 .lista-datos{display:flex;flex-direction:column;gap:0;margin:16px 0 0}
-.lista-datos div{display:flex;gap:12px;padding:12px 0;border-bottom:1px solid #F0F2EE;font-size:14.5px}
+.lista-datos div{display:flex;gap:12px;padding:12px 0;border-bottom:1px solid #EEF1F3;font-size:14.5px}
 .lista-datos div:last-child{border-bottom:0}
 .lista-datos span:first-child{color:var(--gris);min-width:104px;flex:none}
 .lista-datos span:last-child{font-weight:500}
 .enlaces-torneo{display:flex;flex-direction:column;gap:10px;margin-top:20px}
-.enlace-fila{display:flex;align-items:center;gap:12px;padding:13px 15px;border:1px solid var(--linea);border-radius:11px;background:#FBFBF8;
+.enlace-fila{display:flex;align-items:center;gap:12px;padding:13px 15px;border:1px solid var(--linea);border-radius:11px;background:#FAFBFC;
   text-decoration:none;transition:border-color .14s ease,background .14s ease}
-.enlace-fila:hover{border-color:var(--verde-400);background:#F4F8F5}
+.enlace-fila:hover{border-color:var(--verde-400);background:#F2F6FA}
 .enlace-fila .t{font-weight:600;font-size:14.5px}
 .enlace-fila .n{font-size:12.5px;color:var(--gris)}
 .enlace-fila .fl{margin-left:auto;color:var(--verde);font-size:18px}
@@ -222,21 +279,21 @@ section.bloque.claro .tarjeta{background:#FBFBF8}
 /* convocatorias */
 .conv{display:flex;gap:18px;align-items:flex-start;background:var(--papel);border:1px solid var(--linea);border-left:4px solid var(--oro);
   border-radius:var(--r);padding:20px 22px;box-shadow:var(--sombra)}
-.conv .ic{width:44px;height:44px;border-radius:11px;background:#FBF3DC;color:#87680F;display:flex;align-items:center;justify-content:center;flex:none}
+.conv .ic{width:44px;height:44px;border-radius:11px;background:#EEF1F3;color:#4A5560;display:flex;align-items:center;justify-content:center;flex:none}
 .conv .ic svg{width:22px;height:22px}
 .conv h3{font-family:var(--display);font-size:23px;font-weight:600;margin:0 0 4px;color:var(--verde-900)}
 .conv p{margin:6px 0 0;color:var(--gris);font-size:14.5px}
 .conv .der{margin-left:auto;display:flex;flex-direction:column;gap:8px;align-items:flex-end;flex:none}
 
 /* campeones */
-.campeon{position:relative;background:linear-gradient(158deg,var(--verde-900),#16523A);color:#fff;border-radius:var(--r);padding:24px;overflow:hidden;
+.campeon{position:relative;background:linear-gradient(158deg,var(--verde-900),#17497A);color:#fff;border-radius:var(--r);padding:24px;overflow:hidden;
   border:1px solid rgba(255,255,255,.08)}
 .campeon::after{content:"";position:absolute;right:-46px;bottom:-46px;width:170px;height:170px;border-radius:50%;
-  background:radial-gradient(circle at 40% 40%,rgba(201,162,39,.35),transparent 65%)}
+  background:radial-gradient(circle at 40% 40%,rgba(191,197,202,.35),transparent 65%)}
 .campeon .anio{font-family:var(--display);font-size:13px;font-weight:700;letter-spacing:.2em;color:var(--oro-claro);
   padding-right:34px;display:block}
 .campeon .eq{font-family:var(--display);font-size:31px;font-weight:700;line-height:1.06;margin:8px 0 10px;position:relative;z-index:1}
-.campeon .cat{font-size:13px;color:#B9D3C4;position:relative;z-index:1}
+.campeon .cat{font-size:13px;color:#B9C8DA;position:relative;z-index:1}
 .campeon .copa{position:absolute;top:20px;right:20px;width:26px;height:26px;color:var(--oro-claro);opacity:.9;z-index:1}
 
 /* galería */
@@ -245,13 +302,13 @@ section.bloque.claro .tarjeta{background:#FBFBF8}
 .galeria img{width:100%;height:100%;object-fit:cover;transition:transform .3s ease}
 .galeria button:hover img{transform:scale(1.06)}
 .galeria button .cap{position:absolute;left:0;right:0;bottom:0;padding:22px 12px 10px;color:#fff;font-size:12.5px;text-align:left;
-  background:linear-gradient(transparent,rgba(9,42,27,.8));opacity:0;transition:opacity .2s ease}
+  background:linear-gradient(transparent,rgba(8,32,58,.8));opacity:0;transition:opacity .2s ease}
 .galeria button:hover .cap{opacity:1}
-.visor{position:fixed;inset:0;z-index:90;background:rgba(9,26,18,.93);display:none;align-items:center;justify-content:center;padding:24px}
+.visor{position:fixed;inset:0;z-index:90;background:rgba(6,20,36,.93);display:none;align-items:center;justify-content:center;padding:24px}
 .visor.abierto{display:flex}
 .visor img{max-width:min(1100px,92vw);max-height:84vh;width:auto;border-radius:10px;box-shadow:0 30px 80px rgba(0,0,0,.5)}
 .visor .x{position:absolute;top:18px;right:20px;background:rgba(255,255,255,.14);border:0;color:#fff;width:44px;height:44px;border-radius:50%;font-size:22px;cursor:pointer}
-.visor .pie{position:absolute;bottom:26px;left:0;right:0;text-align:center;color:#CFE3D8;font-size:14px}
+.visor .pie{position:absolute;bottom:26px;left:0;right:0;text-align:center;color:#D5DEE8;font-size:14px}
 
 /* disciplinas y categorías */
 .disciplinas{gap:20px}
@@ -275,18 +332,18 @@ section.bloque.claro .tarjeta{background:#FBFBF8}
   color:color-mix(in srgb,var(--acento,var(--verde)) 70%,#000);font-weight:700;letter-spacing:.03em;text-transform:uppercase;font-size:11.5px}
 
 /* arbitrajes */
-.arbitrajes{background:linear-gradient(140deg,var(--verde-900),#15493200 60%),linear-gradient(120deg,#103A28,var(--verde));color:#fff;position:relative;overflow:hidden}
+.arbitrajes{background:linear-gradient(140deg,var(--verde-900),#12406B00 60%),linear-gradient(120deg,#0C2E50,var(--verde));color:#fff;position:relative;overflow:hidden}
 .arbitrajes::before{content:"";position:absolute;inset:0;opacity:.1;
   background-image:repeating-linear-gradient(115deg,rgba(255,255,255,.6) 0 2px,transparent 2px 24px)}
 .arbitrajes .wrap{position:relative;z-index:1;display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center;padding-block:70px}
 .arbitrajes h2{font-family:var(--display);font-weight:700;font-size:clamp(30px,4.2vw,44px);line-height:1.04;margin:14px 0 0}
-.arbitrajes p{color:#D2E4D9;margin:14px 0 0;font-size:16.5px;max-width:52ch}
+.arbitrajes p{color:#D5DEE8;margin:14px 0 0;font-size:16.5px;max-width:52ch}
 .acceso{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2);border-radius:18px;padding:26px}
-.acceso .cand{width:46px;height:46px;border-radius:12px;background:rgba(234,200,92,.16);color:var(--oro-claro);display:flex;align-items:center;justify-content:center;margin-bottom:16px}
+.acceso .cand{width:46px;height:46px;border-radius:12px;background:rgba(228,232,235,.16);color:var(--oro-claro);display:flex;align-items:center;justify-content:center;margin-bottom:16px}
 .acceso .cand svg{width:24px;height:24px}
 .acceso h3{font-family:var(--display);font-size:25px;font-weight:600;margin:0 0 8px}
-.acceso p{font-size:14px;color:#C6DCCE;margin:0 0 18px;max-width:none}
-.acceso .nota{font-size:12.5px;color:#9FC4AF;margin-top:14px;display:flex;gap:8px;align-items:flex-start}
+.acceso p{font-size:14px;color:#C6D3E1;margin:0 0 18px;max-width:none}
+.acceso .nota{font-size:12.5px;color:#9FB4CA;margin-top:14px;display:flex;gap:8px;align-items:flex-start}
 .acceso .nota svg{width:15px;height:15px;flex:none;margin-top:2px}
 
 /* contacto */
@@ -294,7 +351,7 @@ section.bloque.claro .tarjeta{background:#FBFBF8}
 .info-contacto{display:flex;flex-direction:column;gap:2px}
 .info-fila{display:flex;gap:14px;align-items:flex-start;padding:15px 0;border-bottom:1px solid var(--linea)}
 .info-fila:last-child{border-bottom:0}
-.info-fila .ic{width:38px;height:38px;border-radius:10px;background:#EEF3EF;color:var(--verde);display:flex;align-items:center;justify-content:center;flex:none}
+.info-fila .ic{width:38px;height:38px;border-radius:10px;background:#EAF2F8;color:var(--verde);display:flex;align-items:center;justify-content:center;flex:none}
 .info-fila .ic svg{width:19px;height:19px}
 .info-fila .et{font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--gris)}
 .info-fila .va{font-weight:500;font-size:15px;word-break:break-word}
@@ -303,25 +360,25 @@ section.bloque.claro .tarjeta{background:#FBFBF8}
 .forma{background:var(--papel);border:1px solid var(--linea);border-radius:var(--r);padding:24px;box-shadow:var(--sombra)}
 .campo{display:flex;flex-direction:column;gap:6px;margin-bottom:14px}
 .campo label{font-size:12.5px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--gris)}
-.campo input,.campo textarea,.campo select{border:1px solid var(--linea);border-radius:10px;padding:11px 13px;font:inherit;font-size:15px;background:#FCFCFA;color:var(--tinta)}
-.campo input:focus,.campo textarea:focus,.campo select:focus{outline:2px solid rgba(46,148,99,.35);outline-offset:1px;border-color:var(--verde-400)}
+.campo input,.campo textarea,.campo select{border:1px solid var(--linea);border-radius:10px;padding:11px 13px;font:inherit;font-size:15px;background:#FBFCFD;color:var(--tinta)}
+.campo input:focus,.campo textarea:focus,.campo select:focus{outline:2px solid rgba(36,104,168,.35);outline-offset:1px;border-color:var(--verde-400)}
 .campo textarea{min-height:112px;resize:vertical}
 .redes{display:flex;gap:10px;margin-top:18px;flex-wrap:wrap}
-.redes a{width:42px;height:42px;border-radius:11px;background:#EEF3EF;color:var(--verde);display:flex;align-items:center;justify-content:center;text-decoration:none;border:1px solid var(--linea)}
+.redes a{width:42px;height:42px;border-radius:11px;background:#EAF2F8;color:var(--verde);display:flex;align-items:center;justify-content:center;text-decoration:none;border:1px solid var(--linea)}
 .redes a:hover{background:var(--verde);color:#fff;border-color:var(--verde)}
 .redes svg{width:20px;height:20px}
 
 /* pie */
-footer.pie{background:var(--verde-900);color:#A9C6B6;padding-block:46px 30px;font-size:14px}
+footer.pie{background:var(--verde-900);color:#A9BACD;padding-block:46px 30px;font-size:14px}
 footer.pie .cols{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:30px;padding-bottom:28px;border-bottom:1px solid rgba(255,255,255,.12)}
 footer.pie .marca .n{color:#fff}
-footer.pie .marca .s{color:#8FB4A0}
-footer.pie h4{font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:#7FA792;margin:0 0 14px;font-weight:700}
-footer.pie a{color:#A9C6B6;text-decoration:none;display:block;padding:5px 0}
+footer.pie .marca .s{color:#8FA7C1}
+footer.pie h4{font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:#8FA5BE;margin:0 0 14px;font-weight:700}
+footer.pie a{color:#A9BACD;text-decoration:none;display:block;padding:5px 0}
 footer.pie a:hover{color:#fff}
-footer.pie .abajo{display:flex;flex-wrap:wrap;gap:10px;align-items:center;padding-top:22px;font-size:12.5px;color:#7FA792}
+footer.pie .abajo{display:flex;flex-wrap:wrap;gap:10px;align-items:center;padding-top:22px;font-size:12.5px;color:#8FA5BE}
 footer.pie .abajo .sep{flex:1}
-footer.pie p{margin:0 0 14px;max-width:42ch;color:#9CBFAD}
+footer.pie p{margin:0 0 14px;max-width:42ch;color:#9CB2CA}
 
 /* ===================== Adaptable ===================== */
 @media (max-width:1480px){
@@ -359,6 +416,143 @@ footer.pie p{margin:0 0 14px;max-width:42ch;color:#9CBFAD}
   header.barra .wrap{gap:10px}
   .hamb{margin-left:auto}
 }
+
+/* ===================== Rediseño 04-oct-2026: encabezado, portada y «Partidos y cancha» ===================== */
+header.barra{background:rgba(10,41,72,.97);border-bottom:1px solid rgba(255,255,255,.12)}
+header.barra .marca .n{color:#fff}
+header.barra .marca .s{color:var(--oro)}
+header.barra .marca .escudo{background:#fff;box-shadow:none}
+nav.menu a{color:#D9E2EC}
+nav.menu a:hover{background:rgba(255,255,255,.1);color:#fff}
+nav.menu a.destacado{color:#fff;box-shadow:inset 0 -2px 0 var(--oro);border-radius:9px 9px 0 0}
+.btn.cuenta{flex:none;background:transparent;color:#fff;border:1.5px solid var(--oro);border-radius:999px;min-height:44px}
+.btn.cuenta:hover{background:rgba(255,255,255,.1)}
+.hamb{border-color:rgba(255,255,255,.3);color:#fff}
+.cajon .panel .solo-movil{display:none}
+
+.portada{background:var(--verde-900)}
+.portada::before,.portada::after{display:none}
+.portada .wrap{grid-template-columns:minmax(0,1.25fr) minmax(0,.85fr);align-items:end}
+.portada h1{text-transform:uppercase;font-size:clamp(34px,5vw,62px);line-height:.98}
+.prox{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.18);border-radius:18px;padding:22px 24px}
+.prox[hidden]{display:none}
+.prox h2{font-family:var(--display);font-weight:700;font-size:22px;letter-spacing:.06em;text-transform:uppercase;margin:0 0 6px;color:#fff}
+.prox ol{list-style:none;margin:0;padding:0}
+.prox li{display:flex;gap:16px;align-items:baseline;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.14)}
+.prox .cu{flex:none;min-width:96px;font-family:var(--display);font-weight:700;font-size:20px;letter-spacing:.03em;text-transform:uppercase;color:var(--oro-claro)}
+.prox .eq{min-width:0;font-weight:600;color:#fff;overflow-wrap:anywhere}
+.prox .eq small{display:block;font-weight:400;font-size:12.5px;color:#C6D3E1}
+.prox p{margin:10px 0 0;color:#D9E2EC;font-size:14.5px}
+.prox>a{display:inline-block;margin-top:14px;color:#fff;font-weight:600;text-underline-offset:4px}
+.portada .pill{background:transparent;border:0;padding:0;color:var(--oro);font-family:var(--display);font-size:17px;letter-spacing:.22em}
+.portada .pill .brillo{display:none}
+.franjas{display:flex;gap:14px;height:200px;transform:skewX(-16deg);margin-right:26px}
+.franjas span{width:26px;height:100%}
+.franjas span:nth-child(1){background:var(--verde)}
+.franjas span:nth-child(2){background:var(--verde-400)}
+.franjas span:nth-child(3){background:var(--oro)}
+.franjas span:nth-child(4){background:#fff}
+
+.ag-cab{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:18px;margin-bottom:24px}
+.ag-cab h2{font-family:var(--display);font-weight:700;font-size:clamp(32px,4.8vw,52px);line-height:1;letter-spacing:.01em;text-transform:uppercase;margin:10px 0 0;color:var(--verde-900)}
+.ag-seg{display:inline-flex;gap:4px;padding:4px;background:#E6EAED;border-radius:999px}
+.ag-seg button{min-height:44px;padding:0 22px;border:0;border-radius:999px;background:transparent;color:var(--tinta);font-weight:600;font-size:15px;cursor:pointer}
+.ag-seg button[aria-pressed="true"]{background:var(--verde);color:#fff}
+.ag-seg--chico{padding:3px;gap:3px}
+.ag-seg--chico button{padding:0 14px;font-size:14px}
+.ag-tira{display:flex;flex-wrap:wrap;align-items:stretch;gap:10px;margin-bottom:26px}
+.ag-flecha{width:48px;min-height:76px;border:1px solid #D5DADE;border-radius:14px;background:var(--papel);color:var(--verde);cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0}
+.ag-flecha svg{width:22px;height:22px}
+.ag-flecha[disabled]{opacity:.4;cursor:default}
+.ag-dias{flex:1 1 420px;min-width:0;display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:8px}
+.ag-dia{min-height:76px;padding:8px 4px;border:1px solid #D5DADE;border-radius:14px;background:var(--papel);color:var(--tinta);cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px}
+.ag-dia[aria-pressed="true"]{background:var(--verde);border-color:var(--verde);color:#fff}
+.ag-dia .dw{font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase}
+.ag-dia .nm{font-family:var(--display);font-weight:700;font-size:28px;line-height:1}
+.ag-dia .nt{font-size:12px}
+.ag-hoy{min-height:76px;padding:0 18px;border:0;background:transparent;color:var(--verde);font-weight:600;font-size:15px;text-decoration:underline;text-underline-offset:4px;cursor:pointer}
+.ag-hoy[hidden]{display:none}
+.ag-cuerpo{display:flex;flex-wrap:wrap;align-items:flex-start;gap:28px}
+.ag-principal{flex:999 1 520px;min-width:0}
+.ag-estado{margin:0;padding:34px 22px;border:1px dashed var(--oro);border-radius:16px;background:var(--papel);text-align:center;color:#3D4852}
+.ag-estado[hidden]{display:none}
+.ag-chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+.ag-chips button{min-height:44px;padding:0 18px;border:1px solid #D5DADE;border-radius:999px;background:var(--papel);color:var(--tinta);font-weight:600;font-size:14px;cursor:pointer}
+.ag-chips button[aria-pressed="true"]{background:var(--verde-900);border-color:var(--verde-900);color:#fff}
+.ag-lista{display:flex;flex-direction:column;gap:14px}
+.ag-partido{background:var(--papel);border:1px solid var(--linea);border-radius:16px;padding:18px 22px;display:flex;flex-wrap:wrap;align-items:center;gap:14px 22px}
+.ag-hora{width:92px;display:flex;flex-direction:column;gap:2px}
+.ag-hora b{font-family:var(--display);font-weight:700;font-size:40px;line-height:1;color:var(--verde-900)}
+.ag-hora span,.ag-eq small{font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--gris)}
+.ag-equipos{flex:999 1 240px;min-width:0;display:flex;flex-direction:column;gap:10px;border-left:1px solid #D5DADE;padding-left:22px}
+.ag-eq{display:flex;align-items:center;gap:12px;min-width:0}
+.ag-eq i{flex:none;width:36px;height:36px;border-radius:50%;background:var(--verde);color:#fff;display:flex;align-items:center;justify-content:center;font-family:var(--display);font-style:normal;font-weight:700;font-size:15px;letter-spacing:.04em}
+.ag-eq.vis i{background:#E6EAED;color:var(--verde)}
+.ag-eq b{font-family:var(--display);font-weight:600;font-size:24px;line-height:1.05;text-transform:uppercase;min-width:0;overflow-wrap:anywhere}
+.ag-meta{flex:1 1 150px;display:flex;flex-direction:column;align-items:flex-start;gap:6px;font-size:14px;color:#3D4852}
+.ag-meta .cat{padding:4px 12px;border:1.5px solid var(--verde);border-radius:999px;color:var(--verde);font-weight:600;font-size:13px}
+.ag-meta .sede{display:inline-flex;align-items:center;gap:6px}
+.ag-meta .sede svg{width:16px;height:16px;flex:none}
+.ag-cancha-cab{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:6px 20px;margin-bottom:14px}
+.ag-cancha-cab b{color:var(--verde-900)}
+.ag-cancha-cab span{font-size:14px;color:#3D4852}
+.ag-horas{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.ag-slot{min-height:84px;padding:10px 8px;border:1.5px solid var(--verde);border-radius:14px;background:var(--papel);color:var(--verde-900);cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px}
+.ag-slot b{font-family:var(--display);font-weight:700;font-size:30px;line-height:1}
+.ag-slot span{font-size:13px;font-weight:600}
+.ag-slot[aria-pressed="true"]{background:var(--verde);color:#fff}
+.ag-slot[disabled]{background:#E6EAED;border-color:#E6EAED;color:#4A5560;cursor:default}
+.ag-elegidos{margin-top:14px;background:var(--papel);border:1px solid var(--linea);border-radius:16px;padding:20px 22px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px 24px}
+.ag-elegidos>div{flex:999 1 260px;min-width:0;display:flex;flex-direction:column;gap:4px}
+.ag-elegidos b{font-family:var(--display);font-weight:600;font-size:22px;text-transform:uppercase;color:var(--verde-900)}
+.ag-elegidos span{font-size:14px;color:#3D4852}
+.ag-abrir{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:48px;padding:0 22px;border-radius:999px;background:var(--verde);color:#fff;font-weight:600;font-size:15px;text-decoration:none}
+.ag-abrir svg{width:18px;height:18px}
+.ag-abrir[aria-disabled="true"]{background:#E6EAED;color:#4A5560;cursor:default}
+.ag-nota{margin:14px 0 0;font-size:14px;color:#3D4852;max-width:68ch}
+.ag-tabla{flex:1 1 380px;min-width:0;background:var(--papel);border:1px solid var(--linea);border-radius:16px;padding:20px;display:flex;flex-direction:column;gap:16px}
+.ag-tabla-cab{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px}
+.ag-tabla-cab h3{font-family:var(--display);font-weight:700;font-size:26px;text-transform:uppercase;margin:0;color:var(--verde-900)}
+.ag-marco{position:relative;min-height:clamp(420px,60vh,620px);border:1px solid var(--linea);border-radius:12px;overflow:hidden;background:#fff}
+.ag-marco[hidden]{display:none}
+.ag-marco iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.ag-enlace{font-weight:600;font-size:15px;color:var(--verde);text-underline-offset:4px}
+#agenda button:focus-visible,#agenda a:focus-visible,.btn.cuenta:focus-visible{outline:2px solid var(--verde-400);outline-offset:2px}
+@media (max-width:1480px){
+  header.barra .btn.cuenta{margin-left:auto}
+  header.barra .hamb{margin-left:0}
+}
+@media (max-width:1000px){
+  .franjas{display:none}
+  .portada .wrap{grid-template-columns:1fr}
+}
+@media (max-width:620px){
+  header.barra .btn.cuenta{display:none}
+  header.barra .hamb{margin-left:auto}
+  .cajon .panel .solo-movil{display:inline-flex}
+  .ag-seg{display:grid;grid-template-columns:1fr 1fr;width:100%}
+  .ag-seg--chico{display:inline-flex;width:auto}
+  .ag-flecha{display:none}
+  .ag-dias{flex-basis:100%;gap:6px}
+  .ag-dia{min-height:64px;border-radius:12px}
+  .ag-dia .dw{font-size:11px;letter-spacing:.08em}
+  .ag-dia .nm{font-size:24px}
+  .ag-dia .nt{display:none}
+  .ag-hoy{min-height:44px;padding:0}
+  .ag-partido{padding:14px 16px;gap:12px 14px}
+  .ag-hora{width:66px}
+  .ag-hora b{font-size:32px}
+  .ag-equipos{flex-basis:160px;padding-left:14px;gap:8px}
+  .ag-eq i{width:30px;height:30px;font-size:13px}
+  .ag-eq b{font-size:21px}
+  .ag-eq small{display:none}
+  .ag-meta{flex-basis:100%;flex-direction:row;flex-wrap:wrap;align-items:center;gap:6px 12px;font-size:13px}
+  .ag-horas{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+  .ag-slot{min-height:76px}
+  .ag-slot b{font-size:28px}
+  .ag-abrir{width:100%}
+  .ag-tabla{padding:16px}
+}
 @media (prefers-reduced-motion:reduce){
   *{animation:none!important;transition:none!important}
   html{scroll-behavior:auto}
@@ -366,16 +560,6 @@ footer.pie p{margin:0 0 14px;max-width:42ch;color:#9CBFAD}
 </style>
 </head>
 <body>
-
-<div class="cinta">
-  <div class="wrap">
-    <span class="punto"></span>
-    <span id="cinta-torneo"><b>Tercera Edición 2026</b> · en curso</span>
-    <span class="sep"></span>
-    <a class="oculta-movil" href="#contacto">Contacto</a>
-    <a href="capitanes/" id="cinta-arb">Estado de cuenta · Capitanes</a>
-  </div>
-</div>
 
 <header class="barra">
   <div class="wrap">
@@ -387,7 +571,7 @@ footer.pie p{margin:0 0 14px;max-width:42ch;color:#9CBFAD}
       </span>
     </a>
     <nav class="menu">
-      <a href="#tablas" class="destacado">Clasificación</a>
+      <a href="#agenda" class="destacado">Partidos y cancha</a>
       <a href="#torneo">Torneo actual</a>
       <a href="#disciplinas">Disciplinas y categorías</a>
       <a href="#eventos">Eventos</a>
@@ -396,9 +580,9 @@ footer.pie p{margin:0 0 14px;max-width:42ch;color:#9CBFAD}
       <a href="#galeria">Galería</a>
       <a href="#contacto">Contacto</a>
     </nav>
-    <a class="btn verde sm" href="https://copafacil.com/ligachapingo" target="_blank" rel="noopener" style="flex:none">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M3 10h18M8 2v4M16 2v4"/><path d="M8 14h2M8 17h2M14 14h2M14 17h2"/></svg>
-      Rol de juegos
+    <a class="btn cuenta sm" href="capitanes/">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16" aria-hidden="true"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
+      Estado de cuenta
     </a>
     <button class="hamb" id="abrir-menu" aria-label="Abrir menú">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
@@ -409,7 +593,7 @@ footer.pie p{margin:0 0 14px;max-width:42ch;color:#9CBFAD}
 <div class="cajon" id="cajon">
   <div class="panel">
     <button class="cerrar" id="cerrar-menu" aria-label="Cerrar menú">&times;</button>
-    <a href="#tablas">Clasificación</a>
+    <a href="#agenda">Partidos y cancha</a>
     <a href="#torneo">Torneo actual</a>
     <a href="#disciplinas">Disciplinas y categorías</a>
     <a href="#eventos">Eventos</a>
@@ -417,7 +601,7 @@ footer.pie p{margin:0 0 14px;max-width:42ch;color:#9CBFAD}
     <a href="#campeones">Campeones</a>
     <a href="#galeria">Galería</a>
     <a href="#contacto">Contacto</a>
-    <a class="btn oro" style="margin-top:14px" href="capitanes/">Consultar estado de cuenta</a>
+    <a class="btn oro solo-movil" style="margin-top:14px" href="capitanes/">Estado de cuenta</a>
   </div>
 </div>
 
@@ -428,30 +612,109 @@ footer.pie p{margin:0 0 14px;max-width:42ch;color:#9CBFAD}
   <div class="wrap">
     <div>
       <span class="pill"><span class="brillo"></span><span id="hero-eyebrow">Tercera Edición 2026</span></span>
-      <h1 id="hero-titulo">La liga de Chapingo, en una sola página</h1>
-      <p class="entrada" id="hero-texto"></p>
+      <h1 id="hero-titulo">Primer torneo de Campeón de Campeones departamentales 2026</h1>
+      <p class="entrada" id="hero-texto">Liga recreativa de fútbol rápido y básquetbol en Chapingo, Texcoco, Estado de México. Aquí están las convocatorias, el rol de juegos, la tabla de posiciones, los campeones y el portal donde cada capitán consulta el estado de cuenta de su equipo.</p>
       <div class="acciones">
-        <a class="btn oro grande" href="capitanes/">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
-          Consultar estado de cuenta
-        </a>
-        <a class="btn linea" href="#convocatorias">Ver convocatorias</a>
+        <!-- Registro del torneo en Copa Fácil: cambia este enlace por el de la inscripción del torneo -->
+        <a class="btn oro grande" id="hero-info" href="https://copafacil.com/ligachapingo" target="_blank" rel="noopener">Más información</a>
       </div>
     </div>
-    <div class="col-der">
-
-    <!-- Llamado principal: acceso de capitanes al estado de cuenta -->
-    <aside class="capitan">
-      <div class="ic">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
-      </div>
-      <h2>¿Eres capitán?</h2>
-      <p>Consulta el estado de cuenta de tu equipo, revisa tus movimientos y visualiza tus tickets.</p>
-      <a class="btn oro" href="capitanes/" style="width:100%">Consultar estado de cuenta</a>
-      <span class="nota">Solo consulta · entra con el código de tu equipo</span>
+    <aside class="prox" id="prox" aria-labelledby="prox-t" hidden>
+      <h2 id="prox-t">Partidos confirmados</h2>
+      <ol id="prox-lista"></ol>
+      <a href="#agenda">Ver calendario completo</a>
     </aside>
+  </div>
+</section>
 
-    </div><!-- /col-der -->
+<!-- ===================== PARTIDOS Y CANCHA (04-oct-2026) =====================
+     Partidos confirmados y horas libres de la cancha: los entrega disponibilidad/publico.php
+     (sólo lectura, sin datos sensibles). La clasificación es el HTML incrustado de Copa Fácil. -->
+<section class="bloque" id="agenda" aria-labelledby="ag-titulo">
+  <div class="wrap">
+    <div class="ag-cab">
+      <div>
+        <span class="eyebrow">Partidos y cancha</span>
+        <h2 id="ag-titulo">Calendario de partidos</h2>
+      </div>
+      <div class="ag-seg" role="group" aria-label="Qué ver">
+        <button type="button" id="ag-ver-partidos" aria-pressed="true">Partidos</button>
+        <button type="button" id="ag-ver-cancha" aria-pressed="false">Cancha libre</button>
+      </div>
+    </div>
+
+    <div class="ag-tira">
+      <button type="button" class="ag-flecha" id="ag-ant" aria-label="Día anterior">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="m15 5-7 7 7 7"/></svg>
+      </button>
+      <div class="ag-dias" id="ag-dias"></div>
+      <button type="button" class="ag-flecha" id="ag-sig" aria-label="Día siguiente">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg>
+      </button>
+      <button type="button" class="ag-hoy" id="ag-hoy">Volver a hoy</button>
+    </div>
+
+    <div class="ag-cuerpo">
+      <div class="ag-principal">
+        <p class="ag-estado" id="ag-estado" role="status">Cargando partidos…</p>
+
+        <div id="ag-partidos" hidden>
+          <div class="ag-chips" id="ag-chips" role="group" aria-label="Categoría"></div>
+          <div class="ag-lista" id="ag-lista"></div>
+        </div>
+
+        <div id="ag-cancha" hidden>
+          <div class="ag-cancha-cab"><b id="ag-cancha-nombre"></b><span id="ag-cancha-libres"></span></div>
+          <div class="ag-horas" id="ag-horas"></div>
+          <div class="ag-elegidos">
+            <div>
+              <b id="ag-sel-titulo">Elige un horario libre</b>
+              <span id="ag-sel-texto">Toca las horas que le acomodan a tu equipo.</span>
+            </div>
+            <a class="ag-abrir" id="ag-abrir" href="capitanes/#rival" aria-disabled="true">
+              Abrir horario para partido oficial
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </a>
+          </div>
+          <p class="ag-nota">Para abrirlo entras al portal de capitanes de tu equipo. Los equipos de tu categoría ven el horario y, cuando un rival lo confirma, el partido aparece en este calendario.</p>
+        </div>
+      </div>
+
+      <aside class="ag-tabla" id="tablas" aria-labelledby="ag-tabla-t">
+        <div class="ag-tabla-cab">
+          <h3 id="ag-tabla-t">Clasificación</h3>
+          <div class="ag-seg ag-seg--chico" role="group" aria-label="Categoría de la tabla">
+            <button type="button" data-tabla="0" aria-pressed="true">Primera</button>
+            <button type="button" data-tabla="1" aria-pressed="false">Segunda</button>
+          </div>
+        </div>
+
+        <!-- 1 · Clasificación Primera Fuerza -->
+        <div class="ag-marco" data-tabla-panel="0">
+          <iframe src="https://copafacil.com/share/embedded/table/-fp2uy@jyt4/1785638107449/table_2" title="Tabla de clasificación · Primera Fuerza" loading="lazy"></iframe>
+        </div>
+
+        <!-- 2 · Clasificación Segunda Fuerza -->
+        <div class="ag-marco" data-tabla-panel="1" hidden>
+
+          <!-- INSERTAR IFRAME CLASIFICACIÓN SEGUNDA FUERZA -->
+          <!-- Pega aquí, tal cual te lo dé Copa Fácil, la línea:
+               <iframe src="..." title="Tabla de clasificación · Segunda Fuerza" loading="lazy"></iframe>
+               No hay que tocar nada más: al detectar el iframe, el aviso de
+               "todavía no publicada" desaparece solo. -->
+
+          <div class="pendiente" data-pendiente>
+            <span class="ic">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19h16M7 19V11M12 19V6M17 19v-5"/></svg>
+            </span>
+            <b>Tabla en camino</b>
+            <span>La clasificación de Segunda Fuerza se publica aquí en cuanto la liga la libere en Copa Fácil.</span>
+          </div>
+        </div>
+
+        <a class="ag-enlace" href="https://copafacil.com/ligachapingo" target="_blank" rel="noopener">Ver torneo completo en Copa Fácil</a>
+      </aside>
+    </div>
   </div>
 </section>
 
@@ -596,70 +859,6 @@ footer.pie p{margin:0 0 14px;max-width:42ch;color:#9CBFAD}
   </div>
 </section>
 
-<!-- ===================== CLASIFICACIÓN ===================== -->
-<section class="bloque claro" id="tablas">
-  <div class="wrap">
-    <div class="encabeza">
-      <span class="eyebrow">Tercera Edición</span>
-      <h2>Clasificación</h2>
-      <p>Sigue la tabla de tu categoría. Se actualiza directamente desde Copa Fácil.</p>
-    </div>
-
-    <div class="carrusel">
-      <div class="pista">
-
-        <!-- 1 · Clasificación Primera Fuerza -->
-        <article class="diapo" aria-label="Clasificación Primera Fuerza">
-          <div class="diapo-cab">
-            <h3>Clasificación Primera Fuerza</h3>
-            <a class="btn claro sm" target="_blank" rel="noopener"
-               href="https://copafacil.com/share/embedded/table/-fp2uy@jyt4/1785638107449/table_2">Abrir en otra pestaña</a>
-          </div>
-          <div class="marco">
-            <iframe src="https://copafacil.com/share/embedded/table/-fp2uy@jyt4/1785638107449/table_2"
-                    title="Tabla de clasificación · Primera Fuerza" loading="lazy"></iframe>
-          </div>
-        </article>
-
-        <!-- 2 · Clasificación Segunda Fuerza -->
-        <article class="diapo" aria-label="Clasificación Segunda Fuerza">
-          <div class="diapo-cab">
-            <h3>Clasificación Segunda Fuerza</h3>
-          </div>
-          <div class="marco">
-
-            <!-- INSERTAR IFRAME CLASIFICACIÓN SEGUNDA FUERZA -->
-            <!-- Pega aquí, tal cual te lo dé Copa Fácil, la línea:
-                 <iframe src="..." title="Tabla de clasificación · Segunda Fuerza" loading="lazy"></iframe>
-                 No hay que tocar nada más: al detectar el iframe, el aviso de
-                 "todavía no publicada" desaparece solo y el botón de "Abrir en
-                 otra pestaña" no hace falta. -->
-
-            <div class="pendiente" data-pendiente>
-              <span class="ic">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19h16M7 19V11M12 19V6M17 19v-5"/></svg>
-              </span>
-              <b>Tabla en camino</b>
-              <span>La clasificación de Segunda Fuerza se publica aquí en cuanto la liga la libere en Copa Fácil.</span>
-            </div>
-          </div>
-        </article>
-
-      </div>
-
-      <div class="controles">
-        <button class="flecha" data-car-izq type="button" aria-label="Tabla anterior">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m15 5-7 7 7 7"/></svg>
-        </button>
-        <div class="puntos"></div>
-        <button class="flecha" data-car-der type="button" aria-label="Tabla siguiente">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m9 5 7 7-7 7"/></svg>
-        </button>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- ===================== TORNEO ACTUAL ===================== -->
 <section class="bloque" id="torneo">
   <div class="wrap">
@@ -726,7 +925,6 @@ footer.pie p{margin:0 0 14px;max-width:42ch;color:#9CBFAD}
       <h2 id="ar-titulo">Arbitrajes</h2>
       <p id="ar-texto"></p>
       <div class="acciones">
-        <a class="btn oro" href="capitanes/" id="ar-boton">Consultar estado de cuenta</a>
         <a class="btn linea" href="#contacto">No tengo mi código</a>
       </div>
     </div>
@@ -736,7 +934,6 @@ footer.pie p{margin:0 0 14px;max-width:42ch;color:#9CBFAD}
       </div>
       <h3>Estado de cuenta de tu equipo</h3>
       <p>Cargos de arbitraje e inscripción, pagos entregados, saldo pendiente, multas individuales de tus jugadores y el ticket de cada movimiento.</p>
-      <a class="btn claro" href="capitanes/" style="width:100%">Entrar con mi código</a>
       <div class="nota" id="ar-aviso-caja">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg>
         <span id="ar-aviso"></span>
@@ -840,8 +1037,8 @@ footer.pie p{margin:0 0 14px;max-width:42ch;color:#9CBFAD}
 /* ---------- contenido de respaldo (si contenido.php no responde) ---------- */
 var DEFECTO = {
   sitio:{nombre:'Liga Premier Chapingo', lema:'Deporte universitario con orden y palabra', subtitulo:'Universidad Autónoma Chapingo'},
-  hero:{eyebrow:'Tercera Edición 2026', titulo:'La liga de Chapingo, en una sola página',
-        texto:'Convocatorias, inscripciones, clasificaciones, disciplinas, categorías y campeones. Si eres capitán, aquí mismo consultas el estado de cuenta de tu equipo.'},
+  hero:{eyebrow:'Tercera Edición 2026', titulo:'Primer torneo de Campeón de Campeones departamentales 2026',
+        texto:'Liga recreativa de fútbol rápido y básquetbol en Chapingo, Texcoco. Convocatorias, inscripciones, tabla de posiciones y campeones. Si eres capitán, aquí mismo consultas el estado de cuenta de tu equipo.'},
   torneo:{nombre:'Tercera Edición', estado:'En curso', jornada:'Jornada 1',
           fechas:'Sábados y domingos · 9:00 a 18:00 h', sede:'Canchas UACh, Chapingo, Texcoco',
           texto:'Fútbol, basquetbol y voleibol bajo un mismo torneo. Los partidos se juegan en las canchas de la Universidad Autónoma Chapingo, Texcoco, Estado de México.',
@@ -901,16 +1098,17 @@ function pintar(C){
   C = C || {};
   var sitio = C.sitio || {}, hero = C.hero || {}, T = C.torneo || {}, AR = C.arbitrajes || {}, CO = C.contacto || {};
 
-  document.title = (sitio.nombre || 'Liga Premier Chapingo') + (T.nombre ? ' · ' + T.nombre : '');
+  /* título pensado para Google: nombre, temporada y lo que se busca (fútbol rápido en Chapingo) */
+  document.title = (sitio.nombre || 'Liga Premier Chapingo') + (T.nombre ? ' · ' + T.nombre : '') + ' · Fútbol rápido y básquetbol en Chapingo, Texcoco';
   if(sitio.subtitulo) $('marca-sub').textContent = sitio.subtitulo;
   if(sitio.lema) $('pie-lema').textContent = sitio.lema;
   $('anio').textContent = String(new Date().getFullYear());
 
   /* cinta y portada */
-  $('cinta-torneo').innerHTML = '<b>' + esc(T.nombre || '') + '</b>' + (T.estado ? ' · ' + esc(String(T.estado).toLowerCase()) : '');
+  if($('cinta-torneo')) $('cinta-torneo').innerHTML = '<b>' + esc(T.nombre || '') + '</b>' + (T.estado ? ' · ' + esc(String(T.estado).toLowerCase()) : '');
   $('hero-eyebrow').textContent = hero.eyebrow || T.nombre || '';
   $('hero-titulo').textContent  = hero.titulo || '';
-  $('hero-texto').textContent   = hero.texto || '';
+  if (hero.texto) $('hero-texto').textContent = hero.texto;
 
   /* torneo actual */
   $('t-nombre').textContent = T.nombre || 'Torneo actual';
@@ -1117,5 +1315,217 @@ if(window.fetch && location.protocol.indexOf('http') === 0){
 }
 })();
 </script>
+<script>
+/* ---------- Partidos y cancha (04-oct-2026) ----------
+   Lee disponibilidad/publico.php (sólo lectura): partidos confirmados y horas de la cancha.
+   Las horas que el capitán elige aquí se guardan en ESTE navegador y «Busca un rival» las
+   recibe ya marcadas; en el servidor no se aparta nada hasta que el capitán publica. */
+(function(){
+'use strict';
+var raiz = document.getElementById('agenda');
+if(!raiz || !window.fetch) return;
+
+var DOW  = ['Dom','Lun','Mar','Mié','Jue','Vie','Sáb'];
+var DOWL = ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'];
+var MES  = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+var CLAVE_HORAS = 'lc-horas';
+var D = null, cargado = 0;
+var E = {dia:'', vista:'partidos', cat:'', sel:{}};
+
+function $(id){ return document.getElementById(id); }
+function esc(s){ return String(s == null ? '' : s)
+  .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;'); }
+function fecha(f){ var p = f.split('-'); return new Date(+p[0], +p[1]-1, +p[2]); }
+function pos(f){ for(var i = 0; i < D.dias.length; i++) if(D.dias[i].fecha === f) return i; return -1; }
+function iniciales(n){
+  var w = String(n || '').replace(/[^0-9A-Za-zÀ-ÿ ]/g, ' ').split(' ').filter(Boolean);
+  return ((w[0] || '').charAt(0) + (w[1] || '').charAt(0)).toUpperCase();
+}
+function minutos(h){ var p = String(h).split(':'); return (+p[0]) * 60 + (+p[1] || 0); }
+function estadoPartido(f, h){
+  if(f < D.hoy) return 'Jugado';
+  if(f > D.hoy) return 'Confirmado';
+  var m = minutos(D.ahora) - minutos(h);
+  return m >= 60 ? 'Jugado' : m >= 0 ? 'En juego' : 'Hoy';
+}
+function plural(n, uno, varios){ return n === 1 ? '1 ' + uno : n + ' ' + varios; }
+function libresDe(d){ return d.horas.filter(function(h){ return h.estado === 'libre'; }).length; }
+function sede(s){ return /^cancha/i.test(s) ? s : 'Cancha ' + s; }
+function elegidas(){ return Object.keys(E.sel).sort(); }
+
+function estado(txt){
+  $('ag-estado').textContent = txt || '';
+  $('ag-estado').hidden = !txt;
+}
+
+function pintarDias(){
+  var i = pos(E.dia), n = D.dias.length;
+  var ini = Math.max(0, Math.min(n - 7, i - 3));
+  $('ag-dias').innerHTML = D.dias.slice(ini, ini + 7).map(function(d){
+    var f = fecha(d.fecha), nota;
+    if(E.vista === 'cancha'){
+      var l = d.fecha < D.hoy ? 0 : libresDe(d);
+      nota = l ? plural(l, 'libre', 'libres') : 'Sin horas';
+    } else {
+      nota = d.partidos.length ? plural(d.partidos.length, 'partido', 'partidos') : 'Sin juegos';
+    }
+    return '<button type="button" class="ag-dia" data-dia="' + d.fecha + '" aria-pressed="' + (d.fecha === E.dia) + '">'
+      + '<span class="dw">' + (d.fecha === D.hoy ? 'Hoy' : DOW[f.getDay()]) + '</span>'
+      + '<span class="nm">' + f.getDate() + '</span><span class="nt">' + nota + '</span></button>';
+  }).join('');
+  $('ag-ant').disabled = i <= 0;
+  $('ag-sig').disabled = i >= n - 1;
+  $('ag-hoy').hidden = E.dia === D.hoy;
+  var f = fecha(E.dia);
+  $('ag-titulo').textContent = DOWL[f.getDay()] + ' ' + f.getDate() + ' de ' + MES[f.getMonth()];
+}
+
+function pintarPartidos(){
+  var d = D.dias[pos(E.dia)];
+  var cats = {};
+  D.dias.forEach(function(x){ x.partidos.forEach(function(p){ if(p.categoria) cats[p.categoria] = 1; }); });
+  var lista = Object.keys(cats).sort();
+  if(E.cat && lista.indexOf(E.cat) < 0) E.cat = '';
+  $('ag-chips').innerHTML = lista.length > 1
+    ? [''].concat(lista).map(function(c){
+        return '<button type="button" data-cat="' + esc(c) + '" aria-pressed="' + (E.cat === c) + '">' + esc(c || 'Todas') + '</button>';
+      }).join('')
+    : '';
+  var ps = d.partidos.filter(function(p){ return !E.cat || p.categoria === E.cat; });
+  $('ag-lista').innerHTML = ps.map(function(p){
+    var est = estadoPartido(d.fecha, p.hora);
+    return '<article class="ag-partido">'
+      + '<div class="ag-hora"><b>' + esc(p.hora) + '</b><span>' + est + '</span></div>'
+      + '<div class="ag-equipos">'
+      + '<div class="ag-eq"><i aria-hidden="true">' + esc(iniciales(p.local)) + '</i><b>' + esc(p.local) + '</b><small>Local</small></div>'
+      + '<div class="ag-eq vis"><i aria-hidden="true">' + esc(iniciales(p.visitante)) + '</i><b>' + esc(p.visitante) + '</b><small>Visitante</small></div>'
+      + '</div>'
+      + '<div class="ag-meta">' + (p.categoria ? '<span class="cat">' + esc(p.categoria) + '</span>' : '')
+      + '<span>' + (p.jornada ? 'Jornada ' + esc(p.jornada) : 'Jornada por asignar') + '</span>'
+      + '<span class="sede"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 21s7-6.2 7-11a7 7 0 0 0-14 0c0 4.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>'
+      + esc(sede(p.sede)) + '</span></div></article>';
+  }).join('');
+  estado(ps.length ? '' : (E.cat ? 'No hay partidos confirmados de ' + E.cat + ' este día.' : 'No hay partidos confirmados este día.'));
+}
+
+function pintarCancha(){
+  var d = D.dias[pos(E.dia)];
+  var maxDia = D.maxDia || 5;
+  var delDia = elegidas().filter(function(k){ return k.slice(0, 10) === d.fecha; }).length;
+  $('ag-cancha-nombre').textContent = sede(D.cancha) + ' · partidos de una hora';
+  var libres = d.fecha < D.hoy ? 0 : libresDe(d);
+  $('ag-cancha-libres').textContent = libres ? plural(libres, 'horario libre', 'horarios libres') : 'Sin horarios libres este día';
+  $('ag-horas').innerHTML = d.horas.map(function(h){
+    var clave = d.fecha + ' ' + h.hora, on = !!E.sel[clave];
+    var libre = h.estado === 'libre';
+    var tope = libre && !on && delDia >= maxDia;
+    var etq = on ? 'Elegido' : h.estado === 'partido' ? 'Partido' : h.estado === 'cerrado' ? 'Sin cancha' : h.estado === 'pasado' ? 'Ya pasó' : 'Libre';
+    return '<button type="button" class="ag-slot" data-clave="' + clave + '" aria-pressed="' + on + '"' + (libre && !tope ? '' : ' disabled') + '>'
+      + '<b>' + esc(h.hora) + '</b><span>' + etq + '</span></button>';
+  }).join('');
+  estado(d.horas.length ? '' : (d.fecha < D.hoy ? 'Este día ya pasó. Elige un día de hoy en adelante.' : 'La cancha no tiene horarios este día.'));
+  $('ag-horas').hidden = !d.horas.length;
+
+  var ks = elegidas(), n = ks.length;
+  $('ag-sel-titulo').textContent = n ? plural(n, 'horario elegido', 'horarios elegidos') : 'Elige un horario libre';
+  $('ag-sel-texto').textContent = n
+    ? ks.map(function(k){ var f = fecha(k.slice(0, 10)); return DOW[f.getDay()].toLowerCase() + ' ' + f.getDate() + ' · ' + k.slice(11); }).join('  ·  ')
+    : 'Toca las horas que le acomodan a tu equipo.';
+  $('ag-abrir').setAttribute('aria-disabled', n ? 'false' : 'true');
+}
+
+function pintar(){
+  if(!D) return;
+  /* una hora elegida que dejó de estar libre (alguien la ocupó) se quita sola */
+  Object.keys(E.sel).forEach(function(k){
+    var i = pos(k.slice(0, 10)), ok = false;
+    if(i >= 0) D.dias[i].horas.forEach(function(h){ if(h.hora === k.slice(11) && h.estado === 'libre') ok = true; });
+    if(!ok) delete E.sel[k];
+  });
+  $('ag-ver-partidos').setAttribute('aria-pressed', E.vista === 'partidos');
+  $('ag-ver-cancha').setAttribute('aria-pressed', E.vista === 'cancha');
+  $('ag-partidos').hidden = E.vista !== 'partidos';
+  $('ag-cancha').hidden = E.vista !== 'cancha';
+  pintarDias();
+  if(E.vista === 'partidos') pintarPartidos(); else pintarCancha();
+}
+
+/* portada: los próximos partidos confirmados (mismos datos, sin otra consulta) */
+function pintarPortada(){
+  var caja = $('prox'); if(!caja) return;
+  var lista = [];
+  D.dias.forEach(function(d){
+    if(d.fecha < D.hoy) return;
+    d.partidos.forEach(function(p){ if(estadoPartido(d.fecha, p.hora) !== 'Jugado' && lista.length < 3) lista.push({d:d, p:p}); });
+  });
+  $('prox-lista').innerHTML = lista.map(function(x){
+    var f = fecha(x.d.fecha);
+    return '<li><span class="cu">' + (x.d.fecha === D.hoy ? 'Hoy' : DOW[f.getDay()] + ' ' + f.getDate()) + ' · ' + esc(x.p.hora) + '</span>'
+      + '<span class="eq">' + esc(x.p.local) + ' vs ' + esc(x.p.visitante)
+      + '<small>' + esc([x.p.categoria, sede(x.p.sede)].filter(Boolean).join(' · ')) + '</small></span></li>';
+  }).join('') || '<li><span class="eq">Aún no hay próximos partidos confirmados.</span></li>';
+  caja.hidden = false;
+}
+
+function ir(f){ if(D && pos(f) >= 0){ E.dia = f; pintar(); } }
+function mover(paso){ var i = pos(E.dia) + paso; if(D && i >= 0 && i < D.dias.length){ E.dia = D.dias[i].fecha; pintar(); } }
+
+function cargar(){
+  return fetch('disponibilidad/publico.php', {credentials:'omit'})
+    .then(function(r){ return r.json(); })
+    .then(function(r){
+      if(!r || !r.ok || !Array.isArray(r.dias) || !r.dias.length) throw new Error('sin datos');
+      D = r; cargado = Date.now();
+      if(pos(E.dia) < 0) E.dia = pos(D.hoy) >= 0 ? D.hoy : D.dias[0].fecha;
+      pintar();
+      pintarPortada();
+    })
+    .catch(function(){
+      if(D) return;                                   /* ya había datos: se conservan */
+      $('ag-partidos').hidden = true; $('ag-cancha').hidden = true;
+      estado('No pudimos cargar el calendario. Vuelve a intentarlo en unos minutos.');
+    });
+}
+
+$('ag-ver-partidos').onclick = function(){ E.vista = 'partidos'; pintar(); };
+$('ag-ver-cancha').onclick = function(){ E.vista = 'cancha'; if(D && E.dia < D.hoy) E.dia = D.hoy; pintar(); };
+$('ag-ant').onclick = function(){ mover(-1); };
+$('ag-sig').onclick = function(){ mover(1); };
+$('ag-hoy').onclick = function(){ if(D) ir(D.hoy); };
+$('ag-dias').onclick = function(ev){ var b = ev.target.closest('[data-dia]'); if(b) ir(b.getAttribute('data-dia')); };
+$('ag-chips').onclick = function(ev){ var b = ev.target.closest('[data-cat]'); if(b){ E.cat = b.getAttribute('data-cat'); pintar(); } };
+$('ag-horas').onclick = function(ev){
+  var b = ev.target.closest('[data-clave]'); if(!b || b.disabled) return;
+  var k = b.getAttribute('data-clave');
+  if(E.sel[k]) delete E.sel[k]; else E.sel[k] = true;
+  pintar();
+};
+$('ag-abrir').onclick = function(ev){
+  var ks = elegidas();
+  if(!ks.length){ ev.preventDefault(); return; }
+  try{ localStorage.setItem(CLAVE_HORAS, JSON.stringify({t: Date.now(), claves: ks})); }catch(e){}
+};
+
+/* clasificación: pestañas Primera / Segunda sobre el HTML incrustado de Copa Fácil */
+Array.prototype.forEach.call(raiz.querySelectorAll('[data-tabla-panel]'), function(p){
+  var aviso = p.querySelector('[data-pendiente]');
+  if(aviso && p.querySelector('iframe')) aviso.parentNode.removeChild(aviso);
+});
+Array.prototype.forEach.call(raiz.querySelectorAll('[data-tabla]'), function(b){
+  b.onclick = function(){
+    var t = b.getAttribute('data-tabla');
+    Array.prototype.forEach.call(raiz.querySelectorAll('[data-tabla]'), function(x){ x.setAttribute('aria-pressed', x === b); });
+    Array.prototype.forEach.call(raiz.querySelectorAll('[data-tabla-panel]'), function(p){ p.hidden = p.getAttribute('data-tabla-panel') !== t; });
+  };
+});
+
+/* al volver a la pestaña después de un rato, se actualiza una sola vez */
+document.addEventListener('visibilitychange', function(){
+  if(!document.hidden && cargado && Date.now() - cargado > 120000) cargar();
+});
+cargar();
+})();
+</script>
+<nav aria-label="Información legal" style="padding:20px;text-align:center;font:14px/1.8 system-ui,sans-serif;background:#f4f3ec;color:#14231c"><a style="color:#155b3b" href="privacidad.html">Política de privacidad</a> · <a style="color:#155b3b" href="condiciones.html">Condiciones del servicio</a></nav>
 </body>
 </html>

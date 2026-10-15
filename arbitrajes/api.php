@@ -9,12 +9,28 @@
      GET  api.php?a=estado   -> {ok, rev, estado}
      GET  api.php?a=rev      -> {ok, rev}                (sondeo barato)
      POST api.php?a=guardar  -> {ok, rev} | {conflicto, rev, estado}
-     POST api.php?a=login    -> {ok}
+     POST api.php?a=login    -> {ok, yo}        {usuario, clave}: cuentas personales de la mesa (admin_usuarios)
+     POST api.php?a=pase     (formulario)       pase firmado desde el panel → abre Tesorería sin contraseña
+     POST api.php?a=pase_panel -> {ok, url, pase} para ir al panel de administración sin contraseña
      GET  api.php?a=salir    -> {ok}
    ===================================================================== */
 
 declare(strict_types=1);
 require __DIR__ . '/config.php';
+require_once dirname(__DIR__) . '/disponibilidad/lib/mesa.php';
+
+/* Conexión a MySQL (la misma de /disponibilidad/): cuentas de la mesa y bitácora. */
+function tdb(): ?PDO {
+    static $p = false;
+    if ($p !== false) return $p;
+    $p = null;
+    $f = dirname(__DIR__) . '/disponibilidad/db.php';
+    if (is_file($f)) {
+        try { require $f; if (isset($pdo) && $pdo instanceof PDO) $p = $pdo; }
+        catch (Throwable $ex) { error_log('[tesoreria] db: ' . $ex->getMessage()); }
+    }
+    return $p;
+}
 
 $seguro = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off')
        || (($_SERVER['HTTP_X_FORWARDED_PROTO'] ?? '') === 'https');
@@ -122,29 +138,58 @@ function copafacil(string $ruta, string $clave, string $lang = 'es', string $hos
     return ['ok' => true, 'status' => $codigo, 'cuerpo' => $cuerpo, 'url' => $url];
 }
 
+/**
+ * Quién registró, editó o borró cada ticket, gasto o transferencia: compara lo guardado con lo
+ * anterior (por id) y lo anota en fin_bitacora con el usuario de la sesión.
+ */
+function bitacoraCambios(array $antes, array $despues, int $rev): void {
+    $pdo = tdb(); if (!$pdo) return;
+    $u = (string)($_SESSION['usuario'] ?? '?');
+    $n = 0;
+    foreach (['movs' => 'teso_ticket', 'gastos' => 'teso_gasto', 'transferencias' => 'teso_transferencia'] as $k => $ent) {
+        $A = []; foreach ((array)($antes[$k] ?? []) as $x) if (is_array($x) && isset($x['id'])) $A[(string)$x['id']] = $x;
+        $D = []; foreach ((array)($despues[$k] ?? []) as $x) if (is_array($x) && isset($x['id'])) $D[(string)$x['id']] = $x;
+        foreach ($D as $id => $x) {
+            if ($n >= 300) return;
+            if (!isset($A[$id])) { mesa_bitacora($pdo, $u, 'alta', $ent, $id, null, $x); $n++; }
+            elseif (json_encode($A[$id]) !== json_encode($x)) { mesa_bitacora($pdo, $u, 'edicion', $ent, $id, $A[$id], $x); $n++; }
+        }
+        foreach ($A as $id => $x) if (!isset($D[$id]) && $n < 300) { mesa_bitacora($pdo, $u, 'baja', $ent, $id, $x, null); $n++; }
+    }
+}
+
 $a = isset($_GET['a']) ? (string)$_GET['a'] : '';
 
 /* ---------- acceso ---------- */
-if ($a === 'login') {
-    $intentos = (int)($_SESSION['intentos'] ?? 0);
-    if ($intentos >= 8 && (time() - (int)($_SESSION['ultimo'] ?? 0)) < 300) {
-        salida(['ok' => false, 'bloqueado' => true], 429);
-    }
-    $in = cuerpo();
-    $clave = (string)($in['clave'] ?? '');
-    usleep(400000);
-    if (hash_equals(CLAVE_ACCESO, $clave) && CLAVE_ACCESO !== '') {
-        session_regenerate_id(true);
-        $_SESSION['ok'] = true;
-        $_SESSION['visto'] = time();
-        $_SESSION['intentos'] = 0;
-        salida(['ok' => true]);
-    }
-    $_SESSION['intentos'] = $intentos + 1;
-    $_SESSION['ultimo'] = time();
-    salida(['ok' => false], 200);
+function abrirSesionMesa(array $u): void {
+    session_regenerate_id(true);
+    $_SESSION = ['ok' => true, 'uid' => (int)$u['id'], 'usuario' => (string)$u['usuario'], 'nombre' => (string)$u['nombre'],
+                 'huella' => mesa_huella((string)$u['clave_hash']), 'visto' => time()];
 }
+function yo(): array { return ['usuario' => (string)($_SESSION['usuario'] ?? ''), 'nombre' => (string)($_SESSION['nombre'] ?? '')]; }
 
+if ($a === 'login') {
+    $pdo = tdb();
+    if (!$pdo) salida(['ok' => false, 'error' => 'No se pudo conectar con la base de datos de la liga.']);
+    $in = cuerpo();
+    usleep(300000);
+    try { $r = mesa_verificar($pdo, (string)($in['usuario'] ?? ''), (string)($in['clave'] ?? '')); }
+    catch (Throwable $ex) { error_log('[tesoreria] login: ' . $ex->getMessage()); salida(['ok' => false, 'error' => 'El acceso de la mesa todavía no está instalado.']); }
+    if (!$r['ok']) salida(['ok' => false, 'error' => $r['error']]);
+    abrirSesionMesa($r['usuario']);
+    mesa_bitacora($pdo, (string)$r['usuario']['usuario'], 'acceso', 'tesoreria', (string)$r['usuario']['id']);
+    salida(['ok' => true, 'yo' => yo()]);
+}
+/* Llega del panel de administración con un pase firmado (formulario POST). */
+if ($a === 'pase') {
+    $pdo = tdb();
+    $uid = $pdo ? mesa_pase_usar((string)($_POST['pase'] ?? ''), 'tesoreria') : 0;
+    $u = $uid ? mesa_usuario($pdo, $uid) : null;
+    if ($u) { abrirSesionMesa($u); mesa_bitacora($pdo, (string)$u['usuario'], 'acceso_desde_panel', 'tesoreria', (string)$u['id']); }
+    header('Content-Type: text/html; charset=utf-8');
+    header('Location: index.html', true, 303);
+    exit;
+}
 if ($a === 'salir') {
     $_SESSION = [];
     if (ini_get('session.use_cookies')) {
@@ -159,7 +204,14 @@ if ($a === 'salir') {
 $vencida = MINUTOS_SESION > 0
         && isset($_SESSION['visto'])
         && (time() - (int)$_SESSION['visto']) > MINUTOS_SESION * 60;
-if (empty($_SESSION['ok']) || $vencida) {
+$vigente = false;
+if (!empty($_SESSION['ok']) && !$vencida && !empty($_SESSION['uid'])) {
+    $pdo = tdb();
+    $u = $pdo ? mesa_usuario($pdo, (int)$_SESSION['uid']) : null;
+    $vigente = $u && hash_equals(mesa_huella((string)$u['clave_hash']), (string)($_SESSION['huella'] ?? ''));
+    if ($u && $vigente) $_SESSION['nombre'] = (string)$u['nombre'];
+}
+if (!$vigente) {
     /* 200 a propósito: preguntar "¿sigo dentro?" no es un error, y así el
        navegador no registra un 401 en la consola cada vez que abre la app. */
     salida(['ok' => false, 'auth' => false]);
@@ -176,7 +228,52 @@ if ($a === 'rev') {
 
 if ($a === 'estado') {
     $d = leerTodo();
-    salida(['ok' => true, 'rev' => (int)$d['rev'], 'estado' => $d['estado']]);
+    salida(['ok' => true, 'rev' => (int)$d['rev'], 'estado' => $d['estado'], 'yo' => yo()]);
+}
+
+/* ---------- gastos generales (04-oct-2026) ----------
+   Sólo LECTURA de fin_gastos_generales (se capturan en el panel: Finanzas → Gastos generales),
+   para el Estado de resultados de Tesorería. Pide el mismo permiso que Finanzas en el panel.
+   No devuelve los cancelados. Tesorería nunca escribe en esta tabla. */
+if ($a === 'gastos_generales') {
+    if ((int)($u['puede_finanzas'] ?? 0) !== 1) salida(['ok' => false, 'permiso' => false]);
+    try {
+        $st = $pdo->prepare(
+            'SELECT g.id, g.edicion_ref, g.categoria_ref, g.concepto, g.descripcion, g.monto, g.fecha,
+                    g.estado, g.responsable, c.nombre AS categoria
+               FROM fin_gastos_generales g
+               JOIN fin_categorias_gasto c ON c.id = g.categoria_gasto_id
+              WHERE g.estado <> ?
+              ORDER BY g.fecha, g.id'
+        );
+        $st->execute(['cancelado']);
+        $gastos = [];
+        foreach ($st->fetchAll(PDO::FETCH_ASSOC) as $f) {
+            $gastos[] = [
+                'id'            => (int)$f['id'],
+                'edicion_ref'   => (string)$f['edicion_ref'],
+                'categoria_ref' => (string)$f['categoria_ref'],
+                'categoria'     => (string)$f['categoria'],
+                'concepto'      => (string)$f['concepto'],
+                'descripcion'   => (string)($f['descripcion'] ?? ''),
+                'responsable'   => (string)($f['responsable'] ?? ''),
+                'monto'         => (float)$f['monto'],
+                'fecha'         => (string)$f['fecha'],
+                'estado'        => (string)$f['estado'],
+            ];
+        }
+        salida(['ok' => true, 'gastos' => $gastos]);
+    } catch (Throwable $ex) {
+        error_log('[tesoreria] gastos_generales: ' . $ex->getMessage());
+        salida(['ok' => false, 'error' => 'No se pudieron leer los gastos generales.']);
+    }
+}
+
+/* ---------- ir al panel de administración sin contraseña ---------- */
+if ($a === 'pase_panel') {
+    $pase = mesa_pase_crear((int)$_SESSION['uid'], 'panel');
+    if ($pase === '') salida(['ok' => false, 'error' => 'No se pudo generar el acceso al panel.']);
+    salida(['ok' => true, 'url' => '../disponibilidad/admin/desde-tesoreria.php', 'pase' => $pase]);
 }
 
 /* ---------- Copa Fácil ---------- */
@@ -251,6 +348,7 @@ if ($a === 'guardar') {
     fclose($fp);
 
     if ($escrito === false) salida(['ok' => false, 'error' => 'error al escribir'], 500);
+    bitacoraCambios(is_array($act) ? ($act['estado'] ?? []) : [], $estado, $revServidor + 1);
     salida(['ok' => true, 'rev' => $revServidor + 1]);
 }
 

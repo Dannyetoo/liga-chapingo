@@ -1,0 +1,11 @@
+<!doctype html>
+<html lang="es"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sistema de competencia · Liga Chapingo</title><link rel="stylesheet" href="app.css">
+<body><header><a href="../">LIGA CHAPINGO</a><span>Sistema de competencia</span><button id="salir" hidden>Salir</button></header>
+<main><p id="aviso" role="status" aria-live="polite"></p>
+<form id="login"><h1>Tu espacio deportivo</h1><p>Administración, coordinación y equipos en un mismo sistema.</p>
+<label>Usuario<input name="usuario" autocomplete="username" required maxlength="60"></label>
+<label>Contraseña<input name="clave" type="password" autocomplete="current-password" required maxlength="200"></label><button>Entrar</button></form>
+<section id="app" hidden><div class="barra"><h1 id="nombre"></h1><label>Espacio digital<select id="espacio"></select></label></div><nav id="menu" aria-label="Módulos"></nav><div id="vista"></div></section>
+</main><dialog id="dialogo"><form id="editor"><h2 id="titulo-editor"></h2><div id="campos"></div><div class="acciones"><button type="button" id="cerrar">Cancelar</button><button>Guardar</button></div></form></dialog>
+<script src="app.js" defer></script></body></html>

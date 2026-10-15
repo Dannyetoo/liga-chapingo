@@ -292,6 +292,37 @@ td.tf{font-weight:700;font-family:"Archivo",sans-serif;font-size:12.5px}
 .ticket .sign{margin-top:7mm;border-top:1px solid #000;text-align:center;font-size:8px;padding-top:1mm}
 .ticketbox{background:var(--surface-2);padding:16px;border-radius:11px;display:flex;justify-content:center}
 #print-area{display:none}
+.yo-chip{font-size:12px;font-weight:600;padding:0 4px}
+.abn span{white-space:nowrap}
+.abn{display:flex;flex-direction:column;gap:2px;margin-top:4px;font-size:11px;color:var(--ink-2);text-align:right}
+.abn .lnk{border:0;background:none;color:var(--bad);cursor:pointer;font-size:11px;padding:0 2px}
+/* ---------- reporte de adeudos (carta) ---------- */
+.rep{font-family:Arial,Helvetica,sans-serif;color:#000;background:#fff;font-size:10.5pt;line-height:1.3}
+.rep h1{font-size:15pt;margin:0 0 2pt}
+.rep .rep-sub{font-size:9.5pt;color:#444;margin-bottom:8pt}
+.rep .rep-tot{display:flex;gap:18pt;flex-wrap:wrap;border:1.5pt solid #000;padding:6pt 9pt;margin:6pt 0 10pt}
+.rep .rep-tot b{font-size:13pt}
+.rep table{width:100%;border-collapse:collapse;margin:0 0 4pt}
+.rep th,.rep td{border-bottom:.6pt solid #bbb;padding:2.5pt 4pt;text-align:left;vertical-align:top}
+.rep th{font-size:8.5pt;text-transform:uppercase;letter-spacing:.04em;border-bottom:1pt solid #000}
+.rep .n{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
+.rep h2{font-size:11.5pt;margin:12pt 0 3pt;padding:3pt 6pt;background:#e9e9e9;display:flex;justify-content:space-between;break-after:avoid}
+.rep tr.rep-eq td{font-weight:700;border-top:1pt solid #000;background:#f6f6f6}
+.rep tr.rep-tk td{font-size:9.5pt;color:#222}
+.rep tr.rep-tk td:first-child{padding-left:14pt}
+.rep tr{break-inside:avoid}
+.rep .rep-pie{margin-top:14pt;font-size:8.5pt;color:#555}
+.rep .rep-tot.rep-nc{border:1pt dashed #555;margin-top:-4pt}
+.rep .rep-tot.rep-nc b{font-size:11.5pt}
+.rep tr.rep-sum td{font-weight:700;border-top:1pt solid #000;border-bottom:1pt solid #000;background:#f6f6f6}
+.rep tr.rep-mv td{font-size:8.5pt}
+.rep tr.rep-mv td.nw{white-space:nowrap}
+.rep tr.rep-nr td{color:#666;font-style:italic}
+.rep table.rep-res{border:1.5pt solid #000;margin:6pt 0 10pt}
+.rep table.rep-res td{padding:3pt 8pt}
+.rep tr.rep-sec td{font-weight:700;font-size:9pt;letter-spacing:.05em;background:#e9e9e9;border-bottom:1pt solid #000}
+.rep tr.rep-neto td{font-weight:700;font-size:13pt;border-top:1.5pt solid #000;border-bottom:0}
+.rep-prev{max-height:60vh;overflow:auto;border:1px solid var(--line);border-radius:10px;padding:14px;background:#fff}
 @media print{
   @page{size:58mm auto;margin:0}
   body{background:#fff}
@@ -319,6 +350,49 @@ td.tf{font-weight:700;font-family:"Archivo",sans-serif;font-size:12.5px}
 .savedot{width:7px;height:7px;border-radius:50%;background:var(--good);flex:none}
 .savedot.dirty{background:var(--warn)}
 .banner{background:var(--warn-soft);color:var(--warn);border-radius:var(--r);padding:10px 14px;font-size:12.5px;font-weight:500}
+/* ---------- desglose por categoría y grupos (27-sep-2026) ---------- */
+.dg{display:flex;flex-direction:column;gap:3px;margin-top:4px;width:100%;font-size:12px}
+.dg-t{display:flex;justify-content:space-between;gap:8px;margin-top:6px;padding-top:6px;border-top:1px solid var(--line);font-weight:700;color:var(--ink);font-size:12.5px}
+.dg-t:first-child{border-top:0;padding-top:0;margin-top:2px}
+.dg-r{display:flex;justify-content:space-between;gap:8px;color:var(--ink-2)}
+.dg-r.neg .num{color:var(--bad);font-weight:600}
+.dg-caj{display:flex;justify-content:space-between;gap:8px;margin-top:3px;font-weight:600;color:var(--ink)}
+.dg-f{display:flex;flex-wrap:wrap;gap:2px 10px;color:var(--muted);font-size:11.5px}
+.dg-f b{color:var(--ink-2);font-weight:600}
+.dg-fut{color:var(--apro)}
+.tile.fut{box-shadow:0 0 0 1.5px var(--apro)}
+.tile.fut .v{color:var(--apro)}
+/* ---------- servicios y utilidad por categoría (29-sep-2026) ---------- */
+.srv{border-radius:var(--r);padding:14px 14px 16px;margin:16px 0}
+.srv-h{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin:0 2px 11px}
+.srv-h b{font-family:"Archivo",sans-serif;font-size:15px;letter-spacing:-.01em}
+.srv-h span{font-size:11.5px}
+.srv .tiles{grid-template-columns:repeat(auto-fit,minmax(165px,1fr))}
+.srv .tile{box-shadow:none}
+.srv-real{background:var(--accent-soft);box-shadow:inset 4px 0 0 var(--accent)}
+.srv-real .srv-h b{color:var(--accent)}
+.srv-real .tile{background:var(--surface);border-top:3px solid var(--accent)}
+.srv-fut{background:var(--apro-soft);box-shadow:inset 4px 0 0 var(--apro)}
+.srv-fut .srv-h b{color:var(--apro)}
+.srv-fut .tile{background:var(--surface);border-top:3px solid var(--apro)}
+.srv .tile.in .v{color:var(--good)}
+.srv .tile.out .v{color:var(--bad)}
+.srv-real .tile.ut{background:var(--accent);color:var(--accent-ink);border-top-color:var(--accent)}
+.srv-fut .tile.ut{background:var(--apro);color:#fff;border-top-color:var(--apro)}
+.srv .tile.ut .eyebrow,.srv .tile.ut .m{color:inherit;opacity:.82}
+.srv .tile.ut .v{color:inherit}
+.srv .tile.ut.perd{background:var(--bad);color:var(--on-bad);border-top-color:var(--bad)}
+.dg-card{margin:14px 0}
+.tabla-x{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.dg-tabla{width:100%;border-collapse:collapse;font-size:13px;min-width:520px}
+.dg-tabla th,.dg-tabla td{padding:8px 10px;border-bottom:1px solid var(--line);text-align:left}
+.dg-tabla th{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:700}
+.dg-tabla .num{text-align:right;font-variant-numeric:tabular-nums}
+.grupo-t{grid-column:1/-1;display:flex;align-items:baseline;gap:12px;margin:10px 0 0;padding-bottom:6px;border-bottom:2px solid var(--accent)}
+.grupo-t b{font-family:"Archivo",sans-serif;font-size:17px;text-transform:uppercase;letter-spacing:.04em}
+.grupo-t .muted{font-size:12.5px}
+.pill.gr{background:var(--accent-soft);color:var(--accent)}
+.pill.gr-B{background:var(--apro-soft);color:var(--apro)}
 </style>
 
 </head>
@@ -415,6 +489,49 @@ function equiposDe(f){
   return S.equipos.filter(function(e){ return equipoEnAmbito(e, f); });
 }
 function movsDe(id){ return S.movs.filter(function(m){ return m.equipoId===id; }); }
+/* ==========================================================================
+   ABONOS CON FECHA (29-sep-2026)
+   Cada pago a un ticket se guarda en m.abonos [{id,fecha,hora,monto,forma,cajero,entrego,nota}].
+   m.recibido sigue siendo la SUMA de los abonos (todo lo que ya lee recibido sigue igual).
+   Tickets viejos sin abonos: lo recibido cuenta como un solo pago en la fecha del ticket.
+   ========================================================================== */
+var FORMAS_ABONO = ['Efectivo','Transferencia','Tarjeta'];
+function abonosDe(m){
+  if(Array.isArray(m.abonos) && m.abonos.length) return m.abonos;
+  var r = Number(m.recibido)||0;
+  return r > 0.009 ? [{id:'ini-'+m.id, fecha:m.fecha, hora:m.hora||'', monto:r, forma:m.forma||'Efectivo',
+                       cajero:m.cajero||'', entrego:m.entrego||'', inicial:true}] : [];
+}
+function tieneAbonos(m){ return Array.isArray(m.abonos) && m.abonos.some(function(a){ return !a.inicial; }); }
+function recalcularRecibido(m){
+  m.recibido = Math.round(m.abonos.reduce(function(t,a){ return t + (Number(a.monto)||0); }, 0)*100)/100;
+}
+function registrarAbono(m, a){
+  if(!Array.isArray(m.abonos) || !m.abonos.length){
+    m.abonos = abonosDe(m).map(function(x){ var y = {}; Object.keys(x).forEach(function(k){ y[k]=x[k]; }); y.id = uid('a'); return y; });
+  }
+  a.id = uid('a'); m.abonos.push(a); recalcularRecibido(m);
+  visiblePorCobro(m);
+  return a;
+}
+function quitarAbono(m, aid){
+  if(!Array.isArray(m.abonos)) return;
+  m.abonos = m.abonos.filter(function(a){ return a.id !== aid; });
+  recalcularRecibido(m);
+  if(!m.abonos.length) delete m.abonos;
+}
+/* Ticket oculto al capitán: sigue contando en Tesorería, pero el portal de capitanes no lo muestra ni lo suma. */
+function ocultoCap(m){ return !!(m && m.ocultoCapitan); }
+/* Tickets automáticos de «Busca un rival» (30-sep-2026): nacen ocultos al capitán y se hacen
+   visibles en cuanto se registra un pago. Si alguien cambia la visibilidad a mano, se respeta. */
+function ocultoHastaCobro(m){ return !!(m && m.auto && m.auto.ocultoHastaCobro === true); }
+function visiblePorCobro(m){
+  if(ocultoHastaCobro(m) && (Number(m.recibido)||0) > 0.009){ delete m.ocultoCapitan; m.auto.ocultoHastaCobro = false; }
+}
+function visibilidadManual(m){ if(m && m.auto && m.auto.ocultoHastaCobro !== undefined) m.auto.ocultoHastaCobro = false; }
+function pillOculto(m){ return ocultoCap(m)? (ocultoHastaCobro(m)
+  ? ' <span class="pill nt" title="Ticket del match: el capitán lo verá en cuanto se registre un pago. En Tesorería sí cuenta.">Oculto hasta cobrar</span>'
+  : ' <span class="pill nt" title="El capitán no ve este ticket y no suma en su estado de cuenta. En Tesorería sí cuenta.">Oculto al capitán</span>') : ''; }
 function saldoEquipo(id){
   var t=0; S.movs.forEach(function(m){ if(m.equipoId===id) t += (Number(m.importe)||0)-(Number(m.recibido)||0); });
   return t;
@@ -430,6 +547,188 @@ function resumen(f){
   return {equipos:eqs.length, cobrado:cob, deben:deb, jugadores:jug};
 }
 function totCobrado(f){ var t=0; equiposDe(f).forEach(function(e){ t+=cobradoEquipo(e.id); }); return t; }
+
+/* ==========================================================================
+   DESGLOSE POR CATEGORÍA (27-sep-2026)
+   Por cobrar  → separado en arbitrajes, inscripciones y otros (sin pagos futuros).
+   Pago futuro → forma de pago nueva: el cargo queda registrado y se cobrará después.
+   Cobrado     → por quien recibió (Adán, Liga Premier Administración…) y por forma.
+   Todo se deriva de los movimientos; no se guarda nada calculado.
+   ========================================================================== */
+var FORMAS_PAGO = ['Efectivo','Transferencia','Tarjeta','Crédito','Pago futuro'];
+var FORMA_FUTURO = 'Pago futuro';
+var CAJEROS_FIJOS = ['Adán','Liga Premier Administración'];
+function tipoConcepto(m){
+  var n = norm(m.concepto);
+  if(n.indexOf('arbitraje')>=0) return 'arb';
+  if(n.indexOf('inscrip')>=0) return 'ins';
+  return 'otr';
+}
+function nombreCajero(c){
+  var n = norm(c).replace(/\s+/g,' ').trim();
+  if(n==='adan') return 'Adán';
+  if(n==='premier league administracion' || n==='liga premier administracion' || n==='premier league administración') return 'Liga Premier Administración';
+  return String(c||'').trim() || 'Sin registrar';
+}
+function desglose(f){
+  var ids = {}; equiposDe(f).forEach(function(e){ ids[e.id]=1; });
+  var d = {pend:{arb:0,ins:0,otr:0,tot:0}, futuro:0, futuroN:0, cob:{}, cobTot:0};
+  CAJEROS_FIJOS.forEach(function(k){ d.cob[k] = {Efectivo:0, Transferencia:0, 'Crédito':0, Tarjeta:0, otro:0, tot:0}; });
+  S.movs.forEach(function(m){
+    if(!ids[m.equipoId]) return;
+    var imp = Number(m.importe)||0, rec = Number(m.recibido)||0, p = imp-rec;
+    if(p > 0.009){
+      if(m.forma===FORMA_FUTURO){ d.futuro += p; d.futuroN++; }
+      else { d.pend[tipoConcepto(m)] += p; d.pend.tot += p; }
+    }
+    function caja(k){ return d.cob[k] || (d.cob[k] = {Efectivo:0, Transferencia:0, 'Crédito':0, Tarjeta:0, otro:0, tot:0}); }
+    if(m.forma==='Crédito' && p > 0.009) caja(nombreCajero(m.cajero))['Crédito'] += p;   /* otorgado a crédito, aún sin cobrar */
+    abonosDe(m).forEach(function(a){
+      var v = Number(a.monto)||0; if(v <= 0.009) return;
+      var c = caja(nombreCajero(a.cajero));
+      if(a.forma==='Efectivo' || a.forma==='Transferencia' || a.forma==='Tarjeta') c[a.forma] += v;
+      else if(!a.forma) c.Efectivo += v;
+      else c.otro += v;                                  /* pago viejo registrado sobre un cargo a crédito / pago futuro */
+      c.tot += v; d.cobTot += v;
+    });
+  });
+  return d;
+}
+/* ==========================================================================
+   SERVICIOS Y UTILIDAD POR CATEGORÍA (29-sep-2026)
+   Sólo tickets de ARBITRAJE recibidos por «Premier league Administración».
+   · Realizado: forma Efectivo o Transferencia (no Crédito, Tarjeta ni Pago futuro); suma lo recibido.
+   · A futuro : forma «Pago futuro»; suma lo que falta por cobrar.
+   Cada partido son 2 tickets → servicio = (tickets ÷ 2) × tarifa.
+   ========================================================================== */
+var TARIFAS_SERVICIO = {arbitro:140, supervision:50, admin:100};
+var CAJERO_SERVICIOS = 'Liga Premier Administración';
+function serviciosCategoria(f){
+  var ids = {}; equiposDe(f).forEach(function(e){ ids[e.id]=1; });
+  var r = {real:{monto:0, n:0}, fut:{monto:0, n:0}};
+  S.movs.forEach(function(m){
+    if(!ids[m.equipoId] || tipoConcepto(m)!=='arb') return;
+    var imp = Number(m.importe)||0, rec = Number(m.recibido)||0, cash = 0;
+    abonosDe(m).forEach(function(a){
+      if((a.forma==='Efectivo' || a.forma==='Transferencia') && nombreCajero(a.cajero)===CAJERO_SERVICIOS) cash += Number(a.monto)||0;
+    });
+    if(cash > 0.009){ r.real.monto += cash; r.real.n++; }
+    if(m.forma===FORMA_FUTURO && nombreCajero(m.cajero)===CAJERO_SERVICIOS){
+      var p = imp - rec;
+      if(p > 0.009){ r.fut.monto += p; if(cash <= 0.009) r.fut.n++; }   /* un ticket no se cuenta dos veces */
+    }
+  });
+  [r.real, r.fut].forEach(function(x){
+    x.partidos = x.n/2;
+    x.arbitro = x.partidos*TARIFAS_SERVICIO.arbitro;
+    x.supervision = x.partidos*TARIFAS_SERVICIO.supervision;
+    x.admin = x.partidos*TARIFAS_SERVICIO.admin;
+    x.utilidad = x.monto - x.arbitro - x.supervision - x.admin;
+  });
+  return r;
+}
+function htmlServicios(r){
+  function txtPart(x){ var p = x.partidos; return x.n+' ticket'+(x.n===1?'':'s')+' · '+(p%1? p.toFixed(1) : p)+' partido'+(p===1?'':'s'); }
+  function base(x, t){ return txtPart(x)+' × '+mxn0(t); }
+  function ut(x){ return x.utilidad<-0.009? 'ut perd' : 'ut'; }
+  var a = r.real, b = r.fut;
+  return '<div class="srv srv-real"><div class="srv-h"><b>Arbitrajes · realizado a la fecha</b>'
+   + '<span class="muted">Efectivo y transferencia recibidos por Premier league Administración</span></div><div class="tiles">'
+   + tile('Arbitrajes cobrados', mxn(a.monto), txtPart(a), 'in')
+   + tile('Servicio de árbitro', mxn(a.arbitro), base(a, TARIFAS_SERVICIO.arbitro), 'out')
+   + tile('Servicio de supervisión', mxn(a.supervision), base(a, TARIFAS_SERVICIO.supervision), 'out')
+   + tile('Servicio de admin. y coordinación', mxn(a.admin), base(a, TARIFAS_SERVICIO.admin), 'out')
+   + tile('Utilidad', mxn(a.utilidad), 'Cobrado − servicios pagados', ut(a))
+   + '</div></div>'
+   + '<div class="srv srv-fut"><div class="srv-h"><b>Arbitrajes · a futuro</b>'
+   + '<span class="muted">Tickets «Pago futuro» recibidos por Premier league Administración</span></div><div class="tiles">'
+   + tile('Pagos futuros', mxn(b.monto), txtPart(b), 'in')
+   + tile('Árbitro a futuro', mxn(b.arbitro), base(b, TARIFAS_SERVICIO.arbitro), 'out')
+   + tile('Supervisión a futuro', mxn(b.supervision), base(b, TARIFAS_SERVICIO.supervision), 'out')
+   + tile('Admin. y coordinación a futuro', mxn(b.admin), base(b, TARIFAS_SERVICIO.admin), 'out')
+   + tile('Utilidad a futuro', mxn(b.utilidad), 'Pagos futuros − servicios por pagar', ut(b))
+   + '</div></div>';
+}
+function cajerosOrden(d){
+  return Object.keys(d.cob).filter(function(k){
+    var c = d.cob[k]; return CAJEROS_FIJOS.indexOf(k)>=0 || c.tot>0.009 || c['Crédito']>0.009;
+  }).sort(function(a,b){
+    var ia = CAJEROS_FIJOS.indexOf(a), ib = CAJEROS_FIJOS.indexOf(b);
+    if(ia<0) ia = 99; if(ib<0) ib = 99;
+    return ia-ib || a.localeCompare(b,'es');
+  });
+}
+/* Desglose compacto para las tarjetas de categoría (dentro de un botón: sólo <span>). */
+function htmlDesglose(d){
+  function fila(lbl, v, cls){ return '<span class="dg-r'+(cls? ' '+cls:'')+'"><span>'+esc(lbl)+'</span><span class="num">'+esc(mxn0(v))+'</span></span>'; }
+  var h = '<span class="dg">'
+   + '<span class="dg-t">Por cobrar <b class="num">'+esc(mxn0(d.pend.tot))+'</b></span>'
+   + fila('Arbitrajes', d.pend.arb, d.pend.arb>0? 'neg':'')
+   + fila('Inscripciones', d.pend.ins, d.pend.ins>0? 'neg':'')
+   + (d.pend.otr>0.009? fila('Otros cargos', d.pend.otr, 'neg') : '')
+   + '<span class="dg-t">Cobrado <b class="num">'+esc(mxn0(d.cobTot))+'</b></span>';
+  cajerosOrden(d).forEach(function(k){
+    var c = d.cob[k];
+    h += '<span class="dg-caj"><span class="dg-cn">Recibió '+esc(k)+'</span><span class="num">'+esc(mxn0(c.tot))+'</span></span>'
+       + '<span class="dg-f">'
+       + ['Efectivo','Transferencia','Crédito','Tarjeta'].map(function(x){
+           return '<span>'+esc(x)+' <b class="num">'+esc(mxn0(c[x]))+'</b></span>'; }).join('')
+       + (c.otro>0.009? '<span>Abonos <b class="num">'+esc(mxn0(c.otro))+'</b></span>' : '')
+       + '</span>';
+  });
+  if(d.futuro>0.009) h += '<span class="dg-t dg-fut">Pagos futuros <b class="num">'+esc(mxn0(d.futuro))+'</b></span>';
+  return h + '</span>';
+}
+/* Tabla completa (vista de la categoría). */
+function tablaCobrado(d){
+  var cols = ['Efectivo','Transferencia','Crédito','Tarjeta'];
+  var hayOtro = cajerosOrden(d).some(function(k){ return d.cob[k].otro>0.009; });
+  var filas = cajerosOrden(d).map(function(k){
+    var c = d.cob[k];
+    return '<tr><td><b>'+esc(k)+'</b></td>'
+      + cols.map(function(x){ return '<td class="num">'+esc(mxn(c[x]))+'</td>'; }).join('')
+      + (hayOtro? '<td class="num">'+esc(mxn(c.otro))+'</td>' : '')
+      + '<td class="num"><b>'+esc(mxn(c.tot))+'</b></td></tr>';
+  }).join('');
+  return '<div class="card dg-card"><div class="row" style="margin-bottom:10px"><span class="eyebrow">Cobrado · quién recibió y cómo</span></div>'
+   + '<div class="tabla-x"><table class="dg-tabla"><thead><tr><th>Recibió</th>'
+   + cols.map(function(x){ return '<th class="num">'+esc(x)+'</th>'; }).join('')
+   + (hayOtro? '<th class="num">Abonos</th>' : '') + '<th class="num">Total recibido</th></tr></thead><tbody>'+filas+'</tbody></table></div>'
+   + '<div class="muted" style="font-size:11.5px;margin-top:8px">«Crédito» es lo que esa persona registró a crédito y todavía no se cobra '
+   + '(no es dinero recibido, por eso no suma al total). Los pagos futuros se muestran aparte.</div></div>';
+}
+
+/* ==========================================================================
+   GRUPOS A / B (Primera y Segunda) — 27-sep-2026
+   equipo.grupo: 'A' | 'B' | '' (sin grupo, fijado a mano). Si no existe, en la
+   Tercera Edición se asigna una sola vez con la lista de la mesa directiva
+   (Grupo A por nombre; el resto de la categoría, Grupo B).
+   ========================================================================== */
+var GRUPOS_A = {
+  primera: ['blackkaiser','raniza','lomecan','chapitudos','corinthians','ranfers','teamsix','barcaguama','secierradobleteo','cuervos'],
+  segunda: ['realsam','pavosdelinfierno','masturbanda','verracos','armage','puercoaran','downchester','erome']
+};
+function claveNom(x){ return norm(x).replace(/[^a-z0-9]/g,''); }
+function catConGrupos(e){
+  var c = claveNom(nom(S.categorias, e.categoriaId));
+  return (c==='primera' || c==='segunda') ? c : '';
+}
+function grupoAuto(e){
+  var c = catConGrupos(e), k = claveNom(e.nombre);
+  if(!c) return '';
+  return GRUPOS_A[c].some(function(p){ return k.indexOf(p)>=0; }) ? 'A' : 'B';
+}
+function asignarGrupos(){
+  var n = 0;
+  S.equipos.forEach(function(e){
+    if(e.grupo !== undefined && e.grupo !== null) return;
+    if(!catConGrupos(e) || claveNom(nom(S.ediciones, e.edicionId)).indexOf('tercera') < 0) return;
+    e.grupo = grupoAuto(e); n++;
+  });
+  return n;
+}
+function grupoDe(e){ return catConGrupos(e) && (e.grupo==='A' || e.grupo==='B') ? e.grupo : ''; }
+function pillGrupo(e){ var g = grupoDe(e); return g? '<span class="pill gr gr-'+g+'">Grupo '+g+'</span>' : ''; }
 function totGastos(f){ return totalGastos(f); }
 
 /* ==========================================================================
@@ -568,12 +867,14 @@ function movsCuenta(id){
       entra:0, sale:Number(g.monto)||0, tkG:g.id});
   });
   if(nm) S.movs.forEach(function(m){
-    var r = Number(m.recibido)||0;
-    if(r<=0 || norm(m.cajero).trim()!==nm) return;
     var e = byId(S.equipos, m.equipoId) || {nombre:'—'};
-    out.push({fecha:m.fecha, hora:m.hora||'', tipo:'Ingreso', folio:folioTxt(m.folio),
-      concepto:m.concepto||'Cobro', detalles:'Cobrado a '+e.nombre,
-      entra:r, sale:0, tk:m.id});
+    abonosDe(m).forEach(function(a){
+      var r = Number(a.monto)||0;
+      if(r<=0 || norm(a.cajero).trim()!==nm) return;
+      out.push({fecha:a.fecha||m.fecha, hora:a.hora||'', tipo:a.inicial? 'Ingreso':'Abono', folio:folioTxt(m.folio),
+        concepto:(a.inicial? '' : 'Abono · ')+(m.concepto||'Cobro'), detalles:'Cobrado a '+e.nombre,
+        entra:r, sale:0, tk:m.id});
+    });
   });
   return out.sort(function(a,b){
     return String(a.fecha+a.hora).localeCompare(String(b.fecha+b.hora)) || String(a.folio).localeCompare(String(b.folio));
@@ -803,7 +1104,7 @@ function normaliza(j){
   return migrar(j);
 }
 
-function marcar(){ dirty=true; clearTimeout(timer); timer=setTimeout(guardar,1200); pintarBarraGuardado(); }
+function marcar(){ asignarGrupos(); dirty=true; clearTimeout(timer); timer=setTimeout(guardar,1200); pintarBarraGuardado(); }
 
 function guardar(){
   clearTimeout(timer);
@@ -852,6 +1153,18 @@ function refrescar(){
   }).catch(function(){});
 }
 
+/* Persona de la mesa directiva en sesión (un solo acceso, 30-sep-2026). */
+var YO = {usuario:'', nombre:''};
+function firma(){ return YO.nombre || YO.usuario || ''; }
+function irAlPanel(){
+  pedir('pase_panel', {}).then(function(r){
+    if(!r || !r.ok || !r.pase){ alertaSimple((r && r.error) || 'No se pudo abrir el panel.'); return; }
+    var f = document.createElement('form'); f.method = 'post'; f.action = r.url;
+    var i = document.createElement('input'); i.type = 'hidden'; i.name = 'pase'; i.value = r.pase;
+    f.appendChild(i); document.body.appendChild(f); f.submit();
+  }).catch(function(){ alertaSimple('No se pudo contactar al servidor.'); });
+}
+function alertaSimple(t){ modal('Aviso', el('<div><p style="margin:0 0 14px">'+esc(t)+'</p></div>'), 'slim'); }
 function pintarBarraGuardado(error){
   var n = document.getElementById('savebar'); if(!n) return;
   var txt = guardando ? 'Guardando…'
@@ -862,10 +1175,13 @@ function pintarBarraGuardado(error){
   n.innerHTML = '<span class="savedot'+(dirty||error?' dirty':'')+'"></span>'
    + '<span class="muted" style="font-size:12px">'+esc(txt)+'</span>'
    + ((dirty||error)? ' <button class="btn sm primary" id="btn-guardar">Guardar</button>':'')
-   + (modoLocal? '' : ' <button class="btn ghost sm" id="btn-salir">Salir</button>');
+   + (modoLocal? '' : (firma()? ' <span class="muted yo-chip" title="Sesión personal">'+esc(firma())+'</span>' : '')
+       + ' <button class="btn ghost sm" id="btn-panel" title="Abrir el panel de administración con tu misma cuenta">Panel ↗</button>'
+       + ' <button class="btn ghost sm" id="btn-salir">Salir</button>');
   var b=document.getElementById('btn-guardar'); if(b) b.onclick = guardar;
   var x=document.getElementById('btn-salir');
   if(x) x.onclick = function(){ pedir('salir').then(function(){ location.reload(); }).catch(function(){ location.reload(); }); };
+  var pn=document.getElementById('btn-panel'); if(pn) pn.onclick = irAlPanel;
 }
 
 /* ---------- pantalla de acceso ---------- */
@@ -875,19 +1191,21 @@ function pedirClave(mensaje){
    + '<div class="crest" style="width:46px;height:46px;font-size:16px;margin-bottom:16px">PC</div>'
    + '<h2>Tesorería Premier Chapingo</h2>'
    + '<p class="muted" style="font-size:13px;margin:6px 0 18px">Cobros, jugadores y saldos de la liga.</p>'
-   + '<input type="text" name="usuario" autocomplete="username" value="tesoreria" style="display:none" readonly>'
-   + '<label class="f"><span>Clave de acceso</span><input type="password" id="lg-p" name="clave" autocomplete="current-password" required></label>'
+   + '<label class="f"><span>Usuario</span><input type="text" id="lg-u" name="usuario" autocomplete="username" autocapitalize="none" spellcheck="false" required></label>'
+   + '<div style="height:10px"></div>'
+   + '<label class="f"><span>Contraseña</span><input type="password" id="lg-p" name="clave" autocomplete="current-password" required></label>'
+   + '<div class="muted" style="font-size:11.5px;margin-top:8px">La misma cuenta del panel de administración.</div>'
    + '<div style="height:12px"></div><button class="btn primary" style="width:100%" type="submit">Entrar</button>'
    + '<div id="lg-e" class="lgerr">'+esc(mensaje||'')+'</div></form></div>');
   document.body.appendChild(w);
-  var inp = w.querySelector('#lg-p'); inp.focus();
+  var inp = w.querySelector('#lg-p'), usr = w.querySelector('#lg-u'); usr.focus();
   w.querySelector('form').onsubmit = function(ev){
     ev.preventDefault();
     var btn = w.querySelector('button'); btn.disabled = true; btn.textContent='Verificando…';
-    pedir('login', {clave: inp.value}).then(function(r){
+    pedir('login', {usuario: usr.value, clave: inp.value}).then(function(r){
       btn.disabled = false; btn.textContent='Entrar';
-      if(r && r.ok){ w.remove(); arrancar(); }
-      else { w.querySelector('#lg-e').textContent = 'Clave incorrecta.'; inp.select(); }
+      if(r && r.ok){ if(r.yo) YO = r.yo; w.remove(); arrancar(); }
+      else { w.querySelector('#lg-e').textContent = (r && r.error) || 'Usuario o contraseña incorrectos.'; inp.select(); }
     }).catch(function(){
       btn.disabled = false; btn.textContent='Entrar';
       w.querySelector('#lg-e').textContent = 'No se pudo contactar al servidor.';
@@ -961,6 +1279,9 @@ function irA(v, cambios){
 }
 function lk(vista){ return seccBloqueada(vista)? '<span class="lk">'+ico(I.candado)+'</span>' : ''; }
 function render(){
+  /* Dashboard, Gastos y Cuentas/transferencias se retiraron del menú (26-sep-2026).
+     Si una pestaña guardada apuntaba a ellas, se vuelve al inicio. Los datos no se tocan. */
+  if(U.vista==='dash'||U.vista==='gastos'||U.vista==='cuentas'){ U.vista='inicio'; U.ed=null; U.di=null; U.ra=null; U.ca=null; }
   saveUI();
   var nMul = personasConMulta(true).length;
   var root = document.getElementById('root');
@@ -968,9 +1289,6 @@ function render(){
    + '<button class="brand" id="ir-inicio"><span class="crest">PC</span>'
    + '<span class="txt"><b>'+esc(S.liga.nombre)+'</b><span>Tesorería de la liga</span></span></button>'
    + '<span class="spacer"></span>'
-   + '<button class="ico'+(U.vista==='dash'?' on':'')+'" id="ir-dash" title="Dashboard" aria-label="Dashboard">'+ico(I.grafica)+lk('dash')+'</button>'
-   + '<button class="ico'+(U.vista==='gastos'?' on':'')+'" id="ir-gastos" title="Gastos" aria-label="Gastos">'+ico(I.gasto)+lk('gastos')+'</button>'
-   + '<button class="ico'+(U.vista==='cuentas'?' on':'')+'" id="ir-cuentas" title="Cuentas y transferencias" aria-label="Cuentas y transferencias">'+ico(I.transfer)+lk('cuentas')+'</button>'
    + '<button class="ico'+(U.vista==='multas'?' on':'')+'" id="ir-multas" title="Multas de jugadores" aria-label="Multas de jugadores">'
    + ico(I.multa)+lk('multas')+(nMul? '<span class="badge num">'+(nMul>99?'99+':nMul)+'</span>':'')+'</button>'
    + '<button class="ico'+(U.vista==='cat'?' on':'')+'" id="ir-cat" title="Catálogo" aria-label="Catálogo">'+ico(I.config)+lk('cat')+'</button>'
@@ -978,9 +1296,6 @@ function render(){
    + '</div>' + migas() + '</div><main><div class="view" id="view"></div></main>';
 
   root.querySelector('#ir-inicio').onclick = function(){ irA('inicio',{ed:null,di:null,ra:null,ca:null}); };
-  root.querySelector('#ir-dash').onclick   = function(){ conAdmin('dash',  function(){ irA('dash'); }); };
-  root.querySelector('#ir-gastos').onclick = function(){ conAdmin('gastos',function(){ irA('gastos'); }); };
-  root.querySelector('#ir-cuentas').onclick= function(){ conAdmin('cuentas',function(){ irA('cuentas'); }); };
   root.querySelector('#ir-cat').onclick    = function(){ conAdmin('cat',   function(){ irA('cat'); }); };
   root.querySelector('#ir-multas').onclick = function(){ conAdmin('multas',function(){ irA('multas'); }); };
   root.querySelectorAll('[data-miga]').forEach(function(b){
@@ -1052,8 +1367,29 @@ function vistaInicio(v){
   inp.oninput = function(){ U.q = inp.value; pintarResultados(res); zona.style.display = U.q.trim()? 'none':''; };
   inp.onkeydown = function(e){ if(e.key==='Escape'){ inp.value=''; U.q=''; pintarResultados(res); zona.style.display=''; } };
 
-  var zona = el('<div><div class="eyebrow" style="margin:6px 0 10px">Ediciones</div><div class="nivel" id="eds"></div></div>');
+  var zona = el('<div><div id="fut-glob"></div>'
+    + '<div class="row" style="margin:0 0 14px"><button class="btn" id="ir-adeudos">'+ico(I.cargo)+' Reporte de adeudos</button>'
+    + '<button class="btn" id="ir-resultados">'+ico(I.grafica)+' Estado de resultados</button>'
+    + '<span class="muted" style="font-size:12px">Créditos y tickets incompletos, del que más debe al que menos</span></div>'
+    + '<div class="eyebrow" style="margin:6px 0 10px">Ediciones</div><div class="nivel" id="eds"></div></div>');
   v.appendChild(zona);
+  zona.querySelector('#ir-adeudos').onclick = abrirReporteAdeudos;
+  zona.querySelector('#ir-resultados').onclick = function(){ conAdmin('dash', abrirEstadoResultados); };
+  (function(){
+    var t = 0, n = 0, porEd = {};
+    S.movs.forEach(function(m){
+      if(m.forma!==FORMA_FUTURO) return;
+      var p = (Number(m.importe)||0)-(Number(m.recibido)||0); if(p<=0.009) return;
+      t += p; n++;
+      var e = byId(S.equipos, m.equipoId); var k = e? nom(S.ediciones, e.edicionId) : 'Sin equipo';
+      porEd[k] = (porEd[k]||0) + p;
+    });
+    zona.querySelector('#fut-glob').appendChild(el('<div class="tiles" style="margin-bottom:14px">'
+      + tile('Pagos futuros', mxn(t), n? n+' cargo'+(n===1?'':'s')+' por cobrar a futuro'
+          + (Object.keys(porEd).length>1? ' · '+Object.keys(porEd).map(function(k){ return k+' '+mxn0(porEd[k]); }).join(' · ') : '')
+          : 'Registra un cargo con forma «Pago futuro» para verlo aquí', t>0?'fut':'')
+      + '</div>'));
+  })();
   var g = zona.querySelector('#eds');
   S.ediciones.forEach(function(ed,i){
     var r = resumen({ed:ed.id});
@@ -1117,8 +1453,15 @@ function vistaNivel(v){
      + (nivel==='ca' && claveDe(U.ed,U.di,U.ra,x.id)
         ? '<span class="cand">'+ico(bloqueada(U.ed,U.di,U.ra,x.id)? I.candado : I.abierto)
           + (bloqueada(U.ed,U.di,U.ra,x.id)? 'Protegida' : 'Abierta en esta sesión')+'</span>' : '')
-     + '<span class="deb" style="color:'+(r.deben>0?'var(--bad)':'var(--good)')+'">'
-     + (r.deben>0? 'Por cobrar '+esc(mxn0(r.deben)) : 'Sin adeudos')+'</span></button>');
+     + (nivel==='ca'
+        ? (function(){
+            var eqs = equiposDe(f), ga = 0, gb = 0;
+            eqs.forEach(function(e){ var g = grupoDe(e); if(g==='A') ga++; else if(g==='B') gb++; });
+            return (ga||gb? '<span class="mt">Grupo A: '+ga+' · Grupo B: '+gb+'</span>' : '') + htmlDesglose(desglose(f));
+          })()
+        : '<span class="deb" style="color:'+(r.deben>0?'var(--bad)':'var(--good)')+'">'
+          + (r.deben>0? 'Por cobrar '+esc(mxn0(r.deben)) : 'Sin adeudos')+'</span>')
+     + '</button>');
     c.onclick = function(){
       if(nivel==='di') irA('nivel',{di:x.id});
       else if(nivel==='ra') irA('nivel',{ra:x.id});
@@ -1136,15 +1479,32 @@ function vistaEquipos(v){
   if(bloqueada(U.ed, U.di, U.ra, U.ca)) return pantallaBloqueada(v);
   var f = {ed:U.ed, di:U.di, ra:U.ra, ca:U.ca};
   var eqs = equiposDe(f).slice().sort(function(a,b){ return a.nombre.localeCompare(b.nombre,'es'); });
-  var r = resumen(f);
+  var r = resumen(f), d = desglose(f);
   v.appendChild(el('<div class="tiles">'
    + tile('Equipos', String(r.equipos), r.jugadores+' jugadores registrados','')
-   + tile('Cobrado', mxn(r.cobrado), 'En esta categoría','')
-   + tile('Por cobrar', mxn(r.deben), r.deben>0?'Adeudo acumulado':'Todos al corriente', r.deben>0?'neg':'hero')
+   + tile('Cobrado', mxn(d.cobTot), 'En esta categoría','')
+   + tile('Por cobrar · arbitrajes', mxn(d.pend.arb), d.pend.arb>0?'Pendiente de arbitrajes':'Al corriente', d.pend.arb>0?'neg':'hero')
+   + tile('Por cobrar · inscripciones', mxn(d.pend.ins), d.pend.ins>0?'Pendiente de inscripciones':'Al corriente', d.pend.ins>0?'neg':'hero')
+   + (d.pend.otr>0.009? tile('Por cobrar · otros', mxn(d.pend.otr), 'Otros cargos pendientes','neg') : '')
+   + tile('Pagos futuros', mxn(d.futuro), d.futuroN? d.futuroN+' cargo'+(d.futuroN===1?'':'s')+' por cobrar a futuro' : 'Sin pagos futuros', d.futuro>0?'fut':'')
    + '</div>'));
+  v.appendChild(el('<div>'+htmlServicios(serviciosCategoria(f))+'</div>'));
+  v.appendChild(el(tablaCobrado(d)));
 
   var g = el('<div class="equipos"></div>'); v.appendChild(g);
-  eqs.forEach(function(e){ g.appendChild(tarjetaEquipo(e)); });
+  var conGrupo = eqs.some(function(e){ return grupoDe(e); });
+  if(conGrupo){
+    ['A','B',''].forEach(function(gr){
+      var sub = eqs.filter(function(e){ return grupoDe(e)===gr; });
+      if(!sub.length) return;
+      var deb = 0; sub.forEach(function(e){ var s = saldoEquipo(e.id); if(s>0) deb += s; });
+      g.appendChild(el('<div class="grupo-t"><b>'+(gr? 'Grupo '+gr : 'Sin grupo')+'</b><span class="muted">'
+        + sub.length+' equipo'+(sub.length===1?'':'s')+' · debe '+esc(mxn0(deb))+'</span></div>'));
+      sub.forEach(function(e){ g.appendChild(tarjetaEquipo(e)); });
+    });
+  } else {
+    eqs.forEach(function(e){ g.appendChild(tarjetaEquipo(e)); });
+  }
   if(claveDe(U.ed,U.di,U.ra,U.ca)){
     var bar = el('<div class="row"><span class="candado" style="width:30px;height:30px;border-radius:9px">'+ico(I.abierto)+'</span>'
      + '<span class="muted" style="font-size:12.5px">Entraste con la contraseña de esta categoría.</span>'
@@ -1171,7 +1531,7 @@ function tarjetaEquipo(e){
    + (s>0? ' · <b style="color:var(--bad)">debe '+esc(mxn0(s))+'</b>' : s<0? ' · a favor '+esc(mxn0(-s)) : '')
    + (e.obs? ' · <span title="'+esc(e.obs)+'">obs.</span>' : '')
    + '</div></div>'
-   + pillEstado(e)
+   + pillGrupo(e) + pillEstado(e)
    + '<button class="btn ghost solo" data-a="edit" title="Editar equipo" aria-label="Editar equipo">'+ico(I.editar)+'</button>'
    + '</div>'
    + '<div class="eq-acc cuatro">'
@@ -1242,7 +1602,13 @@ function editarEquipo(id){
    + '<label class="f"><span>Disciplina</span>'+sel('x-di',S.disciplinas,e.disciplinaId)+'</label>'
    + '<label class="f"><span>Rama</span>'+sel('x-ra',S.ramas,e.ramaId)+'</label>'
    + '<label class="f"><span>Categoría</span>'+sel('x-ca',S.categorias,e.categoriaId)+'</label>'
+   + '<label class="f"><span>Grupo (Primera y Segunda)</span><select id="x-gr">'
+     + [['','Sin grupo'],['A','Grupo A'],['B','Grupo B']].map(function(o){
+         return '<option value="'+o[0]+'"'+((e.grupo||'')===o[0]?' selected':'')+'>'+o[1]+'</option>'; }).join('')
+   + '</select></label>'
    + '</div>'
+   + '<div class="muted" style="font-size:12px;margin-top:6px">El grupo define con quién puede buscar rival el capitán. '
+   + 'Sólo aplica en Primera y Segunda.</div>'
    + '<div class="muted" style="font-size:12px;margin-top:9px">Si lo cambias de lugar se lleva sus '
    + nj+' jugador'+(nj===1?'':'es')+' y sus '+nm+' movimiento'+(nm===1?'':'s')+'.</div>'
    + '<div style="height:18px"></div><div class="row">'
@@ -1260,6 +1626,7 @@ function editarEquipo(id){
     e.disciplinaId = b.querySelector('#x-di').value;
     e.ramaId = b.querySelector('#x-ra').value;
     e.categoriaId = b.querySelector('#x-ca').value;
+    e.grupo = b.querySelector('#x-gr').value;
     cerrarModal(); marcar();
     irA('equipos',{ed:e.edicionId, di:e.disciplinaId, ra:e.ramaId, ca:e.categoriaId});
   };
@@ -1598,7 +1965,7 @@ function abrirCargo(id, movId, pre){
    + '<label class="f"><span>Importe del cargo</span><input id="m-imp" type="number" step="0.01" inputmode="decimal" value="'+(pre? pre.importe : (m? m.importe : (conceptos[0]?conceptos[0].monto:0)))+'"></label>'
    + '<label class="f"><span>Recibido</span><input id="m-rec" type="number" step="0.01" inputmode="decimal" value="'+(pre? pre.importe : (m? m.recibido : (conceptos[0]?conceptos[0].monto:0)))+'"></label>'
    + '<label class="f"><span>Forma de pago</span><select id="m-for">'
-     + ['Efectivo','Transferencia','Tarjeta','Crédito'].map(function(x){ return '<option'+(m&&m.forma===x?' selected':'')+'>'+x+'</option>'; }).join('')+'</select></label>'
+     + FORMAS_PAGO.map(function(x){ return '<option'+(m&&m.forma===x?' selected':'')+'>'+x+'</option>'; }).join('')+'</select></label>'
    + '<label class="f"><span>Fecha</span><input id="m-fec" type="date" value="'+esc(m? m.fecha : hoy())+'"></label>'
    + '<label class="f"><span>Entregó el dinero</span><input id="m-ent" list="l-ent" value="'+esc(m? (m.entrego||'') : (e.encargado||''))+'" placeholder="Quién paga por el equipo">'
      + '<datalist id="l-ent">'+[e.encargado].concat((e.jugadores||[]).map(function(j){return j.nombre;}))
@@ -1609,10 +1976,12 @@ function abrirCargo(id, movId, pre){
    + '<label class="f"><span>Jornada (opcional)</span><select id="m-jor">'+optsJornada(m? m.jornada : '', 'Sin jornada')+'</select></label>'
    + '<label class="f"><span>Rival (opcional)</span><select id="m-riv"><option value="">Sin partido</option>'
      + equiposDe({ed:e.edicionId, di:e.disciplinaId, ra:e.ramaId, ca:e.categoriaId})
-        .filter(function(x){ return x.id!==e.id; })
+        .filter(function(x){ return x.id!==e.id && (!grupoDe(e) || grupoDe(x)===grupoDe(e) || (m&&m.rivalId===x.id)); })
         .sort(function(a,b){ return a.nombre.localeCompare(b.nombre,'es'); })
         .map(function(x){ return '<option value="'+x.id+'"'+(m&&m.rivalId===x.id?' selected':'')+'>'+esc(x.nombre)+'</option>'; }).join('')
      + '</select></label>'
+   + '<label class="chk" style="grid-column:span 2"><input type="checkbox" id="m-vis"'+(m&&ocultoCap(m)?'':' checked')+'> Visible para el capitán'
+   + ' <span class="muted" style="font-weight:400;font-size:11.5px">(si lo desmarcas, el capitán no lo ve ni le suma en su estado de cuenta; en Tesorería sí cuenta)</span></label>'
    + '</div>'
    + '<div class="muted" style="font-size:11.5px;margin-top:8px">Jornada y rival son opcionales: sirven para calcular la '
    + 'ganancia real de cada partido. Si los dejas vacíos, el cobro cuenta en los totales de la liga pero no se asigna a ninguna jornada.</div>'
@@ -1623,6 +1992,12 @@ function abrirCargo(id, movId, pre){
    + '<div class="row"><button class="btn" id="m-igual">Recibido = importe</button><button class="btn" id="m-cero">No recibí nada</button>'
    + '<span class="spacer"></span><button class="btn primary" id="m-ok">'+(m?'Guardar cambios':'Guardar e imprimir')+'</button></div></div>');
   modal(e.nombre, b, null, (pre? 'Cobro de multa individual · ' : m? 'Editar movimiento · ' : 'Generar cargo · ')+ruta(e));
+  if(m && tieneAbonos(m)){
+    var ri = b.querySelector('#m-rec'); ri.readOnly = true; ri.title = 'Se modifica con «Abonar» en el estado de cuenta';
+    b.querySelector('#m-igual').disabled = true; b.querySelector('#m-cero').disabled = true;
+    b.querySelector('.grid-f').insertAdjacentElement('afterend', el('<div class="banner" style="margin-top:10px">Este ticket tiene '
+      + m.abonos.length+' pagos registrados. Lo recibido se cambia con «Abonar» o quitando un abono en el estado de cuenta.</div>'));
+  }
   if(pre) b.querySelector('.grid-f').insertAdjacentElement('beforebegin',
     el('<div class="banner" style="margin-bottom:14px;background:var(--warn-soft);color:var(--warn)">'
       + 'Este cobro salda la multa individual de '+esc(pre.concepto.replace(/^.*— /,''))+'. '
@@ -1644,6 +2019,10 @@ function abrirCargo(id, movId, pre){
     if(sel.value==='_otro') b.querySelector('#m-otro').focus();
   };
   imp.oninput = pintar; rec.oninput = pintar;
+  /* Pago futuro: el cargo se registra hoy y se cobra después (recibido = 0). */
+  b.querySelector('#m-for').onchange = function(){
+    if(this.value===FORMA_FUTURO){ rec.value = 0; pintar(); }
+  };
   b.querySelector('#m-igual').onclick = function(){ rec.value = imp.value; pintar(); };
   b.querySelector('#m-cero').onclick  = function(){ rec.value = 0; pintar(); };
   pintar();
@@ -1667,9 +2046,17 @@ function abrirCargo(id, movId, pre){
       jornada: Number(b.querySelector('#m-jor').value)||0,
       rivalId: b.querySelector('#m-riv').value
     };
-    if(m){ Object.keys(datos).forEach(function(k){ m[k]=datos[k]; }); cerrarModal(); marcar(); render(); abrirEstado(id); }
+    var visCap = b.querySelector('#m-vis').checked;
+    if(!visCap) datos.ocultoCapitan = true;
+    if(m && tieneAbonos(m)) datos.recibido = m.recibido;
+    if(m && firma()){ datos.editadoPor = firma(); datos.editadoEn = hoy()+' '+ahora(); }
+    if(m){ var eraVisible = !ocultoCap(m);
+      Object.keys(datos).forEach(function(k){ m[k]=datos[k]; }); if(visCap) delete m.ocultoCapitan;
+      if(visCap !== eraVisible) visibilidadManual(m);
+      visiblePorCobro(m);
+      cerrarModal(); marcar(); render(); abrirEstado(id); }
     else {
-      datos.id = uid('m'); datos.folio = S.liga.folio++; datos.hora = ahora();
+      datos.id = uid('m'); datos.folio = S.liga.folio++; datos.hora = ahora(); if(firma()) datos.por = firma();
       if(pre && pre.jugadorId) datos.jugadorId = pre.jugadorId;
       S.movs.push(datos);
       if(pre && pre.jugadorId){
@@ -1692,16 +2079,24 @@ function abrirEstado(id){
   ms.forEach(function(m){
     cargos += Number(m.importe)||0; rec += Number(m.recibido)||0;
     acum   += (Number(m.importe)||0)-(Number(m.recibido)||0);
-    filas += '<tr><td class="num muted">'+esc(fecha(m.fecha))+'</td>'
-      + '<td><b>'+esc(m.concepto)+'</b>'+(m.nota? '<br><span class="muted" style="font-size:11.5px">'+esc(m.nota)+'</span>':'')
+    filas += '<tr'+(ocultoCap(m)?' style="opacity:.72"':'')+'><td class="num muted">'+esc(fecha(m.fecha))+'</td>'
+      + '<td><b>'+esc(m.concepto)+'</b>'+pillOculto(m)
+      + ((m.por||m.editadoPor)? '<br><span class="muted" style="font-size:10.5px">'+(m.por? 'Registró '+esc(m.por):'')+(m.por&&m.editadoPor?' · ':'')+(m.editadoPor? 'editó '+esc(m.editadoPor):'')+'</span>':'')
+      +(m.auto? ' <span class="pill wa" title="Creado solo al confirmarse el partido en Busca un rival">Busca un rival</span>':'')+(m.nota? '<br><span class="muted" style="font-size:11.5px">'+esc(m.nota)+'</span>':'')
       + (m.entrego||m.cajero? '<br><span class="muted" style="font-size:11px">'
           +(m.entrego? 'Entregó '+esc(m.entrego):'')+(m.entrego&&m.cajero?' · ':'')
           +(m.cajero? 'Recibió '+esc(m.cajero):'')+'</span>':'')+'</td>'
       + '<td class="num">'+esc(mxn(m.importe))+'</td>'
-      + '<td class="num">'+esc(mxn(m.recibido))+'<br><span class="muted" style="font-size:11px">'+esc(m.forma||'')+'</span></td>'
+      + '<td class="num">'+esc(mxn(m.recibido))+'<br><span class="muted" style="font-size:11px">'+esc(m.forma||'')+'</span>'
+      + (tieneAbonos(m)? '<div class="abn">'+m.abonos.map(function(a){
+            return '<span>'+esc(fecha(a.fecha))+' · '+esc(mxn(a.monto))+' '+esc(a.forma||'')
+              + (a.inicial? '' : ' <button class="lnk" data-qa="'+m.id+'|'+a.id+'" title="Quitar este abono">✕</button>')+'</span>'; }).join('')+'</div>' : '')
+      + '</td>'
       + '<td class="num" style="font-weight:600;color:'+(acum>0?'var(--bad)':'inherit')+'">'+esc(mxn(acum))+'</td>'
       + '<td class="ta-r" style="white-space:nowrap">'
+      + ((Number(m.importe)||0)-(Number(m.recibido)||0) > 0.009 ? '<button class="btn sm primary" data-ab="'+m.id+'">Abonar</button>' : '')
       + '<button class="btn ghost sm" data-tk="'+m.id+'">Ticket</button>'
+      + '<button class="btn ghost sm" data-vis="'+m.id+'" title="Mostrar u ocultar este ticket en el portal del capitán">'+(ocultoCap(m)?'Mostrar al capitán':'Ocultar al capitán')+'</button>'
       + '<button class="btn ghost sm" data-ed="'+m.id+'">Editar</button>'
       + '<button class="btn ghost sm danger" data-bo="'+m.id+'">Borrar</button></td></tr>';
   });
@@ -1714,18 +2109,772 @@ function abrirEstado(id){
    + '</div><div style="height:16px"></div>'
    + '<div class="tblwrap"><table><thead><tr><th>Fecha</th><th>Concepto</th><th class="num">Cargo</th><th class="num">Recibido</th><th class="num">Saldo</th><th></th></tr></thead>'
    + '<tbody>'+(filas || '<tr><td colspan="6"><div class="empty">Sin movimientos.</div></td></tr>')+'</tbody></table></div>'
+   + (ms.some(ocultoCap)? '<div class="muted" style="font-size:11.5px;margin-top:8px">Los tickets «Oculto al capitán» cuentan aquí, pero no aparecen ni suman en el portal de capitanes.</div>' : '')
    + '<div style="height:16px"></div><div class="row"><span class="spacer"></span>'
+   + '<button class="btn" id="e-pdf">'+ico(I.cargo)+' Estado de cuenta PDF</button>'
    + '<button class="btn primary" id="e-nuevo">Generar cargo</button></div></div>');
-  modal(e.nombre, b, null, 'Estado actual · '+ruta(e));
+  modal(e.nombre, b, 'ancho', 'Estado actual · '+ruta(e));
+  b.querySelector('#e-pdf').onclick = function(){ abrirEstadoPDF(id); };
   b.querySelector('#e-nuevo').onclick = function(){ abrirCargo(id); };
   b.querySelectorAll('[data-tk]').forEach(function(x){ x.onclick=function(){ abrirTicket(x.getAttribute('data-tk')); }; });
   b.querySelectorAll('[data-ed]').forEach(function(x){ x.onclick=function(){ abrirCargo(id, x.getAttribute('data-ed')); }; });
+  b.querySelectorAll('[data-ab]').forEach(function(x){ x.onclick=function(){ abrirAbono(id, x.getAttribute('data-ab')); }; });
+  b.querySelectorAll('[data-qa]').forEach(function(x){ x.onclick=function(){
+    var p = x.getAttribute('data-qa').split('|'), mv = byId(S.movs, p[0]); if(!mv) return;
+    confirmar('¿Quitar este abono?', 'Lo recibido y el saldo del equipo se recalculan.', function(){
+      quitarAbono(mv, p[1]); marcar(); render(); abrirEstado(id);
+    }); }; });
+  b.querySelectorAll('[data-vis]').forEach(function(x){ x.onclick=function(){
+    var mv = byId(S.movs, x.getAttribute('data-vis')); if(!mv) return;
+    if(ocultoCap(mv)) delete mv.ocultoCapitan; else mv.ocultoCapitan = true;
+    visibilidadManual(mv);
+    marcar(); render(); abrirEstado(id);
+  }; });
   b.querySelectorAll('[data-bo]').forEach(function(x){ x.onclick=function(){
     var mid = x.getAttribute('data-bo');
     confirmar('¿Borrar este movimiento?','El saldo del equipo se recalcula al instante.', function(){
       S.movs = S.movs.filter(function(z){ return z.id!==mid; });
       marcar(); render();
     }); }; });
+}
+
+/* ==========================================================================
+   REPORTE DE ADEUDOS (29-sep-2026) · tamaño carta
+   Tickets con saldo pendiente registrados a CRÉDITO o INCOMPLETOS (recibido < importe).
+   No incluye «Pago futuro» (todavía no es adeudo). Equipos del que más debe al que menos,
+   agrupados por categoría. Las categorías con contraseña cerrada no se incluyen.
+   ========================================================================== */
+function datosAdeudos(f){
+  var cats = {}, protegidas = {};
+  equiposDe(f).forEach(function(e){
+    var kc = rutaClave(e.edicionId, e.disciplinaId, e.ramaId, e.categoriaId);
+    if(bloqueada(e.edicionId, e.disciplinaId, e.ramaId, e.categoriaId)){ protegidas[kc] = ruta(e); return; }
+    var tks = [];
+    movsDe(e.id).forEach(function(m){
+      if(m.forma===FORMA_FUTURO) return;
+      var imp = Number(m.importe)||0, rec = Number(m.recibido)||0, p = imp - rec;
+      if(p <= 0.009) return;
+      tks.push({m:m, imp:imp, rec:rec, debe:p, tipo: (m.forma==='Crédito' && rec<=0.009)? 'Crédito' : 'Incompleto'});
+    });
+    if(!tks.length) return;
+    tks.sort(function(a,b){ return b.debe-a.debe || String(a.m.fecha).localeCompare(String(b.m.fecha)); });
+    var c = cats[kc] || (cats[kc] = {nombre: ruta(e), equipos: [], total: 0, n: 0});
+    var tot = tks.reduce(function(t,x){ return t+x.debe; }, 0);
+    c.equipos.push({e:e, tks:tks, total:tot});
+    c.total += tot; c.n += tks.length;
+  });
+  var lista = Object.keys(cats).map(function(k){ return cats[k]; });
+  lista.forEach(function(c){ c.equipos.sort(function(a,b){ return b.total-a.total || a.e.nombre.localeCompare(b.e.nombre,'es'); }); });
+  lista.sort(function(a,b){ return b.total-a.total; });
+  var total = lista.reduce(function(t,c){ return t+c.total; }, 0);
+  var nEq = lista.reduce(function(t,c){ return t+c.equipos.length; }, 0);
+  var nTk = lista.reduce(function(t,c){ return t+c.n; }, 0);
+  return {cats:lista, total:total, nEq:nEq, nTk:nTk, protegidas:Object.keys(protegidas).map(function(k){ return protegidas[k]; })};
+}
+function htmlAdeudos(f){
+  var d = datosAdeudos(f);
+  var alc = [f.ed? nom(S.ediciones,f.ed) : 'Todas las ediciones', f.di? nom(S.disciplinas,f.di) : '', f.ra? nom(S.ramas,f.ra) : '', f.ca? nom(S.categorias,f.ca) : '']
+    .filter(Boolean).join(' · ');
+  var L = ['<div class="rep">'];
+  L.push('<h1>'+esc(S.liga.nombre)+' · Reporte de adeudos</h1>');
+  L.push('<div class="rep-sub">'+esc(alc)+' · Generado el '+esc(fecha(hoy()))+' '+esc(ahora())+'</div>');
+  L.push('<div class="rep-tot"><span>Total por cobrar<br><b>'+esc(mxn(d.total))+'</b></span>'
+    + '<span>Equipos con adeudo<br><b>'+d.nEq+'</b></span><span>Tickets pendientes<br><b>'+d.nTk+'</b></span></div>');
+  if(d.cats.length > 1){
+    L.push('<table><thead><tr><th>Categoría</th><th class="n">Equipos</th><th class="n">Tickets</th><th class="n">Por cobrar</th></tr></thead><tbody>');
+    d.cats.forEach(function(c){ L.push('<tr><td>'+esc(c.nombre)+'</td><td class="n">'+c.equipos.length+'</td><td class="n">'+c.n+'</td><td class="n"><b>'+esc(mxn(c.total))+'</b></td></tr>'); });
+    L.push('</tbody></table>');
+  }
+  if(!d.cats.length) L.push('<p>Sin adeudos en este alcance.</p>');
+  d.cats.forEach(function(c){
+    L.push('<h2><span>'+esc(c.nombre)+'</span><span>'+esc(mxn(c.total))+'</span></h2>');
+    L.push('<table><thead><tr><th>Equipo / ticket</th><th>Fecha</th><th>Tipo</th><th class="n">Cargo</th><th class="n">Recibido</th><th class="n">Debe</th></tr></thead><tbody>');
+    c.equipos.forEach(function(q, i){
+      L.push('<tr class="rep-eq"><td colspan="5">'+(i+1)+'. '+esc(q.e.nombre)+(q.e.encargado? ' <span style="font-weight:400">· '+esc(q.e.encargado)+'</span>':'')
+        + '</td><td class="n">'+esc(mxn(q.total))+'</td></tr>');
+      q.tks.forEach(function(x){
+        var m = x.m;
+        L.push('<tr class="rep-tk"><td>'+esc(folioTxt(m.folio))+' · '+esc(m.concepto)+(m.jornada? ' · J'+m.jornada:'')
+          + (m.rivalId? ' vs '+esc(nom(S.equipos,m.rivalId)):'')+(m.nota? '<br><i>'+esc(m.nota)+'</i>':'')+'</td>'
+          + '<td>'+esc(fecha(m.fecha))+'</td><td>'+esc(x.tipo)+'</td>'
+          + '<td class="n">'+esc(mxn(x.imp))+'</td><td class="n">'+esc(mxn(x.rec))+'</td><td class="n"><b>'+esc(mxn(x.debe))+'</b></td></tr>');
+      });
+    });
+    L.push('</tbody></table>');
+  });
+  if(d.protegidas.length) L.push('<div class="rep-pie">No incluye '+d.protegidas.length+' categoría(s) con contraseña cerrada: '
+    + esc(d.protegidas.join('; '))+'. Ábrelas y vuelve a generar el reporte.</div>');
+  L.push('<div class="rep-pie">Crédito = registrado a crédito sin pago · Incompleto = pagado en parte. No incluye pagos futuros.</div>');
+  L.push('</div>');
+  return {html:L.join(''), datos:d};
+}
+function imprimirCarta(html){
+  var pa = document.getElementById('print-area');
+  pa.innerHTML = html;
+  var st = document.createElement('style'); st.id = 'print-carta';
+  st.textContent = '@media print{@page{size:letter;margin:12mm}#print-area{width:auto}}';
+  document.head.appendChild(st);
+  var limpiar = function(){ var x = document.getElementById('print-carta'); if(x) x.remove(); window.removeEventListener('afterprint', limpiar); };
+  window.addEventListener('afterprint', limpiar);
+  window.print();
+  setTimeout(limpiar, 1500);
+}
+function cssReporte(){
+  var css = document.getElementById('app-style').textContent;
+  return css.split('/* ---------- reporte de adeudos (carta) ---------- */')[1].split('.rep-prev')[0];
+}
+function abrirReporteAdeudos(){
+  var f = {ed:'', di:'', ra:'', ca:''};
+  function opts(lista, sel, todas){ return '<option value="">'+todas+'</option>' + lista.map(function(x){
+    return '<option value="'+x.id+'"'+(sel===x.id?' selected':'')+'>'+esc(x.nombre)+'</option>'; }).join(''); }
+  function conEquipos(lista, campo){
+    return lista.filter(function(x){ var g = {}; Object.keys(f).forEach(function(k){ g[k]=f[k]; }); g[campo]=x.id; return equiposDe(g).length; });
+  }
+  var b = el('<div><div class="grid-f">'
+   + '<label class="f"><span>Edición</span><select id="ra-ed"></select></label>'
+   + '<label class="f"><span>Disciplina</span><select id="ra-di"></select></label>'
+   + '<label class="f"><span>Rama</span><select id="ra-ra"></select></label>'
+   + '<label class="f"><span>Categoría</span><select id="ra-ca"></select></label></div>'
+   + '<div class="row" style="margin:14px 0 10px"><span class="muted" id="ra-res" style="font-size:12.5px"></span><span class="spacer"></span>'
+   + '<button class="btn" id="ra-todo">Todo</button><button class="btn" id="ra-file">Guardar archivo</button>'
+   + '<button class="btn primary" id="ra-print">Imprimir</button></div>'
+   + '<div class="rep-prev" id="ra-prev"></div></div>');
+  modal('Reporte de adeudos', b, 'ancho', 'Créditos y tickets incompletos · tamaño carta');
+  var sEd=b.querySelector('#ra-ed'), sDi=b.querySelector('#ra-di'), sRa=b.querySelector('#ra-ra'), sCa=b.querySelector('#ra-ca');
+  var actual = null;
+  function pinta(){
+    sEd.innerHTML = opts(S.ediciones, f.ed, 'Todas las ediciones');
+    sDi.innerHTML = opts(conEquipos(S.disciplinas,'di'), f.di, 'Todas las disciplinas');
+    sRa.innerHTML = opts(conEquipos(S.ramas,'ra'), f.ra, 'Todas las ramas');
+    sCa.innerHTML = opts(conEquipos(S.categorias,'ca'), f.ca, 'Todas las categorías');
+    actual = htmlAdeudos(f);
+    b.querySelector('#ra-prev').innerHTML = actual.html;
+    b.querySelector('#ra-res').textContent = 'Por cobrar '+mxn(actual.datos.total)+' · '+actual.datos.nEq+' equipos · '+actual.datos.nTk+' tickets';
+  }
+  /* al cambiar un nivel, los de abajo vuelven a «Todas» */
+  sEd.onchange = function(){ f.ed=sEd.value; f.di=f.ra=f.ca=''; pinta(); };
+  sDi.onchange = function(){ f.di=sDi.value; f.ra=f.ca=''; pinta(); };
+  sRa.onchange = function(){ f.ra=sRa.value; f.ca=''; pinta(); };
+  sCa.onchange = function(){ f.ca=sCa.value; pinta(); };
+  b.querySelector('#ra-todo').onclick = function(){ f = {ed:'', di:'', ra:'', ca:''}; pinta(); };
+  b.querySelector('#ra-print').onclick = function(){ imprimirCarta(actual.html); };
+  b.querySelector('#ra-file').onclick = function(){
+    descargar('adeudos-'+hoy()+'.html', '<!doctype html><meta charset="utf-8"><title>Reporte de adeudos</title>'
+      + '<style>@page{size:letter;margin:12mm}body{margin:12mm;background:#fff}'+cssReporte()+'</style>'+actual.html, 'text/html');
+  };
+  pinta();
+}
+
+/* ==========================================================================
+   ESTADO DE RESULTADOS (04-oct-2026)
+   Ingreso real = pagos en EFECTIVO + TRANSFERENCIA, siempre juntos en un solo monto.
+   Aparte y sin sumarse nunca al ingreso real:
+     · Crédito : saldo pendiente de tickets registrados a crédito.
+     · Tarjeta : pagos recibidos con tarjeta.
+     · Futuros : saldo de tickets «Pago futuro».
+   Cada pago sale de abonosDe(m) (la misma regla que el desglose por categoría), así
+   que ningún movimiento se cuenta dos veces. Nada se guarda: todo se deriva de S.movs.
+   Respeta las contraseñas de categoría, igual que el reporte de adeudos.
+
+   GASTOS GENERALES Y RESULTADO NETO (04-oct-2026)
+   Resultado neto = Ingreso real − Gastos generales. Crédito, Tarjeta y Futuros siguen
+   siendo informativos: no entran ni en el ingreso real ni en el resultado neto.
+   Los gastos generales son los del panel (Finanzas → Gastos generales, tabla
+   fin_gastos_generales): se LEEN con api.php?a=gastos_generales, nunca se escriben aquí.
+   Sólo restan los PAGADOS (dinero que ya salió); los «por pagar» se muestran aparte y
+   los cancelados no llegan. Se les aplican edición, categoría, responsable y fechas.
+   ========================================================================== */
+var ER_TIPOS = {ins:'Inscripciones', arb:'Arbitrajes', otr:'Otros conceptos'};
+function erEdicionReciente(){
+  var ult = '', ed = '';
+  S.movs.forEach(function(m){
+    var e = byId(S.equipos, m.equipoId); if(!e) return;
+    var k = String(m.fecha||'');
+    if(k >= ult){ ult = k; ed = e.edicionId; }
+  });
+  return ed;
+}
+/* Renglones (un pago o un saldo) del alcance {ed, ca}, sin filtrar por responsable, tipo ni fechas. */
+function erRenglones(f){
+  var eq = {}, prot = {}, R = [];
+  S.equipos.forEach(function(e){ eq[e.id] = e; });
+  S.movs.forEach(function(m){
+    var e = eq[m.equipoId]; if(!e) return;
+    if(f.ed && e.edicionId !== f.ed) return;
+    var kc = rutaClave(e.edicionId, e.disciplinaId, e.ramaId, e.categoriaId);
+    if(f.ca && kc !== f.ca) return;
+    if(bloqueada(e.edicionId, e.disciplinaId, e.ramaId, e.categoriaId)){ prot[kc] = ruta(e); return; }
+    var tipo = tipoConcepto(m), rec = 0;
+    abonosDe(m).forEach(function(a){
+      var v = Number(a.monto)||0; if(v <= 0.009) return;
+      rec += v;
+      var fo = a.forma || 'Efectivo';
+      var cl = (fo==='Efectivo' || fo==='Transferencia')? 'real' : fo==='Tarjeta'? 'tarjeta' : 'otro';
+      R.push({m:m, e:e, kc:kc, tipo:tipo, clase:cl, forma: cl==='otro'? 'Abono sobre '+fo.toLowerCase() : fo,
+              monto:v, fecha:a.fecha||m.fecha||'', hora:a.hora||'', resp:nombreCajero(a.cajero)});
+    });
+    var p = (Number(m.importe)||0) - (Number(m.recibido)||0);
+    if(p > 0.009 && (m.forma===FORMA_FUTURO || m.forma==='Crédito')){
+      R.push({m:m, e:e, kc:kc, tipo:tipo, clase: m.forma===FORMA_FUTURO? 'futuro' : 'credito', forma:m.forma,
+              monto:p, fecha:m.fecha||'', hora:m.hora||'', resp:nombreCajero(m.cajero)});
+    }
+  });
+  return {R:R, protegidas:Object.keys(prot).map(function(k){ return prot[k]; })};
+}
+var ER_G = {estado:'', lista:[]};   /* estado: cargando | ok | permiso | error */
+function erCargarGastos(alListo){
+  ER_G = {estado:'cargando', lista:[]};
+  if(typeof modoLocal !== 'undefined' && modoLocal){ ER_G.estado = 'error'; alListo(); return; }
+  pedir('gastos_generales').then(function(r){
+    if(r && r.ok && Array.isArray(r.gastos)) ER_G = {estado:'ok', lista:r.gastos};
+    else ER_G.estado = (r && r.permiso === false)? 'permiso' : 'error';
+    alListo();
+  }).catch(function(){ ER_G.estado = 'error'; alListo(); });
+}
+function erAvisoGastos(){
+  if(ER_G.estado === 'cargando') return 'Leyendo los gastos generales…';
+  if(ER_G.estado === 'permiso') return 'Tu usuario no tiene el permiso de Finanzas: no se muestran los gastos generales ni el resultado neto.';
+  if(ER_G.estado === 'ok') return '';
+  return 'No se pudieron leer los gastos generales (revisa que api.php esté actualizado y que Finanzas → Gastos generales esté instalado en el panel). Sin ellos no se calcula el resultado neto.';
+}
+/* Gastos generales del alcance: sólo los pagados restan; los «por pagar» van aparte. */
+function datosGastosGenerales(f){
+  var G = {lista:[], total:0, porPagar:0, nPorPagar:0, cats:[], responsables:[]};
+  var cats = {}, rs = {};
+  ER_G.lista.forEach(function(g){
+    if(f.ed && g.edicion_ref !== f.ed) return;
+    var ref = String(g.categoria_ref||'');
+    if(f.ca && (g.edicion_ref+'|'+ref) !== f.ca) return;
+    if(ref){ var p = ref.split('|'); if(bloqueada(g.edicion_ref, p[0], p[1], p[2])) return; }
+    var r = nombreCajero(g.responsable);
+    rs[r] = 1;
+    if(f.resp && r !== f.resp) return;
+    var fe = String(g.fecha||'').slice(0,10);
+    if(f.d1 && fe < f.d1) return;
+    if(f.d2 && fe > f.d2) return;
+    var v = Number(g.monto)||0;
+    if(g.estado !== 'pagado'){ G.porPagar += v; G.nPorPagar++; return; }
+    var k = String(g.categoria||'Sin categoría');
+    var c = cats[k] || (cats[k] = {nombre:k, n:0, total:0});
+    c.n++; c.total += v; G.total += v;
+    G.lista.push({fecha:fe, concepto:String(g.concepto||''), descripcion:String(g.descripcion||''), resp:r, monto:v, id:Number(g.id)||0});
+  });
+  G.total = Math.round(G.total*100)/100;
+  G.cats = Object.keys(cats).map(function(k){ return cats[k]; }).sort(function(a,b){ return b.total-a.total || a.nombre.localeCompare(b.nombre,'es'); });
+  G.lista.sort(function(a,b){ return a.fecha.localeCompare(b.fecha) || a.id-b.id; });
+  G.responsables = Object.keys(rs);
+  return G;
+}
+function erTablaGastos(G){
+  var L = ['<table><thead><tr><th>Fecha</th><th>Concepto</th><th>Descripción</th><th>Responsable</th><th class="n">Monto</th></tr></thead><tbody>'];
+  G.lista.forEach(function(g){
+    L.push('<tr class="rep-mv"><td class="nw">'+esc(fecha(g.fecha))+'</td><td>'+esc(g.concepto)+'</td><td>'+esc(g.descripcion)+'</td>'
+      + '<td>'+esc(g.resp)+'</td><td class="n">'+esc(mxn(g.monto))+'</td></tr>');
+  });
+  if(!G.lista.length) L.push('<tr><td colspan="5">Sin gastos generales pagados con estos filtros.</td></tr>');
+  L.push('<tr class="rep-sum"><td colspan="4">Total de gastos generales</td><td class="n">'+esc(mxn(G.total))+'</td></tr></tbody></table>');
+  return L.join('');
+}
+function erFiltrosTxt(f, catSel, conConcepto){
+  var p = ['Edición: '+(f.ed? nom(S.ediciones,f.ed) : 'todas'),
+           'Categoría: '+(f.ca? (catSel||'—') : 'todas'),
+           'Responsable: '+(f.resp || 'todos')];
+  if(conConcepto) p.push('Concepto: '+(f.tipo? ER_TIPOS[f.tipo] : 'todos'));
+  p.push('Fechas: '+(f.d1 && f.d2? 'del '+fecha(f.d1)+' al '+fecha(f.d2) : f.d1? 'desde '+fecha(f.d1) : f.d2? 'hasta '+fecha(f.d2) : 'todas'));
+  return p.join(' · ');
+}
+function erOrden(lista, id){ for(var i=0;i<lista.length;i++) if(lista[i].id===id) return i; return 999; }
+function datosResultados(f){
+  var base = erRenglones(f), todos = base.R;
+  /* responsables existentes en el alcance (antes de filtrar por responsable) */
+  var rs = {}; todos.forEach(function(x){ rs[x.resp] = 1; });
+  if(ER_G.estado === 'ok') datosGastosGenerales({ed:f.ed, ca:f.ca}).responsables.forEach(function(k){ rs[k] = 1; });
+  var responsables = Object.keys(rs).sort(function(a,b){
+    var ia = CAJEROS_FIJOS.indexOf(a), ib = CAJEROS_FIJOS.indexOf(b);
+    if(ia<0) ia = 99; if(ib<0) ib = 99;
+    return ia-ib || a.localeCompare(b,'es');
+  });
+  var R = todos.filter(function(x){
+    if(f.resp && x.resp !== f.resp) return false;
+    if(f.tipo && x.tipo !== f.tipo) return false;
+    if(f.d1 && String(x.fecha).slice(0,10) < f.d1) return false;
+    if(f.d2 && String(x.fecha).slice(0,10) > f.d2) return false;
+    return true;
+  });
+  /* etiqueta corta de categoría: sólo los niveles que varían en el alcance */
+  var vEd = {}, vDi = {}, vRa = {};
+  todos.forEach(function(x){ vEd[x.e.edicionId]=1; vDi[x.e.disciplinaId]=1; vRa[x.e.ramaId]=1; });
+  function etq(e){
+    var p = [];
+    if(Object.keys(vEd).length > 1) p.push(nom(S.ediciones, e.edicionId));
+    if(Object.keys(vDi).length > 1) p.push(nom(S.disciplinas, e.disciplinaId));
+    if(Object.keys(vRa).length > 1) p.push(nom(S.ramas, e.ramaId));
+    p.push(nom(S.categorias, e.categoriaId));
+    return p.join(' · ');
+  }
+  function cero(){ return {ins:0, arb:0, otr:0, real:0, credito:0, tarjeta:0, futuro:0, otro:0}; }
+  function suma(o, x){
+    if(x.clase==='real'){ o[x.tipo] += x.monto; o.real += x.monto; }
+    else o[x.clase] += x.monto;
+  }
+  var cats = {}, pers = {}, T = cero();
+  todos.forEach(function(x){            /* categorías con tickets en el alcance, aunque el filtro las deje en $0 */
+    if(!cats[x.kc]) cats[x.kc] = {clave:x.kc, nombre:etq(x.e), e:x.e, t:cero()};
+  });
+  R.forEach(function(x){
+    x.cat = cats[x.kc].nombre;
+    suma(cats[x.kc].t, x); suma(T, x);
+    suma(pers[x.resp] || (pers[x.resp] = cero()), x);
+  });
+  var lista = Object.keys(cats).map(function(k){ return cats[k]; }).sort(function(a,b){
+    return erOrden(S.ediciones,a.e.edicionId)-erOrden(S.ediciones,b.e.edicionId)
+        || erOrden(S.disciplinas,a.e.disciplinaId)-erOrden(S.disciplinas,b.e.disciplinaId)
+        || erOrden(S.ramas,a.e.ramaId)-erOrden(S.ramas,b.e.ramaId)
+        || erOrden(S.categorias,a.e.categoriaId)-erOrden(S.categorias,b.e.categoriaId);
+  });
+  R.sort(function(a,b){
+    return String(a.fecha).localeCompare(String(b.fecha)) || String(a.hora).localeCompare(String(b.hora))
+        || (Number(a.m.folio)||0)-(Number(b.m.folio)||0);
+  });
+  return {R:R, cats:lista, total:T, pers:pers, responsables:responsables, protegidas:base.protegidas};
+}
+function htmlResultados(f){
+  var d = datosResultados(f), T = d.total;
+  var hayOtr = T.otr > 0.009;
+  var catSel = ''; d.cats.forEach(function(c){ if(c.clave===f.ca) catSel = c.nombre; });
+  var G = ER_G.estado === 'ok'? datosGastosGenerales(f) : null;
+  var neto = G? Math.round((T.real - G.total)*100)/100 : null;
+  d.gastos = G; d.neto = neto; d.catSel = catSel;
+  function num(v, fuerte){ return '<td class="n">'+(fuerte? '<b>':'')+esc(mxn(v))+(fuerte? '</b>':'')+'</td>'; }
+  var L = ['<div class="rep">'];
+  L.push('<h1>Liga Chapingo · Estado de resultados</h1>');
+  L.push('<div class="rep-sub">'+esc(S.liga.nombre)+' · Generado el '+esc(fecha(hoy()))+' '+esc(ahora())
+    + '<br>Filtros aplicados — '+esc(erFiltrosTxt(f, catSel, true))+'</div>');
+  if(f.resp) L.push('<div class="rep-sub"><b>Responsable seleccionado: '+esc(f.resp)+'</b></div>');
+  L.push('<table class="rep-res"><tbody><tr class="rep-sec"><td colspan="2">INGRESOS REALES'+(f.resp? ' BAJO SU RESPONSABILIDAD' : '')+' (EFECTIVO + TRANSFERENCIA)</td></tr>');
+  d.cats.forEach(function(c){ L.push('<tr><td>'+esc(c.nombre)+'</td>'+num(c.t.real)+'</tr>'); });
+  L.push('<tr class="rep-sum"><td>Total</td>'+num(T.real)+'</tr>');
+  L.push('<tr class="rep-sec"><td colspan="2">GASTOS GENERALES</td></tr>');
+  L.push('<tr class="rep-sum"><td>Total</td>'+(G? num(G.total) : '<td class="n">No disponible</td>')+'</tr>');
+  L.push('<tr class="rep-neto"><td>RESULTADO NETO</td>'+(G? num(neto) : '<td class="n">No disponible</td>')+'</tr></tbody></table>');
+  if(!G) L.push('<div class="rep-pie" style="margin:0 0 8pt">'+esc(erAvisoGastos())+'</div>');
+  L.push('<div class="rep-tot rep-nc"><span>Informativo, fuera del ingreso real y del resultado neto:</span>'
+    + '<span>Crédito<br><b>'+esc(mxn(T.credito))+'</b></span><span>Tarjeta<br><b>'+esc(mxn(T.tarjeta))+'</b></span>'
+    + '<span>Futuros<br><b>'+esc(mxn(T.futuro))+'</b></span>'
+    + (T.otro > 0.009? '<span>Abonos sin forma de pago<br><b>'+esc(mxn(T.otro))+'</b></span>' : '')+'</div>');
+
+  if(G){
+    L.push('<h2><span>Gastos generales</span><span>'+esc(mxn(G.total))+'</span></h2>');
+    if(G.cats.length){
+      L.push('<table><thead><tr><th>Categoría de gasto</th><th class="n">Gastos</th><th class="n">Total</th></tr></thead><tbody>');
+      G.cats.forEach(function(c){ L.push('<tr><td>'+esc(c.nombre)+'</td><td class="n">'+c.n+'</td>'+num(c.total, true)+'</tr>'); });
+      L.push('</tbody></table>');
+    }
+    L.push(erTablaGastos(G));
+    if(G.porPagar > 0.009) L.push('<div class="rep-pie" style="margin:0 0 8pt">Por pagar (compromisos que todavía no salen de caja, no se restan): '
+      + esc(mxn(G.porPagar))+' en '+G.nPorPagar+' gasto'+(G.nPorPagar===1?'':'s')+'.</div>');
+  }
+  L.push('<h2><span>Ingreso real por categoría</span><span>'+esc(mxn(T.real))+'</span></h2>');
+  L.push('<table><thead><tr><th>Categoría</th><th class="n">Inscripciones</th><th class="n">Arbitrajes</th>'
+    + (hayOtr? '<th class="n">Otros</th>' : '')+'<th class="n">Total</th></tr></thead><tbody>');
+  d.cats.forEach(function(c){
+    L.push('<tr><td>'+esc(c.nombre)+'</td>'+num(c.t.ins)+num(c.t.arb)+(hayOtr? num(c.t.otr) : '')+num(c.t.real, true)+'</tr>');
+  });
+  if(!d.cats.length) L.push('<tr><td colspan="'+(hayOtr? 5:4)+'">Sin movimientos en este alcance.</td></tr>');
+  L.push('<tr class="rep-sum"><td>TOTALES</td>'+num(T.ins)+num(T.arb)+(hayOtr? num(T.otr) : '')
+    + '<td class="n">INGRESO REAL TOTAL '+esc(mxn(T.real))+'</td></tr></tbody></table>');
+
+  if(!f.resp && Object.keys(d.pers).length){
+    L.push('<h2><span>Por responsable</span><span></span></h2>');
+    L.push('<table><thead><tr><th>Responsable</th><th class="n">Inscripciones</th><th class="n">Arbitrajes</th>'
+      + (hayOtr? '<th class="n">Otros</th>' : '')+'<th class="n">Ingreso real</th><th class="n">Crédito</th><th class="n">Tarjeta</th><th class="n">Futuros</th></tr></thead><tbody>');
+    d.responsables.forEach(function(k){
+      var p = d.pers[k]; if(!p) return;
+      L.push('<tr><td>'+esc(k)+'</td>'+num(p.ins)+num(p.arb)+(hayOtr? num(p.otr) : '')+num(p.real, true)+num(p.credito)+num(p.tarjeta)+num(p.futuro)+'</tr>');
+    });
+    L.push('</tbody></table>');
+  }
+
+  L.push('<h2><span>Detalle de movimientos</span><span>'+d.R.length+'</span></h2>');
+  L.push('<table><thead><tr><th>Fecha</th><th>Concepto</th><th>Equipo</th><th>Categoría</th><th>Forma de pago</th><th class="n">Monto</th><th>Responsable</th></tr></thead><tbody>');
+  d.R.forEach(function(x){
+    var m = x.m;
+    L.push('<tr class="rep-mv'+(x.clase==='real'? '' : ' rep-nr')+'"><td class="nw">'+esc(fecha(x.fecha))+'</td>'
+      + '<td class="nw">'+esc(folioTxt(m.folio))+' · '+esc(m.concepto)+(m.jornada? ' · J'+m.jornada : '')+'</td>'
+      + '<td>'+esc(x.e.nombre)+'</td><td>'+esc(x.cat)+'</td><td>'+esc(x.forma)+'</td>'
+      + '<td class="n">'+esc(mxn(x.monto))+'</td><td>'+esc(x.resp)+'</td></tr>');
+  });
+  if(!d.R.length) L.push('<tr><td colspan="7">Sin movimientos con estos filtros.</td></tr>');
+  L.push('<tr class="rep-sum"><td colspan="5">Ingreso real del detalle (Efectivo + Transferencia)</td>'
+    + '<td class="n">'+esc(mxn(T.real))+'</td><td></td></tr></tbody></table>');
+
+  if(d.protegidas.length) L.push('<div class="rep-pie">No incluye '+d.protegidas.length+' categoría(s) con contraseña cerrada: '
+    + esc(d.protegidas.join('; '))+'. Ábrelas y vuelve a generar el estado.</div>');
+  L.push('<div class="rep-pie">Ingreso real = pagos recibidos en efectivo y transferencia, juntos. '
+    + 'Crédito = saldo de tickets a crédito · Tarjeta = pagos con tarjeta · Futuros = saldo de tickets «Pago futuro». '
+    + 'Esos tres (en cursiva en el detalle) nunca se suman al ingreso real ni al resultado neto. '
+    + 'Resultado neto = ingreso real − gastos generales pagados.</div>');
+  L.push('</div>');
+  return {html:L.join(''), datos:d};
+}
+function htmlGastosGenerales(f, catSel){
+  var G = datosGastosGenerales(f);
+  return '<div class="rep"><h1>Liga Chapingo · Gastos generales</h1>'
+    + '<div class="rep-sub">'+esc(S.liga.nombre)+' · Generado el '+esc(fecha(hoy()))+' '+esc(ahora())
+    + '<br>Filtros aplicados — '+esc(erFiltrosTxt(f, catSel, false))+'</div>'
+    + erTablaGastos(G)
+    + '<div class="rep-pie">Gastos generales pagados, registrados en Finanzas → Gastos generales. No incluye cancelados ni por pagar.</div></div>';
+}
+function abrirEstadoResultados(){
+  var f = {ed:erEdicionReciente(), ca:'', resp:'', tipo:'', d1:'', d2:''};
+  var b = el('<div><div class="grid-f">'
+   + '<label class="f"><span>Edición</span><select id="er-ed"></select></label>'
+   + '<label class="f"><span>Categoría</span><select id="er-ca"></select></label>'
+   + '<label class="f"><span>Responsable</span><select id="er-resp"></select></label>'
+   + '<label class="f"><span>Concepto</span><select id="er-tipo"></select></label>'
+   + '<label class="f"><span>Desde</span><input id="er-d1" type="date"></label>'
+   + '<label class="f"><span>Hasta</span><input id="er-d2" type="date"></label></div>'
+   + '<div class="row" style="margin:14px 0 10px"><span class="muted" id="er-res" style="font-size:12.5px"></span><span class="spacer"></span>'
+   + '<button class="btn" id="er-todo">Quitar filtros</button>'
+   + '<button class="btn" id="er-print-g">🖨 Imprimir gastos generales</button>'
+   + '<button class="btn primary" id="er-print">🖨 Imprimir estado de resultados</button></div>'
+   + '<div class="rep-prev" id="er-prev"></div></div>');
+  modal('Estado de resultados', b, 'ancho', 'Ingreso real = efectivo + transferencia · tamaño carta');
+  var sEd=b.querySelector('#er-ed'), sCa=b.querySelector('#er-ca'), sRe=b.querySelector('#er-resp'),
+      sTi=b.querySelector('#er-tipo'), d1=b.querySelector('#er-d1'), d2=b.querySelector('#er-d2');
+  var actual = null;
+  function op(v, txt, sel){ return '<option value="'+esc(v)+'"'+(sel===v?' selected':'')+'>'+esc(txt)+'</option>'; }
+  function pinta(){
+    /* listas dinámicas: categorías y responsables que existen en la edición elegida */
+    var amb = datosResultados({ed:f.ed, ca:'', resp:'', tipo:'', d1:'', d2:''});
+    if(f.ca && !amb.cats.some(function(c){ return c.clave===f.ca; })) f.ca = '';
+    if(f.resp && amb.responsables.indexOf(f.resp) < 0) f.resp = '';
+    sEd.innerHTML = op('', 'Todas las ediciones', f.ed) + S.ediciones.map(function(x){ return op(x.id, x.nombre, f.ed); }).join('');
+    sCa.innerHTML = op('', 'Todas las categorías', f.ca) + amb.cats.map(function(c){ return op(c.clave, c.nombre, f.ca); }).join('');
+    sRe.innerHTML = op('', 'Todos los responsables', f.resp) + amb.responsables.map(function(k){ return op(k, k, f.resp); }).join('');
+    sTi.innerHTML = op('', 'Todos los conceptos', f.tipo) + op('ins', 'Sólo inscripciones', f.tipo) + op('arb', 'Sólo arbitrajes', f.tipo);
+    d1.value = f.d1; d2.value = f.d2;
+    actual = htmlResultados(f);
+    b.querySelector('#er-prev').innerHTML = actual.html;
+    var T = actual.datos.total;
+    var G = actual.datos.gastos;
+    b.querySelector('#er-res').textContent = G
+      ? 'Ingreso real '+mxn(T.real)+' − Gastos generales '+mxn(G.total)+' = Resultado neto '+mxn(actual.datos.neto)
+      : 'Ingreso real '+mxn(T.real)+' · '+erAvisoGastos();
+    b.querySelector('#er-print-g').disabled = !G;
+  }
+  sEd.onchange = function(){ f.ed=sEd.value; f.ca=''; pinta(); };
+  sCa.onchange = function(){ f.ca=sCa.value; pinta(); };
+  sRe.onchange = function(){ f.resp=sRe.value; pinta(); };
+  sTi.onchange = function(){ f.tipo=sTi.value; pinta(); };
+  d1.onchange = function(){ f.d1=d1.value; pinta(); };
+  d2.onchange = function(){ f.d2=d2.value; pinta(); };
+  b.querySelector('#er-todo').onclick = function(){ f = {ed:f.ed, ca:'', resp:'', tipo:'', d1:'', d2:''}; pinta(); };
+  b.querySelector('#er-print').onclick = function(){ imprimirCarta(actual.html); };
+  b.querySelector('#er-print-g').onclick = function(){ if(actual.datos.gastos) imprimirCarta(htmlGastosGenerales(f, actual.datos.catSel)); };
+  /* los gastos se leen del servidor cada vez que se abre; mientras llegan se ve el ingreso */
+  erCargarGastos(function(){ if(document.body.contains(b)) pinta(); });
+  pinta();
+}
+
+/* ==========================================================================
+   ESTADO DE CUENTA EN PDF (29-sep-2026)
+   Corte: último lunes de cada mes. Periodo = del día siguiente al corte anterior
+   hasta el corte (incluido). No incluye tickets «ocultos al capitán» (es para el equipo).
+   PDF con jsPDF (lib/ en esta carpeta; si falta, se intenta desde cdnjs).
+   ========================================================================== */
+function ultimoLunes(y, m){ /* m: 1..12 → 'AAAA-MM-DD' */
+  var d = new Date(y, m, 0);                     /* último día del mes */
+  d.setDate(d.getDate() - ((d.getDay() + 6) % 7));
+  return d.getFullYear()+'-'+z2(d.getMonth()+1)+'-'+z2(d.getDate());
+}
+function cortesEquipo(id){
+  var ms = movsDe(id), ini = hoy();
+  ms.forEach(function(m){ if(m.fecha && m.fecha < ini) ini = m.fecha; });
+  var y = +ini.slice(0,4), mo = +ini.slice(5,7), out = [], h = hoy();
+  var yH = +h.slice(0,4), mH = +h.slice(5,7);
+  while(y < yH || (y === yH && mo <= mH)){
+    var c = ultimoLunes(y, mo);
+    out.push({fecha:c, futuro: c > h});
+    mo++; if(mo > 12){ mo = 1; y++; }
+  }
+  /* primer corte: si el primero cae antes del primer movimiento, se descarta */
+  out = out.filter(function(c, i){ return !(i === 0 && c.fecha < ini && out.length > 1); });
+  return out.reverse();
+}
+function fechaLarga(s){
+  var M = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+  var p = String(s||'').split('-'); if(p.length !== 3) return s||'';
+  return (+p[2])+' de '+M[+p[1]-1]+' de '+p[0];
+}
+function datosEstadoCorte(id, corte){
+  var e = byId(S.equipos, id);
+  var cortes = cortesEquipo(id).map(function(c){ return c.fecha; });
+  var prev = cortes.filter(function(c){ return c < corte; })[0] || '';
+  var ms = movsDe(id).filter(function(m){ return !ocultoCap(m) && (m.fecha||'') <= corte; });
+  var ev = [], ant = 0, cargos = 0, pagos = 0, pend = [];
+  ms.forEach(function(m){
+    var imp = Number(m.importe)||0;
+    ev.push({f:m.fecha||'', h:m.hora||'', o:0, tipo:'cargo', m:m, monto:imp});
+    var pagadoCorte = 0;
+    abonosDe(m).forEach(function(a){
+      var fa = a.fecha || m.fecha || '';
+      if(fa > corte) return;
+      var v = Number(a.monto)||0; pagadoCorte += v;
+      ev.push({f:fa, h:a.hora||'', o:1, tipo:'pago', m:m, a:a, monto:v});
+    });
+    if(imp - pagadoCorte > 0.009) pend.push({m:m, debe:imp - pagadoCorte, pagado:pagadoCorte});
+  });
+  ev.sort(function(x,y){ return (x.f+x.h).localeCompare(y.f+y.h) || x.o-y.o || (x.m.folio||0)-(y.m.folio||0); });
+  var periodo = [];
+  ev.forEach(function(x){
+    var d = x.tipo==='cargo'? x.monto : -x.monto;
+    if(prev && x.f <= prev) ant += d;
+    else { if(x.tipo==='cargo') cargos += x.monto; else pagos += x.monto; periodo.push(x); }
+  });
+  var multas = (S.multas||[]).filter(function(mu){
+    return mu.equipoId === id && (mu.fecha||'') <= corte && (Number(mu.monto)||0) - (Number(mu.pagado)||0) > 0.009; });
+  return {e:e, corte:corte, prev:prev, anterior:ant, cargos:cargos, pagos:pagos, saldo:ant+cargos-pagos,
+          periodo:periodo, pend:pend, multas:multas};
+}
+function cargarScript(src){
+  return new Promise(function(ok, no){
+    var sc = document.createElement('script'); sc.src = src; sc.onload = ok; sc.onerror = no;
+    document.head.appendChild(sc);
+  });
+}
+var jsPDFlisto = null;
+function cargarJsPDF(){
+  if(jsPDFlisto) return jsPDFlisto;
+  function listo(){ return window.jspdf && window.jspdf.jsPDF && window.jspdf.jsPDF.API.autoTable; }
+  jsPDFlisto = cargarScript('lib/jspdf.umd.min.js').then(function(){ return cargarScript('lib/jspdf.plugin.autotable.min.js'); })
+    .catch(function(){
+      return cargarScript('https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.2/jspdf.umd.min.js')
+        .then(function(){ return cargarScript('https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.4/jspdf.plugin.autotable.min.js'); });
+    }).then(function(){ if(!listo()) throw new Error('jsPDF'); })
+    .catch(function(err){ jsPDFlisto = null; throw err; });
+  return jsPDFlisto;
+}
+/* PDF simplificado (30-sep-2026): una hoja clara y formal. Arriba el saldo y cómo se forma;
+   debajo los movimientos del periodo (sin folios, notas ni cajeros), lo que queda por pagar
+   y las multas pendientes. Nada más. */
+function pdfEstado(d){
+  var doc = new window.jspdf.jsPDF({unit:'mm', format:'letter'});
+  var W = doc.internal.pageSize.getWidth(), H = doc.internal.pageSize.getHeight(), X = 18;
+  var tinta = [24,28,26], gris = [104,110,104], suave = [150,156,148], linea = [214,218,210],
+      verde = [27,107,69], rojo = [170,45,40];
+  var e = d.e, y = 20;
+  function color(c){ doc.setTextColor(c[0],c[1],c[2]); }
+  function fuente(peso, tam){ doc.setFont('helvetica', peso); doc.setFontSize(tam); }
+  function txt(t, x, yy, o){ doc.text(String(t==null?'':t), x, yy, o||{}); }
+  function mx(n){ return mxn(n); }
+  function concepto(m){
+    return (m.concepto || 'Cargo') + (m.jornada? ' · Jornada '+m.jornada : '') + (m.rivalId? ' vs '+nom(S.equipos,m.rivalId) : '');
+  }
+  var debe = d.saldo > 0.009, aFavor = d.saldo < -0.009;
+
+  /* --- encabezado --- */
+  doc.setFillColor(verde[0],verde[1],verde[2]); doc.rect(0, 0, W, 2.5, 'F');
+  fuente('bold', 8.5); color(verde); txt('ESTADO DE CUENTA', X, y);
+  fuente('normal', 8.5); color(gris);
+  txt((S.liga.nombre || 'Premier Chapingo') + ' · ' + nom(S.ediciones,e.edicionId), W-X, y, {align:'right'});
+  y += 8; fuente('bold', 18); color(tinta); txt(e.nombre, X, y);
+  y += 6; fuente('normal', 9.5); color(gris);
+  txt([nom(S.categorias,e.categoriaId), nom(S.disciplinas,e.disciplinaId), nom(S.ramas,e.ramaId)].filter(function(x){ return x && x !== '—'; }).join(' · ')
+      + (e.encargado? '   |   Encargado: '+e.encargado : ''), X, y);
+  y += 5; txt('Corte al '+fechaLarga(d.corte) + (d.prev? '  ·  Periodo del '+fecha(sumaDia(d.prev))+' al '+fecha(d.corte) : ''), X, y);
+  y += 6; doc.setDrawColor(linea[0],linea[1],linea[2]); doc.setLineWidth(.3); doc.line(X, y, W-X, y);
+
+  /* --- saldo --- */
+  y += 11; fuente('normal', 9); color(gris); txt(debe? 'Saldo por pagar' : aFavor? 'Saldo a favor del equipo' : 'Saldo', X, y);
+  fuente('bold', 22); color(debe? rojo : verde); txt(mx(Math.abs(d.saldo)), X, y+9);
+  if(!debe && !aFavor){ var ancho = doc.getTextWidth(mx(0)); fuente('bold', 10); txt('Al corriente', X + ancho + 4, y+9); }
+  /* cómo se forma, a la derecha */
+  var fx = W - X, fy = y - 1;
+  fuente('normal', 9); color(gris);
+  [['Saldo anterior', d.anterior], ['Cargos del periodo', d.cargos], ['Pagos del periodo', -d.pagos]].forEach(function(r){
+    txt(r[0], fx - 34, fy, {align:'right'}); color(tinta); txt((r[1] < 0 ? '- ' : '') + mx(Math.abs(r[1])), fx, fy, {align:'right'}); color(gris); fy += 5;
+  });
+  doc.setDrawColor(linea[0],linea[1],linea[2]); doc.line(fx - 62, fy - 3.2, fx, fy - 3.2);
+  fuente('bold', 9); color(tinta); txt('Saldo al corte', fx - 34, fy + 1, {align:'right'}); txt(mx(d.saldo), fx, fy + 1, {align:'right'});
+  y += 26;
+
+  /* --- tablas --- */
+  var estilo = {theme:'plain', margin:{left:X, right:X}, styles:{font:'helvetica', fontSize:9, cellPadding:{top:2, bottom:2, left:1.5, right:1.5}, textColor:tinta, lineColor:linea, lineWidth:{bottom:.2}},
+    headStyles:{fontStyle:'bold', fontSize:8, textColor:gris, lineWidth:{bottom:.4}, lineColor:[120,126,118]},
+    footStyles:{fontStyle:'bold', textColor:tinta, lineWidth:{top:.4}, lineColor:[120,126,118]}};
+  function titulo(t){ fuente('bold', 10.5); color(tinta); txt(t, X, y); y += 3; }
+  function tabla(o){
+    /* encabezados alineados como su columna (los importes a la derecha) */
+    o.head = o.head.map(function(fila){ return fila.map(function(c, k){
+      var cs = (o.columnStyles||{})[k]; return cs && cs.halign==='right'? {content:c, styles:{halign:'right'}} : c; }); });
+    doc.autoTable(Object.assign({}, estilo, o, {startY:y}));
+    y = doc.lastAutoTable.finalY + 10;
+  }
+
+  titulo('Movimientos del periodo');
+  var acum = d.anterior, body = [];
+  if(d.prev || Math.abs(d.anterior) > 0.009) body.push([{content:'Saldo anterior', colSpan:4, styles:{textColor:gris}}, {content:mx(d.anterior), styles:{halign:'right', textColor:gris}}]);
+  d.periodo.forEach(function(x){
+    var m = x.m;
+    if(x.tipo==='cargo'){ acum += x.monto; body.push([fecha(x.f), concepto(m), mx(x.monto), '', mx(acum)]); }
+    else { acum -= x.monto; body.push([fecha(x.f), {content:'Pago de ' + (m.concepto || 'cargo').toLowerCase() + (x.a.forma && x.a.forma !== 'Crédito' && x.a.forma !== FORMA_FUTURO? ' (' + x.a.forma.toLowerCase() + ')' : ''), styles:{textColor:gris}}, '', mx(x.monto), mx(acum)]); }
+  });
+  if(!d.periodo.length) body.push([{content:'Sin movimientos en este periodo.', colSpan:5, styles:{textColor:gris}}]);
+  tabla({head:[['Fecha','Concepto','Cargo','Pago','Saldo']], body:body,
+    columnStyles:{0:{cellWidth:22}, 2:{halign:'right', cellWidth:25}, 3:{halign:'right', cellWidth:25}, 4:{halign:'right', cellWidth:26}}});
+
+  if(d.pend.length && debe){
+    titulo('Por pagar');
+    var tp = 0;
+    tabla({head:[['Fecha','Concepto','Pendiente']],
+      body: d.pend.map(function(x){ tp += x.debe; return [fecha(x.m.fecha), concepto(x.m) + (x.pagado > 0.009? ' (abonado '+mx(x.pagado)+')' : ''), mx(x.debe)]; }),
+      foot:[[{content:'Total por pagar', colSpan:2}, {content:mx(tp), styles:{halign:'right'}}]],
+      columnStyles:{0:{cellWidth:22}, 2:{halign:'right', cellWidth:30}}});
+  }
+
+  if(d.multas.length){
+    titulo('Multas pendientes de jugadores');
+    var tm = 0;
+    tabla({head:[['Jugador','Concepto','Pendiente']],
+      body: d.multas.map(function(mu){
+        var r = (Number(mu.monto)||0)-(Number(mu.pagado)||0); tm += r;
+        return [((mu.ident||{}).nombre||'').replace(/\s+/g,' '), mu.concepto||'', mx(r)];
+      }),
+      foot:[[{content:'Total de multas (aparte del saldo del equipo)', colSpan:2}, {content:mx(tm), styles:{halign:'right'}}]],
+      columnStyles:{2:{halign:'right', cellWidth:30}}});
+  }
+
+  /* --- nota final --- */
+  if(y > H - 40){ doc.addPage(); y = 24; }
+  fuente('normal', 9); color(gris);
+  var nota = debe ? 'Le pedimos cubrir el saldo pendiente antes de su próximo partido. Si ya realizó el pago, no considere este aviso.'
+           : aFavor ? 'El equipo tiene saldo a favor, que se aplicará a sus próximos cargos.'
+           : 'El equipo está al corriente. Gracias por su puntualidad.';
+  var lineas = doc.splitTextToSize(nota, W - 2*X);
+  doc.text(lineas, X, y); y += lineas.length * 4.2;
+
+  /* --- pie en todas las páginas --- */
+  var n = doc.getNumberOfPages();
+  for(var i=1;i<=n;i++){
+    doc.setPage(i); fuente('normal', 7.5); color(suave);
+    doc.setDrawColor(linea[0],linea[1],linea[2]); doc.line(X, H-14, W-X, H-14);
+    txt((S.liga.nombre || 'Premier Chapingo') + ' · Emitido el ' + fecha(hoy()) + (S.liga.pie? ' · ' + S.liga.pie : ''), X, H-9.5);
+    txt('Página '+i+' de '+n, W-X, H-9.5, {align:'right'});
+  }
+  return doc;
+}
+function sumaDia(s){ var p = s.split('-'), d = new Date(+p[0], +p[1]-1, +p[2]+1); return d.getFullYear()+'-'+z2(d.getMonth()+1)+'-'+z2(d.getDate()); }
+function nombreArchivoEstado(d){
+  return ('estado-cuenta-'+norm(d.e.nombre).replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')+'-'+d.corte+'.pdf');
+}
+function abrirEstadoPDF(id){
+  var e = byId(S.equipos,id); if(!e) return;
+  var cortes = cortesEquipo(id);
+  var def = (cortes.filter(function(c){ return !c.futuro; })[0] || cortes[0] || {fecha:ultimoLunes(+hoy().slice(0,4), +hoy().slice(5,7))}).fecha;
+  var b = el('<div><label class="f"><span>Fecha de corte (último lunes del mes)</span><select id="pc-corte">'
+    + cortes.map(function(c){ return '<option value="'+c.fecha+'"'+(c.fecha===def?' selected':'')+'>'+esc(fechaLarga(c.fecha))+(c.futuro?' (aún no llega)':'')+'</option>'; }).join('')
+    + '</select></label>'
+    + '<div class="tiles" id="pc-res" style="margin:14px 0;grid-template-columns:repeat(auto-fit,minmax(120px,1fr))"></div>'
+    + '<div class="muted" style="font-size:11.5px;margin-bottom:14px">Una hoja: saldo al corte, movimientos del periodo, lo que queda por pagar y multas pendientes. '
+    + 'No incluye tickets ocultos al capitán.</div>'
+    + '<div class="row" style="flex-wrap:nowrap"><button class="btn" id="pc-bajar" style="flex:1">Descargar PDF</button>'
+    + '<button class="btn primary" id="pc-comp" style="flex:1">Compartir PDF</button></div>'
+    + '<div class="muted" id="pc-msg" style="font-size:12px;margin-top:9px;text-align:center"></div></div>');
+  modal('Estado de cuenta · PDF', b, 'slim', e.nombre+' · '+ruta(e));
+  var sel = b.querySelector('#pc-corte'), msg = b.querySelector('#pc-msg');
+  function pinta(){
+    var d = datosEstadoCorte(id, sel.value);
+    b.querySelector('#pc-res').innerHTML = tile('Anterior', mxn(d.anterior), '', '') + tile('Cargos', mxn(d.cargos), '', '')
+      + tile('Pagos', mxn(d.pagos), '', '') + tile('Saldo al corte', mxn(d.saldo), '', d.saldo>0.009? 'neg' : 'hero');
+  }
+  sel.onchange = pinta; pinta();
+  function generar(){
+    msg.textContent = 'Generando PDF…';
+    return cargarJsPDF().then(function(){
+      var d = datosEstadoCorte(id, sel.value);
+      var doc = pdfEstado(d);
+      msg.textContent = '';
+      return {blob: doc.output('blob'), nombre: nombreArchivoEstado(d), d:d};
+    }).catch(function(){ msg.textContent = 'No se pudo cargar el generador de PDF. Revisa tu conexión.'; throw 0; });
+  }
+  function bajar(r){
+    var a = document.createElement('a'); a.href = URL.createObjectURL(r.blob); a.download = r.nombre;
+    document.body.appendChild(a); a.click(); setTimeout(function(){ URL.revokeObjectURL(a.href); a.remove(); }, 4000);
+  }
+  b.querySelector('#pc-bajar').onclick = function(){ generar().then(bajar, function(){}); };
+  b.querySelector('#pc-comp').onclick = function(){
+    generar().then(function(r){
+      var file = new File([r.blob], r.nombre, {type:'application/pdf'});
+      if(navigator.canShare && navigator.canShare({files:[file]})){
+        navigator.share({files:[file], title:'Estado de cuenta · '+r.d.e.nombre,
+          text:'Estado de cuenta de '+r.d.e.nombre+' al '+fecha(r.d.corte)+'. Saldo: '+mxn(r.d.saldo)+'.'})
+          .catch(function(){});
+      } else { bajar(r); msg.textContent = 'Este navegador no permite compartir directo: se descargó el PDF para que lo envíes.'; }
+    }, function(){});
+  };
+}
+
+/* ---------- abonar a un ticket ---------- */
+function abrirAbono(id, movId){
+  var e = byId(S.equipos,id), m = byId(S.movs, movId); if(!e || !m) return;
+  if(!permiso(e)) return conPermiso(e, function(){ abrirAbono(id, movId); });
+  var pend = Math.round(((Number(m.importe)||0)-(Number(m.recibido)||0))*100)/100;
+  var b = el('<div>'
+   + '<div class="tiles" style="grid-template-columns:repeat(3,1fr);margin-bottom:14px">'
+   + tile('Cargo', mxn(m.importe), folioTxt(m.folio), '') + tile('Pagado', mxn(m.recibido), abonosDe(m).length+' pago(s)', '')
+   + tile('Resta', mxn(pend), m.concepto, 'neg') + '</div>'
+   + '<div class="grid-f">'
+   + '<label class="f"><span>Monto del abono</span><input id="ab-mon" type="number" step="0.01" inputmode="decimal" value="'+pend+'"></label>'
+   + '<label class="f"><span>Forma de pago</span><select id="ab-for">'+FORMAS_ABONO.map(function(x){ return '<option>'+x+'</option>'; }).join('')+'</select></label>'
+   + '<label class="f"><span>Fecha del pago</span><input id="ab-fec" type="date" value="'+hoy()+'"></label>'
+   + '<label class="f"><span>Entregó el dinero</span><input id="ab-ent" value="'+esc(e.encargado||'')+'"></label>'
+   + '<label class="f"><span>Recibió el dinero</span><input id="ab-caj" list="l-caj2" value="'+esc(S.liga.cajero||'')+'">'
+     + '<datalist id="l-caj2">'+(S.liga.cajeros||[]).map(function(c){return '<option value="'+esc(c)+'">';}).join('')+'</datalist></label>'
+   + '<label class="f"><span>Nota (opcional)</span><input id="ab-not"></label>'
+   + '</div><div class="muted" id="ab-err" style="color:var(--bad);font-size:12.5px;min-height:18px;margin-top:8px"></div>'
+   + '<div class="row"><span class="spacer"></span><button class="btn" id="ab-ok">Guardar</button>'
+   + '<button class="btn primary" id="ab-okp">Guardar e imprimir</button></div></div>');
+  modal('Abonar · '+e.nombre, b, null, m.concepto+' · '+folioTxt(m.folio));
+  function guardar(imprimir){
+    var monto = Math.round((Number(b.querySelector('#ab-mon').value)||0)*100)/100;
+    var er = b.querySelector('#ab-err');
+    if(monto <= 0) { er.textContent = 'Escribe un monto mayor a cero.'; return; }
+    if(monto > pend + 0.009) { er.textContent = 'El abono no puede ser mayor a lo que resta ('+mxn(pend)+').'; return; }
+    var caj = b.querySelector('#ab-caj').value.trim();
+    if(caj){ S.liga.cajero = caj; S.liga.cajeros = S.liga.cajeros||[]; if(S.liga.cajeros.indexOf(caj)<0) S.liga.cajeros.push(caj); }
+    var a = registrarAbono(m, {fecha: b.querySelector('#ab-fec').value || hoy(), hora: ahora(), monto: monto,
+      forma: b.querySelector('#ab-for').value, cajero: caj, entrego: b.querySelector('#ab-ent').value.trim(),
+      nota: b.querySelector('#ab-not').value.trim(), por: firma()});
+    cerrarModal(); marcar(); render();
+    if(imprimir) abrirTicketAbono(m.id, a.id); else abrirEstado(id);
+  }
+  b.querySelector('#ab-ok').onclick = function(){ guardar(false); };
+  b.querySelector('#ab-okp').onclick = function(){ guardar(true); };
+}
+function ticketAbonoHTML(m, a){
+  var e = byId(S.equipos, m.equipoId) || {nombre:'—'};
+  var resta = (Number(m.importe)||0)-(Number(m.recibido)||0);
+  var L = ['<div class="ticket">'];
+  L.push('<div class="tk-brand">'+esc(S.liga.nombre)+'</div>');
+  L.push('<div class="tk-sub">COMPROBANTE DE ABONO</div><hr>');
+  L.push('<div class="kv"><span>'+esc(fecha(a.fecha)+' '+(a.hora||''))+'</span><span>'+esc(folioTxt(m.folio))+'</span></div><hr>');
+  L.push('<div class="tk-eq">'+esc(e.nombre)+'</div>');
+  L.push('<div>'+esc(nom(S.disciplinas,e.disciplinaId)+' · '+nom(S.ramas,e.ramaId)+' · '+nom(S.categorias,e.categoriaId))+'</div><hr>');
+  L.push('<div class="li"><span>'+esc(m.concepto)+'</span><span>'+esc(mxn(m.importe))+'</span></div>');
+  L.push('<div class="big"><span>ABONO</span><span>'+esc(mxn(a.monto))+'</span></div>');
+  L.push('<div class="li"><span>'+esc(a.forma||'')+'</span><span>Pagado '+esc(mxn(m.recibido))+'</span></div>');
+  L.push('<div class="li"><span>Resta</span><span>'+esc(mxn(resta))+'</span></div><hr>');
+  if(a.entrego) L.push('<div>Entregó: '+esc(a.entrego)+'</div>');
+  if(a.cajero) L.push('<div>Recibió: '+esc(a.cajero)+'</div>');
+  if(a.nota) L.push('<div>'+esc(a.nota)+'</div>');
+  L.push('<div class="foot">'+esc(S.liga.pie||'')+'</div><div class="sign">Firma</div></div>');
+  return L.join('');
+}
+function abrirTicketAbono(mid, aid){
+  var m = byId(S.movs, mid); if(!m) return;
+  var a = (m.abonos||[]).filter(function(x){ return x.id===aid; })[0]; if(!a) return;
+  ventanaTicket('Abono · '+folioTxt(m.folio), ticketAbonoHTML(m, a), 'abono-'+folioTxt(m.folio)+'-'+a.fecha);
 }
 
 /* ---------- ticket ---------- */
@@ -2032,7 +3181,8 @@ function vistaDash(v){
 
   /* ---- cobranza por día ---- */
   var porD = {};
-  S.movs.forEach(function(m){ if(!enF[m.equipoId]) return; porD[m.fecha]=(porD[m.fecha]||0)+(Number(m.recibido)||0); });
+  S.movs.forEach(function(m){ if(!enF[m.equipoId]) return;
+    abonosDe(m).forEach(function(a){ var f = a.fecha||m.fecha; porD[f]=(porD[f]||0)+(Number(a.monto)||0); }); });
   var dias = Object.keys(porD).sort().slice(-30);
   var c4 = el('<div class="card"><header><div><h3>Cobranza por día</h3><div class="sub">'
    + (dias.length===1?'Un solo día con movimiento.':'Últimos '+dias.length+' días con movimiento.')+'</div></div></header><div id="ch4"></div></div>');
@@ -2344,7 +3494,7 @@ function abrirGrupo(clave){
    + (ms.length? ms.map(function(x){
        return '<tr><td class="num muted">'+esc(fecha(x.m.fecha))+'</td>'
         + '<td>'+esc(nom(S.categorias,x.e.categoriaId))+'</td>'
-        + '<td><b>'+esc(x.m.concepto)+'</b>'+(x.m.nota? '<br><span class="muted" style="font-size:11.5px">'+esc(x.m.nota)+'</span>':'')+'</td>'
+        + '<td><b>'+esc(x.m.concepto)+'</b>'+pillOculto(x.m)+(x.m.nota? '<br><span class="muted" style="font-size:11.5px">'+esc(x.m.nota)+'</span>':'')+'</td>'
         + '<td class="num">'+esc(mxn(x.m.importe))+'</td>'
         + '<td class="num">'+esc(mxn(x.m.recibido))+'<br><span class="muted" style="font-size:11px">'+esc(x.m.forma||'')+'</span></td>'
         + '<td class="ta-r"><button class="btn ghost sm" data-tk="'+x.m.id+'">Ticket</button></td></tr>';
@@ -2512,10 +3662,12 @@ function personasDinero(enF){
   }
   S.movs.forEach(function(mv){
     if(!enF[mv.equipoId]) return;
-    var r = Number(mv.recibido)||0; if(r<=0) return;
-    var f = fila(mv.cajero);
-    f.cobrado += r; f.nCob++;
-    f.conceptos[mv.concepto] = (f.conceptos[mv.concepto]||0) + r;
+    abonosDe(mv).forEach(function(a){
+      var r = Number(a.monto)||0; if(r<=0) return;
+      var f = fila(a.cajero);
+      f.cobrado += r; f.nCob++;
+      f.conceptos[mv.concepto] = (f.conceptos[mv.concepto]||0) + r;
+    });
   });
   gastosFiltrados().forEach(function(g){
     var f = fila(pagadorGasto(g));
@@ -2536,7 +3688,16 @@ function bitacora(enF){
       detalle: e.nombre+' · '+nom(S.categorias,e.categoriaId)+(credito>0? ' · quedó a crédito '+mxn(credito):''),
       ambito: nom(S.ediciones,e.edicionId)+' · '+nom(S.ramas,e.ramaId)+' · '+nom(S.categorias,e.categoriaId),
       de: mv.entrego || e.encargado || e.nombre, para: mv.cajero||'',
-      monto: Number(mv.recibido)||0, forma: mv.forma||''});
+      monto: abonosDe(mv).filter(function(a){ return a.inicial; }).reduce(function(t,a){ return t+(Number(a.monto)||0); }, 0)
+             , forma: mv.forma||''});
+    abonosDe(mv).forEach(function(a){
+      if(a.inicial) return;
+      out.push({tipo:'Ingreso', id:mv.id, fecha:a.fecha, hora:a.hora||'', ref:folioTxt(mv.folio),
+        concepto:'Abono · '+mv.concepto, credito:0,
+        detalle: e.nombre+' · '+nom(S.categorias,e.categoriaId)+' · abono a '+folioTxt(mv.folio),
+        ambito: nom(S.ediciones,e.edicionId)+' · '+nom(S.ramas,e.ramaId)+' · '+nom(S.categorias,e.categoriaId),
+        de: a.entrego || e.encargado || e.nombre, para: a.cajero||'', monto: Number(a.monto)||0, forma: a.forma||''});
+    });
   });
   gastosFiltrados().forEach(function(g){
     out.push({tipo:'Egreso', id:g.id, fecha:g.fecha, hora:g.hora||'', ref:folioGTxt(g.folio),
@@ -5166,8 +6327,10 @@ function arrancar(){
     if(r && r.auth === false){ pedirClave(); return; }
     if(r && r.ok){
       var vacio = !r.estado || !r.rev;
+      if(r.yo) YO = r.yo;
       if(!vacio){ S = normaliza(r.estado); dirty = false; }
       else { S = normaliza(S); dirty = true; }   // servidor nuevo: se siembra el catálogo
+      if(asignarGrupos()) dirty = true;          // grupos A/B de Primera y Segunda (una sola vez por equipo)
       rev = r.rev || 0; base = clon(S); modoLocal = false;
       render();
       if(dirty) guardar();
@@ -5180,6 +6343,8 @@ function arrancar(){
 
 render();
 arrancar();
+/* App instalable: registra el service worker común del sitio (sin caché; sólo aviso sin conexión). */
+if('serviceWorker' in navigator){ navigator.serviceWorker.register('/sw-liga.js', {scope:'/'}).catch(function(){}); }
 window.addEventListener('beforeunload', function(e){
   if(dirty){ guardar(); e.preventDefault(); e.returnValue=''; return ''; }
 });
@@ -5187,5 +6352,6 @@ document.addEventListener('visibilitychange', function(){ if(!document.hidden) r
 document.addEventListener('keydown', function(e){ if(e.key==='Escape') cerrarModal(); });
 })();
 </script>
+<nav aria-label="Información legal" style="padding:20px;text-align:center;font:14px/1.8 system-ui,sans-serif;background:#f4f3ec;color:#14231c"><a style="color:#155b3b" href="../privacidad.html">Política de privacidad</a> · <a style="color:#155b3b" href="../condiciones.html">Condiciones del servicio</a></nav>
 </body>
 </html>

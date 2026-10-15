@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="es-MX">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Panel de coordinación</title>
+<meta name="robots" content="noindex, nofollow">
+<!-- Google sólo necesita saber el dominio (no la página) para mostrar su botón de acceso -->
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="theme-color" content="#123B63">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="estilos.css?v=2">
+</head>
+<body>
+
+<!-- ===================== ACCESO ===================== -->
+<section class="acceso" id="acceso" hidden>
+  <div class="acceso-caja">
+    <div class="acceso-marca"><span class="escudo" id="acceso-escudo" aria-hidden="true"></span><span>Panel de coordinación</span></div>
+    <div class="pestanas" role="tablist">
+      <button type="button" role="tab" aria-selected="true" data-acceso="coordinador">Coordinador</button>
+      <button type="button" role="tab" aria-selected="false" data-acceso="capitan">Capitán</button>
+    </div>
+    <form id="f-coordinador" autocomplete="on">
+      <p class="acceso-txt" id="txt-coordinador">Administra torneos, equipos, calendario, resultados y finanzas de la liga.</p>
+      <!-- Acceso con Google: sólo aparece si config.php tiene un ID de cliente -->
+      <div class="g-acceso" id="g-acceso" hidden>
+        <div class="g-boton" id="g-boton"></div>
+        <div class="g-o">o con tu contraseña</div>
+      </div>
+      <div class="g-ligar" id="g-ligar" hidden>
+        <b id="g-hola"></b>
+        <span>Escribe una sola vez la contraseña del coordinador para ligar esta cuenta de Google. Después entrarás sólo con Google.</span>
+        <button type="button" class="btn-txt" id="g-otra">Usar otra cuenta</button>
+      </div>
+      <input type="text" name="username" autocomplete="username" value="coordinador" hidden readonly>
+      <label class="campo"><span>Contraseña</span><input type="password" id="clave" autocomplete="current-password" required></label>
+      <div class="error" id="err-coordinador" role="alert"></div>
+      <button class="btn pri ancho" type="submit">Entrar</button>
+    </form>
+    <form id="f-capitan" hidden autocomplete="off">
+      <p class="acceso-txt">Consulta de tu equipo: calendario, resultados, tabla y estado de cuenta. <b>Sólo lectura.</b></p>
+      <label class="campo"><span>Código de tu equipo</span><input type="text" id="codigo" autocapitalize="characters" spellcheck="false" maxlength="12" placeholder="ABCD-2345" required></label>
+      <div class="error" id="err-capitan" role="alert"></div>
+      <button class="btn pri ancho" type="submit">Consultar</button>
+    </form>
+  </div>
+</section>
+
+<!-- ===================== PANEL DEL COORDINADOR ===================== -->
+<div class="app" id="app" hidden>
+  <aside class="lateral">
+    <a class="marca" href="#/inicio"><span class="escudo" data-escudo aria-hidden="true"></span><span class="marca-txt"><b data-liga>Mi liga</b><small>Coordinación</small></span></a>
+    <nav class="menu" id="menu" aria-label="Módulos"></nav>
+    <div class="lateral-pie">
+      <a class="menu-item" href="#/configuracion" data-mod="configuracion"></a>
+      <button type="button" class="menu-item" id="btn-salir"></button>
+    </div>
+  </aside>
+
+  <div class="principal">
+    <header class="barra">
+      <div class="barra-fila">
+        <a class="marca movil" href="#/inicio"><span class="escudo" data-escudo aria-hidden="true"></span></a>
+        <h1 id="titulo">Inicio</h1>
+        <span class="guardado" id="guardado" role="status"></span>
+        <a class="ico-btn movil" href="#/configuracion" aria-label="Configuración" id="btn-config-movil"></a>
+      </div>
+      <div class="filtros" id="filtros">
+        <label><span>Temporada</span><select id="f-temporada"></select></label>
+        <label><span>Categoría</span><select id="f-categoria"></select></label>
+      </div>
+    </header>
+    <div class="banda-demo" id="banda-demo" hidden>
+      <b>Demostración.</b> <span>Estos datos son de ejemplo y están separados de los reales.</span>
+      <button type="button" class="btn-txt" id="btn-ir-real">Ir a mi liga</button>
+    </div>
+    <main id="vista" tabindex="-1"></main>
+  </div>
+
+  <nav class="inferior" id="inferior" aria-label="Módulos"></nav>
+</div>
+
+<!-- ===================== VISTA DEL CAPITÁN (sólo lectura) ===================== -->
+<div class="cap" id="capitan" hidden></div>
+
+<div class="telon" id="telon" hidden><div class="modal" id="modal" role="dialog" aria-modal="true"></div></div>
+<div class="toast" id="toast" role="status" hidden></div>
+<div id="impresion"></div>
+
+<script src="js/nucleo.js?v=2"></script>
+<script src="js/demo.js?v=1"></script>
+<script src="js/inicio.js?v=1"></script>
+<script src="js/torneos.js?v=1"></script>
+<script src="js/equipos.js?v=1"></script>
+<script src="js/calendario.js?v=1"></script>
+<script src="js/resultados.js?v=1"></script>
+<script src="js/finanzas.js?v=1"></script>
+<script src="js/configuracion.js?v=2"></script>
+<script src="js/capitan.js?v=1"></script>
+<script src="js/arranque.js?v=2"></script>
+</body>
+</html>

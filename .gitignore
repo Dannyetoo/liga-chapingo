@@ -1,0 +1,41 @@
+# Configuración privada del hosting. Mantener estos archivos en el servidor.
+**/config.php
+**/config-sitio.php
+**/db.php
+**/google-config.php
+coordinador/google.php
+**/config-admin.php
+.env
+.env.*
+!.env.example
+**/.htpasswd
+**/*.pem
+**/*.key
+**/credentials.json
+**/client_secret*.json
+
+# Datos operativos, accesos, estados de cuenta y respaldos.
+**/datos/*
+!**/datos/.htaccess
+contenido/*
+!contenido/.htaccess
+**/respaldos/
+**/_respaldos/
+**/*.bak
+**/*.dump
+**/*.sql.gz
+**/*.sql.zip
+**/*.log
+
+# Copias de instalaciones y documentación de acceso histórica.
+/pruebas/
+/public_html/
+/coordinador/LEEME-COORDINADOR.md
+/fh.txt
+/download
+**/download
+
+# Herramientas locales; una carpeta llamada gitprivate no tiene protección especial.
+.gitprivate/
+.codex-check/
+node_modules/
