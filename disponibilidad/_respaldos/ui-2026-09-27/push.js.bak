@@ -1,0 +1,93 @@
+/* «Busca un rival»: activar / desactivar las notificaciones de este dispositivo. */
+(function () {
+  'use strict';
+  var caja = document.getElementById('rv-push');
+  if ('serviceWorker' in navigator) navigator.serviceWorker.register('/sw-liga.js', { scope: '/' }).catch(function () {});
+  if (!caja) return;
+  var txt = document.getElementById('rv-push-txt'), bAct = document.getElementById('rv-push-activar'),
+      bPru = document.getElementById('rv-push-prueba'), bBaja = document.getElementById('rv-push-baja'),
+      nTxt = document.getElementById('rv-push-n'),
+      token = (document.querySelector('#rv-push-form input[name="csrf_token"]') || {}).value || '';
+  var ua = navigator.userAgent || '';
+  var ios = /iPhone|iPad|iPod/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  var instalada = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+
+  function b64aBytes(s) {
+    s = s.replace(/-/g, '+').replace(/_/g, '/'); while (s.length % 4) s += '=';
+    var r = atob(s), a = new Uint8Array(r.length); for (var i = 0; i < r.length; i++) a[i] = r.charCodeAt(i); return a;
+  }
+  function bytesAb64(buf) {
+    var b = new Uint8Array(buf), s = ''; for (var i = 0; i < b.length; i++) s += String.fromCharCode(b[i]);
+    return btoa(s).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+  }
+  function mensaje(t, clase) { txt.textContent = t; txt.className = clase || 'texto-suave'; }
+  function enviar(datos) {
+    var f = new FormData(); f.append('csrf_token', token);
+    Object.keys(datos).forEach(function (k) { f.append(k, datos[k]); });
+    return fetch('push-suscribir.php', { method: 'POST', body: f, credentials: 'same-origin' })
+      .then(function (r) { return r.json().catch(function () { return { ok: false, error: 'Respuesta no válida del servidor.' }; }); });
+  }
+  function contar(n) {
+    if (typeof n === 'number') nTxt.textContent = n ? 'Tu equipo tiene ' + n + ' dispositivo' + (n === 1 ? '' : 's') + ' con avisos activos.' : '';
+  }
+  function datosSus(s) {
+    var j = s.toJSON();
+    return { endpoint: j.endpoint, p256dh: j.keys.p256dh, auth: j.keys.auth };
+  }
+  function pintar(activa) {
+    bAct.hidden = activa; bPru.hidden = !activa; bBaja.hidden = !activa;
+    if (activa) mensaje('✓ Las notificaciones están activas en este dispositivo.', 'rv-push__ok');
+  }
+
+  var soporta = 'serviceWorker' in navigator && 'PushManager' in window && 'Notification' in window;
+  if (!soporta) {
+    mensaje(ios && !instalada
+      ? 'Para recibir avisos en iPhone primero instala la app: en Safari toca Compartir → «Agregar a inicio» y ábrela desde el ícono.'
+      : 'Este navegador no permite notificaciones. Prueba con Chrome, Edge, Firefox o Safari actualizado.');
+    return;
+  }
+  if (Notification.permission === 'denied') {
+    mensaje('Las notificaciones están bloqueadas para este sitio. Actívalas en los ajustes del navegador (ligachapingo.com → Notificaciones) y recarga.');
+    return;
+  }
+  navigator.serviceWorker.ready.then(function (reg) {
+    return reg.pushManager.getSubscription().then(function (s) {
+      if (s && Notification.permission === 'granted') {
+        pintar(true);
+        enviar(Object.assign({ accion: 'suscribir' }, datosSus(s))).then(function (r) { if (r.ok) contar(r.dispositivos); });  // re-liga al equipo actual
+      } else {
+        pintar(false);
+      }
+      bAct.onclick = function () {
+        bAct.disabled = true;
+        Notification.requestPermission().then(function (p) {
+          if (p !== 'granted') { bAct.disabled = false; mensaje('No se dio permiso. Si cambias de opinión, pulsa otra vez «Activar notificaciones».'); return; }
+          return reg.pushManager.subscribe({ userVisibleOnly: true, applicationServerKey: b64aBytes(caja.getAttribute('data-vapid')) })
+            .then(function (sus) { return enviar(Object.assign({ accion: 'suscribir' }, datosSus(sus))); })
+            .then(function (r) {
+              bAct.disabled = false;
+              if (!r.ok) { mensaje(r.error || 'No se pudo activar.', 'rv-push__err'); return; }
+              pintar(true); contar(r.dispositivos);
+              enviar({ accion: 'prueba' });
+            });
+        }).catch(function () { bAct.disabled = false; mensaje('No se pudo activar en este dispositivo. Inténtalo de nuevo.', 'rv-push__err'); });
+      };
+      bPru.onclick = function () {
+        bPru.disabled = true;
+        enviar({ accion: 'prueba' }).then(function (r) {
+          bPru.disabled = false;
+          mensaje(r.ok ? (r.enviadas ? 'Aviso de prueba enviado: debe llegarte en unos segundos.' : 'Se intentó enviar; si no llega en un minuto, desactiva y vuelve a activar.') : (r.error || 'No se pudo enviar.'),
+                  r.ok ? 'rv-push__ok' : 'rv-push__err');
+        });
+      };
+      bBaja.onclick = function () {
+        reg.pushManager.getSubscription().then(function (s) {
+          if (!s) { pintar(false); return; }
+          var d = datosSus(s);
+          return s.unsubscribe().then(function () { return enviar({ accion: 'baja', endpoint: d.endpoint }); })
+            .then(function (r) { pintar(false); mensaje('Desactivaste los avisos en este dispositivo.'); if (r && r.ok) contar(r.dispositivos); });
+        });
+      };
+    });
+  });
+})();

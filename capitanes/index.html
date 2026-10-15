@@ -5,19 +5,28 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Estado de cuenta · Liga Premier Chapingo</title>
 <meta name="robots" content="noindex, nofollow">
-<meta name="theme-color" content="#1B6B45">
+<!-- Google sólo necesita saber el dominio (no la página) para mostrar su botón de acceso -->
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="theme-color" content="#123B63">
 <link rel="icon" href="../icono-192.png">
 <link rel="apple-touch-icon" href="../icono-180.png">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Liga Chapingo">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 /* ===== misma identidad que ligachapingo.com ===== */
 :root{
-  --verde-900:#0C3523; --verde-800:#123F2B; --verde:#1B6B45; --verde-400:#2E9463;
-  --oro:#C9A227; --oro-claro:#EAC85C; --crema:#F4F3EC; --papel:#FFFFFF;
-  --tinta:#14231C; --gris:#5F6F67; --linea:#E2E4DB; --rojo:#B3261E; --rojo-suave:#FCEDEC;
-  --sombra:0 1px 2px rgba(12,53,35,.06),0 8px 24px rgba(12,53,35,.07);
+  /* azul Chapingo + plata + blanco (29-sep-2026) · mismos tonos que «Busca un rival».
+     Los nombres de variable se conservan para no tocar el resto de las reglas. */
+  --verde-900:#0A2948; --verde-800:#0F3357; --verde:#123B63; --verde-400:#2468A8;
+  --oro:#BFC5CA; --oro-claro:#E4E8EB; --crema:#F4F6F8; --papel:#FFFFFF;
+  --tinta:#17212B; --gris:#68737D; --linea:#E3E7EA; --rojo:#B3261E; --rojo-suave:#FCEDEC;
+  --sombra:0 1px 2px rgba(10,41,72,.05),0 8px 24px rgba(10,41,72,.07);
   --r:14px; --ancho:1060px;
   --display:'Barlow Condensed',Impact,'Arial Narrow',sans-serif;
   --texto:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
@@ -34,9 +43,9 @@ button{font:inherit}
   font-size:14.5px;font-weight:600;text-decoration:none;cursor:pointer;transition:background .12s ease,transform .12s ease}
 .btn:active{transform:translateY(1px)}
 .btn.verde{background:var(--verde);color:#fff}
-.btn.verde:hover{background:#175B3B}
-.btn.oro{background:var(--oro);color:#2A2005}
-.btn.oro:hover{background:#B99020}
+.btn.verde:hover{background:#0F3357}
+.btn.oro{background:var(--oro);color:#0A2948}
+.btn.oro:hover{background:#AEB5BC}
 .btn.claro{background:#fff;color:var(--verde-900);border:1px solid var(--linea)}
 .btn.claro:hover{border-color:var(--verde-400);color:var(--verde)}
 .btn.fantasma{background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.34)}
@@ -44,54 +53,92 @@ button{font:inherit}
 .btn.sm{padding:8px 13px;font-size:13.5px}
 .btn[disabled]{opacity:.55;cursor:default}
 
-/* ===== acceso ===== */
-.acceso{min-height:100svh;display:flex;align-items:center;justify-content:center;padding:28px 20px;
-  background:linear-gradient(150deg,var(--verde-900) 0%,#134430 45%,var(--verde) 100%);position:relative;overflow:hidden}
-.acceso::before{content:"";position:absolute;inset:0;opacity:.13;
-  background-image:repeating-linear-gradient(115deg,rgba(255,255,255,.55) 0 2px,transparent 2px 26px)}
-.caja{position:relative;z-index:1;width:100%;max-width:430px;background:var(--papel);border-radius:18px;
-  padding:30px 26px 26px;box-shadow:0 26px 70px rgba(6,30,19,.42)}
-.caja .escudo{width:52px;height:52px;border-radius:14px;margin-bottom:16px}
-.caja .et{font-size:11.5px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--verde)}
-.caja h1{font-family:var(--display);font-weight:700;font-size:34px;line-height:1.05;margin:8px 0 0;color:var(--verde-900)}
-.caja .intro{color:var(--gris);font-size:14.5px;margin:10px 0 22px}
+/* ===== acceso · azul, plata y blanco (29-sep-2026) ===== */
+.acceso{--az-950:#061A30;--az-900:#0A2948;--az-800:#123B63;--az:#1D5A94;--az-400:#4F86C0;
+  --plata:#AEB7C4;--plata-2:#D6DCE4;--plata-3:#EEF1F5;
+  min-height:100svh;display:flex;align-items:center;justify-content:center;padding:32px 20px;
+  background:radial-gradient(120% 80% at 50% -10%,#1D4A7A 0%,var(--az-900) 48%,var(--az-950) 100%);position:relative;overflow:hidden}
+.acceso::before{content:"";position:absolute;left:50%;top:44%;width:min(620px,140vw);aspect-ratio:1;transform:translate(-50%,-50%);
+  border-radius:50%;background:radial-gradient(closest-side,rgba(214,220,228,.06),transparent);pointer-events:none}
+.caja{position:relative;z-index:1;width:100%;max-width:400px;background:#fff;border-radius:20px;
+  padding:34px 28px 24px;box-shadow:0 30px 80px rgba(3,10,24,.55);border-top:3px solid var(--plata)}
+.caja .marca-toro{width:64px;height:64px;margin:-66px auto 14px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(160deg,var(--az-800),var(--az-950));box-shadow:0 0 0 3px #fff,0 0 0 4.5px var(--plata),0 10px 24px rgba(7,21,43,.35)}
+.caja .marca-toro svg{width:44px;height:44px}
+.caja .et{padding-left:.22em;text-align:center;font-size:11px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--plata)}
+.caja h1{text-align:center;font-family:var(--display);font-weight:700;font-size:34px;line-height:1.05;letter-spacing:.01em;margin:6px 0 0;color:var(--az-900)}
+.caja .intro{text-align:center;color:#66707F;font-size:14px;margin:8px 0 24px}
 .campo{display:flex;flex-direction:column;gap:7px}
-.campo label{font-size:12px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--gris)}
-#codigo{border:1.5px solid var(--linea);border-radius:11px;padding:14px 15px;font:inherit;font-size:22px;font-weight:600;
-  letter-spacing:.24em;text-align:center;text-transform:uppercase;background:#FCFCFA;color:var(--verde-900)}
-#codigo:focus{outline:2px solid rgba(46,148,99,.35);outline-offset:1px;border-color:var(--verde-400)}
-#codigo::placeholder{letter-spacing:.18em;font-weight:500;color:#B9C4BD}
+.campo label{font-size:11.5px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#6B7584}
+.clave{position:relative}
+#codigo{width:100%;border:1.5px solid var(--plata-2);border-radius:12px;padding:14px 64px 14px 16px;font:inherit;font-size:21px;font-weight:600;
+  letter-spacing:.22em;text-align:center;text-transform:uppercase;background:var(--plata-3);color:var(--az-900);transition:border-color .15s,background .15s}
+#codigo:focus{outline:3px solid rgba(79,127,191,.22);outline-offset:0;border-color:var(--az-400);background:#fff}
+#codigo::placeholder{letter-spacing:.18em;font-weight:500;color:#B3BCC8}
+.ver-clave{position:absolute;right:8px;top:50%;transform:translateY(-50%);border:0;background:transparent;color:var(--az);
+  font-size:12px;font-weight:600;padding:8px;cursor:pointer;border-radius:8px}
+.ver-clave:hover{background:var(--plata-3)}
+.recordar{display:flex;align-items:center;gap:10px;margin-top:16px;font-size:14px;color:#3E4757;cursor:pointer;user-select:none}
+.recordar input{appearance:none;flex:none;width:20px;height:20px;border-radius:6px;border:1.5px solid var(--plata);background:#fff;margin:0;cursor:pointer;
+  display:grid;place-content:center;transition:background .12s,border-color .12s}
+.recordar input::after{content:"";width:10px;height:6px;border:2px solid #fff;border-top:0;border-right:0;transform:rotate(-45deg) translate(1px,-1px);opacity:0}
+.recordar input:checked{background:var(--az);border-color:var(--az)}
+.recordar input:checked::after{opacity:1}
+.recordar input:focus-visible{outline:3px solid rgba(79,127,191,.3)}
+.recordar small{display:block;font-size:11.5px;color:#8A93A1;margin-top:1px}
+.btn.azul{background:var(--az-900);color:#fff;letter-spacing:.02em}
+.btn.azul:hover{background:var(--az-800)}
 .err{display:none;background:var(--rojo-suave);border:1px solid #F2D2CF;color:var(--rojo);border-radius:10px;
   padding:10px 13px;font-size:13.5px;margin-top:14px}
 .err.ver{display:block}
-.pie-caja{margin-top:20px;padding-top:16px;border-top:1px solid var(--linea);font-size:12.5px;color:var(--gris)}
-.pie-caja a{color:var(--verde);font-weight:600}
+.pie-caja{margin-top:22px;padding-top:16px;border-top:1px solid var(--plata-3);font-size:12.5px;color:#7A8392;text-align:center}
+.pie-caja a{color:var(--az);font-weight:600}
+/* acceso con Google (04-oct-2026) */
+.g-acceso[hidden],.g-ligar[hidden]{display:none}
+.g-boton{display:flex;justify-content:center;min-height:44px}
+.g-o{display:flex;align-items:center;gap:12px;margin:18px 0 16px;font-size:11.5px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#6B7584}
+.g-o::before,.g-o::after{content:"";flex:1;height:1px;background:var(--plata-3)}
+.g-ligar{display:flex;flex-direction:column;gap:8px;margin-bottom:18px;padding:14px 16px;border:1px solid var(--plata-3);border-radius:12px;background:#F7F9FB;font-size:14px;color:#3E4757}
+.g-ligar b{font-family:var(--display);font-size:22px;line-height:1.1;color:var(--az-900)}
+.g-equipos{display:flex;flex-direction:column;gap:8px}
+.g-equipos:empty{display:none}
+.g-equipos button{display:flex;flex-direction:column;align-items:flex-start;gap:2px;min-height:48px;padding:10px 14px;border:1.5px solid var(--az);border-radius:10px;background:#fff;color:var(--az-900);font-weight:600;font-size:15px;text-align:left;cursor:pointer}
+.g-equipos button small{font-weight:400;font-size:12.5px;color:#66707F}
+.g-otra{align-self:flex-start;padding:6px 0;border:0;background:none;color:var(--az);font-weight:600;font-size:13px;text-decoration:underline;cursor:pointer}
+.firma{padding-left:.2em;position:relative;z-index:1;margin-top:18px;text-align:center;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:rgba(214,220,228,.45)}
+.acceso-col{width:100%;max-width:400px;position:relative;z-index:1;margin-top:34px}
+@media (prefers-reduced-motion:no-preference){.caja{animation:subir .5s cubic-bezier(.2,.8,.2,1) both}}
+@media (max-width:420px){.caja{padding:32px 22px 22px}.caja h1{font-size:30px}}
+@keyframes subir{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
 
 /* ===== portal ===== */
 #portal{display:none}
-.cabecera{background:linear-gradient(140deg,var(--verde-900),#16523A);color:#fff;position:relative;overflow:hidden}
-.cabecera::before{content:"";position:absolute;inset:0;opacity:.1;
+.cabecera{background:linear-gradient(140deg,var(--verde-900),#123B63);color:#fff;position:relative;overflow:hidden}
+.cabecera::before{content:"";position:absolute;inset:0;opacity:.045;
   background-image:repeating-linear-gradient(115deg,rgba(255,255,255,.6) 0 2px,transparent 2px 24px)}
 .cabecera .wrap{position:relative;z-index:1;padding-block:22px 30px}
 .barra-sup{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:22px}
 .barra-sup .marca{display:flex;align-items:center;gap:10px;min-width:0}
 .barra-sup .marca img{width:34px;height:34px;border-radius:10px;flex:none}
-.barra-sup .marca span{font-family:var(--display);font-size:19px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;white-space:nowrap}
+.toro-mini{flex:none;width:36px;height:36px;border-radius:50%;display:grid;place-items:center;color:var(--verde-900);
+  background:linear-gradient(145deg,#F4F6F7 0%,#BFC5CA 60%,#9EA6AD 100%);box-shadow:inset 0 1px 0 rgba(255,255,255,.7),0 1px 2px rgba(0,0,0,.25)}
+.toro-mini svg{width:24px;height:24px}
+.barra-sup .marca span:not(.toro-mini){font-family:var(--display);font-size:19px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;white-space:nowrap}
 .barra-sup .sep{flex:1}
 .pill{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.24);
   border-radius:999px;padding:6px 13px;font-size:11.5px;font-weight:700;letter-spacing:.11em;text-transform:uppercase}
 .pill .brillo{width:7px;height:7px;border-radius:50%;background:var(--oro-claro)}
 .cabecera h1{font-family:var(--display);font-weight:700;font-size:clamp(32px,6vw,52px);line-height:1;margin:14px 0 0;text-wrap:balance}
-.cabecera .ruta{color:#C6DCCE;font-size:14.5px;margin-top:9px}
-.cabecera .enc{color:#9FC4AF;font-size:13.5px;margin-top:4px}
+.cabecera .ruta{color:#C9D2DA;font-size:14.5px;margin-top:9px}
+.cabecera .enc{color:#AEB8C4;font-size:13.5px;margin-top:4px}
 
 .tarjetas{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:26px}
 .kpi{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);border-radius:14px;padding:16px 16px 14px}
 .kpi .v{font-family:var(--display);font-size:32px;font-weight:700;line-height:1;color:#fff}
-.kpi .e{font-size:11px;letter-spacing:.11em;text-transform:uppercase;color:#9FC4AF;margin-top:7px}
-.kpi.deuda{background:rgba(201,162,39,.18);border-color:rgba(234,200,92,.45)}
-.kpi.deuda .v{color:var(--oro-claro)}
-.kpi.alcorriente{background:rgba(46,148,99,.22);border-color:rgba(120,204,162,.4)}
+.kpi .e{font-size:11px;letter-spacing:.11em;text-transform:uppercase;color:#AEB8C4;margin-top:7px}
+.kpi.deuda{background:rgba(255,255,255,.12);border-color:rgba(228,232,235,.55)}
+.kpi.deuda .v{color:#F4C979}
+.kpi.alcorriente{background:rgba(120,200,160,.14);border-color:rgba(160,220,190,.35)}
 
 main{padding-block:34px 60px}
 .seccion{margin-bottom:34px}
@@ -101,9 +148,9 @@ main{padding-block:34px 60px}
 .panel{background:var(--papel);border:1px solid var(--linea);border-radius:var(--r);box-shadow:var(--sombra);overflow:hidden}
 
 .fila{display:grid;grid-template-columns:104px minmax(0,1fr) 104px 104px 108px 44px;gap:12px;align-items:center;
-  padding:14px 18px;border-bottom:1px solid #F0F2EE}
+  padding:14px 18px;border-bottom:1px solid #EEF1F4}
 .fila:last-child{border-bottom:0}
-.fila.enc{background:#FAFBF8;font-size:11.5px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--gris);padding-block:11px}
+.fila.enc{background:#F8FAFB;font-size:11.5px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--gris);padding-block:11px}
 .fila .con{display:flex;flex-direction:column;font-weight:600;font-size:15px;color:var(--verde-900);min-width:0}
 .fila .det{display:block;font-weight:400;font-size:12.5px;color:var(--gris);margin-top:2px;overflow-wrap:anywhere}
 .num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
@@ -115,15 +162,92 @@ main{padding-block:34px 60px}
 .et.favor{background:#EDF1FA;color:#2A4B8D}
 .tk{border:1px solid var(--linea);background:#fff;border-radius:9px;width:36px;height:34px;display:inline-flex;
   align-items:center;justify-content:center;cursor:pointer;color:var(--verde);padding:0}
-.tk:hover{border-color:var(--verde-400);background:#F4F8F5}
+.tk:hover{border-color:var(--verde-400);background:#F1F5F9}
 .tk svg{width:17px;height:17px}
 .vacio{padding:34px 20px;text-align:center;color:var(--gris);font-size:14.5px}
+
+/* disponibilidad del equipo (acceso al módulo /disponibilidad/) */
+.disp{display:flex;align-items:center;gap:16px;width:100%;text-align:left;cursor:pointer;
+  background:linear-gradient(135deg,var(--verde) 0%,#0F3357 100%);color:#fff;border:0;border-radius:var(--r);
+  padding:18px 20px;box-shadow:var(--sombra);border-left:6px solid var(--oro);font:inherit;
+  transition:transform .12s ease,box-shadow .12s ease}
+.disp:hover{box-shadow:0 10px 28px rgba(10,41,72,.18)}
+.disp:active{transform:translateY(1px)}
+.disp:focus-visible{outline:3px solid var(--oro-claro);outline-offset:2px}
+.disp[disabled]{opacity:.7;cursor:progress}
+.disp .ico{flex:none;width:48px;height:48px;border-radius:12px;background:rgba(255,255,255,.14);
+  display:flex;align-items:center;justify-content:center}
+.disp .ico svg{width:26px;height:26px}
+.disp .txt{flex:1;min-width:0}
+.disp .txt strong{display:block;font-family:var(--display);font-weight:700;font-size:25px;line-height:1.05;letter-spacing:.01em}
+.disp .txt small{display:block;font-size:13.5px;color:#D9E0E8;margin-top:4px;line-height:1.35}
+.disp .fl{flex:none;font-size:30px;line-height:1;color:var(--oro-claro)}
+.disp-err{display:none;margin-top:10px}
+
+/* descargar la app (opción discreta) */
+.app-mini[hidden],.pie-app[hidden],.app-modal [hidden]{display:none!important}
+.app-mini{padding:8px 11px;gap:6px}
+.app-mini svg{width:16px;height:16px}
+@media (max-width:480px){.app-mini span{display:none}}
+.pie-app{display:inline-flex;align-items:center;gap:6px;margin-top:12px;border:0;background:none;padding:0;cursor:pointer;
+  font:inherit;font-size:12.5px;color:var(--gris);text-decoration:underline;text-underline-offset:3px}
+.pie-app:hover{color:var(--verde)}
+.pie-app svg{width:14px;height:14px}
+.app-modal{max-width:360px}
+.app-intro{font-size:13.5px;color:var(--gris);text-align:center;margin:0 0 12px;line-height:1.45}
+.app-pasos{margin:0;padding-left:20px;font-size:14px;line-height:1.5;color:var(--tinta)}
+.app-pasos li{margin-bottom:6px}
+.app-pasos svg{display:inline-block;vertical-align:-3px;width:16px;height:16px}
+
+/* instalar como aplicación */
+.app-inst{display:flex;gap:14px;align-items:center;background:var(--papel);border:1.5px dashed var(--oro);border-radius:var(--r);padding:14px 16px}
+.app-inst[hidden]{display:none}
+#seccion-docs[hidden],#pie-docs[hidden],.docs [hidden],.aviso-acc [hidden],.pie-docs [hidden]{display:none!important}
+.app-inst img{flex:none;width:44px;height:44px;border-radius:10px}
+.app-inst .t{flex:1;min-width:0;font-size:14px;line-height:1.4}
+.app-inst .t b{display:block;font-size:15px}
+.app-inst button{flex:none;border:0;border-radius:10px;background:var(--verde);color:#fff;font-weight:700;padding:10px 14px;cursor:pointer}
+.app-inst .x{background:transparent;color:var(--gris);padding:6px 8px;font-size:20px;line-height:1}
+.ios-share{display:inline-block;vertical-align:-3px;width:16px;height:16px}
+.disp-err.ver{display:block}
 
 /* multas */
 .fila.multa{grid-template-columns:minmax(0,1fr) 104px 104px 108px}
 
+/* próximos cargos (tickets futuros) */
+.fila.fut{grid-template-columns:104px minmax(0,1fr) 116px 108px 44px}
+.et.prog{background:#EEF1F7;color:#3B4F7A}
+.sel-j{border:1px solid var(--linea);border-radius:10px;padding:7px 10px;font:inherit;font-size:14px;background:#fff;color:var(--verde-900)}
+.aviso-fut{color:var(--gris);font-size:12.5px;margin:10px 2px 0}
+.total-fut{display:flex;justify-content:space-between;gap:12px;padding:13px 18px;background:#F8FAFB;font-weight:700;color:var(--verde-900)}
+
 /* ticket */
-.telon{position:fixed;inset:0;z-index:80;background:rgba(9,26,18,.72);display:none;align-items:center;justify-content:center;padding:22px}
+/* ===== corte de caja: accesos en el perfil y aviso al entrar (7-oct-2026) ===== */
+.docs{background:var(--papel);border:1px solid var(--linea);border-radius:var(--r);box-shadow:var(--sombra);padding:16px 18px;
+  display:flex;flex-wrap:wrap;align-items:center;gap:14px 20px;position:relative;overflow:hidden;padding-left:23px}
+.docs::before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:var(--verde)}
+.docs .dt{flex:1 1 240px;min-width:0}
+.docs .dt .eti{font-size:11.5px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--gris)}
+.docs .dt .sal{font-family:var(--display);font-weight:700;font-size:30px;line-height:1.1;color:var(--verde-900);margin-top:2px}
+.docs .dt .sal.deuda{color:var(--rojo)}
+.docs .dt .sub{font-size:13px;color:var(--gris);margin-top:2px}
+.docs .db{display:flex;flex-wrap:wrap;gap:8px;flex:1 1 300px;justify-content:flex-end}
+.docs .db .btn{flex:1 1 150px;white-space:nowrap}
+.docs .db svg,.aviso-acc svg,.pie-docs svg{width:18px;height:18px;flex:none}
+.aviso-modal{max-width:400px;text-align:center}
+.aviso-modal .ico-av{width:52px;height:52px;border-radius:14px;background:var(--verde);color:#fff;display:grid;place-items:center;margin:0 auto 12px}
+.aviso-modal .ico-av svg{width:28px;height:28px}
+.aviso-modal h3{margin-bottom:8px}
+.aviso-modal p{font-size:14.5px;color:var(--tinta);margin:0 0 6px;line-height:1.5}
+.aviso-modal .av-saldo{font-family:var(--display);font-weight:700;font-size:34px;line-height:1.1;color:var(--verde-900);margin:10px 0 2px}
+.aviso-modal .av-saldo.deuda{color:var(--rojo)}
+.aviso-modal .av-nota{font-size:12.5px;color:var(--gris);margin-bottom:14px}
+.aviso-acc{display:grid;gap:8px;margin-top:6px}
+.aviso-acc .btn{width:100%}
+.pie-docs{display:flex;flex-wrap:wrap;gap:6px 18px;justify-content:center;margin-top:10px}
+.pie-docs a,.pie-docs button{display:inline-flex;align-items:center;gap:6px;background:none;border:0;padding:0;color:inherit;font:inherit;font-size:13px;font-weight:600;text-decoration:underline;cursor:pointer}
+
+.telon{position:fixed;inset:0;z-index:80;background:rgba(6,16,30,.72);display:none;align-items:center;justify-content:center;padding:22px}
 .telon.abierto{display:flex}
 .modal{background:var(--papel);border-radius:16px;padding:20px;width:100%;max-width:340px;max-height:92vh;overflow:auto}
 .modal h3{font-family:var(--display);font-size:22px;margin:0 0 14px;color:var(--verde-900)}
@@ -154,9 +278,10 @@ footer.pie a{color:var(--verde);font-weight:600}
   .fila .cel::before{content:attr(data-et);color:var(--gris)}
   .fila .cel .num{text-align:right}
   .fila.multa{grid-template-columns:minmax(0,1fr)}
+  .fila.fut{grid-template-columns:minmax(0,1fr) auto}
 }
 @media (max-width:480px){
-  .barra-sup .marca span{display:none}   /* deja solo el escudo: los botones caben en un renglón */
+  .barra-sup .marca span:not(.toro-mini){display:none}   /* deja solo el escudo: los botones caben en un renglón */
 }
 @media (max-width:420px){
   .tarjetas{grid-template-columns:1fr 1fr;gap:10px}
@@ -174,27 +299,60 @@ footer.pie a{color:var(--verde);font-weight:600}
 
 <!-- ===================== ACCESO ===================== -->
 <section class="acceso" id="acceso">
-  <form class="caja" id="forma-acceso" autocomplete="off">
-    <img class="escudo" src="../icono-192.png" alt="Escudo de Liga Premier Chapingo">
+  <div class="acceso-col">
+  <form class="caja" id="forma-acceso" method="post" action="#" autocomplete="on">
+    <div class="marca-toro" aria-hidden="true">
+      <!-- toro: trazo propio, minimalista -->
+      <svg viewBox="0 0 48 48" fill="none" stroke="#D6DCE4" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M6 12c1.5 6 6 9 11 9M42 12c-1.5 6-6 9-11 9"/>
+        <path d="M17 21c-1.5 3-1.6 7 0 11 1.6 4 4.3 7 7 7s5.4-3 7-7c1.6-4 1.5-8 0-11"/>
+        <path d="M17 21c2-1.4 4.5-2 7-2s5 .6 7 2"/>
+        <circle cx="20.5" cy="27" r="1" fill="#D6DCE4" stroke="none"/><circle cx="27.5" cy="27" r="1" fill="#D6DCE4" stroke="none"/>
+        <path d="M21.5 34.5h5"/>
+      </svg>
+    </div>
     <div class="et">Liga Premier Chapingo</div>
-    <h1>Estado de cuenta</h1>
-    <p class="intro">Escribe el código que la mesa directiva le dio a tu equipo. Verás únicamente la información de tu equipo, solo para consulta.</p>
+    <h1>Portal de capitanes</h1>
+    <p class="intro" id="intro-acceso">Entra con el código de tu equipo.</p>
+
+    <!-- Acceso con Google: sólo aparece si la liga configuró su ID de cliente (google-config.php) -->
+    <div class="g-acceso" id="g-acceso" hidden>
+      <div class="g-boton" id="g-boton"></div>
+      <div class="g-o">o con tu código</div>
+    </div>
+    <div class="g-ligar" id="g-ligar" hidden>
+      <b id="g-hola"></b>
+      <span id="g-ligar-txt"></span>
+      <div class="g-equipos" id="g-equipos"></div>
+      <button type="button" class="g-otra" id="g-otra">Usar otra cuenta</button>
+    </div>
+
+    <!-- usuario oculto: permite que el celular guarde el código como contraseña -->
+    <input type="text" name="username" autocomplete="username" value="Capitán Liga Premier Chapingo" hidden readonly>
 
     <div class="campo">
-      <label for="codigo">Código de capitán</label>
-      <input id="codigo" name="codigo" type="text" inputmode="latin" autocapitalize="characters"
-             autocomplete="one-time-code" spellcheck="false" maxlength="15" placeholder="ABCD-2345" required>
+      <label for="codigo">Código de equipo</label>
+      <div class="clave">
+        <input id="codigo" name="password" type="password" autocapitalize="characters" autocomplete="current-password"
+               spellcheck="false" maxlength="15" placeholder="ABCD-2345" required>
+        <button type="button" class="ver-clave" id="ver-clave" aria-label="Mostrar código" aria-pressed="false">Ver</button>
+      </div>
     </div>
+
+    <label class="recordar"><input type="checkbox" id="recordar" checked>
+      <span>Recordarme en este dispositivo<small></small></span></label>
 
     <div class="err" id="error-acceso" role="alert"></div>
 
-    <button class="btn verde" type="submit" id="btn-entrar" style="width:100%;margin-top:18px;padding-block:13px">Entrar</button>
+    <button class="btn azul" type="submit" id="btn-entrar" style="width:100%;margin-top:20px;padding-block:14px">Entrar</button>
 
     <div class="pie-caja">
-      ¿No tienes el código o ya no te sirve? Pídelo a la mesa directiva desde
-      <a href="../index.html#contacto">la página de contacto</a>.
+      ¿No tienes tu código? Pídelo en <a href="../index.html#contacto">contacto</a>.
+      <span id="g-pista" hidden><br>¿Tienes otro equipo? Escribe su código y pulsa «Continuar con Google» para ligarlo también.</span>
     </div>
   </form>
+  <div class="firma">Chapingo · Toros</div>
+  </div>
 </section>
 
 <!-- ===================== PORTAL ===================== -->
@@ -203,9 +361,10 @@ footer.pie a{color:var(--verde);font-weight:600}
     <div class="wrap">
       <div class="barra-sup">
         <a class="marca" href="../index.html" style="text-decoration:none;color:inherit">
-          <img src="../icono-192.png" alt=""><span>Liga Premier Chapingo</span>
+          <span class="toro-mini" aria-hidden="true"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12c1.5 6 6 9 11 9M42 12c-1.5 6-6 9-11 9"/><path d="M17 21c-1.5 3-1.6 7 0 11 1.6 4 4.3 7 7 7s5.4-3 7-7c1.6-4 1.5-8 0-11"/><path d="M17 21c2-1.4 4.5-2 7-2s5 .6 7 2"/><path d="M21.5 34.5h5"/></svg></span><span>Liga Premier Chapingo</span>
         </a>
         <span class="sep"></span>
+        <button class="btn fantasma sm app-mini" id="btn-app" type="button" hidden title="Descargar la app" aria-label="Descargar la app"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M7.5 10.5 12 15l4.5-4.5"/><path d="M5 19h14"/></svg><span>App</span></button>
         <button class="btn fantasma sm" id="btn-refrescar" type="button">Actualizar</button>
         <button class="btn fantasma sm" id="btn-salir" type="button">Salir</button>
       </div>
@@ -226,6 +385,50 @@ footer.pie a{color:var(--verde);font-weight:600}
 
   <main>
     <div class="wrap">
+
+      <section class="seccion app-inst" id="app-inst" hidden aria-label="Instalar la aplicación">
+        <img src="../icono-192.png" alt="">
+        <div class="t" id="app-inst-txt"><b>Instala la app de la liga</b>Tenla en tu pantalla de inicio y recibe avisos de tus partidos.</div>
+        <button type="button" id="app-inst-btn" hidden>Instalar</button>
+        <button type="button" class="x" id="app-inst-x" aria-label="Ocultar">×</button>
+      </section>
+
+      <section class="seccion" id="seccion-docs" hidden aria-label="Corte de caja">
+        <div class="docs">
+          <div class="dt">
+            <div class="eti" id="docs-eti">Corte de caja</div>
+            <div class="sal" id="docs-saldo">—</div>
+            <div class="sub" id="docs-sub"></div>
+          </div>
+          <div class="db">
+            <a class="btn verde" data-doc="estado" href="api.php?a=estado_pdf" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3.5h7l4 4V20a.5.5 0 0 1-.5.5h-10A.5.5 0 0 1 7 20V3.5Z"/><path d="M14 3.5V8h4M10 12.5h5M10 16h5"/></svg>Abrir estado de cuenta</a>
+            <a class="btn claro" id="docs-corte" href="api.php?a=corte" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="6" width="17" height="12.5" rx="2"/><path d="M3.5 10h17M7.5 14.5h3"/></svg>Abrir corte de caja de liga</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="seccion" id="seccion-disponibilidad">
+        <button class="disp" id="btn-disponibilidad" type="button">
+          <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+            <rect x="3.5" y="5" width="17" height="15" rx="2.5"/><path d="M3.5 9.5h17M8 3v4M16 3v4M8 13.5h2M14 13.5h2M8 16.8h2"/></svg></span>
+          <span class="txt">
+            <strong>Busca un rival</strong>
+            <small>Escoge los horarios disponibles para tu equipo.</small>
+          </span>
+          <span class="fl" aria-hidden="true">›</span>
+        </button>
+        <div class="err disp-err" id="error-disponibilidad" role="alert"></div>
+      </section>
+
+      <section class="seccion" id="seccion-futuros" style="display:none">
+        <div class="titulo">
+          <h2>Próximos cargos</h2>
+          <select class="sel-j" id="filtro-jornada" aria-label="Filtrar por jornada"></select>
+          <span class="nota" id="nota-futuros"></span>
+        </div>
+        <div class="panel" id="panel-futuros"></div>
+        <p class="aviso-fut">Estimación de la mesa directiva: todavía no son cargos ni cambian tu saldo. Aparecerán en Movimientos cuando se registren.</p>
+      </section>
 
       <section class="seccion">
         <div class="titulo">
@@ -248,9 +451,13 @@ footer.pie a{color:var(--verde);font-weight:600}
 
   <footer class="pie">
     <div class="wrap">
-      Esta pantalla es solo de consulta: los cargos y los pagos los registra la mesa directiva.
-      Si algo no coincide, avísales desde <a href="../index.html#contacto">contacto</a>.
+     Solicita una aclaración con la administración desde <a href="../index.html#contacto">contacto</a>.
       <div style="margin-top:8px;font-size:12px" id="pie-rev"></div>
+      <div class="pie-docs" id="pie-docs" hidden>
+        <a data-doc="estado" href="api.php?a=estado_pdf" target="_blank" rel="noopener">Estado de cuenta en PDF</a>
+        <a id="pie-corte" href="api.php?a=corte" target="_blank" rel="noopener">Corte de caja de la liga</a>
+      </div>
+      <button type="button" class="pie-app" id="pie-app" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M7.5 10.5 12 15l4.5-4.5"/><path d="M5 19h14"/></svg>Descargar la app de la liga</button>
     </div>
   </footer>
 </div>
@@ -264,6 +471,34 @@ footer.pie a{color:var(--verde);font-weight:600}
       <button class="btn verde sm" id="btn-imprimir" type="button" style="flex:1">Imprimir</button>
     </div>
     <p style="font-size:11.5px;color:var(--gris);text-align:center;margin:10px 0 0">58 mm · imprime sin márgenes</p>
+  </div>
+</div>
+
+<div class="telon" id="telon-app" role="dialog" aria-modal="true" aria-labelledby="app-titulo">
+  <div class="modal app-modal">
+    <span class="toro-mini" aria-hidden="true" style="margin:0 auto 10px"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12c1.5 6 6 9 11 9M42 12c-1.5 6-6 9-11 9"/><path d="M17 21c-1.5 3-1.6 7 0 11 1.6 4 4.3 7 7 7s5.4-3 7-7c1.6-4 1.5-8 0-11"/><path d="M17 21c2-1.4 4.5-2 7-2s5 .6 7 2"/><path d="M21.5 34.5h5"/></svg></span>
+    <h3 id="app-titulo" style="text-align:center">Descarga la app</h3>
+    <p class="app-intro">Tu estado de cuenta y «Busca un rival» en la pantalla de inicio, con avisos de tus partidos. No ocupa espacio ni pasa por tienda de apps.</p>
+    <ol class="app-pasos" id="app-pasos"></ol>
+    <div style="display:flex;gap:10px;margin-top:14px">
+      <button class="btn claro sm" id="app-cerrar" type="button" style="flex:1">Cerrar</button>
+      <button class="btn verde sm" id="app-instalar" type="button" style="flex:1" hidden>Instalar ahora</button>
+    </div>
+  </div>
+</div>
+
+<div class="telon" id="telon-aviso" role="dialog" aria-modal="true" aria-labelledby="aviso-titulo">
+  <div class="modal aviso-modal">
+    <span class="ico-av" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3.5h7l4 4V20a.5.5 0 0 1-.5.5h-10A.5.5 0 0 1 7 20V3.5Z"/><path d="M14 3.5V8h4M9.5 14l2 2 3.5-4"/></svg></span>
+    <h3 id="aviso-titulo">Corte de caja</h3>
+    <p>Ya está disponible tu estado de cuenta para descargar y el saldo al corte de caja.</p>
+    <div class="av-saldo" id="aviso-saldo">—</div>
+    <div class="av-nota" id="aviso-nota"></div>
+    <div class="aviso-acc">
+      <a class="btn verde" data-doc="estado" id="aviso-estado" href="api.php?a=estado_pdf" target="_blank" rel="noopener">Abrir estado de cuenta</a>
+      <a class="btn claro" id="aviso-corte" href="api.php?a=corte" target="_blank" rel="noopener">Abrir corte de caja de liga</a>
+      <button class="btn claro" type="button" id="aviso-aceptar">Aceptar</button>
+    </div>
   </div>
 </div>
 
@@ -298,6 +533,14 @@ function pedir(accion, cuerpo){
 
 /* ---------- acceso ---------- */
 var inp = $('codigo'), errores = $('error-acceso'), btn = $('btn-entrar');
+$('ver-clave').onclick = function(){
+  var ver = inp.type === 'password';
+  inp.type = ver ? 'text' : 'password';
+  this.textContent = ver ? 'Ocultar' : 'Ver';
+  this.setAttribute('aria-pressed', ver ? 'true' : 'false');
+  this.setAttribute('aria-label', ver ? 'Ocultar código' : 'Mostrar código');
+  inp.focus();
+};
 
 inp.addEventListener('input', function(){
   var v = inp.value.toUpperCase().replace(/[^A-Z0-9]/g, '');
@@ -317,30 +560,126 @@ $('forma-acceso').addEventListener('submit', function(ev){
   if(!codigo){ return fallo('Escribe tu código de capitán.'); }
   btn.disabled = true;
   btn.textContent = 'Comprobando…';
-  pedir('entrar', {codigo: codigo}).then(function(r){
+  /* con una cuenta de Google ya comprobada, el código LIGA esa cuenta al equipo (una sola vez) */
+  pedir(gPend ? 'ligar_google' : 'entrar', {codigo: codigo, recordar: $('recordar').checked}).then(function(r){
     btn.disabled = false;
-    btn.textContent = 'Entrar';
-    if(r && r.ok){ inp.value = ''; abrirPortal(); return; }
+    btn.textContent = rotuloEntrar();
+    if(r && r.ok){
+      /* avisa al gestor de contraseñas del celular para que ofrezca guardarlo */
+      try{
+        if(window.PasswordCredential && $('recordar').checked){
+          navigator.credentials.store(new PasswordCredential({id:'Capitán Liga Premier Chapingo', password:inp.value, name:(r.equipo && r.equipo.nombre) || 'Liga Premier Chapingo'})).catch(function(){});
+        }
+      }catch(e){}
+      inp.value = ''; inp.type = 'password'; $('ver-clave').textContent = 'Ver';
+      RECIEN_ENTRO = true;                       /* al iniciar sesión se muestra el aviso del corte */
+      abrirPortal(); return;
+    }
     fallo((r && r.error) || 'No se pudo entrar. Inténtalo de nuevo.');
+    if(r && r.reintentar) gIniciar();
   }).catch(function(){
     btn.disabled = false;
-    btn.textContent = 'Entrar';
+    btn.textContent = rotuloEntrar();
     fallo('No se pudo contactar al servidor. Revisa tu conexión.');
   });
 });
 
+/* ---------- acceso con Google (04-oct-2026) ----------
+   Google comprueba quién es la persona; el servidor verifica su respuesta y decide:
+   · cuenta ya ligada a un equipo  → entra;
+   · cuenta sin equipo             → pide el código UNA vez para ligarla;
+   · cuenta con varios equipos     → deja elegir. */
+var gCfg = null, gPend = false;
+function rotuloEntrar(){ return gPend ? 'Ligar y entrar' : 'Entrar'; }
+function gSalirDePendiente(){
+  gPend = false;
+  $('g-ligar').hidden = true;
+  $('g-equipos').innerHTML = '';
+  btn.textContent = rotuloEntrar();
+}
+function gPintarBoton(){
+  if(!gCfg || !window.google || !google.accounts || !google.accounts.id) return;
+  google.accounts.id.initialize({client_id: gCfg.clienteId, nonce: gCfg.nonce, callback: gRespuesta, ux_mode: 'popup'});
+  $('g-acceso').hidden = false;
+  $('g-boton').innerHTML = '';
+  google.accounts.id.renderButton($('g-boton'), {theme:'outline', size:'large', text:'continue_with', shape:'pill',
+    locale:'es-419', width: Math.max(220, Math.min(340, $('g-boton').offsetWidth || 320))});
+  if(!irARival) $('intro-acceso').textContent = 'Entra con Google o con el código de tu equipo.';
+  $('g-pista').hidden = false;
+}
+function gIniciar(){
+  gSalirDePendiente();
+  pedir('google').then(function(r){
+    if(!r || !r.ok || !r.activo){ $('g-acceso').hidden = true; $('g-pista').hidden = true; return; }
+    gCfg = r;
+    if(window.google && google.accounts && google.accounts.id) return gPintarBoton();
+    if(document.getElementById('g-script')) return;
+    var s = document.createElement('script');
+    s.id = 'g-script'; s.src = 'https://accounts.google.com/gsi/client'; s.async = true; s.onload = gPintarBoton;
+    document.head.appendChild(s);
+  }).catch(function(){});
+}
+function gRespuesta(resp){
+  errores.classList.remove('ver');
+  pedir('entrar_google', {credencial: (resp && resp.credential) || '', codigo: inp.value.replace(/[^A-Za-z0-9]/g, ''),
+                          recordar: $('recordar').checked}).then(function(r){
+    if(r && r.ok && r.equipo){ inp.value = ''; RECIEN_ENTRO = true; abrirPortal(); return; }
+    if(r && r.ok && (r.falta === 'codigo' || r.elegir)){ gPendiente(r); return; }
+    fallo((r && r.error) || 'No se pudo entrar con Google. Inténtalo de nuevo.');
+    gIniciar();
+  }).catch(function(){ fallo('No se pudo contactar al servidor. Revisa tu conexión.'); gIniciar(); });
+}
+function gPendiente(r){
+  var eq = r.elegir || [];
+  gPend = true;
+  $('g-acceso').hidden = true;
+  $('g-ligar').hidden = false;
+  $('g-pista').hidden = true;
+  $('g-hola').textContent = r.nombre ? 'Hola, ' + r.nombre : 'Cuenta de Google comprobada';
+  $('g-ligar-txt').textContent = eq.length
+    ? 'Elige con qué equipo entrar. Para ligar otro equipo, escribe su código abajo.'
+    : 'Escribe una sola vez el código de tu equipo para ligarlo a tu cuenta de Google. Después entrarás solo con Google.';
+  $('g-equipos').innerHTML = eq.map(function(e){
+    return '<button type="button" data-i="' + (+e.i) + '">' + esc(e.nombre) + (e.detalle ? '<small>' + esc(e.detalle) + '</small>' : '') + '</button>';
+  }).join('');
+  btn.textContent = rotuloEntrar();
+  if(!eq.length) inp.focus();
+}
+$('g-equipos').onclick = function(ev){
+  var b = ev.target.closest('[data-i]'); if(!b) return;
+  errores.classList.remove('ver');
+  pedir('elegir_google', {i: +b.getAttribute('data-i')}).then(function(r){
+    if(r && r.ok){ RECIEN_ENTRO = true; abrirPortal(); return; }
+    fallo((r && r.error) || 'No se pudo entrar. Inténtalo de nuevo.');
+    if(r && r.reintentar) gIniciar();
+  }).catch(function(){ fallo('No se pudo contactar al servidor. Revisa tu conexión.'); });
+};
+$('g-otra').onclick = function(){ errores.classList.remove('ver'); gIniciar(); };
+
+/* Llegó desde «Abrir horario para partido oficial» del inicio (…/capitanes/#rival):
+   al entrar se abre «Busca un rival» directamente, con las horas elegidas ya marcadas. */
+var irARival = /(?:^#|&)rival(?:&|$)/.test(location.hash || '');
+if(irARival){
+  try{ history.replaceState(null, '', location.pathname + location.search); }catch(e){}
+  $('intro-acceso').textContent = 'Entra para publicar los horarios que elegiste.';
+}
+
 /* ---------- portal ---------- */
 function abrirPortal(){
+  gSalirDePendiente();
   $('acceso').style.display = 'none';
   $('portal').style.display = 'block';
   window.scrollTo(0, 0);
   cargar();
+  if(irARival){ irARival = false; $('btn-disponibilidad').click(); }
 }
 function cerrarPortal(){
-  DATOS = null;
+  DATOS = null; AVISO_VISTO_EN_ESTA_VISITA = false;
+  $('telon-aviso').classList.remove('abierto');
   $('portal').style.display = 'none';
   $('acceso').style.display = 'flex';
   inp.value = '';
+  gIniciar();
 }
 
 function cargar(){
@@ -352,13 +691,14 @@ function cargar(){
     }
     DATOS = r;
     pintar(r);
+    pintarCorte(r);
   }).catch(function(){
     $('panel-movs').innerHTML = '<div class="vacio">No se pudo contactar al servidor.</div>';
   });
 }
 
 function etiquetaEstatus(e){
-  var c = e === 'Pagado' ? 'ok' : e === 'Pendiente' ? 'pend' : e === 'A favor' ? 'favor' : 'parcial';
+  var c = e === 'Pagado' ? 'ok' : e === 'Pendiente' ? 'pend' : e === 'A favor' ? 'favor' : e === 'Programado' ? 'prog' : 'parcial';
   return '<span class="et ' + c + '">' + esc(e) + '</span>';
 }
 
@@ -430,9 +770,140 @@ function pintar(r){
         }).join('')
     : '';
 
+  pintarFuturos();
+
   $('pie-rev').textContent = r.actualizado
     ? 'Información al corte del ' + fecha(String(r.actualizado).slice(0, 10)) + ' · revisión ' + (r.rev || 0)
     : '';
+}
+
+/* ==========================================================================
+   CORTE DE CAJA (7-oct-2026)
+   · Aviso al iniciar sesión: «Ya está disponible tu estado de cuenta…» con Aceptar,
+     Abrir estado de cuenta y Abrir corte de caja de liga.
+   · Los mismos dos accesos quedan fijos en el perfil (arriba, junto al saldo al corte)
+     y al pie de la página.
+   · Los dos son enlaces normales a un PDF que entrega el servidor con la sesión abierta
+     (api.php?a=estado_pdf y api.php?a=corte): abren igual en celular y en computadora.
+   · El estado de cuenta tiene el formato del de Tesorería, con el saldo a la fecha del corte.
+   ========================================================================== */
+var RECIEN_ENTRO = false, AVISO_VISTO_EN_ESTA_VISITA = false;
+var MESES_L = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+function fechaLarga(s){ var p = String(s || '').split('-'); return p.length === 3 ? (+p[2]) + ' de ' + MESES_L[+p[1] - 1] + ' de ' + p[0] : (s || ''); }
+
+function textoSaldo(c){
+  var v = Number(c.saldo) || 0;
+  return v > 0.009 ? {v:mxn(v), e:'Saldo por pagar', deuda:true}
+       : v < -0.009 ? {v:mxn(-v), e:'Saldo a favor', deuda:false}
+       : {v:mxn(0), e:'Al corriente', deuda:false};
+}
+
+function cerrarAviso(){
+  $('telon-aviso').classList.remove('abierto');
+  try{ if(DATOS && DATOS.corte) localStorage.setItem('lch-aviso-corte', DATOS.corte.fecha); }catch(e){}
+}
+/** Accesos del perfil + aviso. El aviso sale al iniciar sesión; con la sesión recordada, una vez por corte. */
+function pintarCorte(r){
+  var c = r.corte;
+  $('seccion-docs').hidden = !c;
+  $('pie-docs').hidden = !c;
+  if(!c){ $('telon-aviso').classList.remove('abierto'); return; }
+  var s = textoSaldo(c), cuando = 'Corte de caja del ' + fechaLarga(c.fecha);
+  $('docs-eti').textContent = cuando;
+  $('docs-saldo').textContent = s.v;
+  $('docs-saldo').className = 'sal' + (s.deuda ? ' deuda' : '');
+  $('docs-sub').textContent = s.e + ' de tu equipo a esa fecha';
+  $('aviso-saldo').textContent = s.v;
+  $('aviso-saldo').className = 'av-saldo' + (s.deuda ? ' deuda' : '');
+  $('aviso-nota').textContent = s.e + ' · ' + cuando.charAt(0).toLowerCase() + cuando.slice(1);
+  ['docs-corte', 'aviso-corte', 'pie-corte'].forEach(function(id){ $(id).hidden = !c.pdf; });
+
+  if(AVISO_VISTO_EN_ESTA_VISITA) return;
+  var yaAceptado = false;
+  try{ yaAceptado = localStorage.getItem('lch-aviso-corte') === c.fecha; }catch(e){}
+  if(RECIEN_ENTRO || !yaAceptado){
+    AVISO_VISTO_EN_ESTA_VISITA = true; RECIEN_ENTRO = false;
+    $('telon-aviso').classList.add('abierto');
+    $('aviso-aceptar').focus();
+  }
+}
+
+/* ---------- próximos cargos (tickets futuros visibles) ---------- */
+var JORNADA_FUT = 'todas';
+function pintarFuturos(){
+  var futs = (DATOS && DATOS.futuros) || [];
+  $('seccion-futuros').style.display = futs.length ? '' : 'none';
+  if(!futs.length) return;
+
+  /* opciones del filtro: todas + cada jornada */
+  var js = [], sinJ = false;
+  futs.forEach(function(f){ if(f.jornada){ if(js.indexOf(f.jornada) < 0) js.push(f.jornada); } else sinJ = true; });
+  js.sort(function(a, b){ return a - b; });
+  var ops = [['todas', 'Todas las jornadas']].concat(js.map(function(j){ return [String(j), 'Jornada ' + j]; }));
+  if(sinJ) ops.push(['0', 'Sin jornada']);
+  if(!ops.some(function(o){ return o[0] === JORNADA_FUT; })) JORNADA_FUT = 'todas';
+  var sel = $('filtro-jornada');
+  sel.innerHTML = ops.map(function(o){
+    return '<option value="' + esc(o[0]) + '"' + (o[0] === JORNADA_FUT ? ' selected' : '') + '>' + esc(o[1]) + '</option>';
+  }).join('');
+  sel.style.display = ops.length > 2 ? '' : 'none';
+
+  var lista = [];
+  futs.forEach(function(f, i){ if(JORNADA_FUT === 'todas' || String(f.jornada || 0) === JORNADA_FUT) lista.push([f, i]); });
+  var total = lista.reduce(function(a, x){ return a + (Number(x[0].importe) || 0); }, 0);
+  $('nota-futuros').textContent = lista.length + (lista.length === 1 ? ' cargo programado' : ' cargos programados');
+
+  $('panel-futuros').innerHTML =
+    '<div class="fila fut enc"><span>Fecha est.</span><span>Concepto</span><span class="num">Importe</span><span>Estatus</span><span></span></div>'
+    + lista.map(function(x){
+        var f = x[0], det = [];
+        if(f.jornada) det.push('Jornada ' + f.jornada);
+        if(f.nota) det.push(f.nota);
+        return '<div class="fila fut">'
+          + '<span class="cel" data-et="Fecha estimada"><span class="num">' + esc(f.fecha ? fecha(f.fecha) : 'Por definir') + '</span></span>'
+          + '<span class="con">' + esc(f.concepto || 'Cargo programado')
+            + (det.length ? '<span class="det">' + esc(det.join(' · ')) + '</span>' : '') + '</span>'
+          + '<span class="cel num" data-et="Importe">' + esc(mxn(f.importe)) + '</span>'
+          + '<span class="cel" data-et="Estatus"><span class="et prog">' + (f.estado === 'por_cobrar' ? 'Se cobra el día del partido' : 'Programado') + '</span></span>'
+          + '<span class="tkcell"><button class="tk" type="button" data-fut="' + x[1] + '" aria-label="Ver el cargo programado">' + ICONO_TK + '</button></span>'
+          + '</div>';
+      }).join('')
+    + '<div class="total-fut"><span>Total ' + (JORNADA_FUT === 'todas' ? 'programado' : (JORNADA_FUT === '0' ? 'sin jornada' : 'de la jornada ' + esc(JORNADA_FUT))) + '</span><span>' + esc(mxn(total)) + '</span></div>';
+
+  Array.prototype.forEach.call($('panel-futuros').querySelectorAll('[data-fut]'), function(b){
+    b.onclick = function(){ abrirFuturo(+b.getAttribute('data-fut')); };
+  });
+}
+$('filtro-jornada').onchange = function(){ JORNADA_FUT = this.value; pintarFuturos(); };
+
+function futuroHTML(f){
+  var eq = (DATOS && DATOS.equipo) || {}, liga = (DATOS && DATOS.liga) || {};
+  var L = ['<div class="ticket">'];
+  L.push('<div class="tk-brand">' + esc(liga.nombre || 'Liga Premier Chapingo') + '</div>');
+  if(eq.edicion) L.push('<div class="tk-sub">' + esc(eq.edicion) + '</div>');
+  L.push('<hr><div class="big" style="justify-content:center">CARGO PROGRAMADO</div>');
+  L.push('<div class="kv"><span>' + esc(f.jornada ? 'Jornada ' + f.jornada : 'Sin jornada') + '</span><span>'
+    + esc(f.fecha ? fecha(f.fecha) : 'Fecha por definir') + '</span></div>');
+  L.push('<hr>');
+  L.push('<div class="tk-eq">' + esc(eq.nombre || '') + '</div>');
+  L.push('<div>' + esc([eq.disciplina, eq.rama, eq.categoria].filter(Boolean).join(' · ')) + '</div>');
+  L.push('<hr>');
+  L.push('<div class="li"><span>' + esc(f.concepto) + '</span><span>' + esc(mxn(f.importe)) + '</span></div>');
+  if(f.nota) L.push('<div>' + esc(f.nota) + '</div>');
+  L.push('<div class="big"><span>ESTIMADO</span><span>' + esc(mxn(f.importe)) + '</span></div>');
+  L.push('<hr><div class="aviso">NO ES COMPROBANTE DE PAGO\nNi un cargo registrado todavía.</div>');
+  L.push('<div class="tk-sub" style="margin-top:2mm">Copia de consulta</div>');
+  L.push('</div>');
+  return L.join('');
+}
+function abrirFuturo(i){
+  var f = DATOS && DATOS.futuros && DATOS.futuros[i];
+  if(!f) return;
+  var html = futuroHTML(f);
+  $('modal-titulo').textContent = 'Cargo programado';
+  $('modal-ticket').innerHTML = html;
+  $('area-impresion').innerHTML = html;
+  $('telon').classList.add('abierto');
 }
 
 /* ---------- ticket (se arma con los datos del propio equipo) ---------- */
@@ -482,21 +953,144 @@ $('btn-imprimir').onclick = function(){ window.print(); };
 $('telon').onclick = function(ev){ if(ev.target === $('telon')) cerrarTicket(); };
 document.addEventListener('keydown', function(ev){ if(ev.key === 'Escape') cerrarTicket(); });
 
+/* corte de caja: los mismos accesos en el aviso, en el perfil y al pie */
+$('aviso-estado').addEventListener('click', cerrarAviso);
+$('aviso-aceptar').onclick = cerrarAviso;
+$('aviso-corte').addEventListener('click', cerrarAviso);
+$('telon-aviso').onclick = function(ev){ if(ev.target === $('telon-aviso')) cerrarAviso(); };
+document.addEventListener('keydown', function(ev){ if(ev.key === 'Escape' && $('telon-aviso').classList.contains('abierto')) cerrarAviso(); });
+
 $('btn-refrescar').onclick = function(){
   var b = $('btn-refrescar');
   b.disabled = true; b.textContent = 'Actualizando…';
   cargar().then(function(){ b.disabled = false; b.textContent = 'Actualizar'; });
 };
+/* ---------- disponibilidad del equipo ----------
+   El servidor entrega un pase de un solo uso para el equipo de ESTA sesión y se
+   envía por POST (no queda en la URL ni en el historial). */
+$('btn-disponibilidad').onclick = function(){
+  var b = $('btn-disponibilidad'), er = $('error-disponibilidad');
+  er.classList.remove('ver');
+  b.disabled = true;
+  pedir('disponibilidad', {}).then(function(r){
+    if(r && r.auth === false){ cerrarPortal(); return; }
+    if(!r || !r.ok || !r.pase){
+      b.disabled = false;
+      er.textContent = (r && r.error) || 'No se pudo abrir «Busca un rival». Inténtalo de nuevo.';
+      er.classList.add('ver');
+      return;
+    }
+    var f = document.createElement('form');
+    f.method = 'post'; f.action = r.url || '../disponibilidad/entrar.php';
+    var i = document.createElement('input');
+    i.type = 'hidden'; i.name = 'pase'; i.value = r.pase;
+    f.appendChild(i); document.body.appendChild(f); f.submit();
+  }).catch(function(){
+    b.disabled = false;
+    er.textContent = 'No se pudo contactar al servidor. Revisa tu conexión.';
+    er.classList.add('ver');
+  });
+};
+window.addEventListener('pageshow', function(){ $('btn-disponibilidad').disabled = false; });
+
 $('btn-salir').onclick = function(){
   pedir('salir').then(cerrarPortal).catch(cerrarPortal);
 };
 
-/* ---------- arranque: ¿ya había sesión abierta? ---------- */
-pedir('sesion').then(function(r){
-  if(r && r.auth) abrirPortal();
-  else inp.focus();
-}).catch(function(){ inp.focus(); });
+/* ---------- arranque ----------
+   Acceso directo desde la administración (30-sep-2026): …/capitanes/#codigo=XXXXXXXX
+   escribe el código y entra solo, sin «recordar» el dispositivo. El «#» no llega al
+   servidor y se borra de la barra de direcciones en cuanto se lee. */
+var codigoDirecto = (function(){
+  var m = /(?:^#|&)codigo=([A-Za-z0-9-]{6,15})(?:&|$)/.exec(location.hash || '');
+  if(!m) return '';
+  try{ history.replaceState(null, '', location.pathname + location.search); }catch(e){ location.hash = ''; }
+  return m[1].toUpperCase().replace(/[^A-Z0-9]/g, '');
+})();
+if(codigoDirecto){
+  inp.value = codigoDirecto.length > 4 ? codigoDirecto.slice(0, 4) + '-' + codigoDirecto.slice(4, 12) : codigoDirecto;
+  $('recordar').checked = false;
+  $('forma-acceso').requestSubmit ? $('forma-acceso').requestSubmit() : btn.click();
+} else {
+  /* ¿ya había sesión abierta? */
+  /* Google se prepara DESPUÉS de saber si hay sesión: las dos llamadas a la vez abrirían dos
+     sesiones distintas en el servidor y el número de un solo uso quedaría en la que se pierde. */
+  pedir('sesion').then(function(r){
+    if(r && r.auth) abrirPortal();
+    else { inp.focus(); gIniciar(); }
+  }).catch(function(){ inp.focus(); gIniciar(); });
+}
 
+})();
+</script>
+<script>
+/* ---------- App instalable (PWA) ----------
+   · Aviso grande (una vez; se puede ocultar con ×).
+   · Opción discreta siempre disponible: botón «App» del encabezado y enlace en el pie.
+     Si el navegador permite instalar, abre su ventana; si no, explica cómo hacerlo. */
+(function(){
+  'use strict';
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/sw-liga.js', { scope: '/' }).catch(function(){});
+  }
+  function $(id){ return document.getElementById(id); }
+  var caja = $('app-inst'), btn = $('app-inst-btn'), txt = $('app-inst-txt'), x = $('app-inst-x');
+  var mini = $('btn-app'), pie = $('pie-app'), telon = $('telon-app'), pasos = $('app-pasos'), ya = $('app-instalar');
+  var instalada = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+  if (instalada) return;                                 /* ya está instalada: no se muestra nada */
+  var oculto = false; try { oculto = localStorage.getItem('lc-app-oculta') === '1'; } catch(e){}
+  var ua = navigator.userAgent || '';
+  var ios = /iPhone|iPad|iPod/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  var android = /Android/i.test(ua);
+  var aviso = null;
+  var COMPARTIR = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 3v12M8 7l4-4 4 4"/><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/></svg>';
+
+  mini.hidden = false; pie.hidden = false;
+
+  function instalar(){
+    if (!aviso) return false;
+    aviso.prompt();
+    aviso.userChoice.then(function(){ aviso = null; if (caja) caja.hidden = true; cerrar(); });
+    return true;
+  }
+  function abrir(){
+    if (instalar()) return;
+    var p;
+    if (ios) p = ['Abre esta página en <b>Safari</b>.',
+                  'Toca ' + COMPARTIR + ' <b>Compartir</b> (abajo al centro).',
+                  'Elige <b>«Agregar a inicio»</b> y luego <b>Agregar</b>.'];
+    else if (android) p = ['Abre esta página en <b>Chrome</b>.',
+                  'Toca el menú <b>⋮</b> (arriba a la derecha).',
+                  'Elige <b>«Instalar app»</b> o <b>«Agregar a la pantalla principal»</b>.'];
+    else p = ['En Chrome o Edge, busca el ícono de instalar en la barra de direcciones (una pantalla con flecha).',
+              'O abre el menú <b>⋮</b> → <b>«Instalar app»</b>.',
+              'En el celular es más cómodo: abre esta misma página ahí.'];
+    pasos.innerHTML = p.map(function(t){ return '<li>' + t + '</li>'; }).join('');
+    ya.hidden = !aviso;
+    telon.classList.add('abierto');
+    $('app-cerrar').focus();
+  }
+  function cerrar(){ telon.classList.remove('abierto'); }
+  mini.onclick = abrir; pie.onclick = abrir;
+  ya.onclick = instalar;
+  $('app-cerrar').onclick = cerrar;
+  telon.addEventListener('click', function(e){ if (e.target === telon) cerrar(); });
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape') cerrar(); });
+
+  window.addEventListener('beforeinstallprompt', function(e){
+    e.preventDefault(); aviso = e;
+    if (!oculto && caja){ btn.hidden = false; caja.hidden = false; }
+  });
+  window.addEventListener('appinstalled', function(){
+    if (caja) caja.hidden = true; mini.hidden = true; pie.hidden = true; cerrar();
+  });
+  if (!caja) return;
+  btn.onclick = instalar;
+  x.onclick = function(){ caja.hidden = true; try { localStorage.setItem('lc-app-oculta','1'); } catch(e){} };
+  if (ios && !oculto) {
+    txt.innerHTML = '<b>Instala la app de la liga</b>En Safari toca <svg class="ios-share" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 3v12M8 7l4-4 4 4"/><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/></svg> <b style="display:inline">Compartir</b> y luego <b style="display:inline">«Agregar a inicio»</b>. Así podrás recibir avisos de tus partidos.';
+    caja.hidden = false;
+  }
 })();
 </script>
 </body>

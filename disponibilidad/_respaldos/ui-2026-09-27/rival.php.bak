@@ -1,0 +1,348 @@
+<?php
+/**
+ * Liga Chapingo — «BUSCA UN RIVAL» (pantalla del capitán).
+ * Se entra desde el Estado de cuenta (pase firmado → entrar.php). El equipo sale SIEMPRE de la
+ * sesión, nunca de la URL ni del formulario.
+ */
+declare(strict_types=1);
+require_once __DIR__ . '/funciones.php';
+require_once __DIR__ . '/lib/rival.php';
+
+header('X-Frame-Options: SAMEORIGIN');
+header('X-Content-Type-Options: nosniff');
+header('Referrer-Policy: same-origin');
+header('Cache-Control: no-store');
+
+$ctx = contexto_acceso();
+if ($ctx['rol'] !== 'capitan') {
+    http_response_code(403);
+}
+$eq = null; $P = null; $cal = []; $error = null; $pushVapid = null; $pushDisp = 0;
+if ($ctx['rol'] === 'capitan') {
+    try {
+        if (!rival_instalado()) $error = 'Esta sección se está actualizando. Vuelve a intentarlo en unos minutos.';
+        elseif (!rival_cancha_id()) $error = 'La cancha DICIFO no está dada de alta. Avisa a la mesa directiva.';
+        else {
+            $eq = rival_contexto_equipo((int)$ctx['equipo_id'], capitan_estado_id());
+            if (!$eq) $error = 'Tu equipo todavía no está vinculado con su categoría. Avisa a la mesa directiva.';
+            else {
+                $P = rival_panel($eq);
+                $cal = rival_calendario((int)rival_cancha_id());
+                if (push_instalado()) {
+                    try { $pushVapid = push_vapid()['publica']; $pushDisp = push_dispositivos($eq['equipo_id']); } catch (Throwable $ex) { $pushVapid = null; }
+                }
+            }
+        }
+    } catch (Throwable $ex) {
+        $error = error_interno($ex, 'rival');
+    }
+}
+$mensajes = tomar_flash();
+
+$PASOS = [
+    'disponible'             => 'Disponible',
+    'publicado'              => '3 opciones publicadas',
+    'solicitud_pendiente'    => 'Solicitud pendiente',
+    'pendiente_confirmacion' => 'Pendiente de confirmación',
+    'confirmado'             => 'Partido confirmado',
+];
+$ordenPaso = array_flip(array_keys($PASOS));
+$pasoActual = $P ? ($P['estado'] === 'requiere_reemplazo' ? 'publicado' : $P['estado']) : 'disponible';
+$ETQ_OP = ['vigente' => 'Disponible', 'ocupada' => 'Horario ocupado · requiere reemplazo', 'vencida' => 'Ya pasó · requiere reemplazo', 'fuera' => 'DICIFO ya no abre a esa hora · requiere reemplazo', 'confirmada' => 'Confirmada'];
+$h = fn(string $x) => substr($x, 0, 5);
+?>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex, nofollow">
+    <title><?= $eq ? e($eq['nombre']) . ' · ' : '' ?>Busca un rival · Liga Chapingo<?= es_entorno_pruebas() ? ' (pruebas)' : '' ?></title>
+    <link rel="stylesheet" href="assets/disponibilidad.css?v=5">
+    <link rel="stylesheet" href="assets/rival.css?v=5">
+    <script src="assets/rival.js?v=2" defer></script>
+    <script src="assets/push.js?v=1" defer></script>
+    <link rel="manifest" href="../capitanes/manifest.webmanifest">
+    <meta name="theme-color" content="#1B6B45">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <link rel="apple-touch-icon" href="../icono-180.png">
+</head>
+<body<?= $eq ? ' data-version="' . e(rival_version($eq)) . '"' : '' ?>>
+<?php if (es_entorno_pruebas()): ?>
+<div class="banda-pruebas" role="status">ENTORNO DE PRUEBAS<?= ($ctx['origen'] ?? '') === 'simulacion' ? ' · simulando capitán' : '' ?></div>
+<?php endif; ?>
+
+<header class="cabecera">
+    <div class="contenedor cabecera__in">
+        <div class="marca">
+            <span class="marca__logo" aria-hidden="true">LC</span>
+            <div><div class="marca__nombre">Liga Chapingo</div><div class="marca__sub">Busca un rival</div></div>
+        </div>
+    </div>
+</header>
+
+<main class="contenedor rv">
+<?php foreach ($mensajes as $m): ?>
+    <div class="aviso aviso--<?= e($m['tipo']) ?>" role="alert"><?= e(implode(' ', $m['mensajes'])) ?></div>
+<?php endforeach; ?>
+
+<?php if ($ctx['rol'] !== 'capitan'): ?>
+    <section class="tarjeta tarjeta--centro">
+        <h2 class="tarjeta__titulo">Entra desde tu Estado de cuenta</h2>
+        <p>Abre tu <strong>Estado de cuenta</strong> y pulsa <strong>«Busca un rival»</strong>.</p>
+        <a class="btn btn--pri" href="<?= e(url_retorno_segura(CAPITAN_RETORNO_DEF)) ?>">Ir a mi estado de cuenta</a>
+    </section>
+<?php elseif ($error): ?>
+    <div class="aviso aviso--error" role="alert"><?= e($error) ?></div>
+<?php else: ?>
+
+    <section class="capitan-hero">
+        <div class="capitan-hero__eyebrow">Busca un rival · <?= e($eq['grupo_nombre']) ?></div>
+        <h1 class="capitan-hero__equipo"><?= e($eq['nombre']) ?></h1>
+        <ol class="rv-pasos" aria-label="Estado de tu búsqueda">
+            <?php foreach ($PASOS as $k => $t): $i = $ordenPaso[$k]; $a = $ordenPaso[$pasoActual]; ?>
+                <li class="<?= $k === $pasoActual ? 'es-actual' : ($i < $a ? 'es-hecho' : '') ?>"><?= e($t) ?></li>
+            <?php endforeach; ?>
+        </ol>
+        <?php if ($P['estado'] === 'requiere_reemplazo'): ?>
+            <p class="rv-alerta"><b>Requiere reemplazo:</b> una de tus opciones ya no está disponible. Cámbiala para volver a tener 3 opciones válidas.</p>
+        <?php endif; ?>
+        <p class="rv-reglas texto-suave">Puedes confirmar hasta <b><?= RIVAL_OPCIONES ?> partidos</b> (uno por cada horario publicado) y tener hasta
+            <b><?= RIVAL_MAX_SOLICITUDES ?> solicitudes</b> enviadas a la vez, siempre que la cancha esté libre.</p>
+    </section>
+
+    <?php if ($pushVapid): ?>
+    <section class="tarjeta rv-push" id="rv-push" data-vapid="<?= e($pushVapid) ?>" aria-labelledby="t-push">
+        <h2 id="t-push" class="tarjeta__titulo">Avisos en tu celular</h2>
+        <p id="rv-push-txt" class="texto-suave">Recibe un aviso cuando alguien elija tu horario, cuando confirmen o rechacen tu solicitud,
+            cuando te propongan reprogramar y un día antes de cada partido.</p>
+        <form id="rv-push-form" hidden><?= csrf_campo() ?></form>
+        <div class="rv-push__acc">
+            <button type="button" class="btn btn--pri" id="rv-push-activar" hidden>Activar notificaciones</button>
+            <button type="button" class="btn btn--sec btn--chico" id="rv-push-prueba" hidden>Enviar aviso de prueba</button>
+            <button type="button" class="btn-texto" id="rv-push-baja" hidden>Desactivar en este dispositivo</button>
+        </div>
+        <p class="texto-suave rv-push__n" id="rv-push-n" data-n="<?= (int)$pushDisp ?>"><?= $pushDisp ? 'Tu equipo tiene ' . (int)$pushDisp . ' dispositivo' . ($pushDisp === 1 ? '' : 's') . ' con avisos activos.' : '' ?></p>
+    </section>
+    <?php endif; ?>
+
+    <?php foreach ($P['avisos'] as $a): ?>
+        <div class="aviso aviso--info" role="status">Tu solicitud a <b><?= e($a['rival']) ?></b> (<?= e(rival_slot_texto($a['fecha'], $a['hora'])) ?>) quedó <?= e($a['estado']) ?><?= $a['motivo'] ? ': ' . e($a['motivo']) : '' ?>.</div>
+    <?php endforeach; ?>
+    <?php foreach ($P['avisosReprog'] as $a): $yoPedi = (int)$a['solicita_equipo_id'] === $eq['equipo_id']; ?>
+        <div class="aviso aviso--<?= $a['estado'] === 'aceptada' ? 'ok' : 'info' ?>" role="status">
+            <?php if ($yoPedi): ?>
+                Tu propuesta de cambiar el partido contra <b><?= e($a['otro_nombre']) ?></b> al <?= e(rival_slot_texto($a['fecha_nueva'], $a['hora_nueva'])) ?> quedó <b><?= e($a['estado']) ?></b><?= $a['estado'] !== 'aceptada' && $a['respuesta'] ? ': ' . e($a['respuesta']) : '' ?>.
+            <?php else: ?>
+                La propuesta de <b><?= e($a['solicita_nombre']) ?></b> de cambiar su partido al <?= e(rival_slot_texto($a['fecha_nueva'], $a['hora_nueva'])) ?> quedó <?= e($a['estado']) ?><?= $a['respuesta'] ? ': ' . e($a['respuesta']) : '' ?>. El partido sigue en su horario.
+            <?php endif; ?>
+        </div>
+    <?php endforeach; ?>
+
+    <?php if (($P['mia'] && $P['mia']['solicitudes']) || $P['reprogParaMi']): ?>
+    <!-- ===== Pendiente de mi confirmación: solicitudes y reprogramaciones ===== -->
+    <section class="tarjeta rv-urgente" aria-labelledby="t-pc">
+        <h2 id="t-pc" class="tarjeta__titulo">Pendiente de confirmación</h2>
+        <?php if ($P['mia'] && $P['mia']['solicitudes']): ?>
+            <p class="texto-suave">Equipos que eligieron tus horarios. Puedes confirmar uno por horario (hasta <?= RIVAL_OPCIONES ?> partidos);
+                tus demás opciones siguen publicadas.<?php if ($P['mia']['confirmadas']): ?> Ya confirmaste <b><?= (int)$P['mia']['confirmadas'] ?> de <?= RIVAL_OPCIONES ?></b>.<?php endif; ?></p>
+            <?php foreach ($P['mia']['solicitudes'] as $s): ?>
+                <div class="rv-sol">
+                    <div><b><?= e($s['equipo_nombre']) ?></b><span class="texto-suave"><?= e(rival_slot_texto($s['fecha'], $s['hora'])) ?> · DICIFO</span></div>
+                    <form method="post" action="rival-accion.php" class="rv-sol__acc">
+                        <?= csrf_campo() ?><input type="hidden" name="solicitud" value="<?= (int)$s['id'] ?>">
+                        <button type="submit" name="accion" value="confirmar" class="btn btn--pri" data-confirmar="¿Confirmar el partido contra <?= e($s['equipo_nombre']) ?> el <?= e(rival_slot_texto($s['fecha'], $s['hora'])) ?>?">Confirmar partido</button>
+                        <button type="submit" name="accion" value="rechazar" class="btn btn--sec" data-confirmar="¿Rechazar esta solicitud?">Rechazar</button>
+                    </form>
+                </div>
+            <?php endforeach; ?>
+        <?php endif; ?>
+        <?php foreach ($P['reprogParaMi'] as $r): $rp = $r['reprog']; ?>
+            <div class="rv-sol rv-sol--reprog">
+                <div>
+                    <b><?= e($rp['solicita_nombre']) ?> pide reprogramar su partido</b>
+                    <span class="texto-suave">De <s><?= e(rival_slot_texto($rp['fecha_anterior'], $rp['hora_anterior'])) ?></s> a <b><?= e(rival_slot_texto($rp['fecha_nueva'], $rp['hora_nueva'])) ?></b> · DICIFO</span>
+                    <?php if ($rp['motivo']): ?><span class="texto-suave">Motivo: <?= e($rp['motivo']) ?></span><?php endif; ?>
+                </div>
+                <form method="post" action="rival-accion.php" class="rv-sol__acc">
+                    <?= csrf_campo() ?><input type="hidden" name="reprog" value="<?= (int)$rp['id'] ?>">
+                    <button type="submit" name="accion" value="reprog_aceptar" class="btn btn--pri" data-confirmar="¿Cambiar el partido contra <?= e($rp['solicita_nombre']) ?> al <?= e(rival_slot_texto($rp['fecha_nueva'], $rp['hora_nueva'])) ?>?">Aceptar cambio</button>
+                    <button type="submit" name="accion" value="reprog_rechazar" class="btn btn--sec" data-confirmar="¿Rechazar el cambio? El partido se queda en su horario original.">Rechazar</button>
+                </form>
+            </div>
+        <?php endforeach; ?>
+    </section>
+    <?php endif; ?>
+
+    <?php if ($P['confirmados']): ?>
+    <section class="tarjeta rv-confirmados" aria-labelledby="t-conf">
+        <h2 id="t-conf" class="tarjeta__titulo"><?= count($P['confirmados']) === 1 ? 'Partido confirmado' : 'Partidos confirmados (' . count($P['confirmados']) . ')' ?></h2>
+        <?php foreach ($P['confirmados'] as $r): $rp = $r['reprog']; ?>
+            <div class="rv-partido">
+                <span class="rv-partido__cuando"><?= e(rival_slot_texto($r['fecha'], $r['hora'])) ?></span>
+                <b class="rv-partido__vs"><?= e($eq['nombre']) ?> vs <?= e($r['rival']) ?></b>
+                <span class="texto-suave">Cancha <?= e(RIVAL_CANCHA) ?> · reservado para toda la liga</span>
+                <?php if ($rp && (int)$rp['solicita_equipo_id'] === $eq['equipo_id']): ?>
+                    <div class="rv-reprog-estado">
+                        Propusiste cambiarlo al <b><?= e(rival_slot_texto($rp['fecha_nueva'], $rp['hora_nueva'])) ?></b>. Falta que <?= e($r['rival']) ?> lo acepte.
+                        <form method="post" action="rival-accion.php">
+                            <?= csrf_campo() ?><input type="hidden" name="reprog" value="<?= (int)$rp['id'] ?>">
+                            <button type="submit" name="accion" value="reprog_cancelar" class="btn-texto btn-texto--peligro" data-confirmar="¿Retirar tu propuesta de cambio?">Retirar propuesta</button>
+                        </form>
+                    </div>
+                <?php elseif ($rp): ?>
+                    <div class="rv-reprog-estado"><?= e($r['rival']) ?> propone cambiarlo al <b><?= e(rival_slot_texto($rp['fecha_nueva'], $rp['hora_nueva'])) ?></b>. Respóndele arriba.</div>
+                <?php elseif (!$r['empezo'] && !$r['reprog_a_tiempo']): ?>
+                    <p class="texto-suave rv-reprog-no">Ya no se puede reprogramar: faltan menos de <?= RIVAL_REPROG_HORAS ?> horas para el partido.</p>
+                <?php elseif (!$r['empezo']): ?>
+                    <details class="rv-reprog">
+                        <summary>Solicitar reprogramación</summary>
+                        <form method="post" action="rival-accion.php" class="rv-reprog__form">
+                            <?= csrf_campo() ?><input type="hidden" name="accion" value="reprog_proponer"><input type="hidden" name="reserva" value="<?= (int)$r['id'] ?>">
+                            <label class="campo"><span>Nuevo horario (DICIFO, próximos <?= RIVAL_DIAS ?> días)</span>
+                                <select name="slot" required>
+                                    <option value="">Elegir horario libre…</option>
+                                    <?php foreach ($cal as $d): foreach ($d['slots'] as $sl): if ($sl['estado'] !== 'libre') continue; ?>
+                                        <option value="<?= e($sl['clave']) ?>"><?= e(rival_slot_texto($d['fecha'], $sl['hora'])) ?></option>
+                                    <?php endforeach; endforeach; ?>
+                                </select>
+                            </label>
+                            <label class="campo"><span>Motivo (opcional)</span>
+                                <input type="text" name="motivo" maxlength="200" placeholder="Ej. varios jugadores tienen examen">
+                            </label>
+                            <button type="submit" class="btn btn--pri btn--chico">Enviar propuesta a <?= e($r['rival']) ?></button>
+                            <small class="texto-suave">El partido sigue en su horario actual hasta que <?= e($r['rival']) ?> acepte el cambio.
+                                Las reprogramaciones se piden con al menos <?= RIVAL_REPROG_HORAS ?> horas de anticipación.</small>
+                        </form>
+                    </details>
+                <?php endif; ?>
+            </div>
+        <?php endforeach; ?>
+    </section>
+    <?php endif; ?>
+
+    <?php if ($P['misSolicitudes']): ?>
+    <!-- ===== B: esperando ===== -->
+    <section class="tarjeta rv-espera" aria-labelledby="t-sp">
+        <h2 id="t-sp" class="tarjeta__titulo">Solicitudes enviadas (<?= count($P['misSolicitudes']) ?> de <?= RIVAL_MAX_SOLICITUDES ?>)</h2>
+        <?php foreach ($P['misSolicitudes'] as $s): ?>
+            <div class="rv-sol">
+                <div>Pediste jugar contra <b><?= e($s['rival']) ?></b><span class="texto-suave"><?= e(rival_slot_texto($s['fecha'], $s['hora'])) ?> · falta que lo confirme</span></div>
+                <form method="post" action="rival-accion.php" class="rv-sol__acc">
+                    <?= csrf_campo() ?><input type="hidden" name="solicitud" value="<?= (int)$s['id'] ?>">
+                    <button type="submit" name="accion" value="cancelar_solicitud" class="btn btn--sec btn--chico" data-confirmar="¿Cancelar tu solicitud a <?= e($s['rival']) ?>?">Cancelar</button>
+                </form>
+            </div>
+        <?php endforeach; ?>
+    </section>
+    <?php endif; ?>
+
+    <!-- ===== Mis 3 opciones ===== -->
+    <section class="tarjeta" aria-labelledby="t-mias" id="mis-opciones">
+        <h2 id="t-mias" class="tarjeta__titulo">Tus opciones</h2>
+        <?php if ($P['mia']): ?>
+            <p class="texto-suave">Los equipos de tu grupo pueden ver estos horarios. Mientras sean propuestas no apartan la cancha.
+                Cada horario puede convertirse en un partido distinto.</p>
+            <ul class="rv-ops">
+            <?php foreach ($P['mia']['opciones'] as $o): $mal = in_array($o['efectivo'], ['ocupada', 'vencida', 'fuera'], true); $pt = $o['partido'] ?? null; ?>
+                <li class="rv-op <?= $mal ? 'rv-op--mal' : '' ?> <?= $o['efectivo'] === 'confirmada' ? 'rv-op--ok' : '' ?>">
+                    <span class="rv-op__cuando"><?= e(rival_slot_texto($o['fecha'], $o['hora'])) ?></span>
+                    <span class="rv-et rv-et--<?= e($o['efectivo']) ?>"><?php
+                        if ($o['efectivo'] === 'confirmada' && $pt) {
+                            $rv = (int)$pt['equipo_a_id'] === $eq['equipo_id'] ? $pt['equipo_b_nombre'] : $pt['equipo_a_nombre'];
+                            $mov = $pt['fecha'] !== $o['fecha'] || substr($pt['hora'], 0, 5) !== substr($o['hora'], 0, 5);
+                            echo e('Confirmada vs ' . $rv . ($mov ? ' · se movió al ' . rival_slot_texto($pt['fecha'], $pt['hora']) : ''));
+                        } else {
+                            echo e($ETQ_OP[$o['efectivo']] ?? $o['efectivo']);
+                        } ?></span>
+                    <?php if ($mal): ?>
+                    <form method="post" action="rival-accion.php" class="rv-reemplazo">
+                        <?= csrf_campo() ?><input type="hidden" name="accion" value="reemplazar"><input type="hidden" name="opcion" value="<?= (int)$o['id'] ?>">
+                        <label class="sr-only" for="r<?= (int)$o['id'] ?>">Nuevo horario</label>
+                        <select id="r<?= (int)$o['id'] ?>" name="slot" required>
+                            <option value="">Elegir otro horario…</option>
+                            <?php foreach ($cal as $d): foreach ($d['slots'] as $sl): if ($sl['estado'] !== 'libre') continue; ?>
+                                <option value="<?= e($sl['clave']) ?>"><?= e(rival_slot_texto($d['fecha'], $sl['hora'])) ?></option>
+                            <?php endforeach; endforeach; ?>
+                        </select>
+                        <button type="submit" class="btn btn--pri btn--chico">Reemplazar</button>
+                    </form>
+                    <?php endif; ?>
+                </li>
+            <?php endforeach; ?>
+            </ul>
+            <form method="post" action="rival-accion.php">
+                <?= csrf_campo() ?>
+                <button type="submit" name="accion" value="retirar" class="btn-texto btn-texto--peligro" data-confirmar="¿Retirar tus opciones que siguen libres? Los partidos ya confirmados se mantienen; las solicitudes pendientes se cancelan.">Retirar mis opciones libres</button>
+            </form>
+        <?php else: ?>
+            <p>Elige <b>3 horarios diferentes</b> en los próximos <?= RIVAL_DIAS ?> días en la cancha DICIFO y publícalos. Los equipos de tu grupo podrán elegirlos: puedes confirmar hasta 3 partidos, uno por horario.</p>
+            <form method="post" action="rival-accion.php" class="rv-cal" id="form-publicar">
+                <?= csrf_campo() ?><input type="hidden" name="accion" value="publicar">
+                <div class="rv-dias">
+                <?php foreach ($cal as $d): if (!array_filter($d['slots'], fn($s) => $s['estado'] !== 'pasado')) continue; ?>
+                    <fieldset class="rv-dia <?= $d['finde'] ? 'rv-dia--finde' : '' ?>">
+                        <legend><?= e($d['texto']) ?></legend>
+                        <?php foreach ($d['slots'] as $sl): $libre = $sl['estado'] === 'libre'; ?>
+                            <label class="rv-slot <?= $libre ? '' : 'rv-slot--off' ?>">
+                                <input type="checkbox" name="slots[]" value="<?= e($sl['clave']) ?>" <?= $libre ? '' : 'disabled' ?>>
+                                <span><?= e(rival_hora_texto($sl['hora'])) ?></span>
+                                <?php if (!$libre): ?><small><?= $sl['estado'] === 'pasado' ? 'pasó' : 'ocupado' ?></small><?php endif; ?>
+                            </label>
+                        <?php endforeach; ?>
+                    </fieldset>
+                <?php endforeach; ?>
+                </div>
+                <div class="rv-barra">
+                    <span class="rv-contador" id="contador" aria-live="polite">0 de <?= RIVAL_OPCIONES ?> horarios elegidos</span>
+                    <button type="submit" class="btn btn--pri" id="btn-publicar">Publicar mis 3 opciones</button>
+                </div>
+            </form>
+        <?php endif; ?>
+    </section>
+
+    <!-- ===== Rivales de mi grupo ===== -->
+    <section class="tarjeta" aria-labelledby="t-riv">
+        <h2 id="t-riv" class="tarjeta__titulo">Equipos de tu grupo buscando rival</h2>
+        <?php if (!$P['rivales']): ?>
+            <p class="texto-suave">Por ahora ningún equipo de tu grupo tiene opciones publicadas. Esta pantalla se actualiza sola.</p>
+        <?php else: ?>
+            <?php if (!$P['puedoSolicitar']): ?><p class="rv-alerta rv-alerta--info">Ya tienes <?= RIVAL_MAX_SOLICITUDES ?> solicitudes pendientes. Espera respuesta o cancela alguna para pedir otro horario.</p><?php endif; ?>
+            <?php foreach ($P['rivales'] as $r):
+                $motivoNo = $r['con_partido'] ? 'Ya tienes un partido confirmado contra este equipo'
+                          : ($r['mi_solicitud'] ? 'Ya le pediste un horario a este equipo'
+                          : (!$P['puedoSolicitar'] ? 'Ya tienes ' . RIVAL_MAX_SOLICITUDES . ' solicitudes pendientes' : '')); ?>
+            <div class="rv-rival">
+                <b class="rv-rival__nombre"><?= e($r['equipo_nombre']) ?></b>
+                <?php if ($r['mi_solicitud']): ?><p class="texto-suave rv-rival__nota">Le pediste el <?= e(rival_slot_texto($r['mi_solicitud']['fecha'], $r['mi_solicitud']['hora'])) ?> · esperando confirmación.</p>
+                <?php elseif ($r['con_partido']): ?><p class="texto-suave rv-rival__nota">Ya tienes un partido confirmado contra este equipo.</p><?php endif; ?>
+                <div class="rv-rival__ops">
+                <?php foreach ($r['opciones'] as $o): ?>
+                    <form method="post" action="rival-accion.php">
+                        <?= csrf_campo() ?><input type="hidden" name="accion" value="solicitar"><input type="hidden" name="opcion" value="<?= (int)$o['id'] ?>">
+                        <button type="submit" class="rv-elegir" <?= $motivoNo !== '' ? 'disabled title="' . e($motivoNo) . '"' : '' ?>
+                                data-confirmar="¿Pedir jugar contra <?= e($r['equipo_nombre']) ?> el <?= e(rival_slot_texto($o['fecha'], $o['hora'])) ?>?">
+                            <?= e(rival_slot_texto($o['fecha'], $o['hora'])) ?><small>Elegir este horario</small>
+                        </button>
+                    </form>
+                <?php endforeach; ?>
+                </div>
+            </div>
+            <?php endforeach; ?>
+        <?php endif; ?>
+    </section>
+
+    <p class="rv-vivo texto-suave" id="rv-vivo">Se actualiza automáticamente.</p>
+<?php endif; ?>
+
+<?php if ($ctx['rol'] === 'capitan'): ?>
+    <div class="salida-capitan">
+        <form method="post" action="salir.php" class="form-volver">
+            <?= csrf_campo() ?>
+            <button type="submit" class="btn btn--sec btn--ancho"><?= ($ctx['origen'] ?? '') === 'simulacion' && es_entorno_pruebas() ? 'Salir de la simulación (pruebas)' : '← Volver a mi estado de cuenta' ?></button>
+        </form>
+    </div>
+<?php endif; ?>
+</main>
+</body>
+</html>

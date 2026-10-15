@@ -1,12 +1,12 @@
 # ligachapingo.com — sitio público de Liga Chapingo
 # Este archivo va en la raíz (public_html). La app de arbitrajes conserva el suyo.
 
-# Fuerza HTTPS (quita los # cuando el dominio ya tenga certificado)
-# <IfModule mod_rewrite.c>
-#   RewriteEngine On
-#   RewriteCond %{HTTPS} !=on
-#   RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
-# </IfModule>
+Fuerza HTTPS (quita los # cuando el dominio ya tenga certificado)
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteCond %{HTTPS} !=on
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+ </IfModule>
 
 DirectoryIndex index.html index.php
 Options -Indexes

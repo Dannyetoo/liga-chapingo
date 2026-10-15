@@ -1,0 +1,76 @@
+/* Liga Chapingo — Panel admin de coincidencias (usa los tokens de disponibilidad.css) */
+.cabecera--admin { background: #14201a; }
+.cabecera--admin .marca__logo { background: var(--acento); }
+
+.rejilla-coinc { display: grid; grid-template-columns: minmax(0, 1fr); gap: 12px; margin-top: 8px; }
+@media (min-width: 640px) { .rejilla-coinc { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 980px) { .rejilla-coinc { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+
+.enfrentamiento { margin: 4px 0; font-size: 22px; font-weight: 900; font-style: italic; text-transform: uppercase; letter-spacing: .01em; }
+.enfrentamiento span { color: var(--acento); font-size: 16px; margin: 0 6px; font-style: normal; }
+
+.fecha-res { border-top: 1px solid var(--linea); padding: 14px 0; }
+.fecha-res__titulo { margin: 0 0 10px; font-size: 16px; font-weight: 800; text-transform: uppercase; letter-spacing: .03em; }
+.fecha-res__titulo small { display: block; text-transform: none; letter-spacing: 0; font-weight: 500; color: var(--suave); font-size: 13px; margin-top: 2px; }
+.fecha-res--sin .fecha-res__titulo { color: var(--suave); }
+
+.slots { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 8px; }
+.slots li { background: var(--verde-claro); color: var(--verde); border: 1.5px solid color-mix(in srgb, var(--verde) 25%, transparent);
+  border-radius: 10px; padding: 8px 10px; text-align: center; font-weight: 800; font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+.plegable { margin-top: 10px; }
+.plegable summary { cursor: pointer; color: var(--verde); font-weight: 700; font-size: 14px; list-style-position: outside; }
+.plegable--seccion > summary { color: var(--tinta); }
+.tarjeta__titulo--inline { display: inline; font-size: 18px; }
+
+.detalle { margin-top: 8px; border: 1px solid var(--linea); border-radius: 10px; overflow: hidden; }
+.detalle__fila { display: grid; grid-template-columns: minmax(110px, 30%) 1fr; gap: 2px 12px; padding: 8px 12px; font-size: 14px; }
+.detalle__fila + .detalle__fila { border-top: 1px solid var(--linea); }
+.detalle__fila--res { background: var(--fondo); }
+.detalle__eq { font-weight: 800; }
+.detalle__horas { font-variant-numeric: tabular-nums; font-weight: 600; }
+.detalle__horas--no { color: var(--rojo); }
+.detalle__nota { grid-column: 2; color: var(--suave); font-size: 13px; }
+@media (max-width: 480px) { .slots { grid-template-columns: repeat(2, minmax(0, 1fr)); } .detalle__fila { grid-template-columns: 1fr; } .detalle__nota { grid-column: 1; } }
+
+.motivo { margin: 0 0 6px; font-weight: 600; }
+.enlace-vuelta a { color: var(--verde); font-weight: 700; }
+
+/* Fase 4 */
+.nav-admin { display: flex; gap: 4px; flex-wrap: wrap; padding-bottom: 10px; }
+.nav-admin a { color: rgba(255,255,255,.8); text-decoration: none; font-weight: 700; font-size: 14px; padding: 6px 12px; border-radius: 999px; }
+.nav-admin a:hover { background: rgba(255,255,255,.1); color: #fff; }
+.nav-admin a[aria-current="page"] { background: var(--acento); color: #14201a; }
+.enfrentamiento__cancha { display: inline-block; font-style: normal; font-size: 15px; font-weight: 800; color: var(--suave); margin-left: 6px; text-transform: uppercase; }
+.detalle__eq small { font-weight: 700; font-size: 10px; text-transform: uppercase; letter-spacing: .06em; color: var(--suave); background: var(--fondo); border: 1px solid var(--linea); border-radius: 999px; padding: 1px 6px; margin-left: 4px; }
+.detalle__fila--cancha { background: color-mix(in srgb, var(--acento) 8%, transparent); }
+
+.lista-canchas { list-style: none; margin: 8px 0 0; padding: 0; display: grid; gap: 6px; }
+.cancha-fila { display: flex; align-items: center; gap: 10px; border: 1.5px solid var(--linea); border-radius: 12px; padding: 6px 8px 6px 14px; }
+.cancha-fila.is-sel { border-color: var(--verde-2); box-shadow: inset 4px 0 0 var(--verde-2); }
+.cancha-fila.is-inactiva .cancha-fila__nombre b { color: var(--suave); }
+.cancha-fila__nombre { flex: 1; min-width: 0; color: var(--tinta); text-decoration: none; padding: 6px 0; }
+.cancha-fila__nombre b { font-weight: 900; text-transform: uppercase; font-style: italic; letter-spacing: .01em; }
+.cancha-fila__nombre small { display: block; color: var(--suave); font-size: 13px; }
+.cancha-fila form { margin: 0; }
+.campo--boton { display: flex; align-items: flex-end; }
+.campo--boton .btn { width: 100%; }
+.equipo-activo--cancha { margin: 0 0 18px; background: var(--tarjeta); border: 1px solid var(--linea); }
+
+/* Resumen de registro por equipo */
+.barra-avance { height: 10px; background: var(--fondo); border: 1px solid var(--linea); border-radius: 999px; overflow: hidden; margin: -4px 0 16px; }
+.barra-avance span { display: block; height: 100%; background: var(--verde-2); border-radius: 999px; }
+.lista-registro { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+.registro { display: flex; align-items: center; gap: 10px; border: 1px solid var(--linea); border-radius: 12px; padding: 8px 10px; flex-wrap: wrap; }
+.registro form { margin: 0; }
+.registro__marca { width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center; font-weight: 900; flex: none; }
+.registro--ok .registro__marca { background: var(--verde-claro); color: var(--verde); }
+.registro--pend .registro__marca { background: var(--fondo); color: var(--suave); border: 1.5px dashed var(--linea); }
+.registro__info { flex: 1; min-width: 160px; }
+.registro__info b { display: block; font-weight: 800; }
+.registro__info small { color: var(--suave); font-size: 13px; }
+.registro--pend .registro__info b { color: var(--suave); }
+.vinculo-ok { display: block; color: var(--verde) !important; margin-top: 2px; }
+.form-vincular { display: flex; gap: 6px; align-items: center; margin: 0; flex: 1 1 260px; max-width: 360px; }
+.form-vincular select { min-height: 38px; padding: 6px 8px; font-size: 14px; }
+.registro code { font-size: 11px; }

@@ -1,0 +1,88 @@
+/* «Busca un rival» — mismo estilo de disponibilidad.css */
+:root { --ambar: #b7791f; --ambar-claro: #fdf6e3; }
+@media (prefers-color-scheme: dark) { :root { --ambar: #f2c230; --ambar-claro: #2a2410; } }
+.rv { padding-bottom: 24px; }
+.btn--chico { min-height: 40px; padding: 8px 14px; font-size: 14px; }
+
+.rv-pasos { list-style: none; margin: 12px 0 4px; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; counter-reset: paso; }
+.rv-pasos li { counter-increment: paso; font-size: 13px; font-weight: 700; padding: 6px 10px; border-radius: 999px; background: var(--fondo); color: var(--suave); border: 1px solid var(--linea); }
+.rv-pasos li::before { content: counter(paso) ". "; }
+.rv-pasos li.es-hecho { background: var(--verde-claro); color: var(--verde); border-color: transparent; }
+.rv-pasos li.es-actual { background: var(--verde); color: #fff; border-color: var(--verde); }
+@media (prefers-color-scheme: dark) { .rv-pasos li.es-actual { color: #0d1311; } }
+.rv-alerta { margin: 10px 0 0; padding: 10px 12px; border-radius: 10px; background: var(--rojo-claro); border-left: 4px solid var(--rojo); font-size: 15px; }
+
+.rv-urgente { border: 2px solid var(--ambar); background: var(--ambar-claro); }
+.rv-espera { border: 2px dashed var(--ambar); }
+.rv-confirmados { border: 2px solid var(--verde-2); }
+.rv-partido { display: grid; gap: 2px; padding: 12px; border-radius: 12px; background: var(--verde-claro); margin-top: 8px; }
+.rv-partido__cuando { font-weight: 800; color: var(--verde); }
+.rv-partido__vs { font-size: 18px; }
+
+.rv-sol { display: flex; flex-wrap: wrap; gap: 10px; justify-content: space-between; align-items: center; padding: 12px 0; border-top: 1px solid var(--linea); }
+.rv-sol span { display: block; font-size: 14px; }
+.rv-sol__acc { display: flex; gap: 8px; flex-wrap: wrap; margin: 0; }
+
+.rv-ops { list-style: none; margin: 8px 0 10px; padding: 0; display: grid; gap: 8px; }
+.rv-op { display: flex; flex-wrap: wrap; gap: 8px 12px; align-items: center; padding: 12px; border: 1.5px solid var(--linea); border-radius: 12px; }
+.rv-op--mal { border-color: var(--rojo); background: var(--rojo-claro); }
+.rv-op__cuando { font-weight: 800; flex: 1 1 180px; }
+.rv-et { font-size: 12px; font-weight: 800; padding: 3px 9px; border-radius: 999px; background: var(--verde-claro); color: var(--verde); }
+.rv-et--ocupada, .rv-et--vencida, .rv-et--fuera { background: var(--tarjeta); color: var(--rojo); border: 1px solid var(--rojo); }
+.rv-reemplazo { display: flex; gap: 8px; flex: 1 1 100%; margin: 0; }
+.rv-reemplazo select { flex: 1; }
+
+.rv-dias { display: grid; grid-template-columns: 1fr; gap: 10px; }
+@media (min-width: 640px) { .rv-dias { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 960px) { .rv-dias { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.rv-dia { border: 1.5px solid var(--linea); border-radius: 12px; padding: 10px; display: flex; flex-wrap: wrap; gap: 6px; }
+.rv-dia--finde { border-color: var(--verde-2); }
+.rv-dia legend { font-weight: 800; font-size: 14px; padding: 0 6px; }
+.rv-slot { position: relative; display: inline-flex; flex-direction: column; align-items: center; cursor: pointer; }
+.rv-slot input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+.rv-slot span { display: block; min-width: 92px; min-height: 44px; padding: 10px 8px; text-align: center; border-radius: 10px; border: 1.5px solid var(--linea); font-weight: 700; font-size: 14px; background: var(--tarjeta); }
+.rv-slot input:checked + span { background: var(--verde); color: #fff; border-color: var(--verde); }
+@media (prefers-color-scheme: dark) { .rv-slot input:checked + span { color: #0d1311; } }
+.rv-slot input:focus-visible + span { outline: 3px solid color-mix(in srgb, var(--verde) 40%, transparent); }
+.rv-slot input:disabled + span { opacity: .45; cursor: not-allowed; }
+.rv-slot--off span { text-decoration: line-through; }
+.rv-slot small { font-size: 11px; color: var(--suave); }
+.rv-barra { position: sticky; bottom: 0; background: var(--tarjeta); display: flex; flex-wrap: wrap; gap: 10px; align-items: center; justify-content: space-between; padding: 12px 0 4px; margin-top: 10px; border-top: 1px solid var(--linea); }
+.rv-contador { font-weight: 800; color: var(--suave); }
+.rv-contador--ok { color: var(--verde); }
+@media (max-width: 560px) { .rv-barra .btn { width: 100%; } }
+
+.rv-rival { padding: 12px 0; border-top: 1px solid var(--linea); }
+.rv-rival__nombre { display: block; font-size: 17px; margin-bottom: 8px; }
+.rv-rival__ops { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 8px; }
+.rv-rival__ops form { margin: 0; }
+.rv-elegir { appearance: none; width: 100%; min-height: 56px; text-align: left; font: inherit; font-weight: 800; padding: 10px 12px; border-radius: 12px; border: 1.5px solid var(--verde-2); background: var(--tarjeta); color: var(--tinta); cursor: pointer; }
+.rv-elegir small { display: block; font-weight: 600; font-size: 12px; color: var(--verde); text-transform: none; }
+.rv-elegir:hover:not(:disabled) { background: var(--verde-claro); }
+.rv-elegir:disabled { opacity: .5; cursor: not-allowed; }
+.rv-vivo { text-align: center; font-size: 13px; }
+
+/* Fase 7: varios partidos por publicación y reprogramaciones */
+.rv-reglas { margin: 10px 0 0; font-size: 14px; }
+.rv-alerta--info { background: var(--ambar-claro); border-left-color: var(--ambar); margin: 0 0 8px; }
+.rv-op--ok { border-color: var(--verde-2); background: var(--verde-claro); }
+.rv-sol--reprog { border-top: 2px dashed var(--ambar); }
+.rv-sol--reprog s { opacity: .7; }
+.rv-rival__nota { margin: -4px 0 8px; font-size: 14px; }
+.rv-reprog-estado { margin-top: 8px; padding: 10px 12px; border-radius: 10px; background: var(--ambar-claro); border-left: 4px solid var(--ambar); font-size: 14px; }
+.rv-reprog-estado form { margin: 4px 0 0; }
+.rv-reprog { margin-top: 8px; }
+.rv-reprog summary { cursor: pointer; font-weight: 800; color: var(--verde); padding: 8px 0; min-height: 40px; }
+.rv-reprog__form { display: grid; gap: 10px; margin: 4px 0 0; padding: 12px; border-radius: 12px; background: var(--tarjeta); border: 1.5px solid var(--linea); }
+.rv-reprog__form .campo { display: grid; gap: 4px; margin: 0; }
+.rv-reprog__form .campo span { font-size: 13px; font-weight: 700; }
+.rv-reprog__form select, .rv-reprog__form input[type="text"] { width: 100%; min-height: 44px; }
+@media (max-width: 560px) { .rv-reprog__form .btn { width: 100%; } }
+.rv-reprog-no { margin: 8px 0 0; font-size: 13px; }
+/* Avisos en el celular */
+.rv-push { border: 2px solid var(--verde-2); }
+.rv-push__acc { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-top: 6px; }
+.rv-push__ok { color: var(--verde); font-weight: 700; }
+.rv-push__err { color: var(--rojo); font-weight: 700; }
+.rv-push__n { margin: 8px 0 0; font-size: 13px; }
+.rv-push [hidden] { display: none !important; }

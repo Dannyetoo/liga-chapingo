@@ -1,0 +1,184 @@
+--- capitanes-originales/api.php	2026-09-23 08:16:06.613567247 -0600
++++ capitanes/api.php	2026-09-23 08:16:29.231587878 -0600
+@@ -18,6 +18,9 @@
+      GET  api.php?a=sesion             -> {ok, auth, equipo}
+      GET  api.php?a=estado             -> {ok, equipo, resumen, movs, multas}
+      GET  api.php?a=salir              -> {ok}
++     POST api.php?a=disponibilidad     -> {ok, url, pase}   (pase firmado de un solo uso
++                                         para abrir /disponibilidad/ con el equipo de la
++                                         sesión; no lee ni escribe finanzas)
+    ===================================================================== */
+ 
+ declare(strict_types=1);
+@@ -190,6 +193,20 @@
+ }
+ $_SESSION['visto'] = time();
+ 
++/* ---------- puente a «Disponibilidad del equipo» ----------
++   Sólo con la sesión de capitán ya abierta (arriba). El equipo del pase
++   sale de la sesión, nunca del navegador. No toca estado.json. */
++if ($a === 'disponibilidad') {
++    if (($_SERVER['REQUEST_METHOD'] ?? '') !== 'POST') {
++        salida(['ok' => false, 'error' => 'Método no permitido.'], 405);
++    }
++    $pase = paseDisponibilidad(texto($_SESSION['equipoId']));
++    if ($pase === '') {
++        salida(['ok' => false, 'error' => 'La disponibilidad del equipo todavía no está habilitada. Avisa a la mesa directiva.'], 503);
++    }
++    salida(['ok' => true, 'url' => '../disponibilidad/entrar.php', 'pase' => $pase]);
++}
++
+ /* ---------- estado de cuenta del equipo de la sesión ---------- */
+ if ($a === 'estado') {
+     $d = leerEstadoArbitrajes();
+--- capitanes-originales/codigos-lib.php	2026-09-23 08:16:06.613545012 -0600
++++ capitanes/codigos-lib.php	2026-09-23 08:16:21.023551226 -0600
+@@ -90,3 +90,65 @@
+        equivocado. */
+     return $cuantos === 1 ? $hallado : '';
+ }
++
++/* =====================================================================
++   PUENTE A «DISPONIBILIDAD DEL EQUIPO»  (/disponibilidad/)
++
++   El portal de capitanes y el módulo de disponibilidad usan cookies
++   distintas a propósito. Para pasar de uno a otro SIN pedir otra vez el
++   código, el portal entrega un PASE firmado con HMAC que:
++     · lleva únicamente el id del equipo de la sesión (el del estado.json);
++     · vence en PUENTE_VIGENCIA segundos;
++     · trae un número único (nonce) para que disponibilidad lo acepte
++       una sola vez.
++   La clave del pase se DERIVA de SEMILLA_CAPITANES con otra etiqueta:
++   un pase no sirve como código de capitán ni al revés.
++   Nada de esto lee ni escribe información financiera.
++   ===================================================================== */
++
++const PUENTE_VIGENCIA = 120;   /* segundos */
++
++function b64urlCod(string $s): string {
++    return rtrim(strtr(base64_encode($s), '+/', '-_'), '=');
++}
++function b64urlDec(string $s) {
++    return base64_decode(strtr($s, '-_', '+/') . str_repeat('=', (4 - strlen($s) % 4) % 4), true);
++}
++function clavePuente(): string {
++    if (!defined('SEMILLA_CAPITANES') || strlen((string)SEMILLA_CAPITANES) < 16) return '';
++    return hash_hmac('sha256', 'puente-disponibilidad:v1', SEMILLA_CAPITANES, true);
++}
++
++/** Pase de un solo uso para el equipo de la sesión. '' si la semilla no está configurada. */
++function paseDisponibilidad(string $equipoId): string {
++    $k = clavePuente();
++    if ($k === '' || $equipoId === '') return '';
++    $carga = json_encode([
++        'v' => 1,
++        'e' => $equipoId,
++        'x' => time() + PUENTE_VIGENCIA,
++        'n' => bin2hex(random_bytes(16)),
++    ], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
++    $c = b64urlCod($carga);
++    return $c . '.' . b64urlCod(hash_hmac('sha256', $c, $k, true));
++}
++
++/**
++ * Verifica firma y vigencia de un pase. Devuelve ['equipoId','nonce','vence'] o null.
++ * (Que no se haya usado antes lo comprueba quien lo recibe.)
++ */
++function verificaPaseDisponibilidad(string $pase): ?array {
++    $k = clavePuente();
++    if ($k === '' || strlen($pase) > 600 || substr_count($pase, '.') !== 1) return null;
++    [$c, $f] = explode('.', $pase, 2);
++    $firma = b64urlDec($f);
++    if ($firma === false || !hash_equals(hash_hmac('sha256', $c, $k, true), $firma)) return null;
++    $j = json_decode((string)b64urlDec($c), true);
++    if (!is_array($j) || ($j['v'] ?? 0) !== 1) return null;
++    $e = is_string($j['e'] ?? null) ? $j['e'] : '';
++    $x = is_int($j['x'] ?? null) ? $j['x'] : 0;
++    $n = is_string($j['n'] ?? null) ? $j['n'] : '';
++    if ($e === '' || !preg_match('/^[0-9a-f]{32}$/', $n)) return null;
++    if ($x < time() || $x > time() + PUENTE_VIGENCIA + 5) return null;
++    return ['equipoId' => $e, 'nonce' => $n, 'vence' => $x];
++}
+--- capitanes-originales/index.html	2026-09-23 08:16:06.613588347 -0600
++++ capitanes/index.html	2026-09-23 08:16:46.097453316 -0600
+@@ -119,6 +119,25 @@
+ .tk svg{width:17px;height:17px}
+ .vacio{padding:34px 20px;text-align:center;color:var(--gris);font-size:14.5px}
+ 
++/* disponibilidad del equipo (acceso al módulo /disponibilidad/) */
++.disp{display:flex;align-items:center;gap:16px;width:100%;text-align:left;cursor:pointer;
++  background:linear-gradient(135deg,var(--verde) 0%,#175B3B 100%);color:#fff;border:0;border-radius:var(--r);
++  padding:18px 20px;box-shadow:var(--sombra);border-left:6px solid var(--oro);font:inherit;
++  transition:transform .12s ease,box-shadow .12s ease}
++.disp:hover{box-shadow:0 10px 28px rgba(12,53,35,.18)}
++.disp:active{transform:translateY(1px)}
++.disp:focus-visible{outline:3px solid var(--oro-claro);outline-offset:2px}
++.disp[disabled]{opacity:.7;cursor:progress}
++.disp .ico{flex:none;width:48px;height:48px;border-radius:12px;background:rgba(255,255,255,.14);
++  display:flex;align-items:center;justify-content:center}
++.disp .ico svg{width:26px;height:26px}
++.disp .txt{flex:1;min-width:0}
++.disp .txt strong{display:block;font-family:var(--display);font-weight:700;font-size:25px;line-height:1.05;letter-spacing:.01em}
++.disp .txt small{display:block;font-size:13.5px;color:#D5E8DC;margin-top:4px;line-height:1.35}
++.disp .fl{flex:none;font-size:30px;line-height:1;color:var(--oro-claro)}
++.disp-err{display:none;margin-top:10px}
++.disp-err.ver{display:block}
++
+ /* multas */
+ .fila.multa{grid-template-columns:minmax(0,1fr) 104px 104px 108px}
+ 
+@@ -227,6 +246,19 @@
+   <main>
+     <div class="wrap">
+ 
++      <section class="seccion" id="seccion-disponibilidad">
++        <button class="disp" id="btn-disponibilidad" type="button">
++          <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
++            <rect x="3.5" y="5" width="17" height="15" rx="2.5"/><path d="M3.5 9.5h17M8 3v4M16 3v4M8 13.5h2M14 13.5h2M8 16.8h2"/></svg></span>
++          <span class="txt">
++            <strong>Disponibilidad del equipo</strong>
++            <small>Registra los días y horarios en los que tu equipo puede jugar.</small>
++          </span>
++          <span class="fl" aria-hidden="true">›</span>
++        </button>
++        <div class="err disp-err" id="error-disponibilidad" role="alert"></div>
++      </section>
++
+       <section class="seccion">
+         <div class="titulo">
+           <h2>Movimientos</h2>
+@@ -487,6 +519,34 @@
+   b.disabled = true; b.textContent = 'Actualizando…';
+   cargar().then(function(){ b.disabled = false; b.textContent = 'Actualizar'; });
+ };
++/* ---------- disponibilidad del equipo ----------
++   El servidor entrega un pase de un solo uso para el equipo de ESTA sesión y se
++   envía por POST (no queda en la URL ni en el historial). */
++$('btn-disponibilidad').onclick = function(){
++  var b = $('btn-disponibilidad'), er = $('error-disponibilidad');
++  er.classList.remove('ver');
++  b.disabled = true;
++  pedir('disponibilidad', {}).then(function(r){
++    if(r && r.auth === false){ cerrarPortal(); return; }
++    if(!r || !r.ok || !r.pase){
++      b.disabled = false;
++      er.textContent = (r && r.error) || 'No se pudo abrir la disponibilidad. Inténtalo de nuevo.';
++      er.classList.add('ver');
++      return;
++    }
++    var f = document.createElement('form');
++    f.method = 'post'; f.action = r.url || '../disponibilidad/entrar.php';
++    var i = document.createElement('input');
++    i.type = 'hidden'; i.name = 'pase'; i.value = r.pase;
++    f.appendChild(i); document.body.appendChild(f); f.submit();
++  }).catch(function(){
++    b.disabled = false;
++    er.textContent = 'No se pudo contactar al servidor. Revisa tu conexión.';
++    er.classList.add('ver');
++  });
++};
++window.addEventListener('pageshow', function(){ $('btn-disponibilidad').disabled = false; });
++
+ $('btn-salir').onclick = function(){
+   pedir('salir').then(cerrarPortal).catch(cerrarPortal);
+ };

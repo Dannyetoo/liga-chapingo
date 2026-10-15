@@ -90,3 +90,65 @@ function equipoPorCodigo(array $equipos, string $codigo): string {
        equivocado. */
     return $cuantos === 1 ? $hallado : '';
 }
+
+/* =====================================================================
+   PUENTE A «DISPONIBILIDAD DEL EQUIPO»  (/disponibilidad/)
+
+   El portal de capitanes y el módulo de disponibilidad usan cookies
+   distintas a propósito. Para pasar de uno a otro SIN pedir otra vez el
+   código, el portal entrega un PASE firmado con HMAC que:
+     · lleva únicamente el id del equipo de la sesión (el del estado.json);
+     · vence en PUENTE_VIGENCIA segundos;
+     · trae un número único (nonce) para que disponibilidad lo acepte
+       una sola vez.
+   La clave del pase se DERIVA de SEMILLA_CAPITANES con otra etiqueta:
+   un pase no sirve como código de capitán ni al revés.
+   Nada de esto lee ni escribe información financiera.
+   ===================================================================== */
+
+const PUENTE_VIGENCIA = 120;   /* segundos */
+
+function b64urlCod(string $s): string {
+    return rtrim(strtr(base64_encode($s), '+/', '-_'), '=');
+}
+function b64urlDec(string $s) {
+    return base64_decode(strtr($s, '-_', '+/') . str_repeat('=', (4 - strlen($s) % 4) % 4), true);
+}
+function clavePuente(): string {
+    if (!defined('SEMILLA_CAPITANES') || strlen((string)SEMILLA_CAPITANES) < 16) return '';
+    return hash_hmac('sha256', 'puente-disponibilidad:v1', SEMILLA_CAPITANES, true);
+}
+
+/** Pase de un solo uso para el equipo de la sesión. '' si la semilla no está configurada. */
+function paseDisponibilidad(string $equipoId): string {
+    $k = clavePuente();
+    if ($k === '' || $equipoId === '') return '';
+    $carga = json_encode([
+        'v' => 1,
+        'e' => $equipoId,
+        'x' => time() + PUENTE_VIGENCIA,
+        'n' => bin2hex(random_bytes(16)),
+    ], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+    $c = b64urlCod($carga);
+    return $c . '.' . b64urlCod(hash_hmac('sha256', $c, $k, true));
+}
+
+/**
+ * Verifica firma y vigencia de un pase. Devuelve ['equipoId','nonce','vence'] o null.
+ * (Que no se haya usado antes lo comprueba quien lo recibe.)
+ */
+function verificaPaseDisponibilidad(string $pase): ?array {
+    $k = clavePuente();
+    if ($k === '' || strlen($pase) > 600 || substr_count($pase, '.') !== 1) return null;
+    [$c, $f] = explode('.', $pase, 2);
+    $firma = b64urlDec($f);
+    if ($firma === false || !hash_equals(hash_hmac('sha256', $c, $k, true), $firma)) return null;
+    $j = json_decode((string)b64urlDec($c), true);
+    if (!is_array($j) || ($j['v'] ?? 0) !== 1) return null;
+    $e = is_string($j['e'] ?? null) ? $j['e'] : '';
+    $x = is_int($j['x'] ?? null) ? $j['x'] : 0;
+    $n = is_string($j['n'] ?? null) ? $j['n'] : '';
+    if ($e === '' || !preg_match('/^[0-9a-f]{32}$/', $n)) return null;
+    if ($x < time() || $x > time() + PUENTE_VIGENCIA + 5) return null;
+    return ['equipoId' => $e, 'nonce' => $n, 'vence' => $x];
+}

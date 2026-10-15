@@ -87,7 +87,7 @@ function semilla(): array {
         ],
         'hero' => [
             'eyebrow' => 'Tercera Edición 2026',
-            'titulo'  => 'La liga de Chapingo, en una sola página',
+            'titulo'  => 'Primer torneo de Campeón de Campeones departamentales 2026',
             'texto'   => 'Convocatorias, inscripciones, clasificaciones, disciplinas, categorías y campeones. Si eres capitán, aquí mismo consultas el estado de cuenta de tu equipo.',
             'imagen'  => '',
         ],

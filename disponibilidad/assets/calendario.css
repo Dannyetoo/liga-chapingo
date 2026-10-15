@@ -1,0 +1,95 @@
+/* Liga Chapingo — Calendario mensual (30-sep-2026). Usa las variables de cada pantalla
+   (--tinta, --suave, --linea, --tarjeta, --fondo) con valores de respaldo. */
+.calm { --calm-tinta: var(--tinta, #14201a); --calm-suave: var(--suave, #5c6b63); --calm-linea: var(--linea, #dbe3de);
+        --calm-fondo: var(--fondo, #f4f6f5); --calm-tarjeta: var(--tarjeta, #fff); --calm-acento: #123B63;
+        --calm-sel: color-mix(in srgb, var(--calm-acento) 12%, transparent);
+        color: var(--calm-tinta); font-variant-numeric: tabular-nums; }
+@media (prefers-color-scheme: dark) { .calm { --calm-acento: #7DB3F0; } }
+
+/* Colores por tipo (punto, chip y línea del detalle) */
+.calm-t--mio, .calm-t--confirmado { --c: #123B63; }
+.calm-t--primera   { --c: #1D5FA8; }
+.calm-t--segunda   { --c: #C2570C; }
+.calm-t--otra      { --c: #6B7280; }
+.calm-t--propuesta { --c: #B7791F; }
+.calm-t--horario   { --c: #2F855A; }
+.calm-t--jugado    { --c: #8A94A0; }
+.calm-t--ocupado   { --c: #A0A8B2; }
+@media (prefers-color-scheme: dark) {
+  .calm-t--mio, .calm-t--confirmado { --c: #7DB3F0; }
+  .calm-t--primera { --c: #7DB3F0; } .calm-t--segunda { --c: #F5A25D; } .calm-t--otra { --c: #9CA3AF; }
+  .calm-t--propuesta { --c: #F2C94C; } .calm-t--horario { --c: #68D391; }
+  .calm-t--jugado { --c: #7B8490; } .calm-t--ocupado { --c: #6B7480; }
+}
+
+.calm__cab { display: flex; align-items: center; gap: 6px; margin-bottom: 10px; }
+.calm__mes { flex: 1; margin: 0; font-size: 17px; font-weight: 800; text-align: center; letter-spacing: .01em; }
+.calm__nav, .calm__hoy { border: 1.5px solid var(--calm-linea); background: var(--calm-tarjeta); color: var(--calm-tinta);
+  border-radius: 10px; min-width: 38px; height: 38px; font: inherit; font-size: 20px; font-weight: 700; cursor: pointer; line-height: 1; }
+.calm__hoy { font-size: 13px; padding: 0 12px; order: -1; }
+.calm__nav:hover, .calm__hoy:hover { border-color: var(--calm-acento); }
+.calm__nav:focus-visible, .calm__hoy:focus-visible, .calm__celda:focus-visible, .calm__tipo:focus-visible { outline: 3px solid color-mix(in srgb, var(--calm-acento) 35%, transparent); outline-offset: 1px; }
+
+.calm__leyenda { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 10px; }
+.calm__tipo { display: inline-flex; align-items: center; gap: 6px; font: inherit; font-size: 12.5px; font-weight: 700; cursor: pointer;
+  padding: 4px 10px; border-radius: 999px; border: 1.5px solid var(--calm-linea); background: var(--calm-tarjeta); color: var(--calm-tinta); }
+.calm__tipo[aria-pressed="false"] { opacity: .45; text-decoration: line-through; }
+.calm__punto { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--c, var(--calm-suave)); flex: none; }
+.calm-t--propuesta .calm__punto { background: transparent; box-shadow: inset 0 0 0 2px var(--c); }
+.calm-t--horario .calm__punto { border-radius: 2px; }
+
+.calm__rejilla { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 4px; }
+.calm__rejilla--der { animation: calm-der .22s ease-out; }
+.calm__rejilla--izq { animation: calm-izq .22s ease-out; }
+@keyframes calm-der { from { opacity: .3; transform: translateX(14px); } to { opacity: 1; transform: none; } }
+@keyframes calm-izq { from { opacity: .3; transform: translateX(-14px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .calm__rejilla--der, .calm__rejilla--izq { animation: none; } }
+.calm__dow { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: .06em; color: var(--calm-suave); text-align: center; padding: 2px 0 4px; }
+
+.calm__celda { position: relative; display: flex; flex-direction: column; align-items: stretch; gap: 3px; min-height: 76px; padding: 5px;
+  border: 1px solid var(--calm-linea); border-radius: 10px; background: var(--calm-tarjeta); color: inherit; font: inherit; text-align: left; cursor: pointer; overflow: hidden; }
+.calm__celda--vacia { background: transparent; border-color: transparent; cursor: default; }
+.calm__celda--finde { background: color-mix(in srgb, var(--calm-fondo) 70%, var(--calm-tarjeta)); }
+.calm__celda--pasado .calm__num { opacity: .5; }
+.calm__celda--pasado .calm__chips { opacity: .7; }
+.calm__celda:hover { border-color: color-mix(in srgb, var(--calm-acento) 50%, var(--calm-linea)); }
+.calm__celda[aria-pressed="true"] { border-color: var(--calm-acento); box-shadow: 0 0 0 1.5px var(--calm-acento); background: var(--calm-sel); }
+.calm__num { font-size: 13px; font-weight: 800; line-height: 1.2; }
+.calm__celda--hoy .calm__num { display: inline-grid; place-items: center; min-width: 22px; height: 22px; border-radius: 999px; background: var(--calm-acento); color: #fff; align-self: flex-start; padding: 0 5px; }
+@media (prefers-color-scheme: dark) { .calm__celda--hoy .calm__num { color: #0A2948; } }
+.calm__chips { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.calm__chip { display: flex; align-items: center; gap: 4px; min-width: 0; font-size: 11px; font-weight: 600; line-height: 1.25;
+  padding: 1px 4px; border-radius: 5px; background: color-mix(in srgb, var(--c) 12%, transparent); }
+.calm-t--propuesta.calm__chip { background: transparent; outline: 1px dashed color-mix(in srgb, var(--c) 70%, transparent); outline-offset: -1px; }
+.calm-t--ocupado.calm__chip, .calm-t--jugado.calm__chip { background: color-mix(in srgb, var(--c) 10%, transparent); color: var(--calm-suave); }
+.calm__chip-t { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.calm__mas { font-size: 11px; font-weight: 800; color: var(--calm-suave); padding-left: 4px; }
+
+/* Celular: puntos en lugar de textos */
+@media (max-width: 620px) {
+  .calm__rejilla { gap: 3px; }
+  .calm__celda { min-height: 48px; padding: 4px 3px; align-items: center; border-radius: 8px; }
+  .calm__celda--hoy .calm__num { align-self: center; }
+  .calm__chips { flex-direction: row; flex-wrap: wrap; justify-content: center; gap: 3px; }
+  .calm__chip { padding: 0; background: none !important; outline: none !important; }
+  .calm__chip-t { display: none; }
+  .calm__mas { font-size: 10px; padding: 0; }
+  .calm__dow { font-size: 10px; letter-spacing: .02em; }
+}
+
+.calm__detalle { margin-top: 12px; }
+.calm__detalle-t { margin: 0 0 8px; font-size: 14.5px; font-weight: 800; }
+.calm__vacio { margin: 8px 0 0; color: var(--calm-suave); font-size: 14px; }
+.calm__lista { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+.calm__ev { display: flex; gap: 12px; align-items: baseline; padding: 9px 12px; border-radius: 10px; background: var(--calm-tarjeta);
+  border: 1px solid var(--calm-linea); box-shadow: inset 4px 0 0 var(--c); }
+.calm-t--propuesta.calm__ev { border-style: dashed; }
+.calm__ev-h { flex: none; min-width: 86px; font-weight: 800; font-size: 14px; }
+.calm__ev-c { display: grid; gap: 1px; min-width: 0; }
+.calm__ev-c b { font-size: 14.5px; }
+.calm__ev-c small { color: var(--calm-suave); font-size: 12.5px; }
+
+/* Conmutador Calendario / Lista */
+.calm-vistas { display: inline-flex; border: 1.5px solid var(--linea, #dbe3de); border-radius: 999px; overflow: hidden; }
+.calm-vistas button { font: inherit; font-size: 13px; font-weight: 800; padding: 6px 14px; border: 0; background: transparent; color: var(--suave, #5c6b63); cursor: pointer; }
+.calm-vistas button[aria-pressed="true"] { background: var(--tinta, #14201a); color: var(--tarjeta, #fff); }

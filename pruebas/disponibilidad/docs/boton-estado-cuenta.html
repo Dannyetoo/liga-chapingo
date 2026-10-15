@@ -1,0 +1,28 @@
+<!--
+  Botón «Disponibilidad del equipo» para el Estado de cuenta (capitanes/index.html).
+  ⚠️ Pendiente: la ubicación exacta y el enlace final dependen de cómo /capitanes/
+  identifica al equipo (se ajusta al revisar index.html/api.php). El destino es
+  /disponibilidad/entrar.php, que NO pide código ni equipo: toma la identidad del
+  Estado de cuenta mediante lib/puente-capitanes.php.
+  Mostrarlo sólo cuando el Estado de cuenta ya cargó un equipo válido.
+-->
+<a class="lc-btn-disponibilidad" href="/disponibilidad/entrar.php">
+  <span class="lc-btn-disponibilidad__icono" aria-hidden="true">📅</span>
+  <span class="lc-btn-disponibilidad__txt">
+    <strong>Disponibilidad del equipo</strong>
+    <small>Registra los días y horarios en los que tu equipo puede jugar.</small>
+  </span>
+  <span class="lc-btn-disponibilidad__flecha" aria-hidden="true">›</span>
+</a>
+<style>
+  .lc-btn-disponibilidad{display:flex;align-items:center;gap:12px;width:100%;box-sizing:border-box;
+    margin:14px 0;padding:14px 16px;border-radius:14px;text-decoration:none;
+    background:#0f5132;color:#fff;border-left:6px solid #f2c230;
+    box-shadow:0 4px 14px rgba(15,81,50,.18);font-family:inherit;min-height:64px}
+  .lc-btn-disponibilidad:hover,.lc-btn-disponibilidad:focus-visible{background:#157347;outline:none}
+  .lc-btn-disponibilidad__icono{font-size:26px;line-height:1;flex:none}
+  .lc-btn-disponibilidad__txt{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+  .lc-btn-disponibilidad__txt strong{font-size:17px;font-weight:800;letter-spacing:.01em}
+  .lc-btn-disponibilidad__txt small{font-size:13px;opacity:.9;line-height:1.3}
+  .lc-btn-disponibilidad__flecha{font-size:28px;line-height:1;opacity:.8;flex:none}
+</style>

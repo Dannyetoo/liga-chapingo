@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /arbitrajes/
+Disallow: /contenido/
+
+Sitemap: https://ligachapingo.com/sitemap.xml
