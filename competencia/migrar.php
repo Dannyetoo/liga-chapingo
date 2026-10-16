@@ -9,6 +9,9 @@ try {
     if ($admin==='') throw new RuntimeException('Uso: php competencia/migrar.php --admin=USUARIO_EXISTENTE [--edicion=ed3] [--aplicar]');
     $owner=cp_query('SELECT usuario,nombre,clave_hash FROM admin_usuarios WHERE usuario=? AND activo=1',[$admin])->fetch();
     if (!$owner) throw new RuntimeException('Administrador existente no encontrado.');
+    require_once __DIR__.'/../capitanes/config.php';
+    require_once __DIR__.'/../capitanes/codigos-lib.php';
+    if (!defined('SEMILLA_CAPITANES') || strlen((string)SEMILLA_CAPITANES)<16) throw new RuntimeException('Configura la semilla existente de capitanes antes de migrar.');
     $S=cp_legacy(); $ed=(string)($op['edicion']??'ed3'); $nombre=null;
     foreach($S['ediciones']??[] as $x) if(($x['id']??'')===$ed) $nombre=$x['nombre'];
     if (!$nombre) throw new RuntimeException('Edición no encontrada.');
@@ -41,8 +44,22 @@ try {
         if($old!==false && (int)$old!==$sid) throw new RuntimeException('Equipo ya asignado a otro espacio: '.$q['id']);
         cp_query('INSERT INTO cp_equipos(espacio_id,origen_ref,nombre,categoria) VALUES(?,?,?,?) ON DUPLICATE KEY UPDATE nombre=VALUES(nombre),categoria=VALUES(categoria)',[$sid,$q['id'],$q['nombre'],$cats[$q['categoriaId']??'']??'Sin categoría']);
     }
+    $accesos=0;
+    foreach($equipos as $q) {
+        $dest=cp_query('SELECT id,usuario_id FROM cp_equipos WHERE espacio_id=? AND origen_ref=? FOR UPDATE',[$sid,$q['id']])->fetch();
+        if($dest['usuario_id']) continue; // Nunca restablecer claves ni reactivar cuentas al repetir.
+        $login='equipo-'.substr(hash('sha256',(string)$q['id']),0,40);
+        if(cp_query('SELECT id FROM cp_usuarios WHERE usuario=?',[$login])->fetch()) throw new RuntimeException('Usuario de migración ocupado; revisa la asignación del equipo.');
+        cp_query("INSERT INTO cp_usuarios(usuario,nombre,clave_hash,rol) VALUES(?,?,?,'equipo')",[$login,$q['nombre'],password_hash(codigoEquipo((string)$q['id']),PASSWORD_DEFAULT)]);
+        $uid=(int)cp_db()->lastInsertId();
+        cp_query('INSERT INTO cp_codigos_migrados(usuario_id) VALUES(?)',[$uid]);
+        cp_query('UPDATE cp_equipos SET usuario_id=? WHERE id=?',[$uid,$dest['id']]);
+        $accesos++;
+    }
+    $cuentas=cp_cuentas(cp_query('SELECT * FROM cp_equipos WHERE espacio_id=?',[$sid])->fetchAll(),$S,cp_query('SELECT * FROM cp_movimientos WHERE espacio_id=?',[$sid])->fetchAll());
+    echo json_encode(['accesos_creados'=>$accesos,'cargos'=>array_sum(array_column($cuentas,'cargos')),'pagado'=>array_sum(array_column($cuentas,'pagado')),'saldo'=>array_sum(array_column($cuentas,'saldo'))],JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT).PHP_EOL;
     cp_audit($ownerId,$sid,'migracion',['edicion'=>$ed,'equipos'=>count($equipos)]);
-    cp_db()->commit(); echo "Migración completada. No se copiaron cobros ni contraseñas de equipos.\n";
+    cp_db()->commit(); echo "Migración completada. Códigos conservados como hashes; saldos vinculados al histórico sin duplicar cobros.\n";
 } catch(Throwable $ex) {
     try { if(cp_db()->inTransaction()) cp_db()->rollBack(); } catch(Throwable $ignorado) {}
     fwrite(STDERR,$ex->getMessage().PHP_EOL); exit(1);

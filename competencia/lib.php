@@ -78,6 +78,37 @@ function cp_fecha(string $s): bool {
     $d = DateTimeImmutable::createFromFormat('!Y-m-d', $s);
     return $d && $d->format('Y-m-d') === $s;
 }
+/** Nombre comparable: sin acentos, mayúsculas ni signos. Sólo sugiere equivalencias; nunca las aplica. */
+function cp_normalizar(string $s): string {
+    $s = mb_strtolower(trim($s), 'UTF-8');
+    $s = strtr($s, ['á'=>'a','à'=>'a','ä'=>'a','â'=>'a','é'=>'e','è'=>'e','ë'=>'e','ê'=>'e','í'=>'i','ì'=>'i','ï'=>'i','î'=>'i',
+        'ó'=>'o','ò'=>'o','ö'=>'o','ô'=>'o','ú'=>'u','ù'=>'u','ü'=>'u','û'=>'u','ñ'=>'n','ç'=>'c']);
+    return (string)preg_replace('/[^a-z0-9]+/', '', $s);
+}
+/** Convierte un partido del Coordinador anterior al formato de cp_partidos. Devuelve ['error'=>motivo] si no se puede. */
+function cp_convertir_partido(array $p, array $liga): array {
+    $fecha = (string)($p['fecha'] ?? ''); $hora = substr((string)($p['hora'] ?? ''), 0, 5);
+    if (!cp_fecha($fecha) || !preg_match('/^(?:[01][0-9]|2[0-3]):[0-5][0-9]$/D', $hora)) return ['error'=>'sin fecha u hora'];
+    $origen = (string)($p['estado'] ?? 'programado');
+    // El sistema nuevo no tiene "suspendido": queda programado para que coordinación lo reprograme.
+    $estado = ['finalizado'=>'jugado','cancelado'=>'cancelado','programado'=>'programado','suspendido'=>'programado'][$origen] ?? null;
+    if ($estado === null) return ['error'=>'estado desconocido: '.$origen];
+    $gl = null; $gv = null;
+    if ($estado === 'jugado') {
+        $gl = filter_var($p['gl'] ?? null, FILTER_VALIDATE_INT, ['options'=>['min_range'=>0,'max_range'=>999]]);
+        $gv = filter_var($p['gv'] ?? null, FILTER_VALIDATE_INT, ['options'=>['min_range'=>0,'max_range'=>999]]);
+        if ($gl === false || $gv === false) return ['error'=>'finalizado sin marcador'];
+    }
+    $cancha = '';
+    foreach ($liga['sedes'] ?? [] as $s) {
+        foreach ($s['canchas'] ?? [] as $c) {
+            if (($c['id'] ?? null) === ($p['canchaId'] ?? '')) $cancha = trim(($s['nombre'] ?? '').' · '.($c['nombre'] ?? ''), ' ·');
+        }
+    }
+    $dur = max(15, min(240, (int)($liga['duracion'] ?? 60) ?: 60));
+    return ['fecha'=>$fecha,'hora'=>$hora,'cancha'=>mb_substr($cancha !== '' ? $cancha : 'Por definir', 0, 100, 'UTF-8'),
+        'duracion'=>$dur,'estado'=>$estado,'estado_origen'=>$origen,'goles_local'=>$gl,'goles_visita'=>$gv];
+}
 function cp_audit(int $uid, ?int $esp, string $accion, array $detalle): void {
     cp_query('INSERT INTO cp_bitacora(usuario_id,espacio_id,accion,detalle) VALUES(?,?,?,?)',
         [$uid,$esp,$accion,json_encode($detalle,JSON_UNESCAPED_UNICODE|JSON_THROW_ON_ERROR)]);

@@ -28,7 +28,12 @@ try {
         exigir((int)$n<12,'Demasiados intentos. Espera 15 minutos.',429);
         $u=cp_query('SELECT * FROM cp_usuarios WHERE usuario=? AND activo=1',[$login])->fetch();
         $hash=$u?$u['clave_hash']:'$2y$10$usesomesillystringfore7hnbRJHxXVLeakoG8K30oukPsA.ztMG';
-        if (!password_verify($clave,$hash)||!$u) {
+        $valida=password_verify($clave,$hash);
+        if (!$valida && $u && $u['rol']==='equipo' && cp_query('SELECT usuario_id FROM cp_codigos_migrados WHERE usuario_id=?',[$u['id']])->fetchColumn()) {
+            $normalizada=(string)preg_replace('/[^A-Z0-9]/','',strtoupper(trim($clave)));
+            $valida=password_verify($normalizada,$hash);
+        }
+        if (!$valida||!$u) {
             cp_query('INSERT INTO cp_intentos(usuario,ip) VALUES(?,?)',[$login,$ip]);
             respuesta(['ok'=>false,'error'=>'Usuario o contraseña incorrectos.'],401);
         }
@@ -69,13 +74,14 @@ try {
             $ms=cp_query('SELECT * FROM cp_movimientos WHERE espacio_id=?',[$e['id']])->fetchAll();
             $cs=cp_cuentas($eq,$legacy,$ms); $out[]=['id'=>$e['id'],'nombre'=>$e['nombre'],'equipos'=>count($eq),'cobrado'=>array_sum(array_column($cs,'pagado')),'pendiente'=>array_sum(array_map(static fn($c)=>max(0,$c['saldo']),$cs)),'escritura'=>cp_puede($u,$e)];
         }
-        respuesta(['ok'=>true,'torneos'=>$out]);
+        $reportes=cp_query('SELECT r.*,e.nombre AS espacio,q.nombre AS equipo FROM cp_reportes r JOIN cp_espacios e ON e.id=r.espacio_id JOIN cp_equipos q ON q.id=r.equipo_id AND q.espacio_id=r.espacio_id ORDER BY r.id DESC')->fetchAll();
+        respuesta(['ok'=>true,'torneos'=>$out,'reportes'=>$reportes]);
     }
     $sid=(int)($post?($in['espacio_id']??0):($_GET['espacio_id']??0));
     $e=cp_query('SELECT * FROM cp_espacios WHERE id=?',[$sid])->fetch(); exigir((bool)$e,'Espacio inexistente.',404);
     $team=$u['rol']==='equipo'?cp_query('SELECT * FROM cp_equipos WHERE espacio_id=? AND usuario_id=?',[$sid,$u['id']])->fetch():false;
     exigir(cp_puede($u,$e)||(bool)$team||($u['rol']==='administrador'&&$a==='panel'));
-    $eq=cp_query('SELECT id,origen_ref,nombre,categoria,usuario_id FROM cp_equipos WHERE espacio_id=?',[$sid])->fetchAll();
+    $eq=cp_query('SELECT q.id,q.origen_ref,q.nombre,q.categoria,q.usuario_id,u.usuario FROM cp_equipos q LEFT JOIN cp_usuarios u ON u.id=q.usuario_id WHERE q.espacio_id=?',[$sid])->fetchAll();
     $ids=array_map('intval',array_column($eq,'id'));
     if ($a==='panel') {
         $movs=cp_query('SELECT * FROM cp_movimientos WHERE espacio_id=? ORDER BY fecha,id',[$sid])->fetchAll();
@@ -126,6 +132,7 @@ try {
             cp_query("INSERT INTO cp_usuarios(usuario,nombre,clave_hash,rol) VALUES(?,?,?,'equipo')",[$nombre,$nombre,password_hash($clave,PASSWORD_DEFAULT)]);
             cp_query('UPDATE cp_equipos SET usuario_id=? WHERE espacio_id=? AND id=?',[cp_db()->lastInsertId(),$sid,$equipo]);
         }
+        cp_query('DELETE c FROM cp_codigos_migrados c JOIN cp_equipos q ON q.usuario_id=c.usuario_id WHERE q.espacio_id=? AND q.id=?',[$sid,$equipo]);
         cp_audit((int)$u['id'],$sid,$a,['equipo_id'=>$equipo]); cp_db()->commit(); respuesta(['ok'=>true,'usuario'=>$nombre,'clave'=>$clave]);
     } elseif ($a==='movimiento') {
         $tipo=cadena($in,'tipo',10); exigir(in_array($tipo,['cargo','pago','gasto'],true),'Tipo inválido.',422);

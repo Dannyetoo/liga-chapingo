@@ -21,4 +21,11 @@ comprobar(cp_cuentas($eq,$legacy,$ms,false)[0]['saldo']===120.0,'Operador ve car
 comprobar(cp_fecha('2024-02-29')&&!cp_fecha('2026-02-29')&&!cp_fecha('2026-13-01'),'Fechas reales');
 comprobar(!cp_visible(['auto'=>['reserva'=>1],'recibido'=>0]),'Ticket automático sin cobro');
 comprobar(cp_visible(['auto'=>['reserva'=>1,'ocultoHastaCobro'=>true],'ocultoCapitan'=>true,'recibido'=>1]),'Ticket automático cobrado');
+comprobar(cp_normalizar(' Águilas  Azules!')==='aguilasazules','Nombres comparables');
+$liga=['duracion'=>50,'sedes'=>[['nombre'=>'Central','canchas'=>[['id'=>'c1','nombre'=>'Cancha 1']]]]];
+$c=cp_convertir_partido(['fecha'=>'2026-09-05','hora'=>'08:00','canchaId'=>'c1','estado'=>'finalizado','gl'=>2,'gv'=>0],$liga);
+comprobar($c['estado']==='jugado'&&$c['goles_local']===2&&$c['cancha']==='Central · Cancha 1'&&$c['duracion']===50,'Partido finalizado');
+comprobar(isset(cp_convertir_partido(['fecha'=>'2026-09-05','hora'=>'08:00','estado'=>'finalizado','gl'=>''],$liga)['error']),'Finalizado sin marcador');
+comprobar(cp_convertir_partido(['fecha'=>'2026-09-05','hora'=>'08:00','estado'=>'suspendido','gl'=>1,'gv'=>1],$liga)['goles_local']===null,'Suspendido sin marcador');
+comprobar(isset(cp_convertir_partido(['fecha'=>'','hora'=>'','estado'=>'programado'],$liga)['error']),'Sin fecha');
 echo "Comprobaciones correctas.\n";

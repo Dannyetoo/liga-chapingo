@@ -42,7 +42,7 @@ async function pintarGeneral(){
   try {
     const r=await api('general');
     if(tab!=='general')return;
-    $('vista').innerHTML='<h2>Dashboard general</h2><div class="kpis">'+kpi('Torneos',r.torneos.length)+kpi('Equipos',r.torneos.reduce((a,t)=>a+t.equipos,0))+kpi('Cobrado',mx(r.torneos.reduce((a,t)=>a+t.cobrado,0)))+kpi('Pendiente',mx(r.torneos.reduce((a,t)=>a+t.pendiente,0)))+'</div>'+tabla(['Espacio','Equipos','Cobrado','Pendiente','Permiso'],r.torneos.map(t=>[esc(t.nombre),t.equipos,mx(t.cobrado),mx(t.pendiente),t.escritura?'Administrar':'Monitoreo']));
+    $('vista').innerHTML='<h2>Dashboard general</h2><div class="kpis">'+kpi('Torneos',r.torneos.length)+kpi('Equipos',r.torneos.reduce((a,t)=>a+t.equipos,0))+kpi('Cobrado',mx(r.torneos.reduce((a,t)=>a+t.cobrado,0)))+kpi('Pendiente',mx(r.torneos.reduce((a,t)=>a+t.pendiente,0)))+'</div>'+tabla(['Espacio','Equipos','Cobrado','Pendiente','Permiso'],r.torneos.map(t=>[esc(t.nombre),t.equipos,mx(t.cobrado),mx(t.pendiente),t.escritura?'Administrar':'Monitoreo']))+'<h3>Reportes de los equipos</h3>'+tabla(['Espacio','Equipo','Fecha','Mensaje','Estado','Respuesta'],r.reportes.map(x=>[esc(x.espacio),esc(x.equipo),esc(x.creado_en),esc(x.mensaje),esc(x.estado),esc(x.respuesta)]));
   }catch(e){aviso(e.message);}
 }
 function pintar(){
@@ -68,7 +68,7 @@ function pintar(){
   else if(tab==='equipos')html+=(editable()?boton('Vincular equipo registrado','equipo'):'')+tabla(['Equipo','Categoría','Referencia'],panel.equipos.map(e=>[esc(e.nombre),esc(e.categoria),esc(e.origen_ref)]));
   else if(tab==='cuentas')html+=panel.cuentas.map(c=>'<details><summary>'+esc(c.nombre)+' · Saldo '+mx(c.saldo)+'</summary>'+tabla(['Fecha','Concepto','Cargo','Pago','Origen'],c.movimientos.map(m=>[esc(m.fecha),esc(m.concepto),mx(m.cargo),mx(m.pago),esc(m.origen)]))+'</details>').join('');
   else if(tab==='reportes')html+=tabla(['Equipo','Mensaje','Estado','Respuesta',''],panel.reportes.map(r=>[esc(panel.equipos.find(e=>Number(e.id)===Number(r.equipo_id))?.nombre),esc(r.mensaje),esc(r.estado),esc(r.respuesta),editable()&&r.estado==='pendiente'?boton('Resolver','reporte:'+r.id):'']));
-  else if(tab==='usuarios')html+=(usuario.rol==='administrador'&&editable()?boton('Crear coordinador','crear_coordinador'):'')+tabla(['Equipo','Usuario asignado',''],panel.equipos.map(e=>[esc(e.nombre),e.usuario_id?'Sí':'No',editable()?boton('Generar / restablecer contraseña','usuario:'+e.id)+' '+boton('Desactivar','desactivar:'+e.id):'']));
+  else if(tab==='usuarios')html+=(usuario.rol==='administrador'&&editable()?boton('Crear coordinador','crear_coordinador'):'')+tabla(['Equipo','Usuario asignado',''],panel.equipos.map(e=>[esc(e.nombre),esc(e.usuario|| (e.usuario_id?'Sí':'No')),editable()?boton('Generar / restablecer contraseña','usuario:'+e.id)+' '+boton('Desactivar','desactivar:'+e.id):'']));
   $('vista').innerHTML=html;
 }
 function partido(p={}) {

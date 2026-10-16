@@ -61,3 +61,18 @@ CREATE TABLE IF NOT EXISTS cp_intentos (
  ip VARCHAR(45) NOT NULL, creado_en TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
  KEY freno_ip (ip,creado_en), KEY freno_usuario (usuario,creado_en)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- Marca accesos migrados; repetir schema.sql es seguro en instalaciones existentes.
+CREATE TABLE IF NOT EXISTS cp_codigos_migrados (
+ usuario_id BIGINT UNSIGNED PRIMARY KEY,
+ FOREIGN KEY (usuario_id) REFERENCES cp_usuarios(id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- Partidos importados del Coordinador anterior; evita duplicarlos al repetir importar-partidos.php.
+CREATE TABLE IF NOT EXISTS cp_partidos_importados (
+ espacio_id BIGINT UNSIGNED NOT NULL, origen_ref VARCHAR(64) COLLATE utf8mb4_bin NOT NULL,
+ partido_id BIGINT UNSIGNED NOT NULL UNIQUE,
+ PRIMARY KEY (espacio_id,origen_ref),
+ FOREIGN KEY (espacio_id) REFERENCES cp_espacios(id),
+ FOREIGN KEY (partido_id) REFERENCES cp_partidos(id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
