@@ -1,6 +1,14 @@
 'use strict';
 /* Presentación del corte documental; no inserta movimientos contables. */
 const I18={
+  tickets(id){
+    const e=panel.equipos.find(x=>Number(x.id)===Number(id)),c=panel.cuentas.find(x=>Number(x.id)===Number(id));
+    this.abrir('Tickets de Tesorería · '+(e?.nombre||'Equipo'),'<p>Consulta integrada del estado del equipo. No se requiere abrir otro portal.</p>'+tabla(['Fecha','Concepto','Cargo','Pago','Estado'],(c?.movimientos||[]).map(m=>[esc(m.fecha),esc(m.concepto),mx(m.cargo),mx(m.pago),Number(m.cargo)>Number(m.pago)?'Pendiente':'Pagado'])));
+  },
+  documentos(lista){
+    const body=(lista||[]).length?tabla(['Documento','Acción'],(lista||[]).map(n=>[esc(n),'<a class="btn" href="api.php?a=descargar_documento_coordinacion&amp;archivo='+encodeURIComponent(n)+'" target="_blank" rel="noopener">Abrir PDF</a>'])):'<p>No hay PDF cargados en competencia/documentos.</p>';
+    this.abrir('Documentos de coordinación','<p>Archivos disponibles sólo para coordinación y administración.</p>'+body);
+  },
   exportar(){
     const filas=[['Equipo','Mensaje','Estado','Respuesta'],...panel.reportes.map(r=>[panel.equipos.find(e=>Number(e.id)===Number(r.equipo_id))?.nombre||'',r.mensaje,r.estado,r.respuesta||''])];
     const csv='\uFEFF'+filas.map(f=>f.map(x=>'"'+String(x??'').replace(/^[=+@\-\t\r]/,"'$&").replace(/"/g,'""')+'"').join(',')).join('\r\n');

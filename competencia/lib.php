@@ -122,10 +122,11 @@ function cp_sesion(): void {
 }
 /** Espacios que puede ver un usuario según su rol. */
 function cp_espacios_de(array $u): array {
-    if ($u['rol']==='administrador') return cp_query('SELECT * FROM cp_espacios')->fetchAll();
-    if ($u['rol']==='coordinador') return cp_query('SELECT * FROM cp_espacios WHERE coordinador_id=?',[$u['id']])->fetchAll();
-    if ($u['rol']==='jugador') return cp_query('SELECT DISTINCT e.* FROM cp_espacios e JOIN cp_jugadores j ON j.espacio_id=e.id WHERE j.usuario_id=? AND j.activo=1',[$u['id']])->fetchAll();
-    return cp_query('SELECT e.* FROM cp_espacios e JOIN cp_equipos q ON q.espacio_id=e.id WHERE q.usuario_id=?',[$u['id']])->fetchAll();
+    $activos='NOT EXISTS (SELECT 1 FROM cp_espacios_archivados z WHERE z.espacio_id=e.id)';
+    if ($u['rol']==='administrador') return cp_query('SELECT e.* FROM cp_espacios e WHERE '.$activos)->fetchAll();
+    if ($u['rol']==='coordinador') return cp_query('SELECT e.* FROM cp_espacios e WHERE coordinador_id=? AND '.$activos,[$u['id']])->fetchAll();
+    if ($u['rol']==='jugador') return cp_query('SELECT DISTINCT e.* FROM cp_espacios e JOIN cp_jugadores j ON j.espacio_id=e.id WHERE j.usuario_id=? AND j.activo=1 AND '.$activos,[$u['id']])->fetchAll();
+    return cp_query('SELECT e.* FROM cp_espacios e JOIN cp_equipos q ON q.espacio_id=e.id WHERE q.usuario_id=? AND '.$activos,[$u['id']])->fetchAll();
 }
 /** Entero opcional: '' o null → null; fuera de rango → excepción. */
 function cp_entero_opcional($v, int $min, int $max): ?int {

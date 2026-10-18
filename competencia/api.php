@@ -65,6 +65,24 @@ try {
         exigir($u['rol']==='administrador');
         respuesta(['ok'=>true,'usuarios'=>cp_query("SELECT id,nombre,usuario,rol FROM cp_usuarios WHERE rol IN ('administrador','coordinador') AND activo=1")->fetchAll()]);
     }
+    if ($a==='documentos_coordinacion') {
+        exigir(in_array($u['rol'],['administrador','coordinador'],true));
+        $lista=[]; foreach(glob(__DIR__.'/documentos/*.pdf') ?: [] as $ruta) $lista[]=basename($ruta);
+        sort($lista,SORT_NATURAL|SORT_FLAG_CASE); respuesta(['ok'=>true,'documentos'=>$lista]);
+    }
+    if ($a==='descargar_documento_coordinacion') {
+        exigir(in_array($u['rol'],['administrador','coordinador'],true));
+        $nombre=basename((string)($_GET['archivo']??'')); exigir((bool)preg_match('/^[A-Za-z0-9._ ()-]+\.pdf$/i',$nombre),'Archivo inválido.',422);
+        $ruta=__DIR__.'/documentos/'.$nombre; exigir(is_file($ruta),'Documento no disponible.',404);
+        header_remove('Content-Type'); header('Content-Type: application/pdf'); header('Content-Disposition: inline; filename="'.str_replace('"','',$nombre).'"'); header('Content-Length: '.filesize($ruta)); readfile($ruta); exit;
+    }
+    if ($a==='editar_espacio'||$a==='eliminar_espacio') {
+        exigir($u['rol']==='administrador'); exigir($post,'Usa POST.',405);
+        $id=(int)($in['espacio_id']??0); $e=cp_query('SELECT * FROM cp_espacios WHERE id=?',[$id])->fetch(); exigir((bool)$e,'Espacio inexistente.',404);
+        if($a==='editar_espacio') { cp_query('UPDATE cp_espacios SET nombre=?,edicion_ref=?,coordinador_id=? WHERE id=?',[cadena($in,'nombre'),cadena($in,'edicion_ref',64),(int)$in['coordinador_id'],$id]); }
+        else { cp_query('INSERT IGNORE INTO cp_espacios_archivados(espacio_id,archivado_por) VALUES(?,?)',[$id,$u['id']]); }
+        respuesta(['ok'=>true]);
+    }
     if ($a==='crear_espacio') {
         exigir($post,'Usa POST.',405); exigir($u['rol']==='administrador');
         $coord=(int)($in['coordinador_id']??0);
@@ -80,7 +98,7 @@ try {
             $ms=cp_query('SELECT * FROM cp_movimientos WHERE espacio_id=?',[$e['id']])->fetchAll();
             $cs=cp_cuentas($eq,$legacy,$ms); $out[]=['id'=>$e['id'],'nombre'=>$e['nombre'],'equipos'=>count($eq),'cobrado'=>array_sum(array_column($cs,'pagado')),'pendiente'=>array_sum(array_map(static fn($c)=>max(0,$c['saldo']),$cs)),'escritura'=>cp_puede($u,$e)];
         }
-        $reportes=cp_query('SELECT r.*,e.nombre AS espacio,q.nombre AS equipo FROM cp_reportes r JOIN cp_espacios e ON e.id=r.espacio_id JOIN cp_equipos q ON q.id=r.equipo_id AND q.espacio_id=r.espacio_id ORDER BY r.id DESC')->fetchAll();
+        $reportes=cp_query('SELECT r.*,e.nombre AS espacio,q.nombre AS equipo FROM cp_reportes r JOIN cp_espacios e ON e.id=r.espacio_id JOIN cp_equipos q ON q.id=r.equipo_id AND q.espacio_id=r.espacio_id WHERE NOT EXISTS (SELECT 1 FROM cp_espacios_archivados z WHERE z.espacio_id=e.id) ORDER BY r.id DESC')->fetchAll();
         respuesta(['ok'=>true,'torneos'=>$out,'reportes'=>$reportes]);
     }
     // Documentos del perfil (p. ej. «Estado de resultados 2026») y de los espacios del usuario.
@@ -144,15 +162,25 @@ try {
         $movs=cp_query('SELECT m.*,d.recibio FROM cp_movimientos m LEFT JOIN cp_movimiento_detalle d ON d.movimiento_id=m.id WHERE m.espacio_id=? ORDER BY m.fecha,m.id',[$sid])->fetchAll();
         $cs=cp_cuentas($team?[$team]:$eq,cp_legacy(),$movs,(bool)$team);
         $partidos=cp_query('SELECT * FROM cp_partidos WHERE espacio_id=? ORDER BY fecha,hora',[$sid])->fetchAll();
+        $canchas=cp_query('SELECT id,nombre,horarios FROM cp_canchas WHERE espacio_id=? AND activo=1 ORDER BY nombre',[$sid])->fetchAll();
         if ($team) $partidos=array_values(array_filter($partidos,static fn($p)=>(int)$p['local_id']===(int)$team['id']||(int)$p['visita_id']===(int)$team['id']));
         $publicos=array_map(static fn($q)=>['id'=>$q['id'],'nombre'=>$q['nombre'],'categoria'=>$q['categoria']],$eq);
         $gastos=array_sum(array_map(static fn($m)=>$m['tipo']==='gasto'?(float)$m['monto']:0,$movs));
-        respuesta(['ok'=>true,'espacio'=>$e,'equipos'=>$team?$publicos:$eq,'partidos'=>$partidos,'cuentas'=>$cs,'gastos_nuevos'=>$team?null:$gastos,'movimientos'=>$team?[]:$movs,'reportes'=>$team?[]:cp_query('SELECT * FROM cp_reportes WHERE espacio_id=? ORDER BY id DESC',[$sid])->fetchAll()]);
+        respuesta(['ok'=>true,'espacio'=>$e,'equipos'=>$team?$publicos:$eq,'partidos'=>$partidos,'canchas'=>$team?[]:$canchas,'cuentas'=>$cs,'gastos_nuevos'=>$team?null:$gastos,'movimientos'=>$team?[]:$movs,'reportes'=>$team?[]:cp_query('SELECT * FROM cp_reportes WHERE espacio_id=? ORDER BY id DESC',[$sid])->fetchAll()]);
     }
     exigir($post,'Usa POST.',405);
     if ($a==='incidencia' && $team) {
         cp_query('INSERT INTO cp_reportes(espacio_id,equipo_id,mensaje) VALUES(?,?,?)',[$sid,$team['id'],cadena($in,'mensaje',1000)]);
         respuesta(['ok'=>true]);
+    }
+    if ($a==='cancha') {
+        exigir(cp_puede($u,$e)); cp_db()->beginTransaction(); $id=(int)($in['id']??0); $nombre=cadena($in,'nombre',120); $horarios=cadena($in,'horarios',2000);
+        if($id) cp_query('UPDATE cp_canchas SET nombre=?,horarios=?,activo=1 WHERE id=? AND espacio_id=?',[$nombre,$horarios,$id,$sid]);
+        else cp_query('INSERT INTO cp_canchas(espacio_id,nombre,horarios) VALUES(?,?,?)',[$sid,$nombre,$horarios]);
+        cp_db()->commit(); respuesta(['ok'=>true]);
+    }
+    if ($a==='eliminar_cancha') {
+        exigir(cp_puede($u,$e)); cp_db()->beginTransaction(); cp_query('UPDATE cp_canchas SET activo=0 WHERE id=? AND espacio_id=?',[(int)($in['id']??0),$sid]); cp_db()->commit(); respuesta(['ok'=>true]);
     }
     exigir(cp_puede($u,$e));
     cp_db()->beginTransaction();

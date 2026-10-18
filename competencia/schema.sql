@@ -13,6 +13,16 @@ CREATE TABLE IF NOT EXISTS cp_espacios (
  FOREIGN KEY (propietario_id) REFERENCES cp_usuarios(id),
  FOREIGN KEY (coordinador_id) REFERENCES cp_usuarios(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+CREATE TABLE IF NOT EXISTS cp_espacios_archivados (
+ espacio_id BIGINT UNSIGNED PRIMARY KEY, archivado_por BIGINT UNSIGNED NOT NULL,
+ archivado_en TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+ FOREIGN KEY (espacio_id) REFERENCES cp_espacios(id), FOREIGN KEY (archivado_por) REFERENCES cp_usuarios(id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+CREATE TABLE IF NOT EXISTS cp_canchas (
+ id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY, espacio_id BIGINT UNSIGNED NOT NULL,
+ nombre VARCHAR(120) NOT NULL, horarios TEXT NOT NULL DEFAULT '', activo TINYINT NOT NULL DEFAULT 1,
+ FOREIGN KEY (espacio_id) REFERENCES cp_espacios(id), KEY cancha_espacio (espacio_id,activo)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 CREATE TABLE IF NOT EXISTS cp_equipos (
  id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY, espacio_id BIGINT UNSIGNED NOT NULL,
  origen_ref VARCHAR(64) COLLATE utf8mb4_bin NOT NULL UNIQUE,
