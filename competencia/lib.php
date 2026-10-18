@@ -113,3 +113,24 @@ function cp_audit(int $uid, ?int $esp, string $accion, array $detalle): void {
     cp_query('INSERT INTO cp_bitacora(usuario_id,espacio_id,accion,detalle) VALUES(?,?,?,?)',
         [$uid,$esp,$accion,json_encode($detalle,JSON_UNESCAPED_UNICODE|JSON_THROW_ON_ERROR)]);
 }
+/** Sesión del sistema de competencia (la misma cookie para api.php y entrar-capitan.php). */
+function cp_sesion(): void {
+    ini_set('session.use_strict_mode','1');
+    session_name('lchcompetencia');
+    session_set_cookie_params(['path'=>rtrim(str_replace('\\','/',dirname($_SERVER['SCRIPT_NAME'])),'/').'/', 'httponly'=>true,'secure'=>!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS']!=='off','samesite'=>'Strict']);
+    session_start();
+}
+/** Espacios que puede ver un usuario según su rol. */
+function cp_espacios_de(array $u): array {
+    if ($u['rol']==='administrador') return cp_query('SELECT * FROM cp_espacios')->fetchAll();
+    if ($u['rol']==='coordinador') return cp_query('SELECT * FROM cp_espacios WHERE coordinador_id=?',[$u['id']])->fetchAll();
+    if ($u['rol']==='jugador') return cp_query('SELECT DISTINCT e.* FROM cp_espacios e JOIN cp_jugadores j ON j.espacio_id=e.id WHERE j.usuario_id=? AND j.activo=1',[$u['id']])->fetchAll();
+    return cp_query('SELECT e.* FROM cp_espacios e JOIN cp_equipos q ON q.espacio_id=e.id WHERE q.usuario_id=?',[$u['id']])->fetchAll();
+}
+/** Entero opcional: '' o null → null; fuera de rango → excepción. */
+function cp_entero_opcional($v, int $min, int $max): ?int {
+    if ($v === null || $v === '') return null;
+    $n = filter_var($v, FILTER_VALIDATE_INT, ['options'=>['min_range'=>$min,'max_range'=>$max]]);
+    if ($n === false) throw new InvalidArgumentException('Número fuera de rango.');
+    return $n;
+}

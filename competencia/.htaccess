@@ -1,6 +1,6 @@
 DirectoryIndex index.html
 Options -Indexes
-<FilesMatch "^(lib\.php|migrar\.php|activa\.php)$|\.(sql|md|test\.cjs)$">
+<FilesMatch "^(lib\.php|torneo-lib\.php|migrar\.php|activa\.php)$|\.(sql|md|test\.cjs)$">
   Require all denied
 </FilesMatch>
 <IfModule mod_headers.c>

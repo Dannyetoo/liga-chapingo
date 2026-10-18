@@ -183,6 +183,11 @@ main{padding-block:34px 60px}
 .disp .txt small{display:block;font-size:13.5px;color:#D9E0E8;margin-top:4px;line-height:1.35}
 .disp .fl{flex:none;font-size:30px;line-height:1;color:var(--oro-claro)}
 .disp-err{display:none;margin-top:10px}
+/* torneo y estadísticas (acceso guiado a /competencia/torneo.html) */
+.disp.torneo{background:linear-gradient(135deg,#0F3357 0%,#14532D 100%);border-left-color:#22C55E}
+.guia-torneo{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0 0;padding:0;list-style:none;font-size:13px;color:var(--gris)}
+.guia-torneo li{background:#fff;border:1px solid #E2E8F0;border-radius:999px;padding:5px 11px}
+.guia-torneo b{color:var(--verde)}
 
 /* descargar la app (opción discreta) */
 .app-mini[hidden],.pie-app[hidden],.app-modal [hidden]{display:none!important}
@@ -349,6 +354,7 @@ footer.pie a{color:var(--verde);font-weight:600}
     <div class="pie-caja">
       ¿No tienes tu código? Pídelo en <a href="../index.html#contacto">contacto</a>.
       <span id="g-pista" hidden><br>¿Tienes otro equipo? Escribe su código y pulsa «Continuar con Google» para ligarlo también.</span>
+      <br>¿Eres de coordinación o administración? <a href="../competencia/">Entra con tu usuario y contraseña</a>.
     </div>
   </form>
   <div class="firma">Chapingo · Toros</div>
@@ -418,6 +424,24 @@ footer.pie a{color:var(--verde);font-weight:600}
           <span class="fl" aria-hidden="true">›</span>
         </button>
         <div class="err disp-err" id="error-disponibilidad" role="alert"></div>
+      </section>
+
+      <section class="seccion" id="seccion-torneo">
+        <button class="disp torneo" id="btn-torneo" type="button">
+          <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M8 4h8v4a4 4 0 0 1-8 0V4Z"/><path d="M8 6H5a3 3 0 0 0 3 3M16 6h3a3 3 0 0 1-3 3M12 12v4M8.5 20h7M10 16h4v4h-4z"/></svg></span>
+          <span class="txt">
+            <strong>Torneo y estadísticas</strong>
+            <small>Tabla general, goleo, porteros, tarjetas, calendario, llaves, plantillas y calificaciones.</small>
+          </span>
+          <span class="fl" aria-hidden="true">›</span>
+        </button>
+        <ol class="guia-torneo" aria-label="Qué encontrarás">
+          <li><b>1</b> Consulta la tabla y el goleo</li>
+          <li><b>2</b> Revisa calendario y llaves</li>
+          <li><b>3</b> Mira tu plantilla y califica</li>
+        </ol>
+        <div class="err disp-err" id="error-torneo" role="alert"></div>
       </section>
 
       <section class="seccion" id="seccion-futuros" style="display:none">
@@ -991,7 +1015,33 @@ $('btn-disponibilidad').onclick = function(){
     er.classList.add('ver');
   });
 };
-window.addEventListener('pageshow', function(){ $('btn-disponibilidad').disabled = false; });
+window.addEventListener('pageshow', function(){ $('btn-disponibilidad').disabled = false; $('btn-torneo').disabled = false; });
+
+/* ---------- torneo y estadísticas ----------
+   Mismo mecanismo: pase de un solo uso por POST hacia /competencia/entrar-capitan.php */
+$('btn-torneo').onclick = function(){
+  var b = $('btn-torneo'), er = $('error-torneo');
+  er.classList.remove('ver');
+  b.disabled = true;
+  pedir('torneo', {}).then(function(r){
+    if(r && r.auth === false){ cerrarPortal(); return; }
+    if(!r || !r.ok || !r.pase){
+      b.disabled = false;
+      er.textContent = (r && r.error) || 'No se pudo abrir el torneo. Inténtalo de nuevo.';
+      er.classList.add('ver');
+      return;
+    }
+    var f = document.createElement('form');
+    f.method = 'post'; f.action = r.url || '../competencia/entrar-capitan.php';
+    var i = document.createElement('input');
+    i.type = 'hidden'; i.name = 'pase'; i.value = r.pase;
+    f.appendChild(i); document.body.appendChild(f); f.submit();
+  }).catch(function(){
+    b.disabled = false;
+    er.textContent = 'No se pudo contactar al servidor. Revisa tu conexión.';
+    er.classList.add('ver');
+  });
+};
 
 $('btn-salir').onclick = function(){
   pedir('salir').then(cerrarPortal).catch(cerrarPortal);

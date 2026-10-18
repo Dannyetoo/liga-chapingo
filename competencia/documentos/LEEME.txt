@@ -1,0 +1,2 @@
+Coloca aquí los PDF adjuntos a perfiles (p. ej. estado-de-resultados-2026.pdf).
+Sólo salen por api.php?a=documento con sesión y permiso.

@@ -152,3 +152,40 @@ function verificaPaseDisponibilidad(string $pase): ?array {
     if ($x < time() || $x > time() + PUENTE_VIGENCIA + 5) return null;
     return ['equipoId' => $e, 'nonce' => $n, 'vence' => $x];
 }
+
+/* =====================================================================
+   PUENTE A «TORNEO Y ESTADÍSTICAS»  (/competencia/torneo.html)
+   Mismo esquema que el de disponibilidad, con OTRA clave derivada: un pase
+   de disponibilidad no abre el torneo ni al revés. El pase sólo lleva el id
+   del equipo de la sesión; competencia/entrar-capitan.php lo acepta una vez.
+   ===================================================================== */
+function clavePuenteTorneo(): string {
+    if (!defined('SEMILLA_CAPITANES') || strlen((string)SEMILLA_CAPITANES) < 16) return '';
+    return hash_hmac('sha256', 'puente-competencia-torneo:v1', SEMILLA_CAPITANES, true);
+}
+
+function paseTorneo(string $equipoId): string {
+    $k = clavePuenteTorneo();
+    if ($k === '' || $equipoId === '') return '';
+    $carga = json_encode(['v' => 1, 'e' => $equipoId, 'x' => time() + PUENTE_VIGENCIA, 'n' => bin2hex(random_bytes(16))],
+        JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+    $c = b64urlCod($carga);
+    return $c . '.' . b64urlCod(hash_hmac('sha256', $c, $k, true));
+}
+
+/** ['equipoId','nonce','vence'] o null. El uso único lo comprueba competencia. */
+function verificaPaseTorneo(string $pase): ?array {
+    $k = clavePuenteTorneo();
+    if ($k === '' || strlen($pase) > 600 || substr_count($pase, '.') !== 1) return null;
+    [$c, $f] = explode('.', $pase, 2);
+    $firma = b64urlDec($f);
+    if ($firma === false || !hash_equals(hash_hmac('sha256', $c, $k, true), $firma)) return null;
+    $j = json_decode((string)b64urlDec($c), true);
+    if (!is_array($j) || ($j['v'] ?? 0) !== 1) return null;
+    $e = is_string($j['e'] ?? null) ? $j['e'] : '';
+    $x = is_int($j['x'] ?? null) ? $j['x'] : 0;
+    $n = is_string($j['n'] ?? null) ? $j['n'] : '';
+    if ($e === '' || !preg_match('/^[0-9a-f]{32}$/', $n)) return null;
+    if ($x < time() || $x > time() + PUENTE_VIGENCIA + 5) return null;
+    return ['equipoId' => $e, 'nonce' => $n, 'vence' => $x];
+}

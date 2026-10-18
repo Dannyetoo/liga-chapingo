@@ -1,0 +1,30 @@
+[CONTEXTO]
+<context>
+Actúas como desarrollador y administrador del sistema web para la Liga Chapingo. Requieres generar credenciales inmediatas y actualizar el panel de usuarios y administradores con un sistema visual avanzado.
+</context>
+
+[INSTRUCCIONES]
+<instructions>
+1. Genera y muestra de inmediato una contraseña única de 8 dígitos para el usuario "piña". 
+2. Configura el acceso directo (sin confirmación ni cambio de contraseña) para https://ligachapingo.com/capitanes/ y otorga permisos de administración de equipos en https://ligachapingo.com/competencia/. Prioriza este acceso.
+3. Adjunta el documento "estado de resultados 2026" al perfil de este usuario, tal cual se hizo con los demás equipos.
+4. Desarrolla la estructura (código o configuración) para agregar un botón guiado en el "estado de cuenta" de todos los usuarios.
+5. Este botón debe llevar a un nuevo módulo visual estilo "copafacil.com" que incluya:
+   - Tabla general de equipos, goleo, mejor portero, amarillas, rojas y suspendidos.
+   - Calendario de partidos por jornada, fase eliminatoria y llaves de eliminación.
+   - Perfil de equipos y plantilla de equipos.
+   - Sistema de calificación por equipo y por jugador (los usuarios ligados a una ficha de jugador deben poder votar entre ellos).
+</instructions>
+
+[RESTRICCIONES]
+<restrictions>
+- No incluyas saludos, introducciones largas ni texto de relleno.
+- Entrega la contraseña generada al inicio de tu respuesta.
+- Proporciona los pasos técnicos precisos o el código necesario para implementar el botón y las tablas tipo Copafácil.
+</restrictions>
+
+[FORMATO]
+<format>
+1. Credenciales de acceso (Usuario y Contraseña de 8 dígitos).
+2. Código o pasos de implementación de bases de datos/UI para el nuevo módulo de estadísticas.
+</format>

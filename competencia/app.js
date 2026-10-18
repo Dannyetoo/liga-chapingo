@@ -1,7 +1,7 @@
 'use strict';
 const $=id=>document.getElementById(id), esc=x=>String(x??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const mx=x=>new Intl.NumberFormat('es-MX',{style:'currency',currency:'MXN'}).format(x||0);
-let csrf='',usuario=null,espacios=[],panel=null,tab='inicio',staff=[];
+let csrf='',usuario=null,espacios=[],panel=null,tab='inicio',staff=[],docs=[];
 const aviso=x=>{$('aviso').textContent=x||'';};
 async function api(a,body,params={}) {
   const url='api.php?'+new URLSearchParams({a,...params});
@@ -29,8 +29,17 @@ function formulario(titulo,html,accion,extra={}) {
   };
 }
 async function cargar() {
-  if(!sid()) {panel=null; pintar();return;}
+  if(!sid()||usuario.rol==='jugador') {panel=null; pintar();return;}
   panel=await api('panel',null,{espacio_id:sid()}); pintar();
+}
+/* Botón guiado al módulo «Torneo y estadísticas» (aparece en el estado de cuenta de todos los usuarios). */
+function botonTorneo(){
+  return '<a class="btn-torneo" href="torneo.html?espacio='+encodeURIComponent(sid())+'"><span class="bt-ico" aria-hidden="true">🏆</span><span class="bt-txt"><strong>Torneo y estadísticas</strong><small>Tabla general, goleo, porteros, tarjetas y suspendidos, calendario por jornada, llaves, plantillas y calificaciones.</small></span><span class="bt-fl" aria-hidden="true">›</span></a>'
+    +'<ol class="bt-guia" aria-label="Qué encontrarás"><li><b>1</b> Consulta la tabla y el goleo</li><li><b>2</b> Revisa calendario y llaves</li><li><b>3</b> Mira plantillas y califica</li></ol>';
+}
+function documentos(){
+  if(!docs.length)return '';
+  return '<h3>Mis documentos</h3>'+tabla(['Documento','Publicado',''],docs.map(d=>[esc(d.titulo),esc(String(d.creado_en||'').slice(0,10)),d.disponible?'<a href="api.php?a=documento&amp;id='+encodeURIComponent(d.id)+'" target="_blank" rel="noopener">Abrir PDF</a>':'<small>Pendiente de cargar</small>']));
 }
 function kpi(label,value){return '<div class="kpi">'+esc(label)+'<strong>'+esc(value)+'</strong></div>';}
 function agenda(amistosos=false) {
@@ -47,6 +56,10 @@ async function pintarGeneral(){
 }
 function pintar(){
   const esEquipo=usuario.rol==='equipo';
+  if(usuario.rol==='jugador'){
+    $('menu').innerHTML='';$('nombre').textContent=usuario.nombre+' · jugador';
+    $('vista').innerHTML=(sid()?botonTorneo():'<p>Tu ficha de jugador aún no está activa en ningún torneo.</p>')+documentos();return;
+  }
   const tabs=esEquipo?[['match','Match'],['cuentas','Estado de cuenta']]:[['inicio','Inicio'],['equipos','Equipos'],['cancha','Cancha'],['rival','Busca un rival'],['reportes','Reportes'],['finanzas','Tesorería / Finanzas'],['cuentas','Estados de Cuenta'],['usuarios','Usuarios']];
   if(usuario.rol==='administrador')tabs.unshift(['general','Dashboard general'],['espacios','Espacios digitales']);
   if(!tabs.some(t=>t[0]===tab))tab=tabs[0][0];
@@ -63,10 +76,10 @@ function pintar(){
     const cargos=panel.cuentas.reduce((a,c)=>a+c.cargos,0),pagos=panel.cuentas.reduce((a,c)=>a+c.pagado,0),pend=panel.cuentas.reduce((a,c)=>a+Math.max(0,c.saldo),0);
     html+='<div class="kpis">'+kpi('Equipos',panel.equipos.length)+kpi('Cargos',mx(cargos))+kpi('Recaudado',mx(pagos))+kpi('Por cobrar',mx(pend))+kpi('Gastos nuevos',mx(panel.gastos_nuevos))+'</div><p><small>Recaudación: histórico de Tesorería más movimientos del espacio. Gastos nuevos: libro del espacio; los gastos históricos generales no se atribuyen automáticamente.</small></p>';
     if(tab==='finanzas')html+=(editable()?boton('Registrar cargo / pago / gasto','movimiento'):'')+tabla(['Fecha','Tipo','Concepto','Monto'],panel.movimientos.map(m=>[esc(m.fecha),esc(m.tipo),esc(m.concepto),mx(m.monto)]));
-    else html+=agenda();
+    else html+=documentos()+agenda();
   } else if(['cancha','rival','match'].includes(tab))html+=agenda(tab==='rival')+(esEquipo?boton('Reportar incidencia','incidencia'):'');
   else if(tab==='equipos')html+=(editable()?boton('Vincular equipo registrado','equipo'):'')+tabla(['Equipo','Categoría','Referencia'],panel.equipos.map(e=>[esc(e.nombre),esc(e.categoria),esc(e.origen_ref)]));
-  else if(tab==='cuentas')html+=panel.cuentas.map(c=>'<details><summary>'+esc(c.nombre)+' · Saldo '+mx(c.saldo)+'</summary>'+tabla(['Fecha','Concepto','Cargo','Pago','Origen'],c.movimientos.map(m=>[esc(m.fecha),esc(m.concepto),mx(m.cargo),mx(m.pago),esc(m.origen)]))+'</details>').join('');
+  else if(tab==='cuentas')html+=botonTorneo()+documentos()+panel.cuentas.map(c=>'<details><summary>'+esc(c.nombre)+' · Saldo '+mx(c.saldo)+'</summary>'+tabla(['Fecha','Concepto','Cargo','Pago','Origen'],c.movimientos.map(m=>[esc(m.fecha),esc(m.concepto),mx(m.cargo),mx(m.pago),esc(m.origen)]))+'</details>').join('');
   else if(tab==='reportes')html+=tabla(['Equipo','Mensaje','Estado','Respuesta',''],panel.reportes.map(r=>[esc(panel.equipos.find(e=>Number(e.id)===Number(r.equipo_id))?.nombre),esc(r.mensaje),esc(r.estado),esc(r.respuesta),editable()&&r.estado==='pendiente'?boton('Resolver','reporte:'+r.id):'']));
   else if(tab==='usuarios')html+=(usuario.rol==='administrador'&&editable()?boton('Crear coordinador','crear_coordinador'):'')+tabla(['Equipo','Usuario asignado',''],panel.equipos.map(e=>[esc(e.nombre),esc(e.usuario|| (e.usuario_id?'Sí':'No')),editable()?boton('Generar / restablecer contraseña','usuario:'+e.id)+' '+boton('Desactivar','desactivar:'+e.id):'']));
   $('vista').innerHTML=html;
@@ -104,6 +117,7 @@ async function iniciar(){
   const s=await api('sesion');csrf=s.csrf;usuario=s.usuario;
   $('login').hidden=!!usuario;$('app').hidden=!usuario;$('salir').hidden=!usuario;if(!usuario)return;
   espacios=(await api('espacios')).espacios;
+  try{docs=(await api('documentos')).documentos;}catch(e){docs=[];}
   $('espacio').innerHTML=opts(espacios.map(e=>[e.id,e.nombre+(e.escritura?'':' · consulta')]));
   if(usuario.rol==='administrador')tab='general';await cargar();
 }

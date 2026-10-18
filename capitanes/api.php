@@ -26,7 +26,9 @@
                                          sesión abierta; ver corte-caja.php)
      GET  api.php?a=estado_pdf         -> el estado de cuenta en PDF del equipo de la
                                          sesión, con saldo a la fecha del corte
-     POST api.php?a=disponibilidad     -> {ok, url, pase}   (pase firmado de un solo uso
+     POST api.php?a=torneo             -> {ok, url, pase}   (pase de un solo uso para abrir
+                                        «Torneo y estadísticas» en /competencia/)
+    POST api.php?a=disponibilidad     -> {ok, url, pase}   (pase firmado de un solo uso
                                          para abrir /disponibilidad/ con el equipo de la
                                          sesión; no lee ni escribe finanzas)
 
@@ -445,6 +447,19 @@ if ($a === 'disponibilidad') {
         salida(['ok' => false, 'error' => 'La disponibilidad del equipo todavía no está habilitada. Avisa a la mesa directiva.'], 503);
     }
     salida(['ok' => true, 'url' => '../disponibilidad/entrar.php', 'pase' => $pase]);
+}
+
+/* ---------- puente a «Torneo y estadísticas» (/competencia/) ----------
+   Igual que disponibilidad: pase firmado de un solo uso con el equipo de la sesión. */
+if ($a === 'torneo') {
+    if (($_SERVER['REQUEST_METHOD'] ?? '') !== 'POST') {
+        salida(['ok' => false, 'error' => 'Método no permitido.'], 405);
+    }
+    $pase = paseTorneo(texto($_SESSION['equipoId']));
+    if ($pase === '') {
+        salida(['ok' => false, 'error' => 'El torneo todavía no está habilitado. Avisa a la mesa directiva.'], 503);
+    }
+    salida(['ok' => true, 'url' => '../competencia/entrar-capitan.php', 'pase' => $pase]);
 }
 
 /* ---------- PDF del corte de caja de la liga (sólo con sesión) ---------- */
