@@ -76,3 +76,10 @@ CREATE TABLE IF NOT EXISTS cp_partidos_importados (
  FOREIGN KEY (espacio_id) REFERENCES cp_espacios(id),
  FOREIGN KEY (partido_id) REFERENCES cp_partidos(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- Interfaz 18: receptor explícito del pago; conserva intacto el libro histórico.
+CREATE TABLE IF NOT EXISTS cp_movimiento_detalle (
+ movimiento_id BIGINT UNSIGNED PRIMARY KEY,
+ recibio VARCHAR(120) NOT NULL,
+ FOREIGN KEY (movimiento_id) REFERENCES cp_movimientos(id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

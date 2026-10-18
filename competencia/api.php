@@ -46,6 +46,16 @@ try {
     if ($a==='sesion') respuesta(['ok'=>true,'usuario'=>$u?array_intersect_key($u,array_flip(['id','usuario','nombre','rol'])):null,'csrf'=>$_SESSION['csrf']]);
     exigir((bool)$u,'Inicia sesión.',401); $_SESSION['visto']=time();
     if ($a==='salir') { exigir($post,'Usa POST.',405); $_SESSION=[]; session_destroy(); respuesta(['ok'=>true]); }
+    /* Estado financiero oficial: disponible para coordinadores y administradores aunque
+       todavía no exista una fila en cp_documentos. El archivo permanece fuera del índice. */
+    if ($a==='estado_financiero_pdf') {
+        exigir(in_array($u['rol'],['administrador','coordinador'],true),'Sólo coordinación puede consultar este documento.');
+        $ruta=__DIR__.'/documentos/estado de resultados 2026.pdf';
+        exigir(is_file($ruta),'El PDF no está cargado en competencia/documentos/.',404);
+        header_remove('Content-Type'); header('Content-Type: application/pdf');
+        header('Content-Disposition: attachment; filename="estado-financiero-2026.pdf"');
+        header('Content-Length: '.filesize($ruta)); readfile($ruta); exit;
+    }
     if ($a==='espacios') {
         $es=cp_espacios_de($u);
         foreach($es as &$e) $e['escritura']=cp_puede($u,$e); unset($e);
@@ -131,7 +141,7 @@ try {
     $eq=cp_query('SELECT q.id,q.origen_ref,q.nombre,q.categoria,q.usuario_id,u.usuario FROM cp_equipos q LEFT JOIN cp_usuarios u ON u.id=q.usuario_id WHERE q.espacio_id=?',[$sid])->fetchAll();
     $ids=array_map('intval',array_column($eq,'id'));
     if ($a==='panel') {
-        $movs=cp_query('SELECT * FROM cp_movimientos WHERE espacio_id=? ORDER BY fecha,id',[$sid])->fetchAll();
+        $movs=cp_query('SELECT m.*,d.recibio FROM cp_movimientos m LEFT JOIN cp_movimiento_detalle d ON d.movimiento_id=m.id WHERE m.espacio_id=? ORDER BY m.fecha,m.id',[$sid])->fetchAll();
         $cs=cp_cuentas($team?[$team]:$eq,cp_legacy(),$movs,(bool)$team);
         $partidos=cp_query('SELECT * FROM cp_partidos WHERE espacio_id=? ORDER BY fecha,hora',[$sid])->fetchAll();
         if ($team) $partidos=array_values(array_filter($partidos,static fn($p)=>(int)$p['local_id']===(int)$team['id']||(int)$p['visita_id']===(int)$team['id']));
@@ -190,6 +200,9 @@ try {
         $prev=cp_query('SELECT espacio_id,creado_por FROM cp_movimientos WHERE solicitud=?',[$req])->fetch();
         if ($prev) { exigir((int)$prev['espacio_id']===$sid&&(int)$prev['creado_por']===(int)$u['id']); cp_db()->rollBack(); respuesta(['ok'=>true,'repetido'=>true]); }
         cp_query('INSERT INTO cp_movimientos(espacio_id,equipo_id,tipo,monto,concepto,fecha,creado_por,solicitud) VALUES(?,?,?,?,?,?,?,?)',[$sid,$tipo==='gasto'?null:$equipo,$tipo,$cent/100,cadena($in,'concepto'),$fecha,$u['id'],$req]);
+        $recibio=cadena($in,'recibio',120);
+        exigir($tipo==='cargo'||$recibio!=='','Indica quién recibió el pago.',422);
+        cp_query('INSERT INTO cp_movimiento_detalle(movimiento_id,recibio) VALUES(?,?)',[cp_db()->lastInsertId(),$tipo==='cargo'?'No aplica':$recibio]);
     } elseif ($a==='jugador') {
         exigir(in_array($equipo,$ids,true),'Equipo fuera del espacio.',422);
         $pos=cadena($in,'posicion',10); exigir(in_array($pos,CP_POSICIONES,true),'Posición inválida.',422);

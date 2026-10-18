@@ -38,8 +38,8 @@ function botonTorneo(){
     +'<ol class="bt-guia" aria-label="Qué encontrarás"><li><b>1</b> Consulta la tabla y el goleo</li><li><b>2</b> Revisa calendario y llaves</li><li><b>3</b> Mira plantillas y califica</li></ol>';
 }
 function documentos(){
-  if(!docs.length)return '';
-  return '<h3>Mis documentos</h3>'+tabla(['Documento','Publicado',''],docs.map(d=>[esc(d.titulo),esc(String(d.creado_en||'').slice(0,10)),d.disponible?'<a href="api.php?a=documento&amp;id='+encodeURIComponent(d.id)+'" target="_blank" rel="noopener">Abrir PDF</a>':'<small>Pendiente de cargar</small>']));
+  const oficial='<a class="btn" href="api.php?a=estado_financiero_pdf" download="estado-financiero-2026.pdf">Descargar PDF · Estado financiero 2026</a>';
+  return '<h3>Mis documentos</h3>'+oficial+(docs.length?tabla(['Documento','Publicado',''],docs.map(d=>[esc(d.titulo),esc(String(d.creado_en||'').slice(0,10)),d.disponible?'<a href="api.php?a=documento&amp;id='+encodeURIComponent(d.id)+'" target="_blank" rel="noopener">Abrir PDF</a>':'<small>Pendiente de cargar</small>'])):'<p class="nota">El documento oficial está disponible mediante el botón de descarga.</p>');
 }
 function kpi(label,value){return '<div class="kpi">'+esc(label)+'<strong>'+esc(value)+'</strong></div>';}
 function agenda(amistosos=false) {
@@ -63,8 +63,14 @@ function pintar(){
   const tabs=esEquipo?[['match','Match'],['cuentas','Estado de cuenta']]:[['inicio','Inicio'],['equipos','Equipos'],['cancha','Cancha'],['rival','Busca un rival'],['reportes','Reportes'],['finanzas','Tesorería / Finanzas'],['cuentas','Estados de Cuenta'],['usuarios','Usuarios']];
   if(usuario.rol==='administrador')tabs.unshift(['general','Dashboard general'],['espacios','Espacios digitales']);
   if(!tabs.some(t=>t[0]===tab))tab=tabs[0][0];
-  $('menu').innerHTML=tabs.map(t=>'<button data-tab="'+t[0]+'"'+(t[0]===tab?' aria-current="page"':'')+'>'+esc(t[1])+'</button>').join('');
-  $('nombre').textContent=usuario.nombre+' · '+usuario.rol;
+  $('menu').innerHTML=tabs.filter(t=>!['cancha','rival','reportes'].includes(t[0])).map(t=>'<button data-tab="'+t[0]+'"'+(t[0]===tab?' aria-current="page"':'')+'>'+esc(t[1])+'</button>').join('');
+  let pie=$('menu-secundario');
+  if(!pie){pie=document.createElement('footer');pie.id='menu-secundario';$('app').append(pie);}
+  pie.innerHTML=esEquipo?'':tabs.filter(t=>['cancha','rival','reportes'].includes(t[0])).map(t=>'<button type="button" data-tab="'+t[0]+'"'+(t[0]===tab?' aria-current="page"':'')+'>'+esc(t[1])+'</button>').join('');
+  $('nombre').textContent=(usuario.rol==='coordinador'?'Coordinador: ':'')+usuario.nombre;
+  let torneo=$('torneo-cabecera');
+  if(!torneo){torneo=document.createElement('a');torneo.id='torneo-cabecera';torneo.className='torneo-cabecera';torneo.textContent='Torneo y Estadísticas';$('nombre').after(torneo);}
+  torneo.href='torneo.html?espacio='+encodeURIComponent(sid());torneo.hidden=!sid();
   if(tab==='general'){pintarGeneral();return;}
   if(tab==='espacios'){
     $('vista').innerHTML=boton('Crear espacio','crear_espacio')+tabla(['Espacio','Edición','Acceso',''],espacios.map(e=>[esc(e.nombre),esc(e.edicion_ref),e.escritura?'Control propio':'Monitoreo',e.escritura?boton('Asignar coordinador','asignar:'+e.id):'']));return;
@@ -73,28 +79,28 @@ function pintar(){
   let html='';
   if(!esEquipo&&!editable())html='<p>Monitoreo: este torneo pertenece a otro administrador.</p>';
   if(tab==='inicio'||tab==='finanzas'){
-    const cargos=panel.cuentas.reduce((a,c)=>a+c.cargos,0),pagos=panel.cuentas.reduce((a,c)=>a+c.pagado,0),pend=panel.cuentas.reduce((a,c)=>a+Math.max(0,c.saldo),0);
-    html+='<div class="kpis">'+kpi('Equipos',panel.equipos.length)+kpi('Cargos',mx(cargos))+kpi('Recaudado',mx(pagos))+kpi('Por cobrar',mx(pend))+kpi('Gastos nuevos',mx(panel.gastos_nuevos))+'</div><p><small>Recaudación: histórico de Tesorería más movimientos del espacio. Gastos nuevos: libro del espacio; los gastos históricos generales no se atribuyen automáticamente.</small></p>';
-    if(tab==='finanzas')html+=(editable()?boton('Registrar cargo / pago / gasto','movimiento'):'')+tabla(['Fecha','Tipo','Concepto','Monto'],panel.movimientos.map(m=>[esc(m.fecha),esc(m.tipo),esc(m.concepto),mx(m.monto)]));
-    else html+=documentos()+agenda();
-  } else if(['cancha','rival','match'].includes(tab))html+=agenda(tab==='rival')+(esEquipo?boton('Reportar incidencia','incidencia'):'');
+    html+=tab==='inicio'?I18.inicio():I18.metricas()+(editable()?boton('Registrar cargo / pago / gasto','movimiento'):'')+tabla(['Fecha','Tipo','Concepto','Monto','Quién recibió el pago'],panel.movimientos.map(m=>[esc(m.fecha),esc(m.tipo),esc(m.concepto),mx(m.monto),esc(m.recibio||'Sin registrar')]));
+  } else if(['cancha','rival','match'].includes(tab))html+='<p><a href="../disponibilidad/'+(tab==='cancha'?'admin/canchas.php':'rival.php')+'">'+(tab==='cancha'?'Administrar canchas y horarios disponibles':'Abrir disponibilidad y propuestas de rival')+'</a></p>'+agenda(tab==='rival')+(esEquipo?boton('Reportar incidencia','incidencia'):'');
   else if(tab==='equipos')html+=(editable()?boton('Vincular equipo registrado','equipo'):'')+tabla(['Equipo','Categoría','Referencia'],panel.equipos.map(e=>[esc(e.nombre),esc(e.categoria),esc(e.origen_ref)]));
-  else if(tab==='cuentas')html+=botonTorneo()+documentos()+panel.cuentas.map(c=>'<details><summary>'+esc(c.nombre)+' · Saldo '+mx(c.saldo)+'</summary>'+tabla(['Fecha','Concepto','Cargo','Pago','Origen'],c.movimientos.map(m=>[esc(m.fecha),esc(m.concepto),mx(m.cargo),mx(m.pago),esc(m.origen)]))+'</details>').join('');
-  else if(tab==='reportes')html+=tabla(['Equipo','Mensaje','Estado','Respuesta',''],panel.reportes.map(r=>[esc(panel.equipos.find(e=>Number(e.id)===Number(r.equipo_id))?.nombre),esc(r.mensaje),esc(r.estado),esc(r.respuesta),editable()&&r.estado==='pendiente'?boton('Resolver','reporte:'+r.id):'']));
-  else if(tab==='usuarios')html+=(usuario.rol==='administrador'&&editable()?boton('Crear coordinador','crear_coordinador'):'')+tabla(['Equipo','Usuario asignado',''],panel.equipos.map(e=>[esc(e.nombre),esc(e.usuario|| (e.usuario_id?'Sí':'No')),editable()?boton('Generar / restablecer contraseña','usuario:'+e.id)+' '+boton('Desactivar','desactivar:'+e.id):'']));
-  $('vista').innerHTML=html;
+  else if(tab==='cuentas')html+=botonTorneo()+documentos()+panel.cuentas.map(c=>'<details><summary>'+esc(c.nombre)+' · Saldo '+I18.saldo(c.saldo)+'</summary>'+tabla(['Fecha','Concepto','Cargo','Pago','Origen'],c.movimientos.map(m=>[esc(m.fecha),esc(m.concepto),mx(m.cargo),mx(m.pago),esc(m.origen)]))+'</details>').join('');
+  else if(tab==='reportes')html+=boton('Descargar reporte CSV','exportar')+tabla(['Equipo','Mensaje','Estado','Respuesta',''],panel.reportes.map(r=>[esc(panel.equipos.find(e=>Number(e.id)===Number(r.equipo_id))?.nombre),esc(r.mensaje),esc(r.estado),esc(r.respuesta),editable()&&r.estado==='pendiente'?boton('Resolver','reporte:'+r.id):'']));
+  else if(tab==='usuarios')html+=(usuario.rol==='administrador'&&editable()?boton('Crear coordinador','crear_coordinador'):'')+tabla(['Equipo','Usuario asignado',''],panel.equipos.map(e=>[esc(e.nombre),esc(e.usuario|| (e.usuario_id?'Sí':'No'))+'<br><a href="'+esc(new URL('../capitanes/',location.href).href)+'">Abrir acceso de capitanes</a>',editable()?boton('Generar / restablecer contraseña','usuario:'+e.id)+' '+boton('Desactivar','desactivar:'+e.id):'']));
+  $('vista').innerHTML=html;if(tab==='inicio')I18.deportivo();
 }
 function partido(p={}) {
   formulario(p.id?'Editar partido':'Programar partido',select('local_id','Local',equipos(),p.local_id)+select('visita_id','Visitante',equipos(),p.visita_id)+campo('fecha','Fecha','date',p.fecha||'')+campo('hora','Hora','time',(p.hora||'').slice(0,5))+campo('cancha','Cancha','text',p.cancha||'','maxlength="100"')+campo('duracion','Duración en minutos','number',p.duracion||60,'min="15" max="240"')+select('tipo','Tipo',[['torneo','Torneo'],['amistoso','Amistoso']],p.tipo)+select('estado','Estado',[['programado','Programado'],['jugado','Jugado'],['cancelado','Cancelado']],p.estado)+campo('goles_local','Puntos local (si ya se jugó)','number',p.goles_local??0,'min="0" max="999"')+campo('goles_visita','Puntos visitante (si ya se jugó)','number',p.goles_visita??0,'min="0" max="999"'),'partido',{id:p.id||0,version:p.version||0});
 }
-$('menu').onclick=ev=>{const b=ev.target.closest('[data-tab]');if(b){tab=b.dataset.tab;pintar();}};
+$('app').addEventListener('click',ev=>{const b=ev.target.closest('[data-tab]');if(b){tab=b.dataset.tab;pintar();}});
 $('vista').onclick=async ev=>{
   const b=ev.target.closest('[data-accion]');if(!b)return;
   const [a,id]=b.dataset.accion.split(':');
   try {
+    if(a==='exportar')I18.exportar();
+    if(a==='detalle')I18.detalle(id);
+    if(a==='financiero')I18.financiero();
     if(a==='partido'||a==='amistoso')partido({tipo:a==='amistoso'?'amistoso':'torneo'});
     if(a==='editar')partido(panel.partidos.find(p=>String(p.id)===id));
-    if(a==='movimiento')formulario('Registrar movimiento',select('tipo','Tipo',[['cargo','Cargo'],['pago','Pago'],['gasto','Gasto']])+select('equipo_id','Equipo (gastos: no aplica)',equipos())+campo('monto','Monto MXN','number','','min="0.01" step="0.01"')+campo('concepto','Concepto','text','','maxlength="150"')+campo('fecha','Fecha','date'),'movimiento');
+    if(a==='movimiento')formulario('Registrar movimiento',select('tipo','Tipo',[['cargo','Cargo'],['pago','Pago'],['gasto','Gasto']])+select('equipo_id','Equipo (gastos: no aplica)',equipos())+campo('monto','Monto MXN','number','','min="0.01" step="0.01"')+campo('concepto','Concepto','text','','maxlength="150"')+campo('fecha','Fecha','date')+campo('recibio','Quién recibió el pago (cargo: no aplica)','text','','maxlength="120"'),'movimiento');
     if(a==='usuario')formulario('Acceso del equipo',campo('usuario','Usuario','text','','maxlength="60"')+'<p>Se generará una contraseña aleatoria. Cópiala al guardar.</p>','usuario_equipo',{equipo_id:Number(id)});
     if(a==='desactivar')formulario('Desactivar acceso','<p>Se cerrarán las sesiones del equipo y se bloqueará su acceso.</p>','desactivar_equipo',{equipo_id:Number(id)});
     if(a==='crear_coordinador')formulario('Crear coordinador',campo('usuario','Usuario','text','','maxlength="60"')+campo('nombre','Nombre','text','','maxlength="120"'),'crear_coordinador');

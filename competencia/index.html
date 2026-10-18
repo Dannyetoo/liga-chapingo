@@ -1,5 +1,6 @@
 <!doctype html>
-<html lang="es"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<html lang="es-MX"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#123b63"><link rel="manifest" href="manifest.webmanifest"><link rel="apple-touch-icon" href="../icono-192.png">
 <title>Sistema de competencia · Liga Chapingo</title><link rel="stylesheet" href="app.css">
 <body><header><a href="../">LIGA CHAPINGO</a><span>Sistema de competencia</span><button id="salir" hidden>Salir</button></header>
 <main><p id="aviso" role="status" aria-live="polite"></p>
@@ -7,5 +8,6 @@
 <label>Usuario<input name="usuario" autocomplete="username" required maxlength="60"></label>
 <label>Contraseña<input name="clave" type="password" autocomplete="current-password" required maxlength="200"></label><button>Entrar</button></form>
 <section id="app" hidden><div class="barra"><h1 id="nombre"></h1><label>Espacio digital<select id="espacio"></select></label></div><nav id="menu" aria-label="Módulos"></nav><div id="vista"></div></section>
-</main><dialog id="dialogo"><form id="editor"><h2 id="titulo-editor"></h2><div id="campos"></div><div class="acciones"><button type="button" id="cerrar">Cancelar</button><button>Guardar</button></div></form></dialog>
-<script src="app.js" defer></script></body></html>
+</main><dialog id="dialogo" aria-labelledby="titulo-editor"><form id="editor"><h2 id="titulo-editor"></h2><div id="campos"></div><div class="acciones"><button type="button" id="cerrar">Cancelar</button><button>Guardar</button></div></form></dialog>
+<dialog id="detalle" aria-labelledby="detalle-titulo"><h2 id="detalle-titulo"></h2><div id="detalle-contenido"></div><form method="dialog"><button>Cerrar</button></form></dialog>
+<script src="interfaz18.js?v=18" defer></script><script src="app.js?v=18" defer></script><script src="instalacion.js?v=18" defer></script></body></html>
