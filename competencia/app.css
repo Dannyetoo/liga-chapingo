@@ -1,4 +1,720 @@
-:root{font-family:system-ui,sans-serif;color:#15334b;background:#f2f5f8;--azul:#123b63}*{box-sizing:border-box}body{margin:0}header{background:var(--azul);color:white;padding:20px 5%;display:flex;align-items:center;gap:28px}header a{color:white;text-decoration:none;font-weight:800}header button{margin-left:auto}main{max-width:1280px;margin:32px auto;padding:0 24px}h1{font-size:30px}h2{font-size:22px}#login{max-width:460px;margin:70px auto;padding:32px;background:white;border-radius:16px}label{display:grid;gap:7px;margin:14px 0;font-size:14px;font-weight:600}input,select,textarea,button{font:inherit;padding:11px 14px;border:1px solid #bccbd7;border-radius:7px}button{cursor:pointer;background:var(--azul);color:white}button:disabled{opacity:.5;cursor:wait}input,select,textarea{width:100%;background:white;color:#15334b}nav,.barra,.acciones{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.barra{justify-content:space-between}nav{margin:20px 0}nav button{background:white;color:var(--azul)}nav button[aria-current]{background:var(--azul);color:white}.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:18px}.kpi,article{background:white;padding:22px;border:1px solid #dce5ec;border-radius:12px;margin:16px 0}.kpi strong{display:block;font-size:28px;margin-top:8px}.tabla{overflow:auto;background:white;border-radius:10px;margin:20px 0}table{border-collapse:collapse;width:100%}td,th{text-align:left;padding:14px;border-bottom:1px solid #e4ebf0;white-space:nowrap}th{font-size:13px;color:#527087}#aviso{color:#a22b27;white-space:pre-wrap}dialog{border:0;border-radius:14px;padding:28px;max-width:600px;width:calc(100% - 32px)}dialog::backdrop{background:#102c45a8}.acciones{justify-content:flex-end}small{color:#546b7d}details{margin:14px 0}summary{cursor:pointer;padding:14px;background:white}a{color:var(--azul)}@media(max-width:600px){header{gap:12px;font-size:12px}main{padding:0 14px}nav button{flex:1}h1{font-size:24px}}
-.btn-torneo{display:flex;align-items:center;gap:16px;margin:18px 0 8px;padding:18px 20px;border-radius:14px;text-decoration:none;color:#fff;background:linear-gradient(135deg,#0b2742,#123b63 55%,#14532d);border-left:6px solid #d4a72c;box-shadow:0 8px 24px #0b274233}.btn-torneo:hover{box-shadow:0 10px 30px #0b274255}.btn-torneo:focus-visible{outline:3px solid #d4a72c;outline-offset:2px}.bt-ico{flex:none;width:48px;height:48px;border-radius:12px;background:#ffffff22;display:flex;align-items:center;justify-content:center;font-size:24px}.bt-txt{flex:1;min-width:0}.bt-txt strong{display:block;font-size:20px}.bt-txt small{display:block;color:#d8e2ec;margin-top:4px;line-height:1.35}.bt-fl{font-size:30px;color:#f1d27a}.bt-guia{display:flex;flex-wrap:wrap;gap:8px;list-style:none;margin:0 0 18px;padding:0;font-size:13px;color:#546b7d}.bt-guia li{background:white;border:1px solid #dce5ec;border-radius:999px;padding:5px 11px}.bt-guia b{color:#123b63}
-:root{--plata:#c4ced8;--deuda:#ac252c;--saldado:#11633d}body{min-width:0}main{max-width:1600px;margin:16px auto;padding:0 20px}header{padding:12px 20px;padding-top:max(12px,env(safe-area-inset-top));flex-wrap:wrap}h1{font-size:25px;margin:10px 0}h2{font-size:20px}.barra{justify-content:flex-start;gap:12px}.barra label{margin-left:auto;min-width:180px}.torneo-cabecera{display:inline-flex;background:#1b5384;color:white;padding:12px 16px;border:1px solid #91abc2;border-radius:8px;text-decoration:none;font-weight:750}nav{gap:6px;margin:12px 0}nav button{padding:10px 14px}.kpis{grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}.kpi{margin:4px 0;padding:16px;text-align:left;background:white;color:#15334b;border-top:3px solid #8da7bf;min-width:0}.kpi strong{font-size:clamp(20px,2.1vw,30px);overflow-wrap:anywhere;font-variant-numeric:tabular-nums}.kpi small{display:block;margin-top:10px}.kpi:hover{border-color:#123b63;box-shadow:0 3px 12px #123b631a}.deuda{color:var(--deuda);background:#fff0f0}.saldado{color:var(--saldado);background:#eaf7ef}.saldo{display:inline-block;font-weight:750;padding:4px 8px;border-radius:6px}.kpi.deuda{border-top-color:var(--deuda)}.resumen-acciones{justify-content:flex-start;margin:14px 0}.bloque{background:white;border:1px solid #dce5ec;border-radius:10px;padding:14px;margin:12px 0}.bloque h2{margin:0 0 12px}.tabla{margin:12px 0;border:1px solid #dce5ec}td,th{padding:10px 12px}th{background:#eaf0f5}td{font-variant-numeric:tabular-nums}footer{display:flex;gap:6px;flex-wrap:wrap;border-top:1px solid var(--plata);margin-top:22px;padding:12px 0 max(12px,env(safe-area-inset-bottom))}footer button{background:transparent;color:#405b72;border-color:transparent;font-size:13px}footer button[aria-current]{background:#dce6ee;color:#123b63}dialog{max-width:850px;max-height:90dvh;overflow:auto}#detalle form{display:flex;justify-content:flex-end;position:sticky;bottom:0;background:white;padding-top:10px}.corte{background:#eaf7ef;border-color:#82b89c;padding:16px}.corte strong{color:#11633d;font-size:34px}button,a,input,select{touch-action:manipulation}button{min-height:44px}button:focus-visible,a:focus-visible,summary:focus-visible{outline:3px solid #2c7db8;outline-offset:3px}[hidden]{display:none!important}@media(max-width:900px){.kpis{grid-template-columns:repeat(3,minmax(0,1fr))}.barra label{width:100%;margin:0}}@media(max-width:540px){main{margin:10px auto;padding:0 10px}header{padding-left:12px;padding-right:12px;gap:8px}header span{display:none}.kpis{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.kpi:last-child{grid-column:1/-1}.kpi{padding:12px}.kpi strong{font-size:24px}nav button{flex:1 1 42%;font-size:13px}.torneo-cabecera{width:100%;justify-content:center}h1{font-size:22px}dialog{padding:16px;width:calc(100% - 16px)}.bloque{padding:10px}.tabla{max-width:100%}#login{margin:28px auto;padding:20px}td,th{padding:9px}footer button{flex:1}}
-[data-accion="tickets"],.grupo-acciones button{background:#1b5384}.cancha-card{display:inline-flex;vertical-align:top;flex-direction:column;justify-content:space-between;min-width:220px;max-width:320px;margin:8px;padding:16px;background:#fff;border:1px solid #c7d5df;border-radius:14px;box-shadow:0 5px 16px #123b6312}.cancha-card h3{margin:0;color:#123b63}.documentos-rail{position:fixed;right:0;top:42%;z-index:20}.documentos-toggle{border:0;border-radius:12px 0 0 12px;background:#123b63;color:#fff;padding:14px 10px;display:grid;gap:4px;box-shadow:0 4px 16px #123b6340}.documentos-toggle span{font-size:11px;writing-mode:vertical-rl}.documentos-toggle:hover{background:#1b5384}.documentos-rail~*{}.bottom-dock{position:fixed}.app footer#menu-secundario{position:fixed;left:0;right:0;bottom:0;z-index:15;height:72px;margin:0;padding:7px max(10px,env(safe-area-inset-left)) max(7px,env(safe-area-inset-bottom));display:grid;grid-template-columns:1fr 1fr 1.2fr 1fr 1fr;align-items:center;background:#fff;border-top:1px solid #c4ced8;box-shadow:0 -5px 18px #123b6318}.app footer#menu-secundario button,.app footer#menu-secundario a{display:grid;place-items:center;gap:2px;height:58px;padding:6px 4px;border-radius:12px;text-decoration:none;color:#35536d;background:transparent;border:0;font-size:24px}.app footer#menu-secundario span{font-size:11px;font-weight:700}.app footer#menu-secundario .dock-inicio{background:#123b63;color:#fff;transform:translateY(-10px);height:70px;box-shadow:0 5px 15px #123b6340}.app footer#menu-secundario button:hover,.app footer#menu-secundario a:hover{background:#e9f0f5}.app{padding-bottom:82px}.app footer#menu-secundario .dock-inicio:hover{background:#1b5384}
+:root {
+    font-family: system-ui, sans-serif;
+    color: #15334b;
+    background: #f2f5f8;
+    --azul: #123b63
+}
+
+* {
+    box-sizing: border-box
+}
+
+body {
+    margin: 0
+}
+
+header {
+    background: var(--azul);
+    color: white;
+    padding: 20px 5%;
+    display: flex;
+    align-items: center;
+    gap: 28px
+}
+
+header a {
+    color: white;
+    text-decoration: none;
+    font-weight: 800
+}
+
+header button {
+    margin-left: auto
+}
+
+main {
+    max-width: 1280px;
+    margin: 32px auto;
+    padding: 0 24px
+}
+
+h1 {
+    font-size: 30px
+}
+
+h2 {
+    font-size: 22px
+}
+
+#login {
+    max-width: 460px;
+    margin: 70px auto;
+    padding: 32px;
+    background: white;
+    border-radius: 16px
+}
+
+label {
+    display: grid;
+    gap: 7px;
+    margin: 14px 0;
+    font-size: 14px;
+    font-weight: 600
+}
+
+input,
+select,
+textarea,
+button {
+    font: inherit;
+    padding: 11px 14px;
+    border: 1px solid #bccbd7;
+    border-radius: 7px
+}
+
+button {
+    cursor: pointer;
+    background: var(--azul);
+    color: white
+}
+
+button:disabled {
+    opacity: .5;
+    cursor: wait
+}
+
+input,
+select,
+textarea {
+    width: 100%;
+    background: white;
+    color: #15334b
+}
+
+nav,
+.barra,
+.acciones {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-wrap: wrap
+}
+
+.barra {
+    justify-content: space-between
+}
+
+nav {
+    margin: 20px 0
+}
+
+nav button {
+    background: white;
+    color: var(--azul)
+}
+
+nav button[aria-current] {
+    background: var(--azul);
+    color: white
+}
+
+.kpis {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 18px
+}
+
+.kpi,
+article {
+    background: white;
+    padding: 22px;
+    border: 1px solid #dce5ec;
+    border-radius: 12px;
+    margin: 16px 0
+}
+
+.kpi strong {
+    display: block;
+    font-size: 28px;
+    margin-top: 8px
+}
+
+.tabla {
+    overflow: auto;
+    background: white;
+    border-radius: 10px;
+    margin: 20px 0
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%
+}
+
+td,
+th {
+    text-align: left;
+    padding: 14px;
+    border-bottom: 1px solid #e4ebf0;
+    white-space: nowrap
+}
+
+th {
+    font-size: 13px;
+    color: #527087
+}
+
+#aviso {
+    color: #a22b27;
+    white-space: pre-wrap
+}
+
+dialog {
+    border: 0;
+    border-radius: 14px;
+    padding: 28px;
+    max-width: 600px;
+    width: calc(100% - 32px)
+}
+
+dialog::backdrop {
+    background: #102c45a8
+}
+
+.acciones {
+    justify-content: flex-end
+}
+
+small {
+    color: #546b7d
+}
+
+details {
+    margin: 14px 0
+}
+
+summary {
+    cursor: pointer;
+    padding: 14px;
+    background: white
+}
+
+a {
+    color: var(--azul)
+}
+
+@media(max-width:600px) {
+    header {
+        gap: 12px;
+        font-size: 12px
+    }
+
+    main {
+        padding: 0 14px
+    }
+
+    nav button {
+        flex: 1
+    }
+
+    h1 {
+        font-size: 24px
+    }
+}
+
+.btn-torneo {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin: 18px 0 8px;
+    padding: 18px 20px;
+    border-radius: 14px;
+    text-decoration: none;
+    color: #fff;
+    background: linear-gradient(135deg, #0b2742, #123b63 55%, #14532d);
+    border-left: 6px solid #d4a72c;
+    box-shadow: 0 8px 24px #0b274233
+}
+
+.btn-torneo:hover {
+    box-shadow: 0 10px 30px #0b274255
+}
+
+.btn-torneo:focus-visible {
+    outline: 3px solid #d4a72c;
+    outline-offset: 2px
+}
+
+.bt-ico {
+    flex: none;
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    background: #ffffff22;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px
+}
+
+.bt-txt {
+    flex: 1;
+    min-width: 0
+}
+
+.bt-txt strong {
+    display: block;
+    font-size: 20px
+}
+
+.bt-txt small {
+    display: block;
+    color: #d8e2ec;
+    margin-top: 4px;
+    line-height: 1.35
+}
+
+.bt-fl {
+    font-size: 30px;
+    color: #f1d27a
+}
+
+.bt-guia {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    list-style: none;
+    margin: 0 0 18px;
+    padding: 0;
+    font-size: 13px;
+    color: #546b7d
+}
+
+.bt-guia li {
+    background: white;
+    border: 1px solid #dce5ec;
+    border-radius: 999px;
+    padding: 5px 11px
+}
+
+.bt-guia b {
+    color: #123b63
+}
+
+:root {
+    --plata: #c4ced8;
+    --deuda: #ac252c;
+    --saldado: #11633d
+}
+
+body {
+    min-width: 0
+}
+
+main {
+    max-width: 1600px;
+    margin: 16px auto;
+    padding: 0 20px
+}
+
+header {
+    padding: 12px 20px;
+    padding-top: max(12px, env(safe-area-inset-top));
+    flex-wrap: wrap
+}
+
+h1 {
+    font-size: 25px;
+    margin: 10px 0
+}
+
+h2 {
+    font-size: 20px
+}
+
+.barra {
+    justify-content: flex-start;
+    gap: 12px
+}
+
+.barra label {
+    margin-left: auto;
+    min-width: 180px
+}
+
+.torneo-cabecera {
+    display: inline-flex;
+    background: #1b5384;
+    color: white;
+    padding: 12px 16px;
+    border: 1px solid #91abc2;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 750
+}
+
+nav {
+    gap: 6px;
+    margin: 12px 0
+}
+
+nav button {
+    padding: 10px 14px
+}
+
+.kpis {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 10px
+}
+
+.kpi {
+    margin: 4px 0;
+    padding: 16px;
+    text-align: left;
+    background: white;
+    color: #15334b;
+    border-top: 3px solid #8da7bf;
+    min-width: 0
+}
+
+.kpi strong {
+    font-size: clamp(20px, 2.1vw, 30px);
+    overflow-wrap: anywhere;
+    font-variant-numeric: tabular-nums
+}
+
+.kpi small {
+    display: block;
+    margin-top: 10px
+}
+
+.kpi:hover {
+    border-color: #123b63;
+    box-shadow: 0 3px 12px #123b631a
+}
+
+.deuda {
+    color: var(--deuda);
+    background: #fff0f0
+}
+
+.saldado {
+    color: var(--saldado);
+    background: #eaf7ef
+}
+
+.saldo {
+    display: inline-block;
+    font-weight: 750;
+    padding: 4px 8px;
+    border-radius: 6px
+}
+
+.kpi.deuda {
+    border-top-color: var(--deuda)
+}
+
+.resumen-acciones {
+    justify-content: flex-start;
+    margin: 14px 0
+}
+
+.bloque {
+    background: white;
+    border: 1px solid #dce5ec;
+    border-radius: 10px;
+    padding: 14px;
+    margin: 12px 0
+}
+
+.bloque h2 {
+    margin: 0 0 12px
+}
+
+.tabla {
+    margin: 12px 0;
+    border: 1px solid #dce5ec
+}
+
+td,
+th {
+    padding: 10px 12px
+}
+
+th {
+    background: #eaf0f5
+}
+
+td {
+    font-variant-numeric: tabular-nums
+}
+
+footer {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    border-top: 1px solid var(--plata);
+    margin-top: 22px;
+    padding: 12px 0 max(12px, env(safe-area-inset-bottom))
+}
+
+footer button {
+    background: transparent;
+    color: #405b72;
+    border-color: transparent;
+    font-size: 13px
+}
+
+footer button[aria-current] {
+    background: #dce6ee;
+    color: #123b63
+}
+
+dialog {
+    max-width: 850px;
+    max-height: 90dvh;
+    overflow: auto
+}
+
+#detalle form {
+    display: flex;
+    justify-content: flex-end;
+    position: sticky;
+    bottom: 0;
+    background: white;
+    padding-top: 10px
+}
+
+.corte {
+    background: #eaf7ef;
+    border-color: #82b89c;
+    padding: 16px
+}
+
+.corte strong {
+    color: #11633d;
+    font-size: 34px
+}
+
+button,
+a,
+input,
+select {
+    touch-action: manipulation
+}
+
+button {
+    min-height: 44px
+}
+
+button:focus-visible,
+a:focus-visible,
+summary:focus-visible {
+    outline: 3px solid #2c7db8;
+    outline-offset: 3px
+}
+
+[hidden] {
+    display: none !important
+}
+
+@media(max-width:900px) {
+    .kpis {
+        grid-template-columns: repeat(3, minmax(0, 1fr))
+    }
+
+    .barra label {
+        width: 100%;
+        margin: 0
+    }
+}
+
+@media(max-width:540px) {
+    main {
+        margin: 10px auto;
+        padding: 0 10px
+    }
+
+    header {
+        padding-left: 12px;
+        padding-right: 12px;
+        gap: 8px
+    }
+
+    header span {
+        display: none
+    }
+
+    .kpis {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 8px
+    }
+
+    .kpi:last-child {
+        grid-column: 1/-1
+    }
+
+    .kpi {
+        padding: 12px
+    }
+
+    .kpi strong {
+        font-size: 24px
+    }
+
+    nav button {
+        flex: 1 1 42%;
+        font-size: 13px
+    }
+
+    .torneo-cabecera {
+        width: 100%;
+        justify-content: center
+    }
+
+    h1 {
+        font-size: 22px
+    }
+
+    dialog {
+        padding: 16px;
+        width: calc(100% - 16px)
+    }
+
+    .bloque {
+        padding: 10px
+    }
+
+    .tabla {
+        max-width: 100%
+    }
+
+    #login {
+        margin: 28px auto;
+        padding: 20px
+    }
+
+    td,
+    th {
+        padding: 9px
+    }
+
+    footer button {
+        flex: 1
+    }
+}
+
+[data-accion="tickets"],
+.grupo-acciones button {
+    background: #1b5384
+}
+
+.cancha-card {
+    display: inline-flex;
+    vertical-align: top;
+    flex-direction: column;
+    justify-content: space-between;
+    min-width: 220px;
+    max-width: 320px;
+    margin: 8px;
+    padding: 16px;
+    background: #fff;
+    border: 1px solid #c7d5df;
+    border-radius: 14px;
+    box-shadow: 0 5px 16px #123b6312
+}
+
+.cancha-card h3 {
+    margin: 0;
+    color: #123b63
+}
+
+.documentos-rail {
+    position: fixed;
+    right: 0;
+    top: 42%;
+    z-index: 20
+}
+
+.documentos-toggle {
+    border: 0;
+    border-radius: 12px 0 0 12px;
+    background: #123b63;
+    color: #fff;
+    padding: 14px 10px;
+    display: grid;
+    gap: 4px;
+    box-shadow: 0 4px 16px #123b6340
+}
+
+.documentos-toggle span {
+    font-size: 11px;
+    writing-mode: vertical-rl
+}
+
+.documentos-toggle:hover {
+    background: #1b5384
+}
+
+
+.bottom-dock {
+    position: fixed
+}
+
+.app footer#menu-secundario {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 15;
+    height: 72px;
+    margin: 0;
+    padding: 7px max(10px, env(safe-area-inset-left)) max(7px, env(safe-area-inset-bottom));
+    display: grid;
+    grid-template-columns: 1fr 1fr 1.2fr 1fr 1fr;
+    align-items: center;
+    background: #fff;
+    border-top: 1px solid #c4ced8;
+    box-shadow: 0 -5px 18px #123b6318
+}
+
+.app footer#menu-secundario button,
+.app footer#menu-secundario a {
+    display: grid;
+    place-items: center;
+    gap: 2px;
+    height: 58px;
+    padding: 6px 4px;
+    border-radius: 12px;
+    text-decoration: none;
+    color: #35536d;
+    background: transparent;
+    border: 0;
+    font-size: 24px
+}
+
+.app footer#menu-secundario span {
+    font-size: 11px;
+    font-weight: 700
+}
+
+.app footer#menu-secundario .dock-inicio {
+    background: #123b63;
+    color: #fff;
+    transform: translateY(-10px);
+    height: 70px;
+    box-shadow: 0 5px 15px #123b6340
+}
+
+.app footer#menu-secundario button:hover,
+.app footer#menu-secundario a:hover {
+    background: #e9f0f5
+}
+
+.app {
+    padding-bottom: 82px
+}
+
+.app footer#menu-secundario .dock-inicio:hover {
+    background: #1b5384
+}
