@@ -31,11 +31,10 @@ const I18={
     this.abrir('Estado financiero · corte documental',
       '<p><a class="btn" href="api.php?a=estado_financiero_pdf" download="estado-financiero-2026.pdf">Descargar PDF oficial</a></p>'+ 
       '<p>Fuente: estado de resultados 2026.pdf, fechado el 04/10/2026. Importes en MXN.</p>'+tabla(['Concepto','Monto'],filas.map(r=>[esc(r[0]),mx(r[1])]))+
-      '<p>El documento agrupa los ingresos y gastos: no separa arbitrajes, inscripciones, trofeos, logística ni las partes administrativa y coordinativa de SIDC.</p>'+
-      '<article class="corte"><h3>Caja disponible al 18/10/2026</h3><strong>'+mx(939)+'</strong><p>Importe indicado en la actualización. Este corte es independiente de los movimientos en vivo de cada espacio.</p></article>'+
+      '<article class="corte"><h3>Caja disponible al 18/10/2026</h3><strong>'+mx(939)+'</strong></article>'+
       '<h3>Devoluciones de inscripción · 18/10/2026</h3><p>Se realizó la devolución a los capitanes participantes en el Torneo Relámpago B:</p>'+
-      tabla(['Equipo','Devolución'],[['BLACK KAISER',mx(350)],['NOSOTROS LOS GUAPOS 2.0',mx(350)],['PARIS',mx(350)],['LA 4T',mx(300)],['Total',mx(1350)]])+
-      '<p>Las devoluciones se muestran conforme al XML. No se descuentan de nuevo de los $939 ni se identifican automáticamente con el premio de $1,350 del PDF.</p>'+documentos());
+      tabla(['Equipo','Devolución'],[['BLACK KAISER',mx(350)],['NOSOTROS LOS GUAPOS 2.0',mx(350)],['PARIS',mx(350)],['LA 4T',mx(350)],['Total',mx(1400)]])+
+      documentos());
   },
   tarjeta(id,label,value,clase=''){return '<button type="button" class="kpi '+clase+'" data-accion="detalle:'+id+'" aria-haspopup="dialog"><span>'+esc(label)+'</span><strong>'+esc(value)+'</strong><small>Ver detalle ↗</small></button>';},
   metricas(){
@@ -53,6 +52,6 @@ const I18={
   inicio(){
     const hoy=new Intl.DateTimeFormat('en-CA',{timeZone:'America/Mexico_City',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());
     const ps=panel.partidos.filter(p=>p.fecha===hoy),nombre=id=>panel.equipos.find(e=>Number(e.id)===Number(id))?.nombre||'Equipo';
-    return this.metricas()+'<div class="acciones resumen-acciones">'+boton('Ver Estado Financiero','financiero')+'<button type="button" data-tab="finanzas">Abrir Tesorería y Finanzas</button><a class="btn" href="api.php?a=estado_financiero_pdf" download="estado-financiero-2026.pdf">Descargar PDF</a></div><section class="bloque"><h2>Partidos de hoy</h2>'+(ps.length?tabla(['Hora','Partido','Cancha','Estado'],ps.map(p=>[esc(p.hora),esc(nombre(p.local_id))+' vs '+esc(nombre(p.visita_id)),esc(p.cancha),esc(p.estado)])):'<p>No hay partidos programados para hoy.</p>')+'</section><section class="bloque" id="resumen-deportivo"><p>Cargando tabla general…</p></section><section class="bloque"><h2>Roles de juego</h2>'+agenda()+'</section>';
+    return this.metricas()+'<div class="acciones resumen-acciones">'+boton('Ver Estado Financiero','financiero')+'<button type="button" data-tab="finanzas">Abrir Tesorería y Finanzas</button><a class="btn" href="api.php?a=estado_financiero_pdf" download="estado-financiero-2026.pdf">Descargar PDF</a><a class="btn" href="https://wa.me/5215657044949" target="_blank" rel="noopener">WhatsApp</a></div><section class="bloque"><h2>Partidos de hoy</h2>'+(ps.length?tabla(['Hora','Partido','Cancha','Estado'],ps.map(p=>[esc(p.hora),esc(nombre(p.local_id))+' vs '+esc(nombre(p.visita_id)),esc(p.cancha),esc(p.estado)])):'<p>No hay partidos programados para hoy.</p>')+'</section><section class="bloque" id="resumen-deportivo"><p>Cargando tabla general…</p></section><section class="bloque"><h2>Roles de juego</h2>'+agenda()+'</section>';
   }
 };
