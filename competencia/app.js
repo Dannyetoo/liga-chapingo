@@ -45,6 +45,16 @@ function documentosCoordinacion(){
   if(!['administrador','coordinador'].includes(usuario.rol))return '';
   return '<aside class="documentos-rail"><button type="button" class="documentos-toggle" data-accion="docs">▤<span>Documentos</span></button></aside>';
 }
+function dockIcon(tipo){
+  const p={
+    casa:'<path d="m3 11 9-8 9 8"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/>',
+    equipos:'<circle cx="9" cy="8" r="3"/><circle cx="17" cy="10" r="2.5"/><path d="M3 20c.5-4 3-6 6-6s5.5 2 6 6"/><path d="M14 15c3.5-.5 5.8 1.3 6.5 5"/>',
+    estadisticas:'<path d="M4 19V5M4 19h17"/><path d="m7 15 3-4 3 2 5-7"/>',
+    cancha:'<path d="M4 5h16v14H4z"/><path d="M12 5v14M4 12h16"/><circle cx="12" cy="12" r="2"/>',
+    match:'<circle cx="12" cy="12" r="9"/><path d="m12 3 2.2 4.8 5.3.6-3.9 3.6 1.1 5.2-4.7-2.6-4.7 2.6 1.1-5.2-3.9-3.6 5.3-.6z"/>'
+  };
+  return '<svg viewBox="0 0 24 24" aria-hidden="true">'+p[tipo]+'</svg>';
+}
 function kpi(label,value){return '<div class="kpi">'+esc(label)+'<strong>'+esc(value)+'</strong></div>';}
 function agenda(amistosos=false) {
   const ps=panel.partidos.filter(p=>!amistosos||p.tipo==='amistoso');
@@ -70,7 +80,7 @@ function pintar(){
   $('menu').innerHTML=tabs.filter(t=>!['cancha','rival','reportes'].includes(t[0])).map(t=>'<button data-tab="'+t[0]+'"'+(t[0]===tab?' aria-current="page"':'')+'>'+esc(t[1])+'</button>').join('');
   let pie=$('menu-secundario');
   if(!pie){pie=document.createElement('footer');pie.id='menu-secundario';$('app').append(pie);}
-  pie.innerHTML='<button type="button" data-tab="cancha" class="dock-cancha">⌂<span>Canchas</span></button><button type="button" data-tab="equipos" class="dock-equipos">♙<span>Equipos</span></button><button type="button" data-tab="inicio" class="dock-inicio">⌂<span>Inicio</span></button><a href="torneo.html?espacio='+encodeURIComponent(sid())+'" class="dock-estadisticas">♜<span>Estadísticas</span></a><button type="button" data-tab="rival" class="dock-match">⚽<span>Match</span></button>';
+  pie.innerHTML='<button type="button" data-tab="cancha" class="dock-cancha" aria-label="Canchas">'+dockIcon('cancha')+'<span>Canchas</span></button><button type="button" data-tab="equipos" class="dock-equipos" aria-label="Equipos">'+dockIcon('equipos')+'<span>Equipos</span></button><button type="button" data-tab="inicio" class="dock-inicio" aria-label="Inicio">'+dockIcon('casa')+'<span>Inicio</span></button><a href="torneo.html?espacio='+encodeURIComponent(sid())+'" class="dock-estadisticas" aria-label="Estadísticas">'+dockIcon('estadisticas')+'<span>Estadísticas</span></a><button type="button" data-tab="rival" class="dock-match" aria-label="Match">'+dockIcon('match')+'<span>Match</span></button>';
   const rail=$('app').querySelector('.documentos-rail');if(rail)rail.remove();$('app').insertAdjacentHTML('beforeend',documentosCoordinacion());
   $('nombre').textContent=(usuario.rol==='coordinador'?'Coordinador: ':'')+usuario.nombre;
   let torneo=$('torneo-cabecera');
