@@ -1,0 +1,23 @@
+Esta carpeta es el destino del apartado "Arbitrajes" del sitio.
+
+Copia aquí dentro la app de tesorería tal como está hoy, sin cambiarle nada:
+
+    index.html
+    api.php
+    config.php
+    .htaccess
+    manifest.webmanifest
+    icono-192.png
+    icono-512.png
+    icono-180.png
+    datos/            (permisos 755; la crea PHP sola la primera vez)
+
+Si la app ya está subida en public_html/tesoreria/, lo más rápido es
+renombrar esa carpeta a "arbitrajes": las rutas de adentro son relativas,
+así que api.php, config.php y datos/ siguen funcionando igual.
+
+Si prefieres dejarla en "tesoreria/", entra al panel del sitio
+(ligachapingo.com/admin.html), pestaña Arbitrajes, y en
+"Carpeta del sistema" escribe:  tesoreria/
+
+Cuando termines, borra este archivo.

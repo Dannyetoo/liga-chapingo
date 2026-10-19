@@ -1,0 +1,23 @@
+/* Administración · Estados de cuenta (30-sep-2026) */
+.ec-cab { display: flex; flex-wrap: wrap; gap: 10px 16px; align-items: flex-start; justify-content: space-between; }
+.ec-cab .tarjeta__titulo { margin-bottom: 4px; }
+.ec-filtros { display: flex; flex-wrap: wrap; gap: 10px 14px; align-items: flex-end; margin-top: 14px; }
+.ec-filtros label { display: grid; gap: 4px; font-size: 13px; font-weight: 700; color: var(--suave); }
+.ec-filtros select, .ec-filtros input { font: inherit; font-size: 15px; padding: 8px 10px; border: 1.5px solid var(--linea); border-radius: 10px; background: var(--tarjeta); color: var(--tinta); }
+.ec-buscar { flex: 1 1 220px; }
+.ec-buscar input { width: 100%; }
+.ec-total { margin-left: auto; font-size: 13px; }
+.ec-grupo__t { margin: 0 0 10px; font-size: 15px; font-weight: 800; display: flex; align-items: center; gap: 8px; }
+.ec-chip { font-size: 12px; font-weight: 800; padding: 1px 8px; border-radius: 999px; background: var(--fondo); color: var(--suave); }
+.ec-lista { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+.ec-eq { display: grid; grid-template-columns: minmax(0, 1fr) auto auto; gap: 8px 14px; align-items: center; padding: 10px 12px; border: 1px solid var(--linea); border-radius: 12px; background: var(--tarjeta); }
+.ec-eq[hidden], .ec-grupo[hidden] { display: none; }
+.ec-eq__info { display: grid; gap: 1px; min-width: 0; }
+.ec-eq__info b { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ec-cod { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 15px; font-weight: 700; letter-spacing: .08em; padding: 4px 10px; border-radius: 8px; background: var(--fondo); white-space: nowrap; }
+.ec-acc { display: flex; gap: 10px; align-items: center; }
+.ec-nota { font-size: 12.5px; margin: 6px 4px 30px; }
+@media (max-width: 640px) {
+  .ec-eq { grid-template-columns: minmax(0, 1fr) auto; }
+  .ec-acc { grid-column: 1 / -1; justify-content: flex-end; }
+}

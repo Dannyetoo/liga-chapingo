@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+Disallow: /arbitrajes/
+Disallow: /contenido/
+Disallow: /disponibilidad/
+Disallow: /tickets-futuros/
+Disallow: /pruebas/
+Disallow: /capitanes/api.php
+
+Sitemap: https://ligachapingo.com/sitemap.xml

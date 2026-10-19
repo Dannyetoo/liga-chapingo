@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Torneo · Liga Chapingo</title><link rel="stylesheet" href="torneo.css"></head>
+<body>
+<header class="cab">
+  <div class="cab-in">
+    <a class="marca" href="./">LIGA CHAPINGO</a>
+    <div class="cab-t"><span class="cab-k">Torneo y estadísticas</span><h1 id="t-nombre">Cargando…</h1></div>
+    <div class="cab-h">
+      <label class="sel">Espacio<select id="t-espacio"></select></label>
+      <label class="sel">Categoría<select id="t-cat"><option value="">Todas</option></select></label>
+    </div>
+  </div>
+  <nav class="tabs" id="t-tabs" aria-label="Secciones del torneo"></nav>
+</header>
+<main>
+  <p id="t-aviso" class="aviso" role="status" aria-live="polite"></p>
+  <section id="t-guia" class="guia" hidden>
+    <div><strong>Bienvenido al torneo.</strong> Así se usa:</div>
+    <ol><li><b>Tabla</b>, <b>Goleo</b>, <b>Porteros</b> y <b>Disciplina</b>: posiciones y líderes, filtrables por categoría.</li>
+      <li><b>Calendario</b> por jornada y <b>Llaves</b> de la fase eliminatoria.</li>
+      <li><b>Equipos</b>: perfil y plantilla. Si tienes ficha de jugador, califica a jugadores y equipos (1 a 5 ⭐).</li></ol>
+    <button type="button" id="t-guia-ok">Entendido</button>
+  </section>
+  <div id="t-vista"></div>
+</main>
+<dialog id="t-dlg"><form id="t-form"><h2 id="t-dlg-tit"></h2><div id="t-dlg-campos"></div>
+  <div class="acciones"><button type="button" class="sec" id="t-dlg-cerrar">Cancelar</button><button>Guardar</button></div></form></dialog>
+<script src="torneo.js" defer></script>
+</body></html>

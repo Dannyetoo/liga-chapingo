@@ -1,0 +1,27 @@
+[CONTEXTO]
+<context>
+Aplicación deportiva en México (actualmente usa perfil de capitán). Se requiere implementar el perfil de coordinador para una sola liga con múltiples categorías. Objetivo: visualizar la operación de una organización deportiva de cara a un futuro modelo de renta a corto plazo (sin suscripciones, pagos en línea ni multi-inquilino por ahora).
+</context>
+
+[INSTRUCCIONES]
+1. Analizar estructura de proyecto, rutas, componentes, modelo de datos y perfiles existentes. Usar el perfil de capitán como referencia visual/de navegación.
+2. Implementar panel central con navegación adaptable (celular/computadora) entre 6 módulos esenciales en español de México:
+   - Inicio: Resumen operativo, indicadores con enlaces a secciones y accesos rápidos (equipo, torneo, partido, resultado, pago).
+   - Torneos: CRUD temporadas, categorías y torneos; asociar formato, fechas, equipos, estado y reglas de puntuación/desempate.
+   - Equipos: CRUD equipos, capitán, inscripción, plantilla, calendario, resultados, estado de cuenta e historial (incluye vista de sólo lectura del capitán).
+   - Calendario: Creación de jornadas, partidos (fecha, hora, sede, cancha), lista/calendario, filtros, reprogramación/suspensión/cancelación con motivo y detección de cruces de horario.
+   - Resultados: Captura y corrección de marcadores con motivo/historial, actualización automática de tablas, validaciones contra duplicados y estados (finalizado/suspendido/cancelado).
+   - Finanzas: Configuración de conceptos, cargos, pagos, ajustes y gastos en Pesos Mexicanos (MXN, DD/MM/AAAA, zona horaria CDMX), estados de cuenta, cortes de caja y cierres por temporada.
+3. Configuración general: Centralizar datos de la liga (nombre, logotipo, contacto, sedes). Mantener separación estricta de permisos entre coordinador y capitán.
+4. Gestión de datos: Si falta infraestructura de backend, dejar explícito que es demostración documentando las limitaciones y sin falsear persistencia de datos. No alterar registros reales previos.
+
+[RESTRICCIONES]
+- Evita implementar suscripciones, pasarelas de pago, facturación electrónica, soporte multi-liga o notificaciones externas.
+- No rompas componentes reutilizables fijando nombres específicos de organización (como "Liga Chapingo").
+- Mantén coherencia estricta en los filtros y la separación de datos de demostración respecto a los reales.
+
+[FORMATO DE SALIDA]
+- Resumen de lo implementado.
+- Instrucciones de acceso al perfil de coordinador.
+- Verificaciones realizadas.
+- Limitaciones pendientes para el modelo de renta.
